@@ -19,12 +19,12 @@ Each directory answers exactly one question:
 
 | Directory | Question | Status |
 |---|---|---|
-| `reference/` | what is the standard, and why? | P1 |
-| `templates/repo/` | what gets installed in a consuming repo? | P1 |
-| `skills/` | how does it replicate and get used day to day? | P1+ |
-| `scripts/` | what is checked mechanically, without judgment? | P1 |
-| `global/` | what belongs in the global (`~/.claude`) layer? | P1 |
-| `tests/` | how is the standard itself tested? | P1 |
+| `reference/` | what is the standard, and why? | live (loops P3, graphs P4) |
+| `templates/repo/` | what gets installed in a consuming repo? | live |
+| `skills/` | how does it replicate and get used day to day? | init + audit live; work-* P2 |
+| `scripts/` | what is checked mechanically, without judgment? | live |
+| `global/` | what belongs in the global (`~/.claude`) layer? | live |
+| `tests/` | how is the standard itself tested? | live |
 | `docs/` | why did we decide this, and how does it all work? | live |
 
 Deep dive: **`docs/how-it-works/`** — the living self-documentation of this
@@ -43,8 +43,11 @@ files, so any model or runtime can pick up any lane.
 
 ## Status
 
-Phase **P0 — foundation**. The phase ladder (P0 → P5), every fixed decision,
-and acceptance criteria live in `docs/specs/SPEC-agent-engineering.md`.
+**AE/2.0 shipped (P1)** — the standard is installable: `agent-init` sets up
+or migrates a repo, `agent-audit` + `agent-lint` verify it. Next phases add
+the daily-use skills (P2), loops (P3), and graphs/reducers (P4); the ladder,
+every fixed decision, and acceptance criteria live in
+`docs/specs/SPEC-agent-engineering.md`.
 
 ## License
 

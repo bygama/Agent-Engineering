@@ -40,7 +40,7 @@ declared simple retroactively; the ratchet exists to make that impossible.
 
 ## The lane and the four files
 
-> Phase: P1 (templates) · P2 (skills that enforce them)
+> Templates live since AE/2.0 (`templates/repo/work/`); the enforcing skills arrive in P2.
 
 A **lane** is one unit of work with its own folder: `work/<slug>/`, where
 the slug carries the tracker issue key when one exists
@@ -115,7 +115,7 @@ proves done.
 
 ## Feature list (Tier L)
 
-> Phase: P1 (schema) · P2 (gating skill)
+> Schema live since AE/2.0 (`templates/repo/feature_list.schema.json`, validated by agent-lint); the gating skill arrives in P2.
 
 Large work externalizes its scope as `feature_list.json`: one row per
 feature, each row a triple —

@@ -15,9 +15,7 @@ the audit compares against the current version, and it is the only
 memory the system needs about "when was this repo last touched by the
 standard".
 
-> Phase: P1 — everything in this chapter is fixed by the spec and lands as
-> working tooling in P1. It is documented now so P1 has one authoritative
-> description to implement against.
+> Live since AE/2.0: `agent-init`, `agent-audit`, and `agent-lint` implement every flow in this chapter.
 
 ## What a consuming repo carries
 
@@ -38,8 +36,6 @@ the four files, and for the largest tier a `feature_list.json`. Those belong
 to the [work lifecycle](work-lifecycle.md).
 
 ## Install (`agent-init`)
-
-> Phase: P1
 
 Installation is a conversation with the repo first and the human second: the
 skill explores before it asks, asks only what it cannot infer, and proves
@@ -73,8 +69,6 @@ are filled from what the exploration found and what the human confirmed.
 
 ## Audit (`agent-audit`)
 
-> Phase: P1
-
 The audit is the judgment half of enforcement; `agent-lint` is the
 mechanical half and runs inside it. The lint counts (budgets, stamp present
 and parseable, pointer shape, broken links, command drift, lane coherence,
@@ -89,8 +83,6 @@ checks that `docs/how-it-works/` covers every top-level directory and every
 skill, and flags chapters that lag behind structural changes.
 
 ## Update and migration
-
-> Phase: P1
 
 The standard moves when the world does: new guidance gets published, an
 article changes our mind, a check earns its keep or stops earning it. The
@@ -119,6 +111,6 @@ built against — stamps make drift visible, not fatal.
   nothing, because `reference/` files carry their own source+date headers.
 - History: `CHANGELOG.md` at this repo's root records every bump and what
   it means for consumers.
-- Migration notes: `skills/agent-init/references/migration.md` (P1) records,
-  per version step, exactly what changes in an installed repo — that file is
-  what `agent-init` executes when the audit says "behind".
+- Migration notes: `skills/agent-init/references/migration.md` records, per
+  version step, exactly what changes in an installed repo — that file is what
+  `agent-init` executes when the audit says "behind".
