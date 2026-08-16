@@ -22,12 +22,15 @@ runner-specific adapter file is ever created (the ban stands mid-fan-out).
 | Claude Code (`claude`) | `CLAUDE.md` → imports `AGENTS.md` via the pointer | native (SKILL.md) | `claude -p "<prompt>"` in the worktree | verified on this machine 2026-08-16 |
 | Codex CLI (`codex`) | `AGENTS.md` natively | none — point at the skill file | `codex exec "<prompt>"` | docs-cited; verify on install |
 | Gemini CLI (`gemini`) | `GEMINI.md` by default — set `contextFileName: "AGENTS.md"` in settings; never create a GEMINI.md adapter | none — point at the skill file | `gemini -p "<prompt>"` | docs-cited; verify on install |
-| opencode | `AGENTS.md` natively | own format — point at the skill file | `opencode run "<prompt>"` | docs-cited; verify on install |
+| opencode | `AGENTS.md` natively | own format — point at the skill file | `opencode run -m <provider/model> "<prompt>"` (e.g. `-m opencode/deepseek-v4-flash-free`, a no-auth free model via the opencode gateway) | verified on this machine 2026-08-16 — completed the portability-proof lane |
 | Grok CLI (`grok`) | unverified | unverified | unverified | verify on install |
 | deepseek-harness (`dsh`) | `AGENTS.md` | unverified | unverified | dev preview, breaking changes announced — zero coupling by decision; verify on install |
 
 "Verify on install" is a hard rule: no spawn command enters a worker table
-until it ran on the target machine (`--help` at minimum).
+until it ran on the target machine (`--help` at minimum). Install gotcha:
+with npm `ignore-scripts=true`, opencode's platform binary never arrives —
+install `opencode-<os>-<arch>` explicitly and run the package's
+`postinstall.mjs` once by hand.
 
 ## Runners without skill support
 

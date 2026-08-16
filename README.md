@@ -47,10 +47,11 @@ files, so any model or runtime can pick up any lane.
 audits, gates daily work on evidence, automates on a cadence
 (`loop-setup`), and parallelizes with a written reducer contract
 (`fan-out`: anchors, deterministic merge, synthesis gate). P4 bumps no
-version — it changes no template and no check. Remaining: P5 hardening,
-and the portability run (a non-Claude runner completing a prepared lane)
-pending a runner install. The ladder, every fixed decision, and acceptance
-criteria live in `docs/specs/SPEC-agent-engineering.md`.
+version — it changes no template and no check. The portability proof ran:
+a non-Claude runner (opencode + DeepSeek v4 flash) completed a prepared
+lane end to end from the artifacts alone. Remaining: P5 hardening. The
+ladder, every fixed decision, and acceptance criteria live in
+`docs/specs/SPEC-agent-engineering.md`.
 
 ## License
 
