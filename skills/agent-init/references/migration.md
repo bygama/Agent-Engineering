@@ -1,4 +1,4 @@
-# Migration mapping (v1 and legacy → AE/2.0)
+# Migration mapping (v1 and legacy → v2)
 
 The migration plan is ALWAYS presented and approved before any mutation, and
 requires a clean git tree so everything is reversible.
@@ -8,7 +8,7 @@ requires a clean git tree so everything is reversible.
 | v1 element | Action | Destination |
 |---|---|---|
 | Canonical CLAUDE.md content (summary, Commands, Gotchas, Hard constraints, Map) | Move verbatim | AGENTS.md 4 blocks |
-| — | Add | `Standard: AE/2.0` stamp + tier one-liner after the summary |
+| — | Add | current `Standard: AE/<major>.<minor>` stamp + tier one-liner after the summary |
 | AGENTS.md entry stub | Replace | The canonical AGENTS.md above |
 | CLAUDE.md | Replace | ≤3-line pointer (`@AGENTS.md`) |
 | Per-app CLAUDE.md (≤30) | Convert | Per-app AGENTS.md (≤30) + per-app pointer CLAUDE.md |
@@ -62,3 +62,7 @@ Wait for explicit approval of this plan before touching anything.
 ## Per-version notes
 
 - **AE/2.0** (2026-08-16) — baseline of the v2 standard; migrations above.
+- **AE/2.1** (2026-08-16) — `PROGRESS.md` gains a `## Verification` section
+  (PASS evidence written by work-verify; gates the close handoff). Migrating
+  2.0 → 2.1: append the section to any open lane's PROGRESS.md, restamp.
+  Closed lanes and everything else: untouched.

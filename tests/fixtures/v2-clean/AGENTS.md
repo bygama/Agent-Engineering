@@ -1,7 +1,7 @@
-<!-- lint fixture: minimal repo fully compliant with AE/2.0. -->
+<!-- lint fixture: minimal repo fully compliant with the current standard. -->
 # v2-clean-fixture
 
-Standard: AE/2.0
+Standard: AE/2.1
 
 Small demo service, plain Make toolchain.
 

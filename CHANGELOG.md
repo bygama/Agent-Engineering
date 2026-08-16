@@ -3,6 +3,20 @@
 Versions of the standard (`AE/<major>.<minor>`). Template or check changes
 bump the version; docs-only refreshes do not.
 
+## AE/2.1 — 2026-08-16
+
+Daily-use discipline: evidence-gated completion and clean-state handoffs.
+
+- `skills/work-verify` (tier DoD by command — three layers, fresh-context
+  review at M+, refuses "done" without evidence) and `skills/work-handoff`
+  (close|pause exits, debris sweep, lane closure, Linear status/comment via
+  `orca linear` with MCP/operator fallback), 4 evals each.
+- Template change (the bump): `PROGRESS.md` gains a `## Verification`
+  section — PASS evidence written by work-verify, gate consumed by
+  work-handoff. Migration: append the section to open lanes, restamp.
+- Skill prose de-hardcoded from version literals: "current" now always
+  means the newest entry in this changelog.
+
 ## AE/2.0 — 2026-08-16
 
 The v2 baseline: the standard is installable and auditable.
