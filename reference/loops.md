@@ -52,7 +52,8 @@ Every run, any runner:
 
 1. Read the state file.
 2. Precheck the queue — empty ⇒ stop (that is the stopping rule firing;
-   with Orca, `--precheck` makes empty runs nearly free).
+   Orca's automation `--precheck` can front-run this check — see
+   `reference/orca.md`).
 3. Take at most the per-run budget of items.
 4. Act on each item; run the **gate**; item done only on exit 0.
 5. Update state (processed keys, timestamps, failure count).

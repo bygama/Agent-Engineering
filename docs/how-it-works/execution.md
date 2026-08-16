@@ -54,8 +54,9 @@ flowchart TD
 ```
 
 Two properties matter. **Empty runs are nearly free** — the queue check
-runs before anything expensive (with Orca, it is literally the
-automation's `--precheck`, so the agent never even spawns). And **state
+runs before anything expensive (Orca's automation `--precheck` can
+front-run it; the protocol keeps the same check so the loop is correct on
+any trigger). And **state
 lives in a file**, not in anyone's memory: `processed` keys are never
 reprocessed, `consecutive_failures` survives restarts, and any runner can
 resume where any other stopped.
