@@ -1,0 +1,16 @@
+[
+  {
+    "id": "F01",
+    "behavior": "GET /health returns 200",
+    "verification": "make check",
+    "state": "passing",
+    "evidence": "make check green 2026-08-16"
+  },
+  {
+    "id": "F02",
+    "behavior": "GET /items lists seeded items",
+    "verification": "make check",
+    "state": "not_started",
+    "evidence": null
+  }
+]

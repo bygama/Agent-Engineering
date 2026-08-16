@@ -1,0 +1,21 @@
+/* GENERATED from DESIGN.md (target: cssvars) — do not edit.
+   Regenerate: node scripts/design-md-gen.mjs DESIGN.md --target cssvars */
+:root {
+  --color-paper: #F6F4EF;
+  --color-ink: #1E1B16;
+  --color-accent: oklch(0.55 0.15 250);
+  --font-display: 'Fraunces', serif;
+  --text-display: 2.25rem;
+  --text-display--font-weight: 600;
+  --text-display--line-height: 1.1;
+  --font-body: 'Inter', sans-serif;
+  --text-body: 1rem;
+  --text-body--line-height: 1.5;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --radius-md: 8px;
+  --button-primary-background-color: #1E1B16;
+  --button-primary-text-color: #F6F4EF;
+  --button-primary-rounded: 8px;
+  --button-primary-padding: 8px;
+}
