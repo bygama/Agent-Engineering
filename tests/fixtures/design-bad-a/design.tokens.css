@@ -1,0 +1,5 @@
+/* GENERATED from DESIGN.md (target: cssvars) — do not edit.
+   Regenerate: node scripts/design-md-gen.mjs DESIGN.md --target cssvars */
+:root {
+  --color-ink: #000000;
+}

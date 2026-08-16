@@ -9,9 +9,9 @@ reads files can follow it.
 
 ## Commands
 
-- No build/test tooling yet. `agent-lint` and its self-tests arrive in P1;
-  until then verification is manual review against
-  `docs/specs/SPEC-agent-engineering.md`.
+- Self-lint: `node scripts/agent-lint.mjs . --ignore tests,templates,global`
+- Lint self-tests: `node tests/run-lint-tests.mjs`
+- DESIGN.md generator self-tests: `node tests/run-gen-tests.mjs`
 
 ## Hard constraints
 

@@ -1,0 +1,11 @@
+/* GENERATED from DESIGN.md (target: tailwind4) — do not edit.
+   Regenerate: node scripts/design-md-gen.mjs DESIGN.md --target tailwind4 */
+@theme {
+  --color-paper: #F6F4EF;
+  --color-ink: #1E1B16;
+  --color-accent: #2456A6;
+}
+:root[data-theme="dark"], :root[data-theme="mixto"] [data-chrome] {
+  --color-paper: #191714;
+  --color-ink: #ECE8E1;
+}

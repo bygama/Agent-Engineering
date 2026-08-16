@@ -1,0 +1,16 @@
+[
+  {
+    "id": "F01",
+    "behavior": "login works",
+    "verification": "make check",
+    "state": "done",
+    "evidence": null
+  },
+  {
+    "id": "F02",
+    "behavior": "logout works",
+    "verification": "make check",
+    "state": "passing",
+    "evidence": null
+  }
+]
