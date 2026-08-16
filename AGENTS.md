@@ -5,7 +5,8 @@ Standard: AE/2.0
 Source of truth for the agent-engineering standard — six layers (context,
 memory, harness, loop, graph, with reducer/MCP cross-cutting) — and the
 tooling that replicates it. The standard is runtime-neutral: any agent that
-reads files can follow it.
+reads files can follow it. Current phase: P1 shipped (standard installable);
+loops/graphs layers arrive P3-P4 per the spec's phase ladder.
 
 ## Commands
 
@@ -13,26 +14,31 @@ reads files can follow it.
 - Lint self-tests: `node tests/run-lint-tests.mjs`
 - DESIGN.md generator self-tests: `node tests/run-gen-tests.mjs`
 
+## Gotchas
+
+- `tests/fixtures/` break the standard on purpose; `templates/` carry
+  `{{PLACEHOLDER}}` markers and are instantiated by agent-init, never copied
+  verbatim — both are excluded from the self-lint, keep it that way.
+- `global/` is content only; the workstation installer applies it to
+  `~/.claude` — never edit `~/.claude` directly from here.
+- `skills/` are junction-linked into `~/.claude/skills`: edits go live
+  immediately, no copy step.
+
 ## Hard constraints
 
 - Any change that alters structure or behavior updates the affected
   `docs/how-it-works/` chapter in the same change; without that, the change
   is not complete.
-- Every skill ships with ≥3 evals, written before the skill content.
-- Nothing in this repo may violate the standard it defines.
-- Length budgets apply to context files (this file ≤60 lines, CLAUDE.md ≤3),
-  never to `docs/how-it-works/`.
+- Every skill ships with ≥3 evals, written before the skill content; evals
+  change before content on every revision.
+- Nothing in this repo may violate the standard it defines (self-lint and
+  both self-test suites green before merge).
+- Length budgets apply to context files, never to `docs/how-it-works/`.
 
 ## Map
 
-- Phase ladder and every fixed decision: `docs/specs/SPEC-agent-engineering.md`
+- Every fixed decision and the phase ladder: `docs/specs/SPEC-agent-engineering.md`
 - How the whole repo works, with diagrams: `docs/how-it-works/`
-- The standard itself: `reference/` (P1)
-- What consumers receive: `templates/repo/` (P1)
-- Replication and daily-use skills: `skills/` (P1+)
-- Mechanical checks: `scripts/` (P1)
-
-## Status
-
-P0 — foundation. Directories above marked (P1)/(P1+) do not exist yet;
-they materialize in the phase that owns them.
+- The standard itself: `reference/`
+- What consumers receive: `templates/repo/`
+- Replication skills: `skills/agent-init/`, `skills/agent-audit/`

@@ -35,7 +35,7 @@ why every structural change must touch it too.
 
 ### `reference/` — what is the standard, and why?
 
-> Phase: P1
+Live since AE/2.0 (loops P3, graphs-and-reducers P4 still pending).
 
 One document per layer of the standard — context, memory, harness,
 verification, task tiers, then loops (P3) and graphs/reducers (P4) — plus
@@ -48,7 +48,7 @@ guidance changes what we install or verify.
 
 ### `templates/repo/` — what gets installed in a consuming repo?
 
-> Phase: P1
+Live since AE/2.0.
 
 The only directory whose content ever leaves this repo. It holds the
 canonical `AGENTS.md` skeleton (with `{{PLACEHOLDER}}` markers instantiated
@@ -60,9 +60,7 @@ here; if it only matters to this repo, it stays out.
 
 ### `skills/` — how does it replicate and get used day to day?
 
-> Phase: P1 (`agent-init`, `agent-audit`) · P2 (`work-verify`,
-> `work-handoff`) · P3 (`loop-setup`) · P4 (`fan-out`) · carried
-> (`designing-consistently`, `extracting-design-md`)
+Live: `agent-init`, `agent-audit` (AE/2.0). Pending: `work-verify`/`work-handoff` (P2), `loop-setup` (P3), `fan-out` (P4).
 
 The actors. `agent-init` installs or migrates a repo; `agent-audit` judges
 one against the standard and flags version drift; the `work-*` pair applies
@@ -76,7 +74,7 @@ content, and the evals change before the skill does.
 
 ### `scripts/` — what is checked mechanically, without judgment?
 
-> Phase: P1
+Live since AE/2.0 (`agent-lint` + the DESIGN.md generator).
 
 `agent-lint` owns every check that needs no taste: line budgets, the version
 stamp, pointer shape, broken links, command drift, lane coherence, feature
@@ -87,7 +85,7 @@ calls where judgment lives, in the skill.
 
 ### `global/` — what belongs in the global layer?
 
-> Phase: P1
+Live since AE/2.0.
 
 Canonical content for `~/.claude` (the user-level context that applies
 across repos). This repo owns the *content*; a separate machine-setup
@@ -96,7 +94,7 @@ edited here, then installed.
 
 ### `tests/` — how is the standard itself tested?
 
-> Phase: P1
+Live since AE/2.0 (12 lint fixtures + generator fixtures).
 
 Fixture repos that comply and fixture repos that break the rules on purpose
 (bloated entry files, legacy adapter layouts, incoherent lanes, invalid
@@ -124,20 +122,19 @@ that owns the failure before changing anything.
 contradictions with earlier instructions, attention wasted on stale text.
 The discipline: a ≤60-line canonical entry file as a router, progressive
 disclosure for everything else, hard constraints pinned where attention is
-strongest. `> Phase: P1 (reference/context.md)`
+strongest. (live: `reference/context.md`)
 
 **Memory** — what survives between sessions. Failure smell: re-explaining
 the project every morning, or a store so full of stale facts that retrieval
 poisons the prompt. The discipline: store facts and skills rather than
 transcripts, update instead of append, surface contradictions, forget on
-purpose. `> Phase: P1 (reference/memory.md)`
+purpose. (live: `reference/memory.md`)
 
 **Harness** — everything around one run: tools, environment, state,
 permissions, and who says the work is done. Failure smell: "done" without
 evidence, progress lost in a crash, an agent with more access than the task
 needs. The discipline: the repo as the system of record, verification by
-command, maker separated from checker. `> Phase: P1 (reference/harness.md,
-reference/verification.md)`
+command, maker separated from checker. (live: `reference/harness.md`, `reference/verification.md`)
 
 **Loop** — how work repeats without a human pressing start: trigger, gate,
 state, stop rule, budget. Failure smell: an agent agreeing with itself all
