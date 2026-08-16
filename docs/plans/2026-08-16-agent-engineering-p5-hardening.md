@@ -15,8 +15,10 @@ checkboxes) wired into the self-audit loop's gate. "Fully diagnosed"
 becomes `tests/fixtures/kitchen-sink/` — one fixture violating rules
 across every layer with a planted-violations MANIFEST; the lint suite
 pins its mechanical subset (12→13 cases) and the acceptance runs the full
-agent-audit against it, scored against the manifest. **No version bump**:
-tests and skill prose change; no template, no consumer-facing check.
+agent-audit against it, scored against the manifest. Planned as no-bump
+(tests and skill prose only) — overturned mid-execution: the fixture's
+first run exposed a cmd-drift false positive, and that check fix bumped
+the standard to **AE/2.3** (see Results).
 **examples/ stays out** (reaffirmed): the spec gates worked examples on
 the structure proving itself in real repos, and the personal-repo
 migrations haven't happened yet — fixtures and acceptance demos are the
