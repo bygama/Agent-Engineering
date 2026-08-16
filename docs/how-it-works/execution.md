@@ -1,8 +1,8 @@
-# How work executes: loops, and soon graphs
+# How work executes: loops and graphs
 
 This chapter covers the execution machinery above single lanes: **loops**
 (standing automation — live since AE/2.2) and **graphs/reducers + runners**
-(> Phase: P4). The work lifecycle of a single lane is the
+(live since P4). The work lifecycle of a single lane is the
 [work-lifecycle](work-lifecycle.md) chapter; this one is about work that
 *keeps happening* and work that *happens in parallel*.
 
@@ -117,13 +117,62 @@ each weekday it reads the owner's Linear queue and tiers what arrived
 beside them, gitignored. They exist because the anti-decay rule and the
 intake plane deserve a cadence, not just good intentions at merge time.
 
-## Graphs, reducers, runners
+## Graphs: parallel work that merges deterministically
 
-> Phase: P4
+The graph layer coordinates many lanes: a DAG with verification gates on
+the edges, and fan-out/fan-in as the working shape. The `fan-out` skill
+refuses the split until the **three pre-fan-out questions** are answered
+in writing in the parent lane's PLAN — where does each unit work, how do
+results merge, who resolves disagreement — because a fan-out you can't
+write down is a queue wearing a costume.
 
-The parallel half of execution arrives next: `fan-out` (lanes × worktrees,
-the three pre-fan-out questions, reducer contracts between workers and
-synthesis), `reference/graphs-and-reducers.md`, and `reference/runners.md`
-(per-runner entry files and spawn commands — Claude Code, codex, opencode,
-grok, dsh — with the portability proof: a non-Claude runner completing a
-lane end to end from the file artifacts alone).
+```mermaid
+flowchart TD
+    Q[qualify: 3 questions in writing] -->|dependency found| ONE[refuse:<br/>one lane or gated stages]
+    Q -->|independent| A[freeze + name anchors<br/>SPEC · interfaces · feature list]
+    A --> T[worker table in parent PLAN<br/>item · lane · worktree · branch · runner]
+    T --> W1[worker 1<br/>own worktree, own lane] & W2[worker 2] & W3[worker 3]
+    W1 & W2 & W3 --> R{reduce: PASS block<br/>per lane?}
+    R -->|missing| BACK[lane redone or dropped<br/>never cross-lane repair]
+    R -->|all present| M[merge in item order<br/>disagreement: anchors win]
+    M --> G{synthesis gate:<br/>whole tree's verification}
+    G -->|green| DONE[rows -> passing<br/>handoff closes lanes + parent]
+    G -->|red| BACK
+```
+
+Three properties carry the layer. **Anchors** — the SPEC, interfaces, and
+feature list frozen read-only before the split — keep parallel lanes from
+drifting apart while nobody watches; a worker that diverges from an anchor
+loses by rule, and the divergence is recorded (maybe the anchor was
+wrong — that becomes its own lane later). **The reducer contract** makes
+merging mechanical: fixed output shape (the Verification PASS block plus a
+short summary — the standard's existing currency), deterministic merge
+order, a named resolver, and a synthesis gate on the merged whole, because
+per-lane tests are structurally blind to mismatches *between* lanes.
+**Failure locality**: a failed lane is redone or dropped, never repaired
+by a sibling reaching across — cross-lane repair couples what the
+worktrees isolated.
+
+The tax is real (`reference/graphs-and-reducers.md`): every worker and
+edge costs coordination, so fan-out pays only on true independence, with
+the smallest worker count that keeps items independent.
+
+## Runners: any file-reading agent can hold a lane
+
+`reference/runners.md` is the per-runner surface: entry file, skills
+support, verified spawn command. The design premise is that work state
+lives in files — canonical AGENTS.md plus lane folders — so a worker's
+runner is a free choice per row of the worker table: Claude Code today,
+codex or opencode or dsh tomorrow, with zero runner-specific files (the
+adapter ban holds mid-fan-out; runners without SKILL.md support are told
+to read the skill file and follow it as a procedure). "Verify on install"
+is a hard rule: no spawn command enters a worker table until it ran on the
+target machine.
+
+The standard's portability proof is exactly this claim made falsifiable: a
+non-Claude runner completing a prepared lane end to end from the artifacts
+alone. The proof lane and per-runner protocol ship with P4; the run
+executes on a machine that has a non-Claude runner installed and
+authenticated (this machine, 2026-08-16: none yet — `codex`, `gemini`,
+`opencode`, `dsh`, `grok` all absent from PATH, so the run is pending that
+single owner action and is claimed nowhere until it happens).

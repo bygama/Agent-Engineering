@@ -19,9 +19,9 @@ Each directory answers exactly one question:
 
 | Directory | Question | Status |
 |---|---|---|
-| `reference/` | what is the standard, and why? | live (graphs P4) |
+| `reference/` | what is the standard, and why? | live, all layers |
 | `templates/repo/` | what gets installed in a consuming repo? | live |
-| `skills/` | how does it replicate and get used day to day? | init + audit + work-* live |
+| `skills/` | how does it replicate and get used day to day? | all six live |
 | `scripts/` | what is checked mechanically, without judgment? | live |
 | `global/` | what belongs in the global (`~/.claude`) layer? | live |
 | `tests/` | how is the standard itself tested? | live |
@@ -43,13 +43,14 @@ files, so any model or runtime can pick up any lane.
 
 ## Status
 
-**AE/2.2 shipped (P3)** — the standard installs, audits, gates daily work
-on evidence, and now automates: `loop-setup` scaffolds standing loops
-(stopping rule, verified gate, budget, state file, runner-neutral
-triggers), with the Orca mapping and the tracker contract documented in
-`reference/`. Next: graphs/reducers + runner portability (P4); the ladder,
-every fixed decision, and acceptance criteria live in
-`docs/specs/SPEC-agent-engineering.md`.
+**AE/2.2, P4 shipped** — all six layers live: the standard installs,
+audits, gates daily work on evidence, automates on a cadence
+(`loop-setup`), and parallelizes with a written reducer contract
+(`fan-out`: anchors, deterministic merge, synthesis gate). P4 bumps no
+version — it changes no template and no check. Remaining: P5 hardening,
+and the portability run (a non-Claude runner completing a prepared lane)
+pending a runner install. The ladder, every fixed decision, and acceptance
+criteria live in `docs/specs/SPEC-agent-engineering.md`.
 
 ## License
 

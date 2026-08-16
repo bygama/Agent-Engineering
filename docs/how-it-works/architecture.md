@@ -16,7 +16,7 @@ not survive contact with real work.
 
 ```mermaid
 flowchart LR
-    REF["reference/<br/>the standard: 1 doc per layer"] -->|grounds| SK["skills/<br/>agent-init · agent-audit · work-* · loop-setup"]
+    REF["reference/<br/>the standard: 1 doc per layer"] -->|grounds| SK["skills/<br/>init · audit · work-* · loop-setup · fan-out"]
     REF -->|shapes| TPL["templates/repo/<br/>what consumers receive"]
     SK -->|installs| TPL
     SCR["scripts/agent-lint<br/>mechanical checks"] -->|backs| SK
@@ -35,13 +35,11 @@ why every structural change must touch it too.
 
 ### `reference/` — what is the standard, and why?
 
-Live since AE/2.0; loops, orca, tracker since AE/2.2
-(graphs-and-reducers P4 still pending).
+Live and complete: every layer of the standard has its document.
 
-One document per layer of the standard — context, memory, harness,
-verification, task tiers, loops, then graphs/reducers (P4) — plus
-cross-cutting docs (principles, orca, tracker, design-md, skill
-authoring; runners arrives P4). Each file is a distillation, not a mirror: ≤120 lines, a
+One document per layer — context, memory, harness, verification, task
+tiers, loops, graphs-and-reducers — plus cross-cutting docs (principles,
+orca, tracker, runners, design-md, skill authoring). Each file is a distillation, not a mirror: ≤120 lines, a
 source-and-date header citing the public material it condenses, and only the
 claims we are prepared to enforce. When new guidance appears in the world,
 it enters the repo here first; templates and checks follow only if the
@@ -61,7 +59,7 @@ here; if it only matters to this repo, it stays out.
 
 ### `skills/` — how does it replicate and get used day to day?
 
-Live: `agent-init`, `agent-audit` (AE/2.0); `work-verify`, `work-handoff` (AE/2.1); `loop-setup` (AE/2.2). Pending: `fan-out` (P4).
+Live, all six: `agent-init`, `agent-audit` (AE/2.0); `work-verify`, `work-handoff` (AE/2.1); `loop-setup` (AE/2.2); `fan-out` (P4, no bump — no template or check changed).
 
 The actors. `agent-init` installs or migrates a repo; `agent-audit` judges
 one against the standard and flags version drift; the `work-*` pair applies
@@ -144,12 +142,13 @@ night on someone's credit card. (live: `reference/loops.md`)
 **Graph** — how many loops coordinate: lanes, dependencies, joins,
 verification on the edges, failure kept local. Failure smell: parallel
 agents overwriting each other, or a fleet burning tokens on work a single
-loop could do. `> Phase: P4 (reference/graphs-and-reducers.md)`
+loop could do. (live: `reference/graphs-and-reducers.md`)
 
 **Cross-cutting** — reducers (deterministic compression between fan-out and
 synthesis, so the expensive model reads only what can change the decision)
 and MCP (the standard plug between agents and tools). They serve every
-layer rather than sitting inside one. `> Phase: P4`
+layer rather than sitting inside one. (live: reducer contract in
+`reference/graphs-and-reducers.md`; runner surface in `reference/runners.md`)
 
 ## The phase ladder
 
