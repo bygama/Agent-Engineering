@@ -8,4 +8,9 @@
 
 ## Next
 
+## Verification
+
+<!-- PASS evidence only, written by work-verify (newest on top); the close
+     handoff refuses to close a lane without a current PASS block here. -->
+
 <!-- First read of every session. If it isn't here, it didn't happen. -->

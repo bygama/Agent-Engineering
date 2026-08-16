@@ -49,7 +49,7 @@ reality (git log disagreeing with PROGRESS is a finding).
 ```markdown
 ## Agent audit: <repo>
 
-Standard: <stamped version or "unstamped"> · current AE/2.0
+Standard: <stamped version or "unstamped"> · current AE/<newest CHANGELOG entry>
 
 Score: N/10
 

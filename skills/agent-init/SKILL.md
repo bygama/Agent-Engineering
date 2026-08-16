@@ -1,6 +1,6 @@
 ---
 name: agent-init
-description: Installs the agent-engineering standard (AE/2.0) in a repository — canonical AGENTS.md, pointer CLAUDE.md, docs tree — or migrates v1 (canonical-CLAUDE.md) and legacy (adapters, read orders) setups to it. Use when setting up agent context for a new or existing repo, when a repo lacks AGENTS.md or a version stamp, or when modernizing an outdated context setup.
+description: Installs the agent-engineering standard in a repository — canonical AGENTS.md, pointer CLAUDE.md, docs tree — or migrates v1 (canonical-CLAUDE.md) and legacy (adapters, read orders) setups to it. Use when setting up agent context for a new or existing repo, when a repo lacks AGENTS.md or a version stamp, or when modernizing an outdated context setup.
 ---
 
 # Agent init
@@ -65,7 +65,8 @@ for the version gap, same gate).
 
 **6. Instantiate.** Fill `{{PLACEHOLDER}}` markers from what steps 1-4
 produced; delete optional sections that have no content (e.g. Map). Always:
-`AGENTS.md` (stamped `Standard: AE/2.0`, tier one-liner, 4 blocks) + pointer
+`AGENTS.md` (stamped with the current version — newest `CHANGELOG.md` entry
+in the Agent-Engineering repo — tier one-liner, 4 blocks) + pointer
 `CLAUDE.md` + `docs/README.md` + `adrs/` + `specs/`. Monorepo: one
 `app-AGENTS.md` (≤30 lines) + pointer per app. Keep existing README/LICENSE.
 UI stack detected in step 1: offer `DESIGN.md.template` per app — opt-in, per
