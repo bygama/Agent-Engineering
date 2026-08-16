@@ -3,6 +3,23 @@
 Versions of the standard (`AE/<major>.<minor>`). Template or check changes
 bump the version; docs-only refreshes do not.
 
+## AE/2.3 — 2026-08-16
+
+Hardening: the checks got checked.
+
+- Check change (the bump): `agent-lint` cmd-drift now honors the
+  `# not verified` honesty marker — commands the standard itself says to
+  mark that way are no longer false-positived. Found by the new
+  kitchen-sink fixture on its first run.
+- `tests/fixtures/kitchen-sink/`: composite broken repo (16 mechanical +
+  8 judgment plants) with a planted-violations MANIFEST; lint suite pins
+  its mechanical subset (13 cases).
+- `tests/run-eval-checks.mjs`: the ≥3-evals-per-skill contract is now
+  executable (structure: Query + Expected behavior + checklists).
+- Failure-derived evals from P2-P4 real failures (tracked loop state
+  self-blocks; ambiguous anchors; close destroying uncommitted evidence)
+  + the skill lines they pin.
+
 ## AE/2.2 — 2026-08-16
 
 The loop layer: standing automation as a file artifact.

@@ -93,6 +93,21 @@ const cases = [
     expect: [],
     forbid: ["design-frontmatter", "design-ref", "design-drift", "design-ungenerated"],
   },
+  {
+    name: "kitchen-sink composite fires the planted set",
+    path: fx("kitchen-sink"),
+    fail: true,
+    expect: [
+      "adapter", "budget", "pointer-shape", "read-order", "structure",
+      "broken-link", "docs-index", "naming", "skill-frontmatter",
+      "lane-incomplete", "lane-slug", "lane-location", "feature-schema",
+      "cmd-drift",
+    ],
+    forbid: ["budget-cap", "stamp-missing", "stamp-shape", "feature-regression", "skill-size"],
+    // `npm run migrate  # not verified` is the standard's own honesty
+    // marker (agent-init step 4) — flagging it is a lint bug.
+    forbidMatch: ['npm script "migrate"'],
+  },
 ];
 
 let failed = 0;
@@ -111,6 +126,9 @@ for (const c of cases) {
   if (out.fail !== c.fail) problems.push(`expected fail=${c.fail}, got ${out.fail}`);
   for (const e of c.expect) if (!codes.has(e)) problems.push(`missing expected finding "${e}"`);
   for (const e of c.forbid ?? []) if (codes.has(e)) problems.push(`unexpected finding "${e}"`);
+  for (const pat of c.forbidMatch ?? [])
+    for (const f of out.findings)
+      if (f.message.includes(pat)) problems.push(`forbidden message matched "${pat}": ${f.message}`);
   if (problems.length) {
     failed++;
     console.log(`FAIL ${c.name}\n  ${problems.join("\n  ")}\n  findings: ${[...codes].join(", ") || "(none)"}`);

@@ -70,3 +70,7 @@ Wait for explicit approval of this plan before touching anything.
   artifact, instantiated by loop-setup only when a task passes the loop
   filter). Migrating 2.1 → 2.2: restamp only; nothing else changes in an
   installed repo.
+- **AE/2.3** (2026-08-16) — lint fix: cmd-drift no longer flags commands
+  carrying the `# not verified` marker. Migrating 2.2 → 2.3: restamp
+  only; repos that removed the marker to silence false drift may restore
+  it.

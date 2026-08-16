@@ -278,6 +278,9 @@ if (files.includes("AGENTS.md")) {
     const deps = pkg ? { ...pkg.dependencies, ...pkg.devDependencies } : {};
     const COMPOSE = ["docker-compose.yml", "docker-compose.yaml", "compose.yml", "compose.yaml"];
     for (let i = start; i < end; i++) {
+      // `# not verified` is the standard's honesty marker (agent-init
+      // step 4) — the line opted out of verification, so drift is silent.
+      if (ls[i].includes("# not verified")) continue;
       for (const m of ls[i].matchAll(/`([^`]+)`/g)) {
         const cmd = m[1].trim();
         const at = `AGENTS.md:${i + 1}`;

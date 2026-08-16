@@ -1,0 +1,23 @@
+[
+  {
+    "id": "F01",
+    "behavior": "GET /orders/:id returns the order with line items",
+    "verification": "npm test -- --test-name-pattern orders",
+    "state": "active",
+    "evidence": null
+  },
+  {
+    "id": "F02",
+    "behavior": "POST /refunds creates a refund request",
+    "verification": "npm test -- --test-name-pattern refunds",
+    "state": "done",
+    "evidence": null
+  },
+  {
+    "id": "F03",
+    "behavior": "webhook retries are idempotent",
+    "verification": "npm test -- --test-name-pattern webhook",
+    "state": "passing",
+    "evidence": null
+  }
+]
