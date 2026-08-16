@@ -16,7 +16,7 @@ not survive contact with real work.
 
 ```mermaid
 flowchart LR
-    REF["reference/<br/>the standard: 1 doc per layer"] -->|grounds| SK["skills/<br/>agent-init · agent-audit · work-*"]
+    REF["reference/<br/>the standard: 1 doc per layer"] -->|grounds| SK["skills/<br/>agent-init · agent-audit · work-* · loop-setup"]
     REF -->|shapes| TPL["templates/repo/<br/>what consumers receive"]
     SK -->|installs| TPL
     SCR["scripts/agent-lint<br/>mechanical checks"] -->|backs| SK
@@ -35,12 +35,13 @@ why every structural change must touch it too.
 
 ### `reference/` — what is the standard, and why?
 
-Live since AE/2.0 (loops P3, graphs-and-reducers P4 still pending).
+Live since AE/2.0; loops, orca, tracker since AE/2.2
+(graphs-and-reducers P4 still pending).
 
 One document per layer of the standard — context, memory, harness,
-verification, task tiers, then loops (P3) and graphs/reducers (P4) — plus
-cross-cutting docs (principles, runners, orca, tracker, design-md, skill
-authoring). Each file is a distillation, not a mirror: ≤120 lines, a
+verification, task tiers, loops, then graphs/reducers (P4) — plus
+cross-cutting docs (principles, orca, tracker, design-md, skill
+authoring; runners arrives P4). Each file is a distillation, not a mirror: ≤120 lines, a
 source-and-date header citing the public material it condenses, and only the
 claims we are prepared to enforce. When new guidance appears in the world,
 it enters the repo here first; templates and checks follow only if the
@@ -54,13 +55,13 @@ The only directory whose content ever leaves this repo. It holds the
 canonical `AGENTS.md` skeleton (with `{{PLACEHOLDER}}` markers instantiated
 by `agent-init`, never copied verbatim), the one-line pointer `CLAUDE.md`,
 the `docs/` seed (ADR and spec templates), the `work/` four-file templates
-(SPEC, PLAN, PROGRESS, DECISIONS), and the `feature_list` JSON schema with a
-worked example. If a rule matters enough to install everywhere, it lives
+(SPEC, PLAN, PROGRESS, DECISIONS), the `feature_list` JSON schema with a
+worked example, and the `loops/` template with its issue-triage example. If a rule matters enough to install everywhere, it lives
 here; if it only matters to this repo, it stays out.
 
 ### `skills/` — how does it replicate and get used day to day?
 
-Live: `agent-init`, `agent-audit` (AE/2.0); `work-verify`, `work-handoff` (AE/2.1). Pending: `loop-setup` (P3), `fan-out` (P4).
+Live: `agent-init`, `agent-audit` (AE/2.0); `work-verify`, `work-handoff` (AE/2.1); `loop-setup` (AE/2.2). Pending: `fan-out` (P4).
 
 The actors. `agent-init` installs or migrates a repo; `agent-audit` judges
 one against the standard and flags version drift; the `work-*` pair applies

@@ -185,7 +185,7 @@ most one row is `active` per lane at any moment.
 
 ## The tracker plane (Linear)
 
-> The handoff's status/comment step lives since AE/2.1 (`work-handoff`); the full tracker reference + connector recipes arrive P3.
+> The handoff's status/comment step lives since AE/2.1 (`work-handoff`); the tracker contract + connector ladder live since AE/2.2 (`reference/tracker.md`).
 
 The standard separates two planes so there is never a double truth:
 
