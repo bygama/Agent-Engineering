@@ -68,7 +68,11 @@ starts:
 
 **5. Spawn workers — artifacts only.** Each worker receives exactly three
 things: its worktree path, its lane path, the DoD. No shared conversation,
-no sibling paths, no anchor-edit rights. Any runner from
+no sibling paths, no anchor-edit rights. Worker obligation on ambiguous
+anchors: implement the **plainest reading and flag the ambiguity** as a
+finding in the lane (never improvise the spec, never block waiting) — and
+the coordinator's reduce probes behavior with its own inputs precisely
+because unflagged ambiguities happen, on any runner. Any runner from
 `reference/runners.md` qualifies; the handoff never creates
 runner-specific files (the adapter ban holds mid-fan-out). When the
 requested runner is not installed, say so and emit the ready-to-run

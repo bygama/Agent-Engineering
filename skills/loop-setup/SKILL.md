@@ -64,7 +64,10 @@ Loop setup:
 Agent-Engineering repo clone — on this machine
 `C:/Briar/repos/mine/Agent-Engineering`, or locate/ask). Fill every
 placeholder; a surviving `{{...}}` means the loop is not scaffolded. Write
-the state file with its initial JSON. The worked example
+the state file with its initial JSON — **gitignored** (`loops/*.state.json`)
+and self-initializing when missing: tracked state dirties the tree on
+every run, which self-blocks any cleanliness precheck (check that
+interaction explicitly). The worked example
 `templates/repo/loops/issue-triage.example.md` shows a complete artifact.
 
 **5.** Register the primary trigger only with the user's explicit go;
