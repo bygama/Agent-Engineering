@@ -1,0 +1,4 @@
+# {{LANE_TITLE}} — plan
+
+<!-- Steps with executable acceptance. Not "improve X" — "command Y exits 0". -->
+- [ ] {{STEP}} — accept: `{{COMMAND}}`

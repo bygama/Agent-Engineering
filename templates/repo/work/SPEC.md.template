@@ -1,0 +1,7 @@
+---
+issue: {{ISSUE_KEY_OR_DELETE}}
+---
+# {{LANE_TITLE}} — spec
+
+<!-- Owner-written. The agent never edits this file. -->
+{{WHAT_DONE_LOOKS_LIKE}}
