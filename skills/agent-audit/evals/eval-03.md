@@ -13,8 +13,9 @@ The Agent-Engineering repo, any phase boundary.
 - [ ] Runs the self-lint exactly as documented in AGENTS.md
       (`node scripts/agent-lint.mjs . --ignore tests,templates,global`) and
       reports its outcome verbatim.
-- [ ] Runs both self-test suites (`tests/run-lint-tests.mjs`,
-      `tests/run-gen-tests.mjs`) and reports pass/fail.
+- [ ] Runs all three self-test suites (`tests/run-lint-tests.mjs`,
+      `tests/run-gen-tests.mjs`, `tests/run-eval-checks.mjs`) and reports
+      pass/fail.
 - [ ] Additionally checks **how-it-works coverage**: every top-level directory
       (reference, templates, skills, scripts, global, tests, docs) and every
       skill has a current section/chapter under `docs/how-it-works/`; flags
