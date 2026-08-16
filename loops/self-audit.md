@@ -1,0 +1,59 @@
+# Loop: self-audit
+
+Weekly dogfooding audit of this repo: the standard must keep passing its
+own checks, on a cadence, not just at merge time.
+
+## Loop filter (why this qualifies)
+
+- Repeats: weekly (Monday 09:00)
+- Automated check: self-lint + both test suites (exit codes)
+- Waste absorbed: one read-only run per week; empty findings cost minutes
+- Real tools: node, git — both required by the repo anyway
+
+## Stopping rule
+
+Stop after one full pass (gate + dogfooding checks + report); skip the run
+when the working tree is dirty or not on `main`.
+
+## Gate
+
+- `node scripts/agent-lint.mjs . --ignore tests,templates,global` — verified 2026-08-16, exit 0
+- `node tests/run-lint-tests.mjs` — verified 2026-08-16, exit 0
+- `node tests/run-gen-tests.mjs` — verified 2026-08-16, exit 0
+
+## Budget
+
+- Runs: 1/week
+- Items per run: report all findings; propose at most 1 fix (report-only —
+  this loop never commits or merges)
+- Failure budget: 2 consecutive failed runs ⇒ disable + report to a human
+
+## State
+
+- File: `loops/self-audit.state.json`
+- Shape: `{ "last_run": null, "processed": [], "consecutive_failures": 0 }`
+- `processed` holds fingerprints of findings already reported; a finding
+  seen again is flagged "reported before, still open", never re-reported
+  as new.
+
+## Trigger
+
+- Primary: `orca automations create --name ae-self-audit --trigger weekly
+  --day 1 --time 09:00 --prompt "Follow loops/self-audit.md in this repo"
+  --provider claude --repo path:C:/Briar/repos/mine/Agent-Engineering`
+- Fallback (no Orca): `/schedule` weekly, or cron/Task Scheduler running
+  any agent with the same prompt
+- Writes: report-only (this loop proposes fixes; humans and lanes apply
+  them)
+
+## Run protocol
+
+1. Read the state file.
+2. Precheck: `git status --porcelain` non-empty, or branch ≠ `main` ⇒ skip.
+3. Run the three gate commands; collect any findings.
+4. Dogfooding checks per `skills/agent-audit` dogfooding mode: stamp ==
+   newest CHANGELOG entry; how-it-works coverage (every top-level dir and
+   skill has a current section); phase-tag honesty.
+5. Report findings (new vs "reported before, still open" via `processed`);
+   propose at most 1 fix as a lane suggestion.
+6. Update state (`last_run`, fingerprints, failure count); stop.

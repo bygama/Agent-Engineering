@@ -19,8 +19,10 @@ standard and never a dependency: every mapping names its no-Orca fallback
 
 - Triggers: `hourly`, `daily`, `weekdays`, `weekly` (+ `--day 0-6`
   `--time HH:MM` `--timezone <IANA>`), 5-field cron, or RRULE.
-- `--precheck <command>` gates the run cheaply — the loop's queue-empty
-  check belongs here so empty runs cost nothing.
+- `--precheck <command>` runs a command ahead of the agent — the natural
+  home for the loop's queue-empty check. Its exact skip semantics are not
+  documented in the CLI help; verify on first use, and keep the same check
+  in the run protocol so the loop is correct either way.
 - `--workspace-mode new-per-run` gives each run a fresh worktree
   (isolation for runs that mutate files); `existing` reuses one.
 - `--enabled`/`--disabled` at create time; register loops disabled unless
