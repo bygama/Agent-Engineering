@@ -171,8 +171,9 @@ target machine.
 
 The standard's portability proof is exactly this claim made falsifiable: a
 non-Claude runner completing a prepared lane end to end from the artifacts
-alone. The proof lane and per-runner protocol ship with P4; the run
-executes on a machine that has a non-Claude runner installed and
-authenticated (this machine, 2026-08-16: none yet — `codex`, `gemini`,
-`opencode`, `dsh`, `grok` all absent from PATH, so the run is pending that
-single owner action and is claimed nowhere until it happens).
+alone. **It ran and passed** (2026-08-16): opencode 1.18.18 driving
+`deepseek-v4-flash-free` executed the prepared `f04-capitalize` lane —
+TDD red→green, full suite 32/32, the PASS block appended in the house
+shape, only the allowed files touched, zero runner-specific files — and
+the coordinator re-verified everything independently, catching a SPEC
+ambiguity the worker missed (the checker seat works across runners too).

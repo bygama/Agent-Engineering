@@ -194,6 +194,23 @@ one exported function each).
   docs/ index — cosmetic in a scratch fixture, and proof the lint reads
   consumer repos honestly).
 
+**Addendum — Acceptance 2 RAN and PASSED (same day):** the owner chose
+opencode + DeepSeek v4 flash. Install hit the `ignore-scripts=true` gotcha
+(platform binary via explicit `opencode-windows-x64` + manual
+`postinstall.mjs`; now a documented note in runners.md). Probe:
+`opencode run -m opencode/deepseek-v4-flash-free` works with NO auth (free
+gateway model). The run: the runner executed `work/f04-capitalize/` from
+artifacts alone — red `exit 1 MODULE_NOT_FOUND` → green (9 passed) → full
+suite 32/32 → PASS block in the exact house shape → PLAN ticked → only the
+four allowed files touched → nothing committed (as instructed). The
+coordinator re-ran every command independently (32/32 confirmed) and
+caught a SPEC ambiguity the worker missed (`'¡hola!'` unchanged under the
+first-character reading of "first letter") — recorded as a finding in the
+lane before closing it (`f50022a` evidence, `c0adcc4` close; suite green
+post-close). Portability claim: **proven** — a non-Claude runner, on a
+free non-Anthropic model, completed a lane end to end with zero
+runner-specific files.
+
 ### Task 8: Merge + go live
 
 - [x] **Step 1:** Final gates (self-lint, 12/12, 7/7; stamp stays AE/2.2 ==
