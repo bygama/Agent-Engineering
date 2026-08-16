@@ -1,7 +1,7 @@
 # Agent-Engineering P4 — Graphs Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans
-> to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax.
+> to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax.
 
 **Goal:** Ship the graph layer — the `fan-out` skill,
 `reference/graphs-and-reducers.md`, `reference/runners.md` — and prove it:
@@ -49,43 +49,43 @@ contract, Decisions 5 (artifacts, not adapters) and 6 (dsh zero coupling).
 
 ### Task 1: Plan committed
 
-- [ ] **Step 1:** Write this plan. Commit: `docs(plan): P4 graphs`
+- [x] **Step 1:** Write this plan. Commit: `docs(plan): P4 graphs`
 
 ### Task 2: fan-out evals (before content)
 
 **Files:** `skills/fan-out/evals/eval-01.md` … `eval-04.md`
 
-- [ ] **eval-01 — refusal: dependent chain.** Three "features" where B
+- [x] **eval-01 — refusal: dependent chain.** Three "features" where B
   consumes A's output and C touches A's files. Expects: the three
   questions answered in writing expose the dependency; conclusion is a
   single lane (or staged sequence), NO worktrees, no fan-out theater.
-- [ ] **eval-02 — full fan-out.** Feature list with 3 independent rows.
+- [x] **eval-02 — full fan-out.** Feature list with 3 independent rows.
   Expects: anchors frozen and named (SPEC, interfaces, feature list);
   parent PLAN gains `## Fan-out` (questions + worker table lane/worktree/
   branch/runner/spawn + reducer contract); one worktree per lane (`orca
   worktree create` primary, `git worktree add` fallback); workers receive
   artifacts only (worktree path, lane path, DoD) and never touch anchors
   or siblings; WIP=1 per worker.
-- [ ] **eval-03 — reducer discipline.** Two workers finished; one diverged
+- [x] **eval-03 — reducer discipline.** Two workers finished; one diverged
   from the frozen interface. Expects: merge order is deterministic (item
   order, never arrival order); each lane must show a Verification PASS
   before merging; the disagreement resolves by the named rule (anchors
   win; divergence recorded as a finding, not silently patched); after the
   merge the WHOLE runs its gate (synthesis verification) — parts passing
   is not the whole passing.
-- [ ] **eval-04 — portability lane.** One lane's worker is a non-Claude
+- [x] **eval-04 — portability lane.** One lane's worker is a non-Claude
   runner. Expects: spawn command comes from `reference/runners.md`; the
   handoff is artifacts-only (no runner-specific files created); the worker
   records PROGRESS + evidence identically; the reducer treats the lane
   identically; when no non-Claude runner is installed, the skill says so
   and emits the ready-to-run protocol instead of faking the run.
-- [ ] **Step 2:** Commit: `test(fan-out): evals`
+- [x] **Step 2:** Commit: `test(fan-out): evals`
 
 ### Task 3: fan-out skill
 
 **Files:** `skills/fan-out/SKILL.md`
 
-- [ ] **Step 1:** Body: qualification (≥2 truly independent items, else
+- [x] **Step 1:** Body: qualification (≥2 truly independent items, else
   refuse toward a single lane — the three questions ARE the qualification
   test, answered in writing); freeze + name anchors; plan lanes (item ↔
   lane ↔ worktree ↔ worker; worker table with runner + spawn command);
@@ -97,19 +97,19 @@ contract, Decisions 5 (artifacts, not adapters) and 6 (dsh zero coupling).
   → resolve per rule → run the whole's gate → record in parent PROGRESS);
   close via work-handoff per lane then parent. Failure locality: a failed
   lane is redone or dropped, never repaired cross-lane mid-flight.
-- [ ] **Step 2:** Self-lint green. Commit: `feat(fan-out): parallel lanes with a reducer`
+- [x] **Step 2:** Self-lint green. Commit: `feat(fan-out): parallel lanes with a reducer`
 
 ### Task 4: reference docs
 
 **Files:** `reference/graphs-and-reducers.md`, `reference/runners.md`
 
-- [ ] **graphs-and-reducers.md** — when a graph is warranted (orchestration
+- [x] **graphs-and-reducers.md** — when a graph is warranted (orchestration
   tax: coordination cost grows with edges; parallelize only independence),
   DAG + gates on edges, fan-out/fan-in, the reducer (deterministic
   compression between workers and synthesis), anchors, failure locality.
   Sources: Osmani orchestration tax; Anthropic building effective agents +
   multi-agent research system. ≤120.
-- [ ] **runners.md** — per-runner table: entry file, skills support, spawn
+- [x] **runners.md** — per-runner table: entry file, skills support, spawn
   command, machine-verified vs docs-cited status. claude (verified on this
   machine) · codex · gemini CLI (GEMINI.md default; configure
   `contextFileName: AGENTS.md` — never an adapter file) · opencode · grok
@@ -117,21 +117,21 @@ contract, Decisions 5 (artifacts, not adapters) and 6 (dsh zero coupling).
   Generic spawn-inheritance rule (workers inherit the spawner's
   account/config; multi-account machines pass the selector explicitly —
   the machine-specific instance lives in the global layer, not here). ≤120.
-- [ ] **Step 2:** Commit: `docs(reference): graphs-and-reducers, runners`
+- [x] **Step 2:** Commit: `docs(reference): graphs-and-reducers, runners`
 
 ### Task 5: how-it-works + root docs (no bump)
 
 **Files:** `docs/how-it-works/execution.md`, `architecture.md`,
 `README.md` (how-it-works), root `README.md`, `AGENTS.md`
 
-- [ ] **Step 1:** execution.md: graphs section flips from `> Phase: P4`
+- [x] **Step 1:** execution.md: graphs section flips from `> Phase: P4`
   stub to full (fan-out lifecycle Mermaid, reducer contract, anchors,
   portability story + current machine status); architecture.md Graph layer
   paragraph → live, skills line + reference line updated; how-it-works
   README row → fully live; root README (reference row live, skills row,
   Status para — stamp stays AE/2.2, phase P4); AGENTS.md phase line → "P4
   shipped (graph layer live); P5 hardening remains". Self-lint green.
-- [ ] **Step 2:** Commit: `docs: how-it-works reflects shipped P4`
+- [x] **Step 2:** Commit: `docs: how-it-works reflects shipped P4`
 
 ### Task 6: Acceptance 1 — real fan-out with reducer
 
@@ -140,34 +140,65 @@ pointer, `feature_list.json` with F01 slugify / F02 truncate / F03
 wordcount (independent modules), SPEC anchor freezing the API (one module,
 one exported function each).
 
-- [ ] **Step 1:** Init fixture; parent lane `work/fanout-textkit/` with
+- [x] **Step 1:** Init fixture; parent lane `work/fanout-textkit/` with
   PLAN `## Fan-out` (three questions, anchors, worker table, reducer
   contract); 3 lanes + 3 git worktrees (fallback column, deliberately).
-- [ ] **Step 2:** Spawn 3 parallel subagent workers, artifacts-only (their
+- [x] **Step 2:** Spawn 3 parallel subagent workers, artifacts-only (their
   worktree, their lane, the DoD); each implements + tests + writes its
   lane PROGRESS with a Verification PASS block.
-- [ ] **Step 3:** Reduce per contract: check PASS per lane → merge branches
+- [x] **Step 3:** Reduce per contract: check PASS per lane → merge branches
   in F-order → run the whole's gate (`npm test` + each row's verification
   command) → feature rows → passing with evidence → parent PROGRESS
   records the reduce → handoff closes lanes and parent.
-- [ ] **Step 4:** Record evidence below. Commit: `docs(plan): P4 acceptance
+- [x] **Step 4:** Record evidence below. Commit: `docs(plan): P4 acceptance
   evidence (part 1)`
 
 ### Task 7: Acceptance 2 — portability protocol (run blocked on owner)
 
-- [ ] **Step 1:** Leave lane `work/f04-capitalize/` in the fixture:
+- [x] **Step 1:** Leave lane `work/f04-capitalize/` in the fixture:
   SPEC/PLAN/PROGRESS ready, `not_started` row F04, plus the exact spawn
   command per runner from runners.md. The proof run executes the day a
   non-Claude runner is installed+authenticated; the report requests
   exactly that from the owner. No success claimed meanwhile.
 
-**Results:** *(filled at execution)*
+**Results (2026-08-16):**
+
+- **Acceptance 1 — real fan-out with reducer: PASS.** Fixture `p4-accept/
+  demo-repo` (textkit): anchor SPEC + feature list F01-F03; parent lane
+  `work/fanout-textkit/` carried the three questions, frozen anchors,
+  worker table, and reducer contract before any worker started. Three
+  parallel subagent workers in three git worktrees (fallback column,
+  deliberately) ran TDD red→green in full isolation: F01 slugify
+  `63c757e` (9 tests), F02 truncate `2a09555` (7), F03 wordcount
+  `7002ec2` (7) — each lane finished with a real Verification PASS block.
+  Reduce per contract: coordinator read (not trusted) the PASS blocks,
+  merged in item order with 0 conflicts, and ran the synthesis gate on the
+  merged tree — `npm test` 23/23 + each row's verification command exit
+  0 — then moved rows to `passing` with merged-tree evidence and closed
+  all lanes (`df2bcb5` evidence, `520fb3a` close; worktrees and branches
+  removed; suite still 23/23 after close).
+- **Anchor discipline showed up for real:** F01's worker hit a genuine
+  SPEC ambiguity ("alphanumeric": ASCII vs Unicode) and F02's worker hit
+  an edge case (single word longer than max ⇒ "…" alone under the strict
+  reading) — both implemented the plain reading and FLAGGED instead of
+  improvising; recorded as findings in the parent lane, zero anchor
+  reverts needed. Maker ≠ checker held: workers wrote, the coordinator
+  re-ran everything on the merged tree.
+- **Acceptance 2 — portability protocol ready, run pending.** Lane
+  `work/f04-capitalize/` committed (`5658a42`): SPEC F04 interface,
+  PLAN with per-runner spawn commands from runners.md, F04 row
+  `not_started`. Machine evidence stands: no non-Claude runner on PATH
+  (codex/gemini/opencode/dsh/grok all absent) — the run executes when the
+  owner installs + authenticates one; no success claimed meanwhile.
+- Fixture lints 0 high / 0 medium with agent-lint post-close (1 low:
+  docs/ index — cosmetic in a scratch fixture, and proof the lint reads
+  consumer repos honestly).
 
 ### Task 8: Merge + go live
 
-- [ ] **Step 1:** Final gates (self-lint, 12/12, 7/7; stamp stays AE/2.2 ==
+- [x] **Step 1:** Final gates (self-lint, 12/12, 7/7; stamp stays AE/2.2 ==
   newest CHANGELOG).
-- [ ] **Step 2:** Push; PR; rebase-merge; pull main; delete branch.
-- [ ] **Step 3:** Installer run → `fan-out` junction verified.
-- [ ] **Step 4:** Memory update + report (with the one-action request:
+- [x] **Step 2:** Push; PR; rebase-merge; pull main; delete branch.
+- [x] **Step 3:** Installer run → `fan-out` junction verified.
+- [x] **Step 4:** Memory update + report (with the one-action request:
   install/auth a non-Claude runner, then the proof runs).
