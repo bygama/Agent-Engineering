@@ -21,8 +21,9 @@ README, no AGENTS.md/CLAUDE.md, no docs/.
       constrains future changes.
 - [ ] Verifies commands by RUNNING them before writing them into AGENTS.md
       (skips destructive ones; marks unverifiable ones `# not verified`).
-- [ ] Instantiates the base skeleton only: AGENTS.md (stamped `Standard:
-      AE/2.0`, 4-block, tier one-liner) + pointer CLAUDE.md (`@AGENTS.md`) +
+- [ ] Instantiates the base skeleton only: AGENTS.md (stamped with the
+      current version — the newest entry in the Agent-Engineering repo's
+      CHANGELOG.md — 4-block, tier one-liner) + pointer CLAUDE.md (`@AGENTS.md`) +
       docs/README.md + adrs/ + specs/. No monorepo files, no `work/` lanes,
       no feature list, no speculative skills.
 - [ ] Community files match the chosen profile per templates/community/MATRIX.md
