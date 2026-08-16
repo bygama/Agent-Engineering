@@ -1,0 +1,16 @@
+[
+  {
+    "id": "F01",
+    "behavior": "POST /api/cart/items with {product_id, quantity} returns 201",
+    "verification": "pytest tests/api/test_cart.py::test_add_item -q",
+    "state": "passing",
+    "evidence": "commit abc1234; pytest 1 passed 2026-08-16"
+  },
+  {
+    "id": "F02",
+    "behavior": "GET /api/cart returns the current user's items with totals",
+    "verification": "pytest tests/api/test_cart.py::test_list_items -q",
+    "state": "not_started",
+    "evidence": null
+  }
+]

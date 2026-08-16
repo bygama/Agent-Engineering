@@ -1,0 +1,17 @@
+# Contributing to {{REPO_NAME}}
+
+## Workflow
+
+- Branch from `main`: `feat/<topic>` or `fix/<topic>`.
+- Conventional commits: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`.
+- Keep commits atomic — one "why" per commit.
+
+## Before opening a PR
+
+{{PR_GATE}}
+<!-- e.g. "run `pnpm lint && pnpm test` — both must pass" -->
+
+## Merging
+
+- Merge strategy: {{MERGE_STRATEGY}}
+- PRs need review before merge; keep them small and focused.

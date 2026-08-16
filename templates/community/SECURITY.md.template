@@ -1,0 +1,13 @@
+# Security Policy
+
+## Reporting a vulnerability
+
+Report vulnerabilities privately to {{SECURITY_CONTACT}}. Do not open public
+issues for security problems.
+
+You can expect an acknowledgment within a week. Please include reproduction
+steps and affected versions/commits when possible.
+
+## Scope
+
+Supported: the `main` branch. Older tags/branches are not maintained.

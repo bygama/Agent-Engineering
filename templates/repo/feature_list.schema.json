@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "feature_list",
+  "description": "Tier-L scope as verifiable rows. States move only on verification evidence; passing is irreversible.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "behavior", "verification", "state", "evidence"],
+    "additionalProperties": false,
+    "properties": {
+      "id": { "type": "string", "pattern": "^F\\d+$" },
+      "behavior": { "type": "string", "minLength": 1 },
+      "verification": { "type": "string", "minLength": 1 },
+      "state": { "enum": ["not_started", "active", "blocked", "passing"] },
+      "evidence": { "type": ["string", "null"] }
+    },
+    "if": { "properties": { "state": { "const": "passing" } } },
+    "then": { "properties": { "evidence": { "type": "string", "minLength": 1 } } }
+  }
+}

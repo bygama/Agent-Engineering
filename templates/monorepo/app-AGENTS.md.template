@@ -1,0 +1,13 @@
+<!-- Per-app context, ≤30 lines. Only THIS app's commands and gotchas.
+     The root AGENTS.md covers everything shared. -->
+# {{APP_NAME}}
+
+{{APP_SUMMARY}}
+
+## Commands
+
+{{APP_COMMANDS}}
+
+## Gotchas
+
+{{APP_GOTCHAS}}

@@ -1,0 +1,28 @@
+# {{REPO_NAME}}
+
+Standard: AE/2.0
+
+{{REPO_SUMMARY}}
+<!-- 2-3 lines: what + stack. Nothing the filesystem already says. -->
+
+Tiers: S direct+verify · M lane+plan · L four files+feature list — doubt → higher.
+
+## Commands
+
+{{COMMANDS}}
+<!-- build / test / run / lint. Only ones that matter. VERIFIED by running them. -->
+
+## Gotchas
+
+{{GOTCHAS}}
+<!-- Only non-inferable facts. If an agent could discover it by reading code, delete it. -->
+
+## Hard constraints
+
+{{HARD_CONSTRAINTS}}
+<!-- Only genuine safety rules. If violating it doesn't hurt, it doesn't belong here. -->
+
+## Map
+
+{{MAP}}
+<!-- OPTIONAL, ≤8 lines, only non-obvious locations. Delete section if nothing qualifies. -->

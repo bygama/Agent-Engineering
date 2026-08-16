@@ -1,0 +1,46 @@
+---
+name: {{APP_NAME}}
+colors:
+  {{COLOR_TOKENS}}
+typography:
+  {{TYPE_TOKENS}}
+spacing:
+  {{SPACING_TOKENS}}
+rounded:
+  {{ROUNDED_TOKENS}}
+components:
+  {{COMPONENT_TOKENS}}
+---
+
+## Overview
+
+{{BRAND_INTENT}}
+<!-- Brand personality and emotional intent. 2-4 lines. -->
+
+## Colors
+
+{{COLOR_PROSE}}
+<!-- Semantic roles, not hex restatements. -->
+
+## Typography
+
+{{TYPE_PROSE}}
+
+## Layout
+
+{{LAYOUT_PROSE}}
+
+## Components
+
+{{COMPONENT_PROSE}}
+<!-- Style guidance for buttons, inputs, cards. Elevation & Depth / Shapes
+     sections may be added before this one when the system needs them. -->
+
+## Do's and Don'ts
+
+{{GUARDRAILS}}
+
+## Decisions
+
+<!-- `### <surface>` per route/screen; entries `- YYYY-MM-DD — <decision>`.
+     One line each. Removing one is an explicit, discussed edit. -->
