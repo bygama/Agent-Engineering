@@ -43,15 +43,15 @@ files, so any model or runtime can pick up any lane.
 
 ## Status
 
-**AE/2.2, P4 shipped** — all six layers live: the standard installs,
-audits, gates daily work on evidence, automates on a cadence
-(`loop-setup`), and parallelizes with a written reducer contract
-(`fan-out`: anchors, deterministic merge, synthesis gate). P4 bumps no
-version — it changes no template and no check. The portability proof ran:
-a non-Claude runner (opencode + DeepSeek v4 flash) completed a prepared
-lane end to end from the artifacts alone. Remaining: P5 hardening. The
-ladder, every fixed decision, and acceptance criteria live in
-`docs/specs/SPEC-agent-engineering.md`.
+**AE/2.3 — all phases (P0-P5) shipped.** The standard installs, audits,
+gates daily work on evidence, automates on a cadence, and parallelizes
+with a written reducer contract; the portability proof ran (a non-Claude
+runner — opencode + DeepSeek v4 flash — completed a prepared lane from
+the artifacts alone); and the hardening pass proved the checks themselves
+(the kitchen-sink fixture caught a lint bug on its first run — the fix is
+AE/2.3). The repo is in maintenance: versions bump when templates or
+checks change. The ladder, every fixed decision, and acceptance criteria
+live in `docs/specs/SPEC-agent-engineering.md`.
 
 ## License
 

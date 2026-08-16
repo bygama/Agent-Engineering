@@ -45,3 +45,8 @@ test forbids them to prove the lint stays quiet where it should).
 | J8 | `npm run migrate # not verified` claimed in Commands | correctly marked not-verified — must NOT be flagged as drift (honesty marker respected) |
 
 J8 is a trap for the auditor: flagging it would be inventing a finding.
+
+Discovered during the P5 acceptance run (true finding, not planted, kept
+deliberately): the feature-list verification commands reference tests that
+don't exist in the fixture — "verification realism" (medium). An audit
+finding it is being honest, not inventive.
