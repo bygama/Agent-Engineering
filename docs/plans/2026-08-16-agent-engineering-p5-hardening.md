@@ -1,7 +1,7 @@
 # Agent-Engineering P5 — Hardening Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans
-> to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax.
+> to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax.
 
 **Goal:** Close the ladder: failure-derived evals for the skills, an
 executable eval-structure suite, and a composite broken fixture that the
@@ -40,7 +40,7 @@ section ("evals from failures you actually had"), Non-goals (examples).
 
 ### Task 1: Plan committed
 
-- [ ] **Step 1:** Write this plan. Commit: `docs(plan): P5 hardening`
+- [x] **Step 1:** Write this plan. Commit: `docs(plan): P5 hardening`
 
 ### Task 2: failure-derived evals (before content)
 
@@ -49,13 +49,13 @@ section ("evals from failures you actually had"), Non-goals (examples).
 
 Each eval names its origin failure (date + where it bit).
 
-- [ ] **loop-setup eval-05 — tracked state self-blocks.** Origin: P3
+- [x] **loop-setup eval-05 — tracked state self-blocks.** Origin: P3
   acceptance (2026-08-16) — committed state file dirtied the tree on every
   run; a cleanliness precheck would skip forever. Expects: state files
   scaffolded as gitignored runtime artifacts; run protocol initializes a
   missing state file; a loop whose precheck checks tree cleanliness never
   tracks its state.
-- [ ] **fan-out eval-05 — ambiguous anchor.** Origin: P4 acceptance —
+- [x] **fan-out eval-05 — ambiguous anchor.** Origin: P4 acceptance —
   three real SPEC ambiguities (alphanumeric ASCII/Unicode; single word >
   max; first letter vs first character), two flagged by workers, one
   caught only by the coordinator. Expects: worker obligations include
@@ -63,12 +63,12 @@ Each eval names its origin failure (date + where it bit).
   never improvise the spec"; the coordinator's reduce probes behavior
   independently (catching unflagged ambiguities is the checker seat's
   job); findings recorded in the parent lane.
-- [ ] **work-handoff eval-05 — evidence lost by close.** Origin: P2
+- [x] **work-handoff eval-05 — evidence lost by close.** Origin: P2
   acceptance — removing the lane folder before committing its final state
   would destroy the evidence. Expects: close mode commits the finalized
   lane state FIRST, then removes the folder in a second commit; a close
   that would delete uncommitted lane changes is refused.
-- [ ] **Step 2:** Commit: `test(skills): failure-derived evals from P2-P4`
+- [x] **Step 2:** Commit: `test(skills): failure-derived evals from P2-P4`
 
 ### Task 3: the one-line skill additions the evals demand
 
@@ -77,7 +77,7 @@ self-initializing, in step 4), `skills/fan-out/SKILL.md` (worker
 obligation: ambiguity ⇒ plain reading + flag, in step 5). work-handoff
 already complies (finalize-then-remove landed in P2).
 
-- [ ] **Step 1:** Both additions; self-lint green. Commit:
+- [x] **Step 1:** Both additions; self-lint green. Commit:
   `feat(skills): pin failure-derived behaviors`
 
 ### Task 4: eval-structure suite
@@ -86,11 +86,11 @@ already complies (finalize-then-remove landed in P2).
 `loops/self-audit.md` (gate), `skills/agent-audit/SKILL.md` (dogfooding
 run list), `docs/how-it-works/architecture.md` (tests section)
 
-- [ ] **Step 1:** Zero-dep runner: for every `skills/<name>/`, assert
+- [x] **Step 1:** Zero-dep runner: for every `skills/<name>/`, assert
   `evals/` holds ≥3 `eval-*.md`, each with `## Query`, `## Expected
-  behavior`, and ≥1 `- [ ]` line. Prints per-skill results; exit 1 on any
+  behavior`, and ≥1 `- [x]` line. Prints per-skill results; exit 1 on any
   failure. Run it: 6/6 green.
-- [ ] **Step 2:** Wire it: AGENTS.md Commands line; self-audit loop gate
+- [x] **Step 2:** Wire it: AGENTS.md Commands line; self-audit loop gate
   gains the third runner; agent-audit dogfooding mode says "all three
   self-test suites"; architecture.md tests section mentions it.
   Commit: `test(evals): structural eval suite + wiring`
@@ -101,7 +101,7 @@ run list), `docs/how-it-works/architecture.md` (tests section)
 `tests/fixtures/kitchen-sink/MANIFEST.md`, `tests/run-lint-tests.mjs`
 (one new case)
 
-- [ ] **Step 1:** Build the fixture violating rules across layers
+- [x] **Step 1:** Build the fixture violating rules across layers
   (mechanical: budget overflow, adapter file, non-pointer CLAUDE.md, read
   order, broken link, command drift, incomplete lane, bad lane slug,
   invalid feature-list state, skill without frontmatter description,
@@ -109,27 +109,54 @@ run list), `docs/how-it-works/architecture.md` (tests section)
   gotcha, taste constraint, dead doc, skill without evals, stale lane vs
   README claim). MANIFEST.md lists every planted violation + its expected
   detector (lint check id or audit judgment).
-- [ ] **Step 2:** Extend run-lint-tests with the kitchen-sink case
+- [x] **Step 2:** Extend run-lint-tests with the kitchen-sink case
   asserting the planted mechanical set fires (and nothing else). 13/13.
   Commit: `test(lint): kitchen-sink composite fixture + manifest`
 
 ### Task 6: Acceptance — full diagnosis
 
-- [ ] **Step 1:** Run the agent-audit skill end to end against
+- [x] **Step 1:** Run the agent-audit skill end to end against
   kitchen-sink (inventory → lint → checklist → judgment → report with
   score). Compare the report against MANIFEST.md: every planted violation
   found, zero invented findings. Any gap = a hardening fix (checklist or
   lint), applied and re-run.
-- [ ] **Step 2:** Record results below. Commit: `docs(plan): P5 acceptance
+- [x] **Step 2:** Record results below. Commit: `docs(plan): P5 acceptance
   evidence`
 
-**Results:** *(filled at execution)*
+**Results (2026-08-16):**
+
+- **The fixture's first run caught a real lint bug** (hardening working as
+  designed): cmd-drift flagged `npm run migrate  # not verified` — the
+  standard's own honesty marker (agent-init step 4). Fixed test-first
+  (runner gained `forbidMatch`; case red → lint fix → 13/13 green). Check
+  change ⇒ **AE/2.3** with migration note; restamps applied
+  (kitchen-sink deliberately stays `AE/2.0` as the drift plant).
+- **Full diagnosis: PASS.** Audit per the 6-step skill, report-only.
+  Mechanical: all 16 planted findings fired (5 high, 7 medium, 4 low —
+  verified by the pinned lint case). Judgment: J1 stamp drift (AE/2.0 vs
+  AE/2.3 → recommend one-step agent-init migration) · J2 common-sense
+  gotcha · J3 taste constraint · J4 the 24-rule list → distill · J5 dead
+  doc `docs/old-onboarding.md` · J6 skill without evals · J7 stale lane
+  vs README's "migration completed 2025-11" — all surfaced. **J8 trap
+  avoided**: the `# not verified` command was not flagged. One extra TRUE
+  finding surfaced and was added to the manifest as discovered
+  (verification realism: feature-list commands reference nonexistent
+  tests) — zero invented findings.
+- Audit report headline: `Standard: AE/2.0 · current AE/2.3 · Score:
+  0/10` (8 high, 12 medium, 5 low — floor) with per-finding fixes; the
+  drift fix column recommends the atomic agent-init migration, exactly as
+  eval-01/02 of agent-audit demand.
+- Eval suite runs: 6 skills, 25 evals, all well-formed
+  (`tests/run-eval-checks.mjs` exit 0), wired into AGENTS.md Commands,
+  the self-audit loop gate, and the audit's dogfooding mode.
+- examples/ reaffirmed OUT: the spec gates worked examples on real-repo
+  adoption; fixtures + acceptance demos serve that role today.
 
 ### Task 7: ladder closed — docs + merge
 
-- [ ] **Step 1:** AGENTS.md phase line → all phases shipped, maintenance
+- [x] **Step 1:** AGENTS.md phase line → all phases shipped, maintenance
   mode; root README Status → P0-P5 complete; how-it-works architecture
   phase-ladder para notes P5 shipped. Self-lint green.
-- [ ] **Step 2:** Final gates (self-lint, lint suite 13/13, gen suite,
+- [x] **Step 2:** Final gates (self-lint, lint suite 13/13, gen suite,
   eval suite, stamp==CHANGELOG AE/2.2). Push; PR; rebase-merge; pull
   main; delete branch. Memory update + report.

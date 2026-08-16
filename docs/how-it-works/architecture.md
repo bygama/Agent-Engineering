@@ -172,7 +172,11 @@ completion, clean handoffs). **P3** adds self-running work (loops with stop
 rules and budgets, tracker intake, Orca mapping). **P4** adds coordinated
 width (isolated lanes, reducers, and the portability proof: a non-Claude
 runner completes a lane using only the files). **P5** hardens everything
-with failure-derived evals and migration polish.
+with failure-derived evals and migration polish. All six phases have
+shipped (2026-08-16); the repo is in maintenance — versions bump when
+templates or checks change, and P5's kitchen-sink fixture plus the
+eval-structure suite are the regression net that keeps the hardening
+honest.
 
 ## Design rules that bind this repo
 
