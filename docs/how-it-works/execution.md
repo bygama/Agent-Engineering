@@ -110,9 +110,12 @@ for the operator and say the tracker was NOT updated.
 
 Dogfooding again: `loops/self-audit.md` is the standing weekly self-audit
 of this repo (gate: self-lint + both suites; queue: drift findings;
-trigger: Orca automation, fallback documented in the file). Its state file
-sits beside it. It exists because the how-it-works anti-decay rule and the
-dogfooding gate deserve a cadence, not just good intentions at merge time.
+trigger: Orca automation, fallback documented in the file), and
+`loops/issue-triage.md` is the live instance of the triage example —
+each weekday it reads the owner's Linear queue and tiers what arrived
+(report-only; the gate rule keeps Done out of its reach). State files sit
+beside them, gitignored. They exist because the anti-decay rule and the
+intake plane deserve a cadence, not just good intentions at merge time.
 
 ## Graphs, reducers, runners
 
