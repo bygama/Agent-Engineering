@@ -139,7 +139,7 @@ command, maker separated from checker. (live: `reference/harness.md`, `reference
 
 **Loop** — how work repeats without a human pressing start: trigger, gate,
 state, stop rule, budget. Failure smell: an agent agreeing with itself all
-night on someone's credit card. `> Phase: P3 (reference/loops.md)`
+night on someone's credit card. (live: `reference/loops.md`)
 
 **Graph** — how many loops coordinate: lanes, dependencies, joins,
 verification on the edges, failure kept local. Failure smell: parallel
