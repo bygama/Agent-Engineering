@@ -3,6 +3,21 @@
 Versions of the standard (`AE/<major>.<minor>`). Template or check changes
 bump the version; docs-only refreshes do not.
 
+## AE/2.2 — 2026-08-16
+
+The loop layer: standing automation as a file artifact.
+
+- `templates/repo/loops/` (the bump): `LOOP.md.template` — five elements
+  (stopping rule, verified gate, numeric budget + 2-strikes failure
+  budget, state file, trigger with named no-Orca fallback) — plus the
+  `issue-triage.example.md` worked example. New optional artifact; nothing
+  to migrate in existing repos.
+- `skills/loop-setup` (loop filter, five elements, run protocol,
+  report-only writes by default), 4 evals written first.
+- `reference/loops.md`, `reference/orca.md` (mapping table with verified
+  CLI syntax + fallbacks), `reference/tracker.md` (two planes, gate rule,
+  connector ladder).
+
 ## AE/2.1 — 2026-08-16
 
 Daily-use discipline: evidence-gated completion and clean-state handoffs.

@@ -1,0 +1,44 @@
+# Loop: {{LOOP_NAME}}
+
+{{ONE_LINE_PURPOSE}}
+
+## Loop filter (why this qualifies)
+
+- Repeats: {{CADENCE_OR_EVENT}}
+- Automated check: {{GATE_COMMAND_SHORT}}
+- Waste absorbed: {{WHY_A_WASTED_RUN_IS_CHEAP}}
+- Real tools: {{QUEUE_AND_ACTION_TOOLS}}
+
+## Stopping rule
+
+{{ONE_SENTENCE: stop when queue empty / gate green / budget hit; skip when ...}}
+
+## Gate
+
+- `{{VERIFIED_COMMAND}}` — verified {{DATE}}, exit 0
+
+## Budget
+
+- Runs: {{N_PER_PERIOD}}
+- Items per run: {{MAX_ITEMS}}
+- Failure budget: 2 consecutive failed runs ⇒ disable + report to a human
+
+## State
+
+- File: `loops/{{LOOP_SLUG}}.state.json`
+- Shape: `{ "last_run": null, "processed": [], "consecutive_failures": 0 }`
+
+## Trigger
+
+- Primary: `{{ORCA_AUTOMATIONS_CREATE_COMMAND}}`
+- Fallback (no Orca): {{SLASH_SCHEDULE_OR_CRON}}
+- Writes: report-only until the owner enables them
+
+## Run protocol
+
+1. Read the state file.
+2. Precheck the queue: `{{QUEUE_COMMAND}}` — empty ⇒ stop.
+3. Take at most {{MAX_ITEMS}} unprocessed items.
+4. {{ACT_ON_ONE_ITEM}}; gate must exit 0 per item.
+5. Update state (processed keys, `last_run`, failure count).
+6. Stop per the stopping rule.
