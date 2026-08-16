@@ -1,0 +1,193 @@
+# Architecture
+
+One repo, five verbs. Agent-Engineering **defines** the standard
+(`reference/`), **installs** it in consuming repos (`templates/`),
+**replicates and applies** it day to day (`skills/`), **enforces** its
+mechanical subset (`scripts/`), and **explains** itself (`docs/`). Everything
+else — fixtures, global-layer content — exists to keep those five honest.
+
+The repo is also its own first consumer: the root `AGENTS.md` carries the
+same version stamp, obeys the same budgets, and must pass the same audit it
+prescribes for every other repo. That dogfooding gate is deliberate. A
+standard that its own source repo cannot live under is a standard that will
+not survive contact with real work.
+
+## The map
+
+```mermaid
+flowchart LR
+    REF["reference/<br/>the standard: 1 doc per layer"] -->|grounds| SK["skills/<br/>agent-init · agent-audit · work-*"]
+    REF -->|shapes| TPL["templates/repo/<br/>what consumers receive"]
+    SK -->|installs| TPL
+    SCR["scripts/agent-lint<br/>mechanical checks"] -->|backs| SK
+    TST["tests/<br/>fixtures + self-tests"] -->|proves| SCR
+    DOCS["docs/how-it-works<br/>living explanation"] -.->|explains| REF & SK & TPL & SCR
+    GLB["global/<br/>~/.claude layer content"]
+```
+
+Read the arrows as dependencies of meaning: skills argue from the reference
+docs, templates embody them, the lint automates the part of the argument
+that needs no judgment, and the fixtures prove the lint tells the truth.
+`docs/how-it-works/` sits outside the flow and explains all of it — which is
+why every structural change must touch it too.
+
+## What each directory answers
+
+### `reference/` — what is the standard, and why?
+
+> Phase: P1
+
+One document per layer of the standard — context, memory, harness,
+verification, task tiers, then loops (P3) and graphs/reducers (P4) — plus
+cross-cutting docs (principles, runners, orca, tracker, design-md, skill
+authoring). Each file is a distillation, not a mirror: ≤120 lines, a
+source-and-date header citing the public material it condenses, and only the
+claims we are prepared to enforce. When new guidance appears in the world,
+it enters the repo here first; templates and checks follow only if the
+guidance changes what we install or verify.
+
+### `templates/repo/` — what gets installed in a consuming repo?
+
+> Phase: P1
+
+The only directory whose content ever leaves this repo. It holds the
+canonical `AGENTS.md` skeleton (with `{{PLACEHOLDER}}` markers instantiated
+by `agent-init`, never copied verbatim), the one-line pointer `CLAUDE.md`,
+the `docs/` seed (ADR and spec templates), the `work/` four-file templates
+(SPEC, PLAN, PROGRESS, DECISIONS), and the `feature_list` JSON schema with a
+worked example. If a rule matters enough to install everywhere, it lives
+here; if it only matters to this repo, it stays out.
+
+### `skills/` — how does it replicate and get used day to day?
+
+> Phase: P1 (`agent-init`, `agent-audit`) · P2 (`work-verify`,
+> `work-handoff`) · P3 (`loop-setup`) · P4 (`fan-out`) · carried
+> (`designing-consistently`, `extracting-design-md`)
+
+The actors. `agent-init` installs or migrates a repo; `agent-audit` judges
+one against the standard and flags version drift; the `work-*` pair applies
+the daily discipline (verification before "done", clean-state handoffs);
+`loop-setup` and `fan-out` scale it to scheduled and parallel work. Skills
+are plain markdown procedures: runtimes with native skill support load them
+by trigger, and any other agent can simply be told to read the file and
+follow it — that readability is a design requirement, not an accident.
+Every skill ships with at least three evals, written before the skill
+content, and the evals change before the skill does.
+
+### `scripts/` — what is checked mechanically, without judgment?
+
+> Phase: P1
+
+`agent-lint` owns every check that needs no taste: line budgets, the version
+stamp, pointer shape, broken links, command drift, lane coherence, feature
+list schema. The split matters — the lint never argues, the audit never
+counts. Keeping the mechanical subset in code makes it cheap to run
+everywhere (pre-commit, CI, inside `agent-audit`) and keeps the judgment
+calls where judgment lives, in the skill.
+
+### `global/` — what belongs in the global layer?
+
+> Phase: P1
+
+Canonical content for `~/.claude` (the user-level context that applies
+across repos). This repo owns the *content*; a separate machine-setup
+mechanism applies it. Nothing here is edited in place on a machine — it is
+edited here, then installed.
+
+### `tests/` — how is the standard itself tested?
+
+> Phase: P1
+
+Fixture repos that comply and fixture repos that break the rules on purpose
+(bloated entry files, legacy adapter layouts, incoherent lanes, invalid
+feature lists), plus the runners that assert `agent-lint` flags exactly the
+right ones. The fixtures are the regression net for every future rule
+change: a new check lands together with the fixture that proves it fires and
+the fixture that proves it stays quiet.
+
+### `docs/` — why did we decide this, and how does it all work?
+
+Live now. `docs/specs/` holds the founding spec (every fixed decision, the
+phase ladder, acceptance criteria per phase); `docs/plans/` holds dated
+implementation plans; `docs/adrs/` will hold decision records for anything
+decided after the spec; and `docs/how-it-works/` is this folder — the only
+part of the repo deliberately exempt from length budgets, because its job is
+depth on demand, not always-loaded brevity.
+
+## The six layers
+
+The standard organizes agent engineering into six concerns. Each has its own
+failure smell, and the diagnosis rule is always the same: find the layer
+that owns the failure before changing anything.
+
+**Context** — what the model sees right now. Failure smell: ignored rules,
+contradictions with earlier instructions, attention wasted on stale text.
+The discipline: a ≤60-line canonical entry file as a router, progressive
+disclosure for everything else, hard constraints pinned where attention is
+strongest. `> Phase: P1 (reference/context.md)`
+
+**Memory** — what survives between sessions. Failure smell: re-explaining
+the project every morning, or a store so full of stale facts that retrieval
+poisons the prompt. The discipline: store facts and skills rather than
+transcripts, update instead of append, surface contradictions, forget on
+purpose. `> Phase: P1 (reference/memory.md)`
+
+**Harness** — everything around one run: tools, environment, state,
+permissions, and who says the work is done. Failure smell: "done" without
+evidence, progress lost in a crash, an agent with more access than the task
+needs. The discipline: the repo as the system of record, verification by
+command, maker separated from checker. `> Phase: P1 (reference/harness.md,
+reference/verification.md)`
+
+**Loop** — how work repeats without a human pressing start: trigger, gate,
+state, stop rule, budget. Failure smell: an agent agreeing with itself all
+night on someone's credit card. `> Phase: P3 (reference/loops.md)`
+
+**Graph** — how many loops coordinate: lanes, dependencies, joins,
+verification on the edges, failure kept local. Failure smell: parallel
+agents overwriting each other, or a fleet burning tokens on work a single
+loop could do. `> Phase: P4 (reference/graphs-and-reducers.md)`
+
+**Cross-cutting** — reducers (deterministic compression between fan-out and
+synthesis, so the expensive model reads only what can change the decision)
+and MCP (the standard plug between agents and tools). They serve every
+layer rather than sitting inside one. `> Phase: P4`
+
+## The phase ladder
+
+```mermaid
+flowchart LR
+    P0["P0 foundation<br/>identity + founding docs"] --> P1["P1 standard core<br/>reference · templates · init/audit/lint"]
+    P1 --> P2["P2 usage skills<br/>work-verify · work-handoff"]
+    P2 --> P3["P3 loops<br/>loop-setup · orca · tracker"]
+    P3 --> P4["P4 graphs<br/>fan-out · reducer · runners"]
+    P4 --> P5["P5 hardening<br/>evals · migration polish"]
+```
+
+Each phase leaves the repo usable on its own; acceptance criteria are fixed
+in the spec. **P0** proves the identity: the repo exists, explains itself,
+and passes its own budgets. **P1** makes the standard installable — a fresh
+repo can be initialized to v2 and audited against it; this is the phase
+where the standard becomes real. **P2** adds the daily discipline (verified
+completion, clean handoffs). **P3** adds self-running work (loops with stop
+rules and budgets, tracker intake, Orca mapping). **P4** adds coordinated
+width (isolated lanes, reducers, and the portability proof: a non-Claude
+runner completes a lane using only the files). **P5** hardens everything
+with failure-derived evals and migration polish.
+
+## Design rules that bind this repo
+
+- **Dogfooding gate.** The repo passes its own audit and lint at every phase
+  boundary. Fixture directories that break rules on purpose are excluded
+  explicitly, never silently.
+- **Evals before content.** A skill's evals are written first and updated
+  before the skill changes. The evals are the skill's spec.
+- **Same-change documentation.** Any change that alters structure or
+  behavior updates the affected how-it-works chapter in the same change.
+  This folder is budget-exempt; the rule that keeps it from rotting is that
+  it is never allowed to lag.
+- **No empty scaffolding.** Directories materialize in the phase that owns
+  them. An empty folder is a promise nobody is keeping.
+- **Runtime-neutral by construction.** Everything an agent needs is a file.
+  Skill support, MCP support, even model choice are conveniences — any agent
+  that can read and follow a document can work under this standard.
