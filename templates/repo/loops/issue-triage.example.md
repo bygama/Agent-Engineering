@@ -29,7 +29,9 @@ skip the run when the Linear connector is unreachable.
 
 ## State
 
-- File: `loops/issue-triage.state.json`
+- File: `loops/issue-triage.state.json` — runtime artifact, gitignored;
+  missing ⇒ the run initializes it. Note: per-machine state — run this
+  loop's trigger from one machine, or already-triaged keys re-process.
 - Shape: `{ "last_run": null, "processed": [], "consecutive_failures": 0 }`
 
 ## Trigger
@@ -43,7 +45,7 @@ skip the run when the Linear connector is unreachable.
 
 ## Run protocol
 
-1. Read the state file.
+1. Read the state file (missing ⇒ initialize with the shape above).
 2. Precheck the queue: `orca linear list --filter open --json` — empty ⇒ stop.
 3. Take at most 5 issues whose keys are not in `processed`.
 4. Per issue: read context (`orca linear issue <KEY>`), assign S/M/L per

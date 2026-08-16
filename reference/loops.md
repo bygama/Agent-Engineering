@@ -35,7 +35,9 @@ Failing any one → it's a lane (`work/<slug>/` + work-verify), not a loop.
 | State file | `loops/<name>.state.json` |
 | Trigger | primary + named fallback (`reference/orca.md` matrix) |
 
-State file minimum shape:
+State file minimum shape (a runtime artifact: gitignore
+`loops/*.state.json` — committed state dirties the tree on every run — and
+initialize it when missing):
 
 ```json
 { "last_run": "2026-08-16T09:00:00Z", "processed": ["KEY-1"], "consecutive_failures": 0 }

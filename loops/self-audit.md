@@ -30,7 +30,8 @@ when the working tree is dirty or not on `main`.
 
 ## State
 
-- File: `loops/self-audit.state.json`
+- File: `loops/self-audit.state.json` — runtime artifact, gitignored;
+  missing ⇒ the run initializes it.
 - Shape: `{ "last_run": null, "processed": [], "consecutive_failures": 0 }`
 - `processed` holds fingerprints of findings already reported; a finding
   seen again is flagged "reported before, still open", never re-reported
@@ -48,8 +49,9 @@ when the working tree is dirty or not on `main`.
 
 ## Run protocol
 
-1. Read the state file.
-2. Precheck: `git status --porcelain` non-empty, or branch ≠ `main` ⇒ skip.
+1. Read the state file (missing ⇒ initialize with the shape above).
+2. Precheck: `git status --porcelain --untracked-files=no` non-empty, or
+   branch ≠ `main` ⇒ skip.
 3. Run the three gate commands; collect any findings.
 4. Dogfooding checks per `skills/agent-audit` dogfooding mode: stamp ==
    newest CHANGELOG entry; how-it-works coverage (every top-level dir and
