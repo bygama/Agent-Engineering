@@ -6,7 +6,7 @@ own checks, on a cadence, not just at merge time.
 ## Loop filter (why this qualifies)
 
 - Repeats: weekly (Monday 09:00)
-- Automated check: self-lint + both test suites (exit codes)
+- Automated check: self-lint + every test suite (exit codes)
 - Waste absorbed: one read-only run per week; empty findings cost minutes
 - Real tools: node, git — both required by the repo anyway
 
@@ -53,7 +53,7 @@ when the working tree is dirty or not on `main`.
 1. Read the state file (missing ⇒ initialize with the shape above).
 2. Precheck: `git status --porcelain --untracked-files=no` non-empty, or
    branch ≠ `main` ⇒ skip.
-3. Run the three gate commands; collect any findings.
+3. Run the gate commands; collect any findings.
 4. Dogfooding checks per `skills/agent-audit` dogfooding mode: stamp ==
    newest CHANGELOG entry; how-it-works coverage (every top-level dir and
    skill has a current section); phase-tag honesty.

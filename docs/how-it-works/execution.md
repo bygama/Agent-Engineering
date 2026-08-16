@@ -109,7 +109,7 @@ for the operator and say the tracker was NOT updated.
 ## This repo's own loops
 
 Dogfooding again: `loops/self-audit.md` is the standing weekly self-audit
-of this repo (gate: self-lint + both suites; queue: drift findings;
+of this repo (gate: self-lint + every suite; queue: drift findings;
 trigger: Orca automation, fallback documented in the file), and
 `loops/issue-triage.md` is the live instance of the triage example —
 each weekday it reads the owner's Linear queue and tiers what arrived

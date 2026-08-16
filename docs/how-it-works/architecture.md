@@ -91,6 +91,14 @@ across repos). This repo owns the *content*; a separate machine-setup
 mechanism applies it. Nothing here is edited in place on a machine — it is
 edited here, then installed.
 
+### `loops/` — what runs on a cadence in this repo?
+
+Live since AE/2.2: this repo's own standing automation instances —
+`self-audit` (weekly dogfooding) and `issue-triage` (weekday Linear
+intake), each a five-element contract file with its gitignored state file
+beside it. The anatomy, run protocol, and diagrams live in
+[execution.md](execution.md).
+
 ### `tests/` — how is the standard itself tested?
 
 Live since AE/2.0 (lint fixtures + generator fixtures; P5 added the

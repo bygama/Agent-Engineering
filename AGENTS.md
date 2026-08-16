@@ -33,7 +33,7 @@ is in maintenance — versions bump on template/check changes (CHANGELOG.md).
 - Every skill ships with ≥3 evals, written before the skill content; evals
   change before content on every revision.
 - Nothing in this repo may violate the standard it defines (self-lint and
-  both self-test suites green before merge).
+  every self-test suite green before merge).
 - Length budgets apply to context files, never to `docs/how-it-works/`.
 
 ## Map
