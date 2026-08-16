@@ -21,7 +21,7 @@ Each directory answers exactly one question:
 |---|---|---|
 | `reference/` | what is the standard, and why? | live (loops P3, graphs P4) |
 | `templates/repo/` | what gets installed in a consuming repo? | live |
-| `skills/` | how does it replicate and get used day to day? | init + audit live; work-* P2 |
+| `skills/` | how does it replicate and get used day to day? | init + audit + work-* live |
 | `scripts/` | what is checked mechanically, without judgment? | live |
 | `global/` | what belongs in the global (`~/.claude`) layer? | live |
 | `tests/` | how is the standard itself tested? | live |
@@ -43,10 +43,12 @@ files, so any model or runtime can pick up any lane.
 
 ## Status
 
-**AE/2.0 shipped (P1)** — the standard is installable: `agent-init` sets up
-or migrates a repo, `agent-audit` + `agent-lint` verify it. Next phases add
-the daily-use skills (P2), loops (P3), and graphs/reducers (P4); the ladder,
-every fixed decision, and acceptance criteria live in
+**AE/2.1 shipped (P2)** — the standard is installable and daily-usable:
+`agent-init` sets up or migrates a repo, `agent-audit` + `agent-lint`
+verify it, `work-verify` gates completion on command evidence, and
+`work-handoff` closes or pauses lanes in a clean state (tracker-aware).
+Next phases add loops (P3) and graphs/reducers (P4); the ladder, every
+fixed decision, and acceptance criteria live in
 `docs/specs/SPEC-agent-engineering.md`.
 
 ## License

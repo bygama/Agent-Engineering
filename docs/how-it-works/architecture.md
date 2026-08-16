@@ -60,7 +60,7 @@ here; if it only matters to this repo, it stays out.
 
 ### `skills/` — how does it replicate and get used day to day?
 
-Live: `agent-init`, `agent-audit` (AE/2.0). Pending: `work-verify`/`work-handoff` (P2), `loop-setup` (P3), `fan-out` (P4).
+Live: `agent-init`, `agent-audit` (AE/2.0); `work-verify`, `work-handoff` (AE/2.1). Pending: `loop-setup` (P3), `fan-out` (P4).
 
 The actors. `agent-init` installs or migrates a repo; `agent-audit` judges
 one against the standard and flags version drift; the `work-*` pair applies

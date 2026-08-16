@@ -11,7 +11,7 @@ chapter in the same change.**
 |---|---|---|
 | [architecture.md](architecture.md) | the directory map, what each part answers, how they connect | current (P1) |
 | [standard-lifecycle.md](standard-lifecycle.md) | install → audit → update/migrate flows, versioning | live since AE/2.0 |
-| [work-lifecycle.md](work-lifecycle.md) | task tiers S/M/L, lanes, the four files, feature list, tracker plane | templates live · skills arrive P2 |
+| [work-lifecycle.md](work-lifecycle.md) | task tiers S/M/L, lanes, the four files, feature list, tracker plane | live since AE/2.1 |
 | execution.md | loops, fan-out/reducer, runners, Orca mapping | arrives P3–P4 |
 
 Convention: every section that documents behavior not yet built carries a

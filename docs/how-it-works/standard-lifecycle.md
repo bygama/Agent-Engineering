@@ -50,7 +50,7 @@ flowchart TD
     B -->|v1 or legacy| D[produce migration plan<br/>before touching anything]
     D --> C
     C --> E[verify commands by running them]
-    E --> F[instantiate templates<br/>+ stamp Standard: AE/2.0]
+    E --> F[instantiate templates<br/>+ stamp the current version]
     F --> G[self-check: agent-lint passes]
 ```
 

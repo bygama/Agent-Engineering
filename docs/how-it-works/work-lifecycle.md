@@ -40,7 +40,7 @@ declared simple retroactively; the ratchet exists to make that impossible.
 
 ## The lane and the four files
 
-> Templates live since AE/2.0 (`templates/repo/work/`); the enforcing skills arrive in P2.
+> Templates live since AE/2.0 (`templates/repo/work/`); the enforcing skills (`work-verify`, `work-handoff`) live since AE/2.1.
 
 A **lane** is one unit of work with its own folder: `work/<slug>/`, where
 the slug carries the tracker issue key when one exists
@@ -61,7 +61,8 @@ The four files, each with one job:
 - **`PLAN.md`** — the steps, each with an executable acceptance criterion.
   Not "improve error handling" — "requests to /orders with a missing id
   return 400, and the test asserting this passes".
-- **`PROGRESS.md`** — done / in progress / tried-and-failed / next. The
+- **`PROGRESS.md`** — done / in progress / tried-and-failed / next, plus a
+  `## Verification` section (since AE/2.1) holding PASS evidence only. The
   first thing any fresh session or takeover agent reads. If it isn't in this
   file, it didn't happen.
 - **`DECISIONS.md`** — append-only: every choice made and why. Without it, a
@@ -84,18 +85,38 @@ flowchart LR
 Intake can be a tracker issue or a direct request — the standard doesn't
 care. Triage assigns the tier and, at M+, opens the lane folder with its
 definition of done already written. Work loops inside the lane, updating
-`PROGRESS.md` as it goes. The two exits are skills, not vibes:
+`PROGRESS.md` as it goes. The two exits are skills, not vibes — both live
+since AE/2.1:
 
-- **`work-verify`** (> Phase: P2) runs the tier's definition of done and
-  refuses "done" without evidence.
-- **`work-handoff`** (> Phase: P2) enforces the clean-state exit: build
-  passes, tests pass, progress recorded, no debris (debug files, commented
-  code, stray TODOs), and the standard startup path still works. A handoff
-  with red tests is not a handoff — it is a trap for the next session.
+- **`work-verify`** runs the tier's definition of done and refuses "done"
+  without evidence. Its output is a PASS block in the lane's
+  `## Verification` section — the only currency the handoff accepts.
+- **`work-handoff`** enforces the clean-state exit and knows two honest
+  modes. **Close** requires the PASS block, sweeps debris (debug files,
+  commented code, stray TODOs, scratch), re-proves build + tests + startup,
+  and removes the lane folder in the closing commit — git history keeps the
+  four files and their evidence, and no orphan `work/` directory survives.
+  **Pause** is for sessions ending mid-work: the lane folder *survives*,
+  PROGRESS names the exact state (a red test is allowed only as a recorded
+  blocker), and the WIP gets committed honestly. A handoff with red tests
+  claimed as done is not a handoff — it is a trap for the next session;
+  pause exists precisely so nobody is tempted to fake a close.
+
+```mermaid
+flowchart TD
+    E[session or task ending] --> G{Verification PASS<br/>block current?}
+    G -->|yes| C[close: sweep + re-prove +<br/>remove lane in closing commit]
+    G -->|no, work continues| P[pause: lane survives,<br/>PROGRESS says exactly where]
+    G -->|no, but user wants close| R[refuse - run work-verify<br/>or take the pause]
+    C --> T{Linear-linked?}
+    P --> T2[no status change<br/>optional comment]
+    T -->|yes| L[comment with evidence +<br/>status set - gate rule]
+    T -->|no| D[done]
+```
 
 ## Verification: three layers
 
-> Phase: P2
+> Live since AE/2.1 (`work-verify`).
 
 Completion has layers, run in order, no skipping:
 
@@ -109,13 +130,29 @@ Completion has layers, run in order, no skipping:
 And the seat-separation rule: **the maker is never the checker.** At M and
 above, review happens in fresh context — an agent (or session) that did not
 write the work, reading the artifact and running the commands, with no
-memory of the reasoning that produced the bug. Evidence goes into
-`PROGRESS.md` (and the feature list at L): what ran, what it printed, what
-proves done.
+memory of the reasoning that produced the bug. The reviewer receives
+exactly three things — the lane path, the diff range, the definition of
+done — and must *act* on the work (run the commands itself), not read the
+code and approve. Evidence goes into `PROGRESS.md` (and the feature list at
+L): what ran, what it printed, what proves done. The block `work-verify`
+appends under `## Verification` (PASS only — failures live under
+`## Tried and failed`):
+
+```markdown
+### 2026-08-16 — M DoD — PASS
+- L1 static: `npm run lint` → exit 0
+- L2 behavioral: `npm test` → exit 0 (14 passed); starts: `npm run dev` → :3000 up
+- L3 end-to-end: `curl -s localhost:3000/api/orders/9` → 200 | n/a: single component
+- Fresh-context review: PASS — no findings
+```
+
+That block is load-bearing, not decorative: it is the token `work-handoff`
+demands before it will close the lane, which makes "done without evidence"
+structurally impossible rather than merely discouraged.
 
 ## Feature list (Tier L)
 
-> Schema live since AE/2.0 (`templates/repo/feature_list.schema.json`, validated by agent-lint); the gating skill arrives in P2.
+> Schema live since AE/2.0 (`templates/repo/feature_list.schema.json`, validated by agent-lint); `work-verify` gates the states since AE/2.1.
 
 Large work externalizes its scope as `feature_list.json`: one row per
 feature, each row a triple —
@@ -148,7 +185,7 @@ most one row is `active` per lane at any moment.
 
 ## The tracker plane (Linear)
 
-> Phase: P3 (tracker reference + connector recipes)
+> The handoff's status/comment step lives since AE/2.1 (`work-handoff`); the full tracker reference + connector recipes arrive P3.
 
 The standard separates two planes so there is never a double truth:
 
