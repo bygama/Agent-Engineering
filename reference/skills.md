@@ -1,0 +1,68 @@
+# Authoring skills
+
+Source: [Skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices).
+Retrieved 2026-07-30; ported 2026-08-16.
+
+## Frontmatter
+
+- `name`: ≤64 chars, lowercase letters/numbers/hyphens. Gerund or
+  action-oriented (`agent-init`, `tracing-root-causes`). Never vague
+  (`helper`, `utils`) or reserved words (`anthropic`, `claude`).
+- `description`: ≤1024 chars, **third person**, states BOTH what the skill
+  does AND when to use it (triggers/key terms). Discovery depends entirely on
+  this field — the model picks among 100+ skills using descriptions alone.
+  - Good: "Audits a repository against the agent-engineering standard and
+    reports fixes. Use when context feels bloated or after agent-init."
+  - Bad: "Helps with context stuff."
+
+## Body rules
+
+- SKILL.md body <500 lines; split beyond that.
+- Only non-inferable content — the model is already smart. Challenge every
+  paragraph: does it justify its token cost?
+- References exactly **one level deep** from SKILL.md (nested chains get
+  partially read and information is lost).
+- Reference files >100 lines start with a table of contents.
+- Consistent terminology (one term per concept, always the same).
+- No time-sensitive content; use an "old patterns" collapsed section instead.
+- Forward slashes in all paths, even on Windows.
+- Don't offer many alternatives; give one default + escape hatch.
+
+## Degrees of freedom
+
+Match specificity to fragility (bridge vs open field):
+
+- **High** (text heuristics): many valid approaches, context decides.
+  E.g. code review guidance.
+- **Medium** (templates, pseudocode): a preferred pattern with acceptable
+  variation. E.g. instantiating file templates.
+- **Low** (exact scripts, no parameters): fragile or destructive sequences.
+  E.g. "run exactly `python scripts/migrate.py --verify --backup`".
+
+## Workflows and feedback loops
+
+- Complex tasks get an explicit checklist the agent copies and ticks off.
+- Quality-critical steps get a validate → fix → re-validate loop with an
+  objective gate (script exit code, lint pass, checklist satisfied).
+- Prefer bundled utility scripts over asking the agent to regenerate logic;
+  say explicitly whether a script is to **execute** or to **read as reference**.
+
+## Evaluation-driven development
+
+Write evals BEFORE skill content, from observed gaps — not imagined ones:
+
+1. Run representative tasks without the skill; document concrete failures.
+2. Write 3 evals: `## Query` (verbatim request) + `## Expected behavior`
+   (objective checklist).
+3. Write the minimum skill content that passes them.
+4. Iterate from real usage: observe where the agent stumbles, fix the skill
+   (or the eval if reality proved it wrong — but evals change first, then
+   content).
+
+## Progressive disclosure patterns
+
+1. **Overview + references**: SKILL.md holds the workflow; details live in
+   `references/*.md` linked directly.
+2. **Domain split**: one reference file per domain so only the relevant one
+   loads.
+3. **Conditional details**: "For X, see X.md" — loaded only when X arises.
