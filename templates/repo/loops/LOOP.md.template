@@ -25,7 +25,9 @@
 
 ## State
 
-- File: `loops/{{LOOP_SLUG}}.state.json`
+- File: `loops/{{LOOP_SLUG}}.state.json` — runtime artifact, gitignored
+  (`loops/*.state.json`): committed state would dirty the tree on every
+  run. Missing file ⇒ the run initializes it (step 1).
 - Shape: `{ "last_run": null, "processed": [], "consecutive_failures": 0 }`
 
 ## Trigger
@@ -36,7 +38,7 @@
 
 ## Run protocol
 
-1. Read the state file.
+1. Read the state file (missing ⇒ initialize with the shape above).
 2. Precheck the queue: `{{QUEUE_COMMAND}}` — empty ⇒ stop.
 3. Take at most {{MAX_ITEMS}} unprocessed items.
 4. {{ACT_ON_ONE_ITEM}}; gate must exit 0 per item.
