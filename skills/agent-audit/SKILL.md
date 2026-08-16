@@ -72,9 +72,9 @@ report the new score.
 
 Everything above, plus:
 
-- Run the documented self-lint and both self-test suites
-  (`tests/run-lint-tests.mjs`, `tests/run-gen-tests.mjs`); report outcomes
-  verbatim.
+- Run the documented self-lint and all three self-test suites
+  (`tests/run-lint-tests.mjs`, `tests/run-gen-tests.mjs`,
+  `tests/run-eval-checks.mjs`); report outcomes verbatim.
 - **how-it-works coverage:** every top-level directory and every skill has a
   current section under `docs/how-it-works/`; flag missing or contradicting
   sections (drift is a finding — the same-change rule was violated).

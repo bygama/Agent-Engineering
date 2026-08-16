@@ -20,6 +20,7 @@ when the working tree is dirty or not on `main`.
 - `node scripts/agent-lint.mjs . --ignore tests,templates,global` — verified 2026-08-16, exit 0
 - `node tests/run-lint-tests.mjs` — verified 2026-08-16, exit 0
 - `node tests/run-gen-tests.mjs` — verified 2026-08-16, exit 0
+- `node tests/run-eval-checks.mjs` — verified 2026-08-16, exit 0
 
 ## Budget
 
