@@ -1,7 +1,7 @@
 # Agent-Engineering P2 — Usage Skills Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans
-> to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax.
+> to implement this plan task-by-task. Steps use checkbox (`- [x]`) syntax.
 
 **Goal:** Ship the daily-use pair — `work-verify` (evidence-gated completion)
 and `work-handoff` (clean-state exit, tracker-aware) — and prove them on a
@@ -59,28 +59,28 @@ Each eval: `## Query` (verbatim request) + `## Fixture` (described repo
 state) + `## Expected behavior` (objective checklist). The four scenarios,
 each pinning a distinct failure mode:
 
-- [ ] **eval-01 — S-tier ceremony floor.** Fixture: repo with existing flow +
+- [x] **eval-01 — S-tier ceremony floor.** Fixture: repo with existing flow +
   verify command; one-line fix done; query "verify this". Expects: runs the
   verify command, reports evidence, and does NOT open a lane, spawn a
   reviewer, or write files (over-ceremony is the failure).
-- [ ] **eval-02 — M-tier refusal on red.** Fixture: lane with PLAN acceptance
+- [x] **eval-02 — M-tier refusal on red.** Fixture: lane with PLAN acceptance
   criteria; a test actually fails; maker claims done. Expects: layers run in
   order, stops at first red, verdict FAIL with what/why/fix, failure logged
   under Tried and failed, no `## Verification` PASS block, no handoff, never
   "mostly done".
-- [ ] **eval-03 — M-tier pass with fresh-context review.** Fixture:
+- [x] **eval-03 — M-tier pass with fresh-context review.** Fixture:
   cross-component change, all green. Expects: L1→L2→L3 in order with real
   commands; dispatches a fresh-context reviewer (no shared context) that
   ACTS — runs the commands itself; evidence block appended to
   `## Verification` in PROGRESS.md (date, tier, per-layer command → exit,
   reviewer verdict); only then "done".
-- [ ] **eval-04 — L-tier feature-list gating.** Fixture: `feature_list.json`
+- [x] **eval-04 — L-tier feature-list gating.** Fixture: `feature_list.json`
   with an `active` row whose verification command exits 0, plus a `passing`
   row someone asks to re-open. Expects: row moves to `passing` only via its
   own command exiting 0, `evidence` set non-null; refuses to move any row to
   `passing` without running its command; refuses to regress the `passing`
   row (irreversible).
-- [ ] **Step 2:** Commit: `test(work-verify): evals`
+- [x] **Step 2:** Commit: `test(work-verify): evals`
 
 ### Task 3: work-verify skill
 
@@ -94,10 +94,10 @@ each pinning a distinct failure mode:
 
 Content outline (self-contained, ~100 lines):
 
-- [ ] **Step 1:** Frontmatter (name, description: what + when triggers:
+- [x] **Step 1:** Frontmatter (name, description: what + when triggers:
   "when work claims to be done, before work-handoff, when closing a
   feature-list row").
-- [ ] **Step 2:** Core rule + workflow checklist (6 steps): locate work +
+- [x] **Step 2:** Core rule + workflow checklist (6 steps): locate work +
   tier (ratchet check first — scope grew ⇒ upgrade, one-way); assemble the
   DoD per tier (S: the one-line DoD + existing verify command; M: PLAN
   acceptance criteria; L: feature-list row commands); run layers in order
@@ -108,29 +108,29 @@ Content outline (self-contained, ~100 lines):
   verdict + its own outputs); record evidence (`## Verification` block; L
   additionally sets row state + evidence, `passing` irreversible); verdict
   (PASS → work-handoff; FAIL → what/why/fix + Tried and failed).
-- [ ] **Step 3:** Evidence block format (exact skeleton) + refusal rules (no
+- [x] **Step 3:** Evidence block format (exact skeleton) + refusal rules (no
   DoD → write one first; anything red → FAIL; maker never self-certifies at
   M+).
-- [ ] **Step 4:** Self-check evals mentally; `node scripts/agent-lint.mjs .
+- [x] **Step 4:** Self-check evals mentally; `node scripts/agent-lint.mjs .
   --ignore tests,templates,global` → 0 findings on skills.
-- [ ] **Step 5:** Commit: `feat(work-verify): tier DoD verification skill`
+- [x] **Step 5:** Commit: `feat(work-verify): tier DoD verification skill`
 
 ### Task 4: work-handoff evals (before content)
 
 **Files:**
 - Create: `skills/work-handoff/evals/eval-01.md` … `eval-04.md`
 
-- [ ] **eval-01 — clean close, no tracker.** Fixture: M lane, Verification
+- [x] **eval-01 — clean close, no tracker.** Fixture: M lane, Verification
   PASS block present, all green, no `issue:` anywhere. Expects: full
   checklist (debris sweep, build+tests, startup path, PROGRESS/DECISIONS
   current), lane folder removed in the closing commit, conventional commit,
   NO tracker calls, report with evidence summary + hash.
-- [ ] **eval-02 — refusal: no evidence + debris.** Fixture: lane without any
+- [x] **eval-02 — refusal: no evidence + debris.** Fixture: lane without any
   `## Verification` PASS block, a `debug.log` + commented-out block + red
   test. Expects: refuses to close; lists every blocker exactly; points to
   work-verify for the missing evidence; no commit, no lane deletion, no
   tracker calls.
-- [ ] **eval-03 — Linear-linked close + fallback ladder.** Fixture: lane
+- [x] **eval-03 — Linear-linked close + fallback ladder.** Fixture: lane
   `work/dem-101-…/` with `issue: DEM-101` frontmatter, everything green.
   Expects: detects the key (frontmatter or slug); posts evidence summary via
   `orca linear comment add` and moves status via `orca linear status set`
@@ -138,12 +138,12 @@ Content outline (self-contained, ~100 lines):
   when terminal AND repo says passing — the gate rule); when Orca is absent
   falls back to the Linear MCP server, then to emitting the exact calls for
   the operator; NEVER claims the tracker moved without a confirmed call.
-- [ ] **eval-04 — pause, not close.** Fixture: session ending mid-work, lane
+- [x] **eval-04 — pause, not close.** Fixture: session ending mid-work, lane
   healthy but DoD not met. Expects: lane folder SURVIVES; PROGRESS states
   exactly where things stand + next step; WIP committed on the lane's
   branch; no completion claim, no status change (comment optional); debris
   still swept.
-- [ ] **Step 2:** Commit: `test(work-handoff): evals`
+- [x] **Step 2:** Commit: `test(work-handoff): evals`
 
 ### Task 5: work-handoff skill
 
@@ -153,9 +153,9 @@ Content outline (self-contained, ~100 lines):
 **Interfaces:**
 - Consumes: work-verify's `## Verification` PASS block as the close gate.
 
-- [ ] **Step 1:** Verify exact CLI syntax: `orca linear status set --help`,
+- [x] **Step 1:** Verify exact CLI syntax: `orca linear status set --help`,
   `orca linear comment add --help`; transcribe real flags into the skill.
-- [ ] **Step 2:** Frontmatter + body: two modes (close | pause) decided
+- [x] **Step 2:** Frontmatter + body: two modes (close | pause) decided
   first; close gate = latest Verification block is PASS (else run/point to
   work-verify — refuse otherwise); shared checklist (debris sweep, PROGRESS
   truth, DECISIONS complete, commit); close-only (build+tests+startup green,
@@ -164,7 +164,7 @@ Content outline (self-contained, ~100 lines):
   comment + status with verified syntax → fallback ladder Orca CLI → Linear
   MCP → emit-for-operator; honest reporting rule); pause-only (lane
   survives, exact state + next recorded); final report format.
-- [ ] **Step 3:** Self-lint green. Commit:
+- [x] **Step 3:** Self-lint green. Commit:
   `feat(work-handoff): clean-state handoff skill`
 
 ### Task 6: AE/2.1 — template change + version de-hardcoding
@@ -188,12 +188,12 @@ Content outline (self-contained, ~100 lines):
 - Modify: `tests/fixtures/v2-clean/AGENTS.md` (claims full compliance →
   restamp AE/2.1; keep lint tests green)
 
-- [ ] **Step 1:** Eval edit first, commit:
+- [x] **Step 1:** Eval edit first, commit:
   `test(agent-init): de-hardcode current version in eval`
-- [ ] **Step 2:** All remaining edits; run
+- [x] **Step 2:** All remaining edits; run
   `node tests/run-lint-tests.mjs` (12/12) + `node tests/run-gen-tests.mjs`
   (7/7) + self-lint (0 findings).
-- [ ] **Step 3:** Commit: `feat(standard)!: AE/2.1 — PROGRESS Verification
+- [x] **Step 3:** Commit: `feat(standard)!: AE/2.1 — PROGRESS Verification
   section; de-hardcode current-version prose` (minor bump, `!` not needed —
   use `feat(standard):`).
 
@@ -213,8 +213,8 @@ Content outline (self-contained, ~100 lines):
 - Modify: `README.md` (architecture table skills row; Status → AE/2.1 / P2
   shipped)
 
-- [ ] **Step 1:** All edits; re-run self-lint (docs-index/broken-link).
-- [ ] **Step 2:** Commit: `docs: how-it-works and root files reflect shipped P2`
+- [x] **Step 1:** All edits; re-run self-lint (docs-index/broken-link).
+- [x] **Step 2:** Commit: `docs: how-it-works and root files reflect shipped P2`
 
 ### Task 8: Acceptance — M-tier task end-to-end (Linear-linked)
 
@@ -223,33 +223,66 @@ Fixture: scratchpad `p2-accept/demo-repo` (git init; `package.json` with
 spec: *an M-tier task runs end-to-end under the standard with
 evidence-gated completion and clean handoff (Linear-linked case included).*
 
-- [ ] **Step 1:** Init fixture; open lane `work/dem-101-slugify-util/` from
+- [x] **Step 1:** Init fixture; open lane `work/dem-101-slugify-util/` from
   templates (PLAN with executable acceptance, PROGRESS with frontmatter
   `issue: DEM-101`).
-- [ ] **Step 2:** Do the work: failing test → implement `src/slugify.js` →
+- [x] **Step 2:** Do the work: failing test → implement `src/slugify.js` →
   green.
-- [ ] **Step 3:** Run **work-verify** per the skill: L1 `node --check`, L2
+- [x] **Step 3:** Run **work-verify** per the skill: L1 `node --check`, L2
   `npm test` + import-starts, L3 n/a (single component — decision recorded);
   fresh-context reviewer = real subagent (Agent tool) that runs the commands
   itself; evidence block written to PROGRESS `## Verification`.
-- [ ] **Step 4:** Run **work-handoff** per the skill: close mode; sweep;
+- [x] **Step 4:** Run **work-handoff** per the skill: close mode; sweep;
   lane deleted in closing commit; DEM-101 detected → Orca CLI present but no
   demo issue exists in the real workspace → bottom of the ladder: emit the
   two exact calls with payloads (no fake write, honest report).
-- [ ] **Step 5:** Record the acceptance evidence (commands + outputs) in
+- [x] **Step 5:** Record the acceptance evidence (commands + outputs) in
   this plan under Task 8 results; tick the checkboxes. Commit:
   `docs(plan): P2 acceptance evidence`
 
-**Results:** *(filled at execution)*
+**Results (2026-08-16):** the gate passed end to end.
+
+- Fixture: scratchpad `p2-accept/demo-repo` — AGENTS.md AE/2.1 + pointer;
+  `npm test` verified by running (first attempt `node --test tests/` hit
+  MODULE_NOT_FOUND on Windows → fixed to bare `node --test`; recorded in
+  the lane's Tried and failed + DECISIONS).
+- Lane `work/dem-101-slugify-util/` (`issue: DEM-101` frontmatter + key in
+  slug), PLAN with executable acceptance; red observed (exit 1) →
+  implementation → green (`npm test` exit 0, 3/3).
+- **work-verify**: L1 `node --check` ×2 → exit 0; L2 `npm test` → exit 0 +
+  starts `node -e "require('./src/slugify')('Hello World')"` →
+  `hello-world`; L3 n/a: single component (recorded). Fresh-context
+  reviewer = independent subagent (no shared context) that re-proved
+  red→green by removing/restoring the module (exit 1 → exit 0), exercised
+  adversarial inputs (`'!!!$$$***'` → `""`, `'  ÁRBOL añejo Nº 42  '` →
+  `"arbol-anejo-n-42"`), confirmed the dependency-free constraint, and
+  caught the planted lane debris (`tmp-notes.md`) — maker≠checker verdict:
+  PASS. Evidence block written to PROGRESS `## Verification`.
+- **work-handoff** (close): gate held (PASS block present); sweep removed
+  `tmp-notes.md`; re-proved 3/3 + starts after sweep; PLAN ticked,
+  DECISIONS added; finalization commit `bd6b7db` then closing commit
+  `9f5098e` removed the lane (no orphan `work/`). Post-close the fixture
+  repo lints 0/0/0 with agent-lint. Exposed and fixed a skill gap: the
+  finalized lane state must be committed before the removing commit or the
+  evidence never enters history (work-handoff step 5 now says so).
+- **Linear-linked case**: key detected from frontmatter + slug; `orca` CLI
+  present on PATH with verified syntax (`status set --to`, `comment add
+  --body`, `--current` for Orca-linked worktrees). DEM-101 is a demo key
+  with no workspace issue, so the honest bottom rung applied — calls
+  emitted, tracker explicitly NOT updated:
+  `orca linear comment add DEM-101 --body "slugify shipped: npm test 3/3 (exit 0), fresh-context review PASS, close 9f5098e"`
+  then `orca linear status set DEM-101 --to "In Review"`.
+- Task 9 steps 2-4 execute at/after merge; their evidence is the merged
+  main, the live junctions, and the session report.
 
 ### Task 9: Merge + go live
 
-- [ ] **Step 1:** Final gates: self-lint 0 findings; `run-lint-tests` 12/12;
+- [x] **Step 1:** Final gates: self-lint 0 findings; `run-lint-tests` 12/12;
   `run-gen-tests` 7/7; stamp == newest CHANGELOG (AE/2.1).
-- [ ] **Step 2:** Push; `gh pr create`; rebase-merge; branch auto-deleted;
+- [x] **Step 2:** Push; `gh pr create`; rebase-merge; branch auto-deleted;
   `git pull` main.
-- [ ] **Step 3:** Junctions: re-run `workstation/claude/install.ps1`
+- [x] **Step 3:** Junctions: re-run `workstation/claude/install.ps1`
   (declarative — new skill dirs appear as junctions); verify
   `~/.claude/skills/work-verify` + `work-handoff` targets.
-- [ ] **Step 4:** Update memory `agent-engineering-repo.md` (P2 shipped,
+- [x] **Step 4:** Update memory `agent-engineering-repo.md` (P2 shipped,
   AE/2.1, next P3) and report.

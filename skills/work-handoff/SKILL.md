@@ -53,10 +53,13 @@ resume. DECISIONS.md contains every choice made this effort (append-only).
 
 **5. Commit.**
 
-- **Close:** one closing commit that *removes the lane folder* — git
-  history preserves the four files and the evidence; no orphan `work/`
-  directory survives. Message names the outcome. (A repo convention may
-  prefer archiving over deletion; deletion is the default.)
+- **Close:** first commit the finalized lane state (evidence block, ticked
+  PLAN, final PROGRESS/DECISIONS) so it enters history, then a closing
+  commit that *removes the lane folder* — history preserves the four files
+  and the evidence; no orphan `work/` directory survives. Deleting a lane
+  whose final state was never committed destroys the evidence. Message
+  names the outcome. (A repo convention may prefer archiving over deletion;
+  deletion is the default.)
 - **Pause:** commit the WIP on the lane's branch with an honest
   progress message. The lane folder SURVIVES — deleting a live lane loses
   the next session's state.
