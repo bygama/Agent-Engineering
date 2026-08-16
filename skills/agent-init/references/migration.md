@@ -66,3 +66,7 @@ Wait for explicit approval of this plan before touching anything.
   (PASS evidence written by work-verify; gates the close handoff). Migrating
   2.0 → 2.1: append the section to any open lane's PROGRESS.md, restamp.
   Closed lanes and everything else: untouched.
+- **AE/2.2** (2026-08-16) — `loops/` template added (standing automation
+  artifact, instantiated by loop-setup only when a task passes the loop
+  filter). Migrating 2.1 → 2.2: restamp only; nothing else changes in an
+  installed repo.

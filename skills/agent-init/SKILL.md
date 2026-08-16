@@ -70,9 +70,11 @@ in the Agent-Engineering repo — tier one-liner, 4 blocks) + pointer
 `CLAUDE.md` + `docs/README.md` + `adrs/` + `specs/`. Monorepo: one
 `app-AGENTS.md` (≤30 lines) + pointer per app. Keep existing README/LICENSE.
 UI stack detected in step 1: offer `DESIGN.md.template` per app — opt-in, per
-`reference/design-md.md`. Do NOT create `work/` lanes or `feature_list.json`
-speculatively — they are per-effort artifacts; offer them only when a
-concrete M/L-tier effort is starting (see `reference/task-tiers.md`).
+`reference/design-md.md`. Do NOT create `work/` lanes, `feature_list.json`,
+or `loops/` speculatively — lanes and feature lists are per-effort
+artifacts, loops need a task that passes the loop filter; offer them only
+when a concrete effort or recurring task is starting (see
+`reference/task-tiers.md`, `reference/loops.md`).
 Then run the `agent-audit` skill as the final gate and report: files created,
 files deleted (migrations), audit score, and before/after line counts of
 always-loaded context when migrating.

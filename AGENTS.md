@@ -1,12 +1,12 @@
 # Agent-Engineering
 
-Standard: AE/2.1
+Standard: AE/2.2
 
 Source of truth for the agent-engineering standard — six layers (context,
 memory, harness, loop, graph, with reducer/MCP cross-cutting) — and the
 tooling that replicates it. The standard is runtime-neutral: any agent that
-reads files can follow it. Current phase: P2 shipped (work skills live);
-loops/graphs layers arrive P3-P4 per the spec's phase ladder.
+reads files can follow it. Current phase: P3 shipped (loop layer live);
+the graph layer arrives P4 per the spec's phase ladder.
 
 ## Commands
 
