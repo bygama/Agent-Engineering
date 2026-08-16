@@ -13,6 +13,7 @@ live); P5 hardening remains per the spec's phase ladder.
 - Self-lint: `node scripts/agent-lint.mjs . --ignore tests,templates,global`
 - Lint self-tests: `node tests/run-lint-tests.mjs`
 - DESIGN.md generator self-tests: `node tests/run-gen-tests.mjs`
+- Eval-structure suite: `node tests/run-eval-checks.mjs`
 
 ## Gotchas
 

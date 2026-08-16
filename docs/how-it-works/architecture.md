@@ -93,7 +93,9 @@ edited here, then installed.
 
 ### `tests/` — how is the standard itself tested?
 
-Live since AE/2.0 (12 lint fixtures + generator fixtures).
+Live since AE/2.0 (lint fixtures + generator fixtures; P5 added the
+eval-structure suite — every skill's ≥3-evals contract is executable — and
+the kitchen-sink composite fixture with its planted-violations manifest).
 
 Fixture repos that comply and fixture repos that break the rules on purpose
 (bloated entry files, legacy adapter layouts, incoherent lanes, invalid
