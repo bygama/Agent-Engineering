@@ -62,4 +62,8 @@ merge what passed, re-plan the remainder as one lane.
 questions in writing, one item ↔ one lane ↔ one worktree ↔ one worker,
 the contract in the parent lane's PLAN. Runner choice per worker is free
 (`reference/runners.md`) because workers consume artifacts, not
-conversations.
+conversations. Workers spawn agent-first (`orca worktree create
+--agent <id> --prompt "<brief>" --parent-worktree active` — one command
+per worker) and coordinate through `orca orchestration`; without Orca the
+same lanes run sequentially under the same ceremony (the no-Orca
+contract, `reference/orca.md`).

@@ -33,7 +33,7 @@ Failing any one → it's a lane (`work/<slug>/` + work-verify), not a loop.
 | Gate | executable command, verified by running before written |
 | Budget | numeric: runs per period, items per run, failure budget |
 | State file | `loops/<name>.state.json` |
-| Trigger | primary + named fallback (`reference/orca.md` matrix) |
+| Trigger | primary Orca automation + the manual fallback ("run one iteration of `loops/<name>.md`" to any agent) — `reference/orca.md` |
 
 State file minimum shape (a runtime artifact: gitignore
 `loops/*.state.json` — committed state dirties the tree on every run — and
