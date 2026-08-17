@@ -5,7 +5,8 @@
 Use [GitHub private vulnerability reporting](https://github.com/bygama/Agent-Engineering/security/advisories/new).
 Do not open public issues for security problems.
 
-You can expect an acknowledgment within a week.
+You can expect an acknowledgment within a week. Please include
+reproduction steps and affected versions/commits when possible.
 
 ## Scope
 

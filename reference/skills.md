@@ -66,3 +66,20 @@ Write evals BEFORE skill content, from observed gaps — not imagined ones:
 2. **Domain split**: one reference file per domain so only the relevant one
    loads.
 3. **Conditional details**: "For X, see X.md" — loaded only when X arises.
+
+## Composing with process-skill suites
+
+Process suites (e.g. superpowers: brainstorming, writing-plans,
+executing-plans, finishing-a-development-branch) supply the *how* of
+thinking; this standard supplies the artifacts and gates. One rule joins
+them: **the standard owns locations and lifecycle endings.**
+
+- Design/brainstorm output → the lane's SPEC (or `docs/specs/` for
+  standing designs), never the suite's default folder.
+- A written plan → `work/<slug>/PLAN.md`.
+- Execution runs inside the lane: WIP=1, tier ceremony applies.
+- Finishing → `work-handoff` (the suite's own finishing step yields to
+  it); worktrees are Orca-managed (`reference/orca.md`).
+
+Suites that say "user preferences override defaults" (superpowers does)
+are honoring exactly this. One artifact set, never two.

@@ -89,10 +89,12 @@ labels it `upstream` and proposes the filing — into the standard's
 tracker team (project `Agent-Engineering`) on machines that carry its
 workspace, or
 `gh issue create --repo bygama/Agent-Engineering` for everyone else —
-owner-approved, never automatic (`agent-audit`, Upstream findings). On
-the standard's side the triage loop sweeps open GitHub issues into the
-tracker (mirror issue + a "tracked as <KEY>" comment), so external
-reports run the same pipeline as internal work.
+owner-approved, never automatic (`agent-audit`, Upstream findings). The
+public repo ships an "Upstream report" issue template shaped for these
+reports (stamp, kind, evidence). On the standard's side the triage loop
+sweeps open GitHub issues into the tracker (mirror issue + a "tracked
+as <KEY>" comment), so external reports run the same pipeline as
+internal work.
 
 ## Non-negotiables
 

@@ -24,6 +24,9 @@ is in maintenance — versions bump on template/check changes (CHANGELOG.md).
   `~/.claude` — never edit `~/.claude` directly from here.
 - `skills/` are junction-linked into `~/.claude/skills`: edits go live
   immediately, no copy step.
+- Process-skill suites (superpowers etc.) compose by one rule: their
+  artifacts land in the standard's locations; handoff and worktrees are
+  the standard's (`reference/skills.md`).
 
 ## Hard constraints
 
