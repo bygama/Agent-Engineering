@@ -51,7 +51,10 @@ against it.
   2. **Behavioral** — the tests pass AND the thing actually starts (server
      up, CLI runs, module imports).
   3. **End-to-end** — only for cross-component changes: execute the full
-     flow (click-through, real request, executed command). Unit tests are
+     flow (click-through, real request, executed command). On an Orca
+     machine the built-in browser (`orca goto/snapshot/click/wait
+     --json`) is the named e2e tool for web-facing flows; without Orca,
+     another executed path — never a silent skip. Unit tests are
      blind to interface mismatches and cross-layer state; if the change
      crosses components and you skip this layer, you have not verified it.
      Single-component change → record "L3 n/a: single component" as a
