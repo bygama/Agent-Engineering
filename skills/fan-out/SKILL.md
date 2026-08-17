@@ -16,6 +16,7 @@ Copy this checklist and tick items off:
 
 ```
 Fan-out progress:
+- [ ] 0. Probe: `orca status --json` (reference/orca.md)
 - [ ] 1. Qualify (the three questions, in writing)
 - [ ] 2. Freeze and name the anchors
 - [ ] 3. Plan the lanes (worker table)
@@ -47,9 +48,12 @@ means stopping the fan-out first.
 **3. Worker table** in the parent PLAN: item · lane `work/<slug>/` ·
 worktree path · branch · runner · spawn command (from
 `reference/runners.md`). One item ↔ one lane ↔ one worktree ↔ one worker,
-WIP=1 each. Worktrees: `orca worktree create` when Orca manages the repo;
-`git worktree add ../<slug> -b <branch>` otherwise. Never two workers in
-one working tree.
+WIP=1 each. Spawns are agent-first — `orca worktree create --agent <id>
+--prompt "<worktree path + lane path + DoD>" --parent-worktree active`,
+one command per worker, never the bare-create-then-terminal anti-pattern,
+never two workers in one working tree. Probe failed (no Orca)? Fan-out is
+NOT runnable in parallel — say so and offer the same lanes sequentially
+under the same ceremony (no-Orca contract, `reference/orca.md`).
 
 **4. Reducer contract**, written in the parent PLAN before any worker
 starts:
@@ -67,8 +71,12 @@ starts:
   lanes, exactly where per-lane tests are blind.
 
 **5. Spawn workers — artifacts only.** Each worker receives exactly three
-things: its worktree path, its lane path, the DoD. No shared conversation,
-no sibling paths, no anchor-edit rights. Worker obligation on ambiguous
+things: its worktree path, its lane path, the DoD — delivered in the
+spawn `--prompt`. Follow-ups go through the single `startupTerminal`
+handle (`orca terminal wait --for tui-idle`, then `terminal send`);
+structured coordination beyond that runs through `orca orchestration`
+(dispatch, inbox/reply), never ad-hoc `terminal send` chains. No shared
+conversation, no sibling paths, no anchor-edit rights. Worker obligation on ambiguous
 anchors: implement the **plainest reading and flag the ambiguity** as a
 finding in the lane (never improvise the spec, never block waiting) — and
 the coordinator's reduce probes behavior with its own inputs precisely
