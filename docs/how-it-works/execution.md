@@ -118,7 +118,9 @@ without a confirmed call. PRs live on the GitHub plane (open, review,
 comment via `gh`); GitHub issues are not intake — they get triaged into
 the tracker. With the Linear↔GitHub integration connected, `Closes
 <KEY>` in the PR body moves the issue on merge — the strongest form of
-repo → tracker truth.
+repo → tracker truth. The full wiring between the three planes — app
+installs, branch formats, who writes what — is
+[integrations.md](integrations.md)'s subject.
 
 ## This repo's own loops
 

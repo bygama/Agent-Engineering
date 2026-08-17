@@ -204,7 +204,7 @@ most one row is `active` per lane at any moment.
 
 ## The tracker plane (Linear)
 
-> The handoff's status/comment step lives since AE/2.1 (`work-handoff`); the tracker contract + connector live since AE/2.2 (`reference/tracker.md`; single Orca rung since AE/2.4).
+> The handoff's status/comment step lives since AE/2.1 (`work-handoff`); the tracker contract + connector live since AE/2.2 (`reference/tracker.md`; single Orca rung since AE/2.4). How this plane physically connects to GitHub and Orca is [integrations.md](integrations.md)'s subject.
 
 The standard separates two planes so there is never a double truth:
 

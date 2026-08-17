@@ -143,6 +143,30 @@ files alone.
 
 **Deep dive → [docs/how-it-works/execution.md](docs/how-it-works/execution.md)** · [reference/orca.md](reference/orca.md) · [reference/tracker.md](reference/tracker.md)
 
+## The three planes
+
+Work coordinates across three surfaces, and no fact lives on two of them:
+**Linear** owns workflow state, **GitHub** owns the merge truth, **Orca**
+executes.
+
+```mermaid
+flowchart LR
+    LIN["Linear<br/>workflow state"]
+    GH["GitHub<br/>merge truth"]
+    ORCA["Orca<br/>executor"]
+    LIN <-->|"workspace app:<br/>PR opened → In Progress<br/>merged → Done"| GH
+    ORCA <-->|"API key ·<br/>orca linear CLI"| LIN
+    ORCA <-->|"branches in Linear's<br/>format · gh CLI"| GH
+```
+
+The wiring makes the lifecycle hands-free: Orca names branches in
+Linear's own format, the close PR carries `Closes <KEY>`, and Linear's
+workspace GitHub app moves the issue — In Progress when the PR opens,
+Done when it merges. The agent's one tracker write is the evidence
+comment; nobody moves states by hand. Proven live, end to end.
+
+**Deep dive → [docs/how-it-works/integrations.md](docs/how-it-works/integrations.md)**
+
 ## Adopting the standard
 
 In the target repo, run the `agent-init` skill (or point any agent at
