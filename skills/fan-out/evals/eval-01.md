@@ -23,3 +23,8 @@ creates.
 - [ ] Creates NO worktrees, NO extra lanes, spawns NO workers.
 - [ ] States the principle: parallelism buys nothing on a dependency
       chain — it only adds coordination cost (the orchestration tax).
+- [ ] Names the tier binding: fan-out is MANDATORY at XL (work that
+      cannot fit one lane), available for L or a genuine set of
+      independent M items, refused below that.
+- [ ] An XL ask without the three questions answered in writing is
+      refused as unqualified — XL ceremony cannot be waived.
