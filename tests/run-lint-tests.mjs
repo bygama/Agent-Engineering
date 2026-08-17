@@ -105,7 +105,7 @@ const cases = [
     ],
     forbid: ["budget-cap", "stamp-missing", "stamp-shape", "feature-regression", "skill-size"],
     // `npm run migrate  # not verified` is the standard's own honesty
-    // marker (agent-init step 4) — flagging it is a lint bug.
+    // marker (ae-init step 4) — flagging it is a lint bug.
     forbidMatch: ['npm script "migrate"'],
   },
 ];

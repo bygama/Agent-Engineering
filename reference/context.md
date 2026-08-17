@@ -20,7 +20,7 @@ the pointer, Codex/opencode/grok/dsh natively). Fixed structure:
 1. **Title + summary (2-3 lines)** — what the repo is and its stack. Nothing
    the filesystem already says.
 2. **`Standard: AE/<major>.<minor>`** — the version stamp, own line. This is
-   what `agent-audit` compares against the current standard.
+   what `ae-audit` compares against the current standard.
 3. **Tier one-liner** — `Tiers: S direct+verify · M lane+plan · L four
    files+feature list — doubt → higher.`
 4. **`## Commands`** — build/test/run/lint, only the ones that matter,
@@ -76,4 +76,4 @@ global. About neither the user nor one project? → a skill, or nothing.
 | Mandatory read orders | Burns attention budget upfront | Just-in-time discovery + Map |
 | "10 non-negotiable rules" lists | Taste masquerading as safety fights judgment | Gotchas + genuine hard constraints |
 | Prose conventions docs (CODE-STYLE.md) | Restates what linters enforce | Linters, or a skill if truly procedural |
-| v1 layout: canonical CLAUDE.md, stub AGENTS.md, no stamp | Invisible version drift; Claude-only canonical | The v2 flip + stamp (`agent-init` migrates) |
+| v1 layout: canonical CLAUDE.md, stub AGENTS.md, no stamp | Invisible version drift; Claude-only canonical | The v2 flip + stamp (`ae-init` migrates) |

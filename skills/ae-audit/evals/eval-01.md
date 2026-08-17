@@ -20,7 +20,7 @@ mode".
 - [ ] Flags CODEX.md/GEMINI.md adapters as duplication (high severity).
 - [ ] Flags mandatory read orders (high) — proposes Map + JIT discovery.
 - [ ] Flags the missing `Standard: AE/x.y` stamp and the non-pointer CLAUDE.md,
-      recommending `agent-init` migration rather than piecemeal edits.
+      recommending `ae-init` migration rather than piecemeal edits.
 - [ ] Flags rule lists that restate common sense (high) — proposes distilling
       to gotchas + genuine hard constraints, preserving the genuine ones.
 - [ ] Proposes skill extraction for procedural prose (medium).

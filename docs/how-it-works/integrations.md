@@ -131,7 +131,7 @@ Everything above needs four owner actions, each once per workspace/org:
    Integrations).
 4. Point Linear's **coding-tools prompt template** at the standard —
    first line `Read AGENTS.md first; tier per docs/tiers.md.` — so any
-   session opened from an issue starts inside it (`agent-init` reminds
+   session opened from an issue starts inside it (`ae-init` reminds
    the owner of this when installing into a tracker-connected workspace).
 5. Group repos as Linear **projects** (one per repo — this repo's is
    `Agent-Engineering`, created 2026-08-17): the team and its keys stay

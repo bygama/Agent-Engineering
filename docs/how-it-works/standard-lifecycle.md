@@ -15,7 +15,7 @@ the audit compares against the current version, and it is the only
 memory the system needs about "when was this repo last touched by the
 standard".
 
-> Live since AE/2.0: `agent-init`, `agent-audit`, and `agent-lint` implement every flow in this chapter.
+> Live since AE/2.0: `ae-init`, `ae-audit`, and `agent-lint` implement every flow in this chapter.
 
 Since AE/1.2.0, `using-ae` is the always-loaded entry skill
 (SessionStart, global layer) that recognizes an AE-standard repo and
@@ -40,7 +40,7 @@ Per task — never as permanent furniture — a lane folder `work/<slug>/` with
 the four files, and for the largest tier a `feature_list.json`. Those belong
 to the [work lifecycle](work-lifecycle.md).
 
-## Install (`agent-init`)
+## Install (`ae-init`)
 
 Installation is a conversation with the repo first and the human second: the
 skill explores before it asks, asks only what it cannot infer, and proves
@@ -72,7 +72,7 @@ Two arrival states get special handling:
 Templates are instantiated, never copied verbatim: `{{PLACEHOLDER}}` markers
 are filled from what the exploration found and what the human confirmed.
 
-## Audit (`agent-audit`)
+## Audit (`ae-audit`)
 
 The audit is the judgment half of enforcement; `agent-lint` is the
 mechanical half and runs inside it. The lint counts (budgets, stamp present
@@ -99,7 +99,7 @@ flowchart LR
     R --> Q{templates or checks changed?}
     Q -->|no| N[no bump - docs refresh]
     Q -->|yes| V[bump AE version + changelog<br/>+ migration note]
-    V --> S[repo stamp now behind] --> AU[next agent-audit flags drift] --> M[agent-init migrates]
+    V --> S[repo stamp now behind] --> AU[next ae-audit flags drift] --> M[ae-init migrates]
 ```
 
 The important property: **repos never poll**. A consuming repo learns it is
@@ -141,6 +141,6 @@ next migration.
   it means for consumers.
 - The ritual is operationalized by the repo-local `.claude/skills/release`
   skill — sizing, entry, note, restamps, gates, tag, one procedure.
-- Migration notes: `skills/agent-init/references/migration.md` records, per
+- Migration notes: `skills/ae-init/references/migration.md` records, per
   version step, exactly what changes in an installed repo — that file is what
-  `agent-init` executes when the audit says "behind".
+  `ae-init` executes when the audit says "behind".

@@ -6,13 +6,13 @@ Retrieved 2026-07-30; ported 2026-08-16.
 ## Frontmatter
 
 - `name`: ≤64 chars, lowercase letters/numbers/hyphens. Gerund or
-  action-oriented (`agent-init`, `tracing-root-causes`). Never vague
+  action-oriented (`ae-init`, `tracing-root-causes`). Never vague
   (`helper`, `utils`) or reserved words (`anthropic`, `claude`).
 - `description`: ≤1024 chars, **third person**, states BOTH what the skill
   does AND when to use it (triggers/key terms). Discovery depends entirely on
   this field — the model picks among 100+ skills using descriptions alone.
   - Good: "Audits a repository against the agent-engineering standard and
-    reports fixes. Use when context feels bloated or after agent-init."
+    reports fixes. Use when context feels bloated or after ae-init."
   - Bad: "Helps with context stuff."
 
 ## Body rules
@@ -66,6 +66,13 @@ Write evals BEFORE skill content, from observed gaps — not imagined ones:
 2. **Domain split**: one reference file per domain so only the relevant one
    loads.
 3. **Conditional details**: "For X, see X.md" — loaded only when X arises.
+
+## Placement
+
+AE ships the fundamental skills (lifecycle + replication); complementary
+methodology skills live in the personal library (`bygama/skills`,
+junctioned); a complementary skill that becomes load-bearing for the
+standard moves upstream into AE.
 
 ## Composing with process-skill suites
 

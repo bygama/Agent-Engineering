@@ -30,7 +30,7 @@ README, no AGENTS.md/CLAUDE.md, no docs/.
 - [ ] Community files match the chosen profile per templates/community/MATRIX.md
       (which has no CODE_OF_CONDUCT).
 - [ ] Final AGENTS.md ≤60 lines; Map only if justified.
-- [ ] Runs agent-audit (or at minimum agent-lint) at the end and reports the
+- [ ] Runs ae-audit (or at minimum agent-lint) at the end and reports the
       score; lint exits 0.
 - [ ] When a tracker is connected to the workspace, the final report
       reminds the owner once to point the coding-tools prompt template at

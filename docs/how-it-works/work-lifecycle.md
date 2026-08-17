@@ -49,7 +49,7 @@ stops being able to hold the work, and its ceremony is the graph
 machinery made compulsory — the fan-out skill refuses an XL effort whose
 three questions were never written down, and work-verify refuses an XL
 "done" whose synthesis gate never ran. Consumer repos get the compact
-version of this table as `docs/tiers.md` (installed by agent-init since
+version of this table as `docs/tiers.md` (installed by ae-init since
 AE/2.5).
 
 ## The lane and the four files

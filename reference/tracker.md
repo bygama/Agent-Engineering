@@ -35,7 +35,7 @@ detect the link; absence of both simply skips the tracker steps.
 Operator setup, once per workspace: point Linear's coding-tools prompt
 template at the standard — first line `Read AGENTS.md first; tier per
 docs/tiers.md.` — so any session opened from an issue starts inside the
-standard. agent-init reminds the owner of this when installing a repo in
+standard. ae-init reminds the owner of this when installing a repo in
 a tracker-connected workspace.
 
 ## Connector: Orca CLI (primary)
@@ -89,7 +89,7 @@ labels it `upstream` and proposes the filing — into the standard's
 tracker team (project `Agent-Engineering`) on machines that carry its
 workspace, or
 `gh issue create --repo bygama/Agent-Engineering` for everyone else —
-owner-approved, never automatic (`agent-audit`, Upstream findings). The
+owner-approved, never automatic (`ae-audit`, Upstream findings). The
 public repo ships an "Upstream report" issue template shaped for these
 reports (stamp, kind, evidence). On the standard's side the triage loop
 sweeps open GitHub issues into the tracker (mirror issue + a "tracked

@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 // agent-lint — mechanical checks for the agent-engineering standard (AE).
-// Automates the countable subset of skills/agent-audit: entry-file budgets,
+// Automates the countable subset of skills/ae-audit: entry-file budgets,
 // the canonical/pointer split, the version stamp, per-tool adapters, read
 // orders, block structure, broken local links, docs naming, skill hygiene,
 // work-lane coherence, feature-list schema and regression, DESIGN.md drift,
 // and static command drift. Judgment checks (inferable content,
-// rules-vs-taste) remain in the agent-audit skill.
+// rules-vs-taste) remain in the ae-audit skill.
 //
 // v2 model: AGENTS.md is the canonical entry file (budgets, structure,
 // commands live there); CLAUDE.md must be a ≤3-line pointer containing
@@ -278,7 +278,7 @@ if (files.includes("AGENTS.md")) {
     const deps = pkg ? { ...pkg.dependencies, ...pkg.devDependencies } : {};
     const COMPOSE = ["docker-compose.yml", "docker-compose.yaml", "compose.yml", "compose.yaml"];
     for (let i = start; i < end; i++) {
-      // `# not verified` is the standard's honesty marker (agent-init
+      // `# not verified` is the standard's honesty marker (ae-init
       // step 4) — the line opted out of verification, so drift is silent.
       if (ls[i].includes("# not verified")) continue;
       for (const m of ls[i].matchAll(/`([^`]+)`/g)) {

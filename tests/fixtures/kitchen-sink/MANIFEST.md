@@ -1,7 +1,7 @@
 # Kitchen-sink manifest — planted violations
 
 Every violation this fixture carries, with its expected detector. The P5
-acceptance: an agent-audit run must surface every row (and invent
+acceptance: an ae-audit run must surface every row (and invent
 nothing). Mechanical rows are additionally pinned by
 `tests/run-lint-tests.mjs`.
 
@@ -31,11 +31,11 @@ from HEAD — cannot exist in a committed fixture); `budget-cap`,
 `stamp-missing`, `stamp-shape`, `skill-size` (deliberately absent — the
 test forbids them to prove the lint stays quiet where it should).
 
-## Judgment (agent-audit only — the lint cannot see these)
+## Judgment (ae-audit only — the lint cannot see these)
 
 | # | Plant | Expected judgment |
 |---|---|---|
-| J1 | Stamp `AE/2.0` while current is newer | version drift → recommend agent-init migration, one atomic step |
+| J1 | Stamp `AE/2.0` while current is newer | version drift → recommend ae-init migration, one atomic step |
 | J2 | Gotcha "Write clean, readable code." | common sense restated → delete |
 | J3 | Hard constraint "Prefer functional style over classes." | taste, not safety → demote or delete |
 | J4 | `## Rules` list of 20 generic rules | distill: disposition each as gotcha / hard constraint / delete |

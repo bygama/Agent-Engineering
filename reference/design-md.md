@@ -48,7 +48,7 @@ unresolved reference is a hard error.
 agent-lint, only when a DESIGN.md exists: frontmatter parses and has
 `name`, known sections in order, references resolve, Decisions entries
 dated, generated file present and drift-free (in-memory regeneration).
-agent-audit adds the judgment rows: UI app without DESIGN.md, raw values
+ae-audit adds the judgment rows: UI app without DESIGN.md, raw values
 duplicating tokens, Decisions contradicted by code. The
 `designing-consistently` skill (skills repo) owns the workflow: read before
 building, consume instead of inventing, record decisions as a gated step.

@@ -18,7 +18,7 @@ is in maintenance — versions bump on template/check changes (CHANGELOG.md).
 ## Gotchas
 
 - `tests/fixtures/` break the standard on purpose; `templates/` carry
-  `{{PLACEHOLDER}}` markers and are instantiated by agent-init, never copied
+  `{{PLACEHOLDER}}` markers and are instantiated by ae-init, never copied
   verbatim; `examples/` are authoring-time snapshots (never restamped) —
   all three are excluded from the self-lint, keep it that way.
 - `global/` is content only; the workstation installer applies it to
@@ -47,7 +47,7 @@ is in maintenance — versions bump on template/check changes (CHANGELOG.md).
 - How the whole repo works, with diagrams: `docs/how-it-works/`
 - The standard itself: `reference/`
 - What consumers receive: `templates/repo/`
-- Replication skills: `skills/agent-init/`, `skills/agent-audit/`
+- Replication skills: `skills/ae-init/`, `skills/ae-audit/`
 - Usage skills: `skills/` — using-ae (entry), work-plan, work-run,
   work-verify, work-handoff, fan-out, loop-setup
 - Repo-local skills: `.claude/skills/` — docs-sweep (drift battery),

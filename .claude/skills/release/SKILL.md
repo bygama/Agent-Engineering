@@ -44,7 +44,7 @@ Added/Changed/Deprecated/Removed/Fixed/Security, humans-first prose.
 Existing entries are records — never edited, never re-dated (the 0.6.1
 lesson).
 
-**4. Migration note.** `skills/agent-init/references/migration.md`
+**4. Migration note.** `skills/ae-init/references/migration.md`
 gains the per-version note: exactly what changes in an installed repo.
 "Restamp only" is valid for MINOR/PATCH; a MAJOR's note must be
 concrete (which file, what change) — no note, no merge.
@@ -68,8 +68,8 @@ verified.
 
 ## Judgment notes
 
-- Consumers are never notified: repos never poll — the next agent-audit
-  finds them behind and agent-init migrates them. That is the design,
+- Consumers are never notified: repos never poll — the next ae-audit
+  finds them behind and ae-init migrates them. That is the design,
   not an omission.
 - One release per coherent change set; never batch unrelated bumps to
   "save a version number".

@@ -18,7 +18,7 @@ exists.
       section (`### Added`), ISO date, newest on top, humans-first
       prose, no old entry edited.
 - [ ] Adds the per-version migration note to
-      `skills/agent-init/references/migration.md` ("restamp + what
+      `skills/ae-init/references/migration.md` ("restamp + what
       changes in an installed repo").
 - [ ] Restamps exactly the surfaces the docs-sweep battery lists (root
       AGENTS.md, AGENTS.md.template, v2-clean fixture) — NEVER
