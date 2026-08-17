@@ -83,3 +83,16 @@ them: **the standard owns locations and lifecycle endings.**
 
 Suites that say "user preferences override defaults" (superpowers does)
 are honoring exactly this. One artifact set, never two.
+
+**Execution is the standard's, not the suite's** (ADR-004). Suites
+supply the thinking phases — brainstorming, TDD, systematic-debugging,
+writing-plans. From the moment a plan lands in `work/<slug>/PLAN.md`,
+the standard executes: `skills/relay` runs the lane step-by-step
+(fresh subagent per step, lane as the context package), work-verify
+gates it, work-handoff ends it. A suite's own executors and finishers
+(superpowers' `subagent-driven-development`, `executing-plans`,
+`finishing-a-development-branch`) are not used — their artifact
+machinery (workspace, ledger, rulings) collides 1:1 with the lane's
+files, and two protocols over the same information is permanent
+friction. The suite stays installed; this rule is what redirects the
+chain.
