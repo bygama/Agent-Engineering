@@ -13,6 +13,11 @@
   phases are AE's" was articulated by the owner (2026-08-17) and
   governs future supersession decisions; recording it as an ADR keeps
   the principle citable.
+- 2026-08-17 — Ruling (S1 review minor): eval-03's "refuses XL shape
+  when the three questions cannot be answered" stays although SPEC §3
+  does not name it — it mirrors fan-out's own qualification rule and
+  the skill must not produce a parent plan fan-out would refuse. Cost
+  if wrong: one extra checklist line to delete.
 - 2026-08-17 — Executed via relay with MAT-37 lessons applied inline
   (controller bookkeeping commits immediately; no lane edits while an
   implementer is in flight) — the findings ride along before the skill

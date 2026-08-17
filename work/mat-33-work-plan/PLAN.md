@@ -3,7 +3,7 @@
 <!-- Steps with executable acceptance. Executed via relay: fresh
      implementer per step, commit per step, conventional commits. -->
 
-- [ ] S1 (judgment): evals first — `skills/work-plan/evals/eval-01..04`
+- [x] S1 (judgment): evals first — `skills/work-plan/evals/eval-01..04`
   per SPEC §3 — accept: all four files exist with `## Query` +
   `## Expected behavior` + checklist lines; `node
   tests/run-eval-checks.mjs` exits 0
