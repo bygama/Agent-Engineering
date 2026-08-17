@@ -118,6 +118,10 @@ next migration.
 - Semantics: template or check changes bump the version (breaking shape
   changes bump major, additive ones minor); docs-only refreshes bump
   nothing, because `reference/` files carry their own source+date headers.
+- Majors count generations: v1 was the predecessor standard (canonical
+  CLAUDE.md, no stamps — the retired Context-Engineering repo), so this
+  repo's line starts at AE/2.0; there is no AE/1.x (CHANGELOG, "v1 — the
+  predecessor generation").
 - A bump restamps this repo's root `AGENTS.md` and the README version
   badge in the same change (the rule lives in the `CHANGELOG.md` header).
 - History: `CHANGELOG.md` at this repo's root records every bump and what
