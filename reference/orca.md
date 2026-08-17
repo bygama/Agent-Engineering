@@ -75,4 +75,11 @@ and continues with what remains. Never silently skipped, never faked.
   (`orca terminal create`) outlive the session; that is the point.
 - Spawn-command inheritance is machine policy (which account/CLI a child
   agent uses); it lives in the global layer (`~/.claude/CLAUDE.md`), not
-  in repos.
+  in repos. When that policy forces the two-step spawn (bare create +
+  `terminal create --command`), a fallback shell may appear — close it
+  after confirming it is unused.
+- Spawn briefs are short and point at artifacts (the issue, the lane) —
+  `terminal send` truncates long inline briefs.
+- Decommission workers after the merge: close their terminals and
+  `orca worktree rm` the child worktree once its branch merged and the
+  card is completed — an idle agent on a completed card is debris.

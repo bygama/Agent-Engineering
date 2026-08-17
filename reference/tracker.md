@@ -55,6 +55,19 @@ Orca-only. Emit the exact calls + payloads for the operator and state
 plainly that the tracker was NOT updated. Never claim a write without a
 confirmed call.
 
+## The GitHub plane
+
+PRs and PR review comments are GitHub-native: agents open PRs, answer
+review comments, and comment on PRs (`gh pr comment`) as part of normal
+work. GitHub **issues** are not intake — the tracker is the single
+intake plane; an issue filed on GitHub gets triaged INTO the tracker,
+never worked from GitHub. Two affordances bridge the planes: branch
+slugs carry the issue key (autolink), and the close PR's body carries
+`Closes <KEY>` so a connected Linear↔GitHub integration moves the issue
+on merge — the strongest repo → tracker truth. Verify the integration is
+actually active (integration-native PR activity on an issue) before
+relying on it; absent that, attach and move states via `orca linear`.
+
 ## Non-negotiables
 
 - Triage loops never move issues to Done (that path runs through

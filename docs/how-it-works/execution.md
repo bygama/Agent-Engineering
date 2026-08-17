@@ -114,7 +114,11 @@ cheap end; loops never move issues to Done — that path always runs through
 `work-verify` → `work-handoff`. The connector is `orca linear`; without
 Orca the calls are emitted for the operator and the tracker is declared
 NOT updated (the contract applied to the tracker) — never a claimed write
-without a confirmed call.
+without a confirmed call. PRs live on the GitHub plane (open, review,
+comment via `gh`); GitHub issues are not intake — they get triaged into
+the tracker. With the Linear↔GitHub integration connected, `Closes
+<KEY>` in the PR body moves the issue on merge — the strongest form of
+repo → tracker truth.
 
 ## This repo's own loops
 
