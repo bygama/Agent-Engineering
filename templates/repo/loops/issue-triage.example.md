@@ -51,8 +51,8 @@ skip the run when the Linear connector is unreachable.
 1. Read the state file (missing ⇒ initialize with the shape above).
 2. Precheck the queue: `orca linear list --filter open --json` — empty ⇒ stop.
 3. Take at most 5 issues whose keys are not in `processed`.
-4. Per issue: read context (`orca linear issue <KEY>`), assign S/M/L per
-   `reference/task-tiers.md`, record the triage (report, or comment when
+4. Per issue: read context (`orca linear issue <KEY>`), assign S/M/L/XL
+   per `docs/tiers.md`, record the triage (report, or comment when
    writes are enabled). Never move any issue to Done from this loop —
    that path runs through work-verify → work-handoff (gate rule).
 5. Update state (processed keys, `last_run`, failure count).
