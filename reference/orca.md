@@ -23,6 +23,11 @@ Anything else ⇒ the no-Orca contract below. The response's `capabilities`
 array supports feature-level detection when a skill needs it; the same
 command is the natural automation `--precheck`.
 
+On machines with the global layer installed, a session-start hook
+(`global/hooks/orca-probe.ps1`) already injected the result as an
+`ORCA: available|unavailable` context line — citing that line satisfies
+step 0; re-run the probe only when the line is absent.
+
 ## The no-Orca contract
 
 Without Orca an agent may do everything that is a file: read and write
