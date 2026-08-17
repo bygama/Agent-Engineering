@@ -61,28 +61,33 @@ Wait for explicit approval of this plan before touching anything.
 
 ## Per-version notes
 
-- **AE/2.0** (2026-08-16) — baseline of the v2 standard; migrations above.
-- **AE/2.1** (2026-08-16) — `PROGRESS.md` gains a `## Verification` section
-  (PASS evidence written by work-verify; gates the close handoff). Migrating
-  2.0 → 2.1: append the section to any open lane's PROGRESS.md, restamp.
-  Closed lanes and everything else: untouched.
-- **AE/2.2** (2026-08-16) — `loops/` template added (standing automation
-  artifact, instantiated by loop-setup only when a task passes the loop
-  filter). Migrating 2.1 → 2.2: restamp only; nothing else changes in an
-  installed repo.
-- **AE/2.3** (2026-08-16) — lint fix: cmd-drift no longer flags commands
-  carrying the `# not verified` marker. Migrating 2.2 → 2.3: restamp
-  only; repos that removed the marker to silence false drift may restore
-  it.
-- **AE/2.4** (2026-08-16) — Orca-first execution (ADR-001). Migrating
-  2.3 → 2.4: restamp; if the repo has `loops/`, replace each loop's
-  trigger fallback line with the manual-iteration fallback ("run one
-  iteration of `loops/<name>.md`" to any agent). No other file changes.
-- **AE/2.5** (2026-08-16) — tier XL (ADR-002). Migrating 2.4 → 2.5:
-  restamp, extend the tier one-liner with `· XL fan-out` and the
+Since ADR-003 versions follow SemVer (`AE/MAJOR.MINOR.PATCH`); the 0.x
+entries below shipped under old `AE/2.<n>` names (kept in parentheses —
+repos may still carry those stamps). "v1 shape" / "v2 shape" name file
+LAYOUTS, not versions: v1 = the 0.1.0 predecessor layout, v2 = the
+stable line's layout.
+
+- **0.2.0** (2026-08-16, formerly AE/2.0) — baseline of the v2 shape;
+  migrations above.
+- **0.3.0** (2026-08-16, formerly AE/2.1) — `PROGRESS.md` gains
+  `## Verification`. Migrating up: append the section to any open lane's
+  PROGRESS.md, restamp. Closed lanes and everything else: untouched.
+- **0.4.0** (2026-08-16, formerly AE/2.2) — `loops/` template added.
+  Migrating up: restamp only.
+- **0.4.1** (2026-08-16, formerly AE/2.3) — lint fix: cmd-drift honors
+  `# not verified`. Migrating up: restamp only; repos that removed the
+  marker to silence false drift may restore it.
+- **0.5.0** (2026-08-16, formerly AE/2.4) — Orca-first execution
+  (ADR-001). Migrating up: restamp; if the repo has `loops/`, replace
+  each loop's trigger fallback line with the manual-iteration fallback
+  ("run one iteration of `loops/<name>.md`" to any agent).
+- **0.6.0** (2026-08-16, formerly AE/2.5) — tier XL (ADR-002). Migrating
+  up: restamp, extend the tier one-liner with `· XL fan-out` and the
   `(docs/tiers.md)` pointer, install `docs/tiers.md` from the template.
-  Open lanes unaffected.
-- **AE/2.6** (2026-08-17) — errata: triage-loop example catches up with
-  tier XL. Migrating 2.5 → 2.6: restamp; if the repo instantiated the
-  issue-triage example, its tier line becomes "assign S/M/L/XL per
-  `docs/tiers.md`". Nothing else changes.
+- **0.6.1** (2026-08-17, formerly AE/2.6) — errata: triage-loop example
+  assigns S/M/L/XL per `docs/tiers.md`. Migrating up: restamp; fix the
+  instantiated example's tier line if present.
+- **1.0.0** (2026-08-17) — SemVer adoption (ADR-003), stable line
+  declared. Migrating 0.6.1/AE/2.6 → 1.0.0: restamp to
+  `Standard: AE/1.0.0`. Nothing else changes in an installed repo —
+  a naming-only release for consumers.

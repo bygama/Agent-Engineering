@@ -7,7 +7,7 @@ title: "upstream: <short summary>"
 ## Where it surfaced
 
 <!-- The consuming repo (or "private repo" + stack) and its stamp line,
-e.g. `Standard: AE/2.6`. -->
+e.g. `Standard: AE/1.0.0`. -->
 
 ## Kind
 

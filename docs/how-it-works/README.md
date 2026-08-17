@@ -17,3 +17,7 @@ chapter in the same change.**
 
 Convention: every section that documents behavior not yet built carries a
 `> Phase: PN` note, so this folder never claims unbuilt things exist.
+
+Provenance notes ("live since AE/2.1") use the version names current at
+ship time; since ADR-003 renumbered the line, the CHANGELOG maps each
+former `AE/2.x` name to its 0.x number.

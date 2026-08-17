@@ -1,6 +1,6 @@
 # Agent-Engineering
 
-Standard: AE/2.6
+Standard: AE/1.0.0
 
 Source of truth for the agent-engineering standard — six layers (context,
 memory, harness, loop, graph, with reducer/MCP cross-cutting) — and the
@@ -10,7 +10,7 @@ is in maintenance — versions bump on template/check changes (CHANGELOG.md).
 
 ## Commands
 
-- Self-lint: `node scripts/agent-lint.mjs . --ignore tests,templates,global`
+- Self-lint: `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
 - Lint self-tests: `node tests/run-lint-tests.mjs`
 - DESIGN.md generator self-tests: `node tests/run-gen-tests.mjs`
 - Eval-structure suite: `node tests/run-eval-checks.mjs`
@@ -19,7 +19,8 @@ is in maintenance — versions bump on template/check changes (CHANGELOG.md).
 
 - `tests/fixtures/` break the standard on purpose; `templates/` carry
   `{{PLACEHOLDER}}` markers and are instantiated by agent-init, never copied
-  verbatim — both are excluded from the self-lint, keep it that way.
+  verbatim; `examples/` are authoring-time snapshots (never restamped) —
+  all three are excluded from the self-lint, keep it that way.
 - `global/` is content only; the workstation installer applies it to
   `~/.claude` — never edit `~/.claude` directly from here.
 - `skills/` are junction-linked into `~/.claude/skills`: edits go live

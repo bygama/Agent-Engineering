@@ -63,6 +63,9 @@ becomes a check.
    in AGENTS.md. The repo keeps `CHANGELOG.md` (semver; v2.0 starts here, v1 = the
    context-only standard). `agent-audit` detects stamp drift and offers migration;
    `agent-init` performs it (migration machinery ported from context-init).
+   *Amended by [ADR-003](../adrs/ADR-003-semantic-versioning.md): full SemVer three-part
+   stamps (`Standard: AE/MAJOR.MINOR.PATCH`); the AE/2.x era is renumbered as the 0.x
+   initial-development line and 1.0.0 declares the standard stable (2026-08-17).*
 4. **Skill renames for scope honesty.** `context-init` → `agent-init`, `context-audit` →
    `agent-audit`. `designing-consistently` and `extracting-design-md` carry over unchanged.
    One junction event, in P1: when the evolved skills land in the new repo, the old

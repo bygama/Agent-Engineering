@@ -2,7 +2,7 @@
 
 # Agent-Engineering
 
-[![Standard](https://img.shields.io/badge/standard-AE%2F2.6-blue)](CHANGELOG.md)
+[![Standard](https://img.shields.io/badge/standard-AE%2F1.0.0-blue)](CHANGELOG.md)
 [![Status](https://img.shields.io/badge/status-maintenance-brightgreen)](docs/specs/SPEC-agent-engineering.md)
 [![Execution](https://img.shields.io/badge/execution-orca--first-8A2BE2)](docs/adrs/ADR-001-orca-is-the-executor.md)
 [![Runtime](https://img.shields.io/badge/runtime-neutral-lightgrey)](docs/how-it-works/execution.md)
@@ -167,21 +167,42 @@ comment; nobody moves states by hand. Proven live, end to end.
 
 **Deep dive → [docs/how-it-works/integrations.md](docs/how-it-works/integrations.md)**
 
-## Adopting the standard
+## Installing in any repo
 
-In the target repo, run the `agent-init` skill (or point any agent at
-[skills/agent-init/SKILL.md](skills/agent-init/SKILL.md)):
+Point any agent at
+[skills/agent-init/SKILL.md](skills/agent-init/SKILL.md) — on a machine
+with the skills installed, just say *"set up the agent-engineering
+standard in this repo"*. The flow:
 
-1. It explores first and asks only what it cannot infer — the repo profile
-   (once) and the real gotchas.
-2. Every command is verified by running it before it enters `AGENTS.md`;
-   failures never go in.
-3. Existing setups get a migration plan and a hard approval stop before
-   anything is touched — content moves, never disappears.
-4. You end with a stamped `AGENTS.md` ≤60 lines (verified commands, real
-   gotchas, hard constraints, tier one-liner), a pointer `CLAUDE.md`, and a
-   `docs/` seed (`tiers.md`, `adrs/`, `specs/`) — nothing speculative.
-   `agent-audit` runs as the final gate.
+1. **Explores first** and asks only what it cannot infer: the repo
+   profile (personal / OSS / team, asked once) and your real gotchas.
+2. **Verifies every command by running it** before it enters
+   `AGENTS.md`; failures never go in, skipped ones are marked
+   `# not verified`.
+3. Existing setups get a **migration plan and a hard approval stop**
+   before anything is touched — content moves, never disappears.
+4. You end with a stamped `AGENTS.md` (≤60 lines: verified commands,
+   real gotchas, hard constraints, tier one-liner), a pointer
+   `CLAUDE.md`, and a `docs/` seed (`tiers.md`, ADR/spec templates) —
+   nothing speculative. `agent-audit` runs as the final gate.
+
+### Customizing
+
+Templates are defaults, not law — but budgets are law:
+
+| You can shape | The line that never moves |
+|---|---|
+| Which blocks `AGENTS.md` carries — Map is optional, empty blocks are valid | `AGENTS.md` ≤60 lines, per-app ≤30, pointer ≤3 |
+| Community files by profile ([`templates/community/MATRIX.md`](templates/community/MATRIX.md); OSS picks a license) | one canonical `AGENTS.md` + pointer `CLAUDE.md` — never per-tool adapters |
+| When lanes, feature lists, loops, and `DESIGN.md` appear (per effort, per evidence, opt-in) | nothing speculative at install time |
+| Which runner works the repo — any file-reading agent | verification by command; tier ceremony (`docs/tiers.md`) |
+
+### Examples
+
+Instantiated setups per repo shape live in [`examples/`](examples/): a
+single app, a monorepo, and a machine-config repo — the last one
+pointing at [workstation](https://github.com/bygama/workstation), a
+real public repo living under the standard.
 
 ## The standard in one paragraph
 
@@ -198,10 +219,12 @@ files, so any model or runtime can pick up any lane.
 
 **All phases (P0-P5) shipped; the repo is in maintenance.**
 Versions bump when templates or checks change
-([CHANGELOG.md](CHANGELOG.md)). Since the ladder closed, two decisions
+([CHANGELOG.md](CHANGELOG.md)). Since the ladder closed, three decisions
 extended the standard: Orca-first execution
-([ADR-001](docs/adrs/ADR-001-orca-is-the-executor.md)) and tier XL
-([ADR-002](docs/adrs/ADR-002-tier-xl.md)). The full flow is proven live:
+([ADR-001](docs/adrs/ADR-001-orca-is-the-executor.md)), tier XL
+([ADR-002](docs/adrs/ADR-002-tier-xl.md)), and semantic versioning with
+the 1.0.0 stable line
+([ADR-003](docs/adrs/ADR-003-semantic-versioning.md)). The full flow is proven live:
 Linear intake → triaged tier → Orca worker on a linked worktree → PR →
 rebase merge → issue auto-moved to Done by the workspace GitHub app. The
 ladder, every fixed decision, and acceptance criteria live in

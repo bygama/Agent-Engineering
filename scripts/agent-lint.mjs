@@ -89,7 +89,7 @@ for (const f of agents) {
     else if (n > budget) add("medium", "budget", f, `${n} lines — over target (${budget})`);
     const stampLines = fileLines(f).filter((l) => l.startsWith("Standard:"));
     if (!stampLines.length) add("medium", "stamp-missing", f, "no `Standard: AE/<major>.<minor>` stamp line");
-    else if (!stampLines.some((l) => /^Standard: AE\/\d+\.\d+\s*$/.test(l)))
+    else if (!stampLines.some((l) => /^Standard: AE\/\d+\.\d+(\.\d+)?\s*$/.test(l)))
       add("medium", "stamp-shape", f, `malformed stamp: "${stampLines[0].trim()}"`);
   } else {
     if (n > 60) add("high", "budget-cap", f, `${n} lines — per-app AGENTS.md far over the cap (30)`);
