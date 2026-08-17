@@ -23,9 +23,10 @@ README, no AGENTS.md/CLAUDE.md, no docs/.
       (skips destructive ones; marks unverifiable ones `# not verified`).
 - [ ] Instantiates the base skeleton only: AGENTS.md (stamped with the
       current version — the newest entry in the Agent-Engineering repo's
-      CHANGELOG.md — 4-block, tier one-liner) + pointer CLAUDE.md (`@AGENTS.md`) +
-      docs/README.md + adrs/ + specs/. No monorepo files, no `work/` lanes,
-      no feature list, no `loops/`, no speculative skills.
+      CHANGELOG.md — 4-block, tier one-liner pointing at docs/tiers.md) +
+      pointer CLAUDE.md (`@AGENTS.md`) + docs/README.md + docs/tiers.md +
+      adrs/ + specs/. No monorepo files, no `work/` lanes, no feature
+      list, no `loops/`, no speculative skills.
 - [ ] Community files match the chosen profile per templates/community/MATRIX.md
       (which has no CODE_OF_CONDUCT).
 - [ ] Final AGENTS.md ≤60 lines; Map only if justified.
