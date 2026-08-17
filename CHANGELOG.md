@@ -104,3 +104,13 @@ The v2 baseline: the standard is installable and auditable.
   links, lanes, feature-list schema/regression, DESIGN.md drift, command
   drift. 12 lint fixtures + generator self-tests.
 - P0 foundation: repo identity, founding spec, `docs/how-it-works/` chapters.
+
+## v1 — the predecessor generation
+
+There is no AE/1.x on purpose. The first generation of this standard
+lived in the Context-Engineering repo (retired and deleted 2026-08-16):
+canonical CLAUDE.md as the context file, entry-stub AGENTS.md, no
+version stamps. This repo is the second generation and starts its line
+at AE/2.0, counting that era as v1 — which is why `agent-init` and
+`agent-audit` still recognize the "v1 shape" by sight and migrate it
+(`skills/agent-init/references/migration.md`).
