@@ -1,0 +1,23 @@
+name: gates
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Self-lint
+        run: node scripts/agent-lint.mjs . --ignore tests,templates,global
+      - name: Lint self-tests
+        run: node tests/run-lint-tests.mjs
+      - name: Generator self-tests
+        run: node tests/run-gen-tests.mjs
+      - name: Eval-structure suite
+        run: node tests/run-eval-checks.mjs
