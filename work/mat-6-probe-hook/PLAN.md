@@ -7,14 +7,14 @@ content lives in the global layer; the workstation installer applies it.
 The installer must MERGE the hook into live settings — Orca injects its
 own hooks there and they must survive.
 
-- [ ] Canonical probe script in the global layer — accept:
+- [x] Canonical probe script in the global layer — accept:
       `pwsh -NoProfile -File global/hooks/orca-probe.ps1` prints one
       `ORCA: …` line, exit 0
-- [ ] `reference/orca.md` records that the injected line satisfies
+- [x] `reference/orca.md` records that the injected line satisfies
       step 0 — accept: `rg "session-start hook" reference/orca.md`
       non-empty
-- [ ] workstation: synced copy + `claude/hooks.json` + installer
+- [x] workstation: synced copy + `claude/hooks.json` + installer
       hook-merge + tests — accept: `pwsh ./tests/run.ps1` exit 0
-- [ ] Installer dry-run clean — accept:
+- [x] Installer dry-run clean — accept:
       `pwsh claude/install.ps1 -WhatIfOnly` exit 0
-- [ ] AE gates green — accept: the four gate commands exit 0
+- [x] AE gates green — accept: the four gate commands exit 0
