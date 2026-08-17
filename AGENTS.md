@@ -26,8 +26,9 @@ is in maintenance — versions bump on template/check changes (CHANGELOG.md).
 - `skills/` are junction-linked into `~/.claude/skills`: edits go live
   immediately, no copy step.
 - Process-skill suites (superpowers etc.) compose by one rule: their
-  artifacts land in the standard's locations; handoff and worktrees are
-  the standard's (`reference/skills.md`).
+  artifacts land in the standard's locations; execution, handoff and
+  worktrees are the standard's — `skills/relay` supersedes suite
+  executors (`reference/skills.md`, ADR-004).
 
 ## Hard constraints
 
@@ -47,5 +48,7 @@ is in maintenance — versions bump on template/check changes (CHANGELOG.md).
 - The standard itself: `reference/`
 - What consumers receive: `templates/repo/`
 - Replication skills: `skills/agent-init/`, `skills/agent-audit/`
+- Usage skills: `skills/` — work-verify, work-handoff, fan-out, relay
+  (lane executor), loop-setup
 - Repo-local skills: `.claude/skills/` — docs-sweep (drift battery),
   release (bump ritual)

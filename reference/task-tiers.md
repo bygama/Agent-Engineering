@@ -1,7 +1,8 @@
 # Task tiers
 
 Source: `docs/specs/SPEC-agent-engineering.md` (Decision 7, tier table)
-as amended by `docs/adrs/ADR-002-tier-xl.md`; normative walk-through in
+as amended by `docs/adrs/ADR-002-tier-xl.md` and
+`docs/adrs/ADR-004-relay.md`; normative walk-through in
 `docs/how-it-works/work-lifecycle.md`. Retrieved 2026-08-16.
 
 ## The rule
@@ -36,7 +37,7 @@ downgrading is how half-done work gets declared simple retroactively.
 |---|---|
 | S | one-line definition of done + run the verify command. No files. |
 | M | DoD written **first** · lane `work/<slug>/` with PLAN + PROGRESS (+ DECISIONS when choices are made; SPEC when the prompt isn't the spec) · WIP=1 · fresh-context review · clean-state exit |
-| L | full four files + `feature_list.json` (schema-validated, states gated by verification evidence, `passing` irreversible) + dedicated init phase + staged context windows |
+| L | full four files + `feature_list.json` (schema-validated, states gated by verification evidence, `passing` irreversible) + dedicated init phase + staged context windows · recommended executor: `skills/relay` (ADR-004; also available at M, never mandatory) |
 | XL | everything L, per worker lane, + fan-out mandatory: three questions in writing · frozen anchors · worker table in the parent PLAN · reducer contract · synthesis gate on the merged whole (`skills/fan-out`, ADR-002) |
 
 The tier decides *ceremony*, not effort: an S can be hard, an L can be easy —

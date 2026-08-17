@@ -95,7 +95,7 @@ When in doubt, take the higher tier. Consumers receive this table as
 
 **Deep dive → [docs/how-it-works/work-lifecycle.md](docs/how-it-works/work-lifecycle.md)** · tiers: [reference/task-tiers.md](reference/task-tiers.md)
 
-## The six skills
+## The seven skills
 
 Skills are plain markdown procedures — runtimes with native skill support
 load them by trigger, and any other agent can simply be told to read the
@@ -105,10 +105,35 @@ file and follow it. Each ships with ≥3 evals, written before the skill.
 |---|---|
 | [`agent-init`](skills/agent-init/SKILL.md) | installing the standard in a repo, or migrating a legacy setup |
 | [`agent-audit`](skills/agent-audit/SKILL.md) | measuring a repo against the standard (report-only by default) |
+| [`relay`](skills/relay/SKILL.md) | executing a lane's PLAN in this session — fresh subagent per step, per-step review, capped fix loop |
 | [`work-verify`](skills/work-verify/SKILL.md) | before any "done" — tiered definition of done, evidence by command |
 | [`work-handoff`](skills/work-handoff/SKILL.md) | closing or pausing work — clean state, card + tracker sync |
 | [`loop-setup`](skills/loop-setup/SKILL.md) | a recurring task passes the loop filter — standing automation |
 | [`fan-out`](skills/fan-out/SKILL.md) | XL work — frozen anchors, worker table, reducer contract |
+
+How they chain on one unit of work: a thinking suite (superpowers or
+any other) designs and plans; the plan lands in `work/<slug>/PLAN.md`;
+**relay** executes it step-by-step (default at L, available at M — a
+runner without subagents runs the same steps inline); **work-verify**
+stamps the PASS evidence; **work-handoff** closes or pauses. **fan-out**
+is relay's parallel sibling: it splits XL work across lanes and every
+worker runs that same inner cycle in its own lane. **agent-init**
+installs the standard, **agent-audit** measures it, **loop-setup** turns
+recurring work into standing automation. Suite executors are superseded
+in writing ([`reference/skills.md`](reference/skills.md),
+[ADR-004](docs/adrs/ADR-004-relay.md)).
+
+```mermaid
+flowchart LR
+    TH["thinking suite<br/>brainstorm · plan"] --> PL["work/&lt;slug&gt;/<br/>PLAN.md"]
+    PL --> RE["relay<br/>step-by-step"]
+    RE --> WV["work-verify<br/>PASS evidence"]
+    WV --> WH["work-handoff<br/>close / pause"]
+    FO["fan-out<br/>XL: parallel lanes"] -.->|"each worker,<br/>own lane"| RE
+```
+
+Two repo-local skills (`.claude/skills/`: `docs-sweep`, `release`)
+maintain this repo itself and are never installed in consumers.
 
 **Deep dive → [docs/how-it-works/standard-lifecycle.md](docs/how-it-works/standard-lifecycle.md)**
 
@@ -219,12 +244,13 @@ files, so any model or runtime can pick up any lane.
 
 **All phases (P0-P5) shipped; the repo is in maintenance.**
 Versions bump when templates or checks change
-([CHANGELOG.md](CHANGELOG.md)). Since the ladder closed, three decisions
+([CHANGELOG.md](CHANGELOG.md)). Since the ladder closed, four decisions
 extended the standard: Orca-first execution
 ([ADR-001](docs/adrs/ADR-001-orca-is-the-executor.md)), tier XL
-([ADR-002](docs/adrs/ADR-002-tier-xl.md)), and semantic versioning with
+([ADR-002](docs/adrs/ADR-002-tier-xl.md)), semantic versioning with
 the 1.0.0 stable line
-([ADR-003](docs/adrs/ADR-003-semantic-versioning.md)). The full flow is proven live:
+([ADR-003](docs/adrs/ADR-003-semantic-versioning.md)), and relay, the
+lane executor ([ADR-004](docs/adrs/ADR-004-relay.md)). The full flow is proven live:
 Linear intake → triaged tier → Orca worker on a linked worktree → PR →
 rebase merge → issue auto-moved to Done by the workspace GitHub app. The
 ladder, every fixed decision, and acceptance criteria live in

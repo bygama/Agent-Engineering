@@ -99,8 +99,25 @@ flowchart LR
 Intake can be a tracker issue or a direct request — the standard doesn't
 care. Triage assigns the tier and, at M+, opens the lane folder with its
 definition of done already written. Work loops inside the lane, updating
-`PROGRESS.md` as it goes. The two exits are skills, not vibes — both live
-since AE/2.1:
+`PROGRESS.md` as it goes.
+
+How that inner loop runs has an owned shape since ADR-004: **relay**
+(`skills/relay`), the recommended executor at L and available at M. A
+controller dispatches a fresh implementer subagent per PLAN step — the
+dispatch is just the lane path, the step number, the step's acceptance
+line, and a four-state report contract, because the lane's four files
+already ARE the context package a stateless subagent needs. Each step
+gets a fresh-context review (maker ≠ checker), findings run a capped
+fix loop (five rounds, escalating model), and rulings land in
+`DECISIONS.md`. relay is never mandatory: a runner without subagents
+executes the same steps inline under the same ceremony, and parallel
+implementers inside one lane are refused — parallelism between lanes
+belongs to fan-out ([execution.md](execution.md)). relay ships no final
+review of its own; it ends by handing the lane to the two exits below.
+Process suites' own executors are superseded in writing
+(`reference/skills.md`).
+
+The two exits are skills, not vibes — both live since AE/2.1:
 
 - **`work-verify`** runs the tier's definition of done and refuses "done"
   without evidence. Its output is a PASS block in the lane's
