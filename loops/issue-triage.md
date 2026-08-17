@@ -38,7 +38,9 @@ skip the run when the Linear connector is unreachable.
   --time 09:30 --prompt "Follow loops/issue-triage.md in this repo"
   --provider claude --repo path:C:/Briar/repos/mine/Agent-Engineering
   --precheck "orca linear list --filter open --json"`
-- Fallback (no Orca): `/schedule` weekdays + Linear MCP for the queue
+- Manual fallback: "run one iteration of `loops/issue-triage.md`" to any
+  agent (without Orca the queue read is declared NOT reachable — no-Orca
+  contract)
 - Writes: report-only until the owner enables them (then the triage lands
   as `orca linear comment add <KEY> --body "triage: tier M — <reason>"`)
 

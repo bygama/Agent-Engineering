@@ -10,7 +10,7 @@ never a pile.
 - Repeats: on new issues (checked hourly)
 - Automated check: queue read exits 0; each triage is a recorded comment
 - Waste absorbed: empty runs cost one precheck call
-- Real tools: `orca linear` CLI (fallback: Linear MCP / API)
+- Real tools: `orca linear` CLI, workspace connection verified
 
 ## Stopping rule
 
@@ -38,8 +38,11 @@ skip the run when the Linear connector is unreachable.
 
 - Primary: `orca automations create --name issue-triage --trigger hourly
   --prompt "Follow loops/issue-triage.md" --provider claude
-  --precheck "orca linear list --filter open --json" --repo path:<repo>`
-- Fallback (no Orca): cron/`/schedule` hourly + Linear MCP for the queue
+  --precheck "orca linear list --filter open --json" --repo path:<repo>
+  --disabled` (enabled only on the owner's explicit go)
+- Manual fallback: "run one iteration of `loops/issue-triage.md`" to any
+  agent — works with or without Orca (without it, the queue read is
+  declared NOT reachable per the no-Orca contract)
 - Writes: report-only until the owner enables them (then the triage lands
   as `orca linear comment add <KEY> --body "triage: tier M — <reason>"`)
 
