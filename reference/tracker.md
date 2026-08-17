@@ -29,6 +29,12 @@ Two rules join them:
 Either alone is enough for the skills (`work-handoff`, triage loops) to
 detect the link; absence of both simply skips the tracker steps.
 
+Operator setup, once per workspace: point Linear's coding-tools prompt
+template at the standard — first line `Read AGENTS.md first; tier per
+docs/tiers.md.` — so any session opened from an issue starts inside the
+standard. agent-init reminds the owner of this when installing a repo in
+a tracker-connected workspace.
+
 ## Connector: Orca CLI (primary)
 
 Verified commands (each supports `--json`; `--current` targets the Linear
