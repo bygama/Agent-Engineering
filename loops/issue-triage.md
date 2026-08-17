@@ -43,8 +43,10 @@ skip the run when the Linear connector is unreachable.
 - Manual fallback: "run one iteration of `loops/issue-triage.md`" to any
   agent (without Orca the queue read is declared NOT reachable — no-Orca
   contract)
-- Writes: report-only until the owner enables them (then the triage lands
-  as `orca linear comment add <KEY> --body "triage: tier M — <reason>"`)
+- Writes: ENABLED by the owner 2026-08-17 — the triage lands as
+  `orca linear comment add <KEY> --body "triage: tier <T> — <reason>"`.
+  Status moves stay forbidden from this loop (gate rule: Done only via
+  work-verify → work-handoff).
 
 ## Run protocol
 
@@ -53,9 +55,9 @@ skip the run when the Linear connector is unreachable.
 3. Take at most 5 issues whose keys are not in `processed`.
 4. Per issue: read context (`orca linear issue <KEY>`), assign S/M/L per
    `reference/task-tiers.md` — or flag non-repo items (onboarding cards,
-   duplicates) with a suggested disposition. Record the triage (report, or
-   comment when writes are enabled). Never move any issue to Done from
-   this loop — that path runs through work-verify → work-handoff (gate
-   rule).
+   duplicates) with a suggested disposition. Record the triage as a
+   comment on the issue (writes enabled). Never move any issue to Done
+   from this loop — that path runs through work-verify → work-handoff
+   (gate rule).
 5. Update state (processed keys, `last_run`, failure count).
 6. Stop per the stopping rule.

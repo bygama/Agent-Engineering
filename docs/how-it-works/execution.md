@@ -122,8 +122,9 @@ Dogfooding again: `loops/self-audit.md` is the standing weekly self-audit
 of this repo (gate: self-lint + every suite; queue: drift findings;
 trigger: Orca automation, fallback documented in the file), and
 `loops/issue-triage.md` is the live instance of the triage example —
-each weekday it reads the owner's Linear queue and tiers what arrived
-(report-only; the gate rule keeps Done out of its reach). State files sit
+each weekday it reads the owner's Linear queue and tiers what arrived,
+posting the triage as a comment (writes owner-enabled 2026-08-17; the
+gate rule keeps Done out of its reach). State files sit
 beside them, gitignored. They exist because the anti-decay rule and the
 intake plane deserve a cadence, not just good intentions at merge time.
 
