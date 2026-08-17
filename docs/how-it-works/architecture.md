@@ -118,8 +118,9 @@ the fixture that proves it stays quiet.
 
 Live now. `docs/specs/` holds the founding spec (every fixed decision, the
 phase ladder, acceptance criteria per phase); `docs/plans/` holds dated
-implementation plans; `docs/adrs/` will hold decision records for anything
-decided after the spec; and `docs/how-it-works/` is this folder — the only
+implementation plans; `docs/adrs/` holds the decision records for anything
+decided after the spec (live: ADR-001 Orca-first execution, ADR-002 tier
+XL); and `docs/how-it-works/` is this folder — the only
 part of the repo deliberately exempt from length budgets, because its job is
 depth on demand, not always-loaded brevity.
 

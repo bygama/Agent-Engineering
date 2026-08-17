@@ -1,4 +1,4 @@
-# Eval 03: Linear-linked close + fallback ladder
+# Eval 03: Linear-linked close + no-Orca contract
 
 ## Query
 
