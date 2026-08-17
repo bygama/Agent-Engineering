@@ -34,6 +34,14 @@
   docs/adrs/ADR-005-artifact-phases.md` → yes; `node
   scripts/agent-lint.mjs . --ignore tests,templates,global,examples` →
   exit 0 (0 high, 0 medium, 0 low).
+- 2026-08-17 — S6 — wrote `skills/work-plan/evals/eval-05.md` (two
+  modes per SPEC §3 amendment: (a) design-first stops after SPEC.md
+  only, (b) direct produces SPEC+PLAN in one pass with one gate, (c)
+  no design + genuine uncertainty refuses and points at brainstorming)
+  — pins behavior the current SKILL.md does not yet induce, per
+  DECISIONS.md (evals change before content; S7 makes it pass) —
+  acceptance: `node tests/run-eval-checks.mjs` → exit 0 (work-plan: 5
+  evals well-formed).
 
 ## In progress
 
