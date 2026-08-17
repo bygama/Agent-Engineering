@@ -12,9 +12,10 @@ source 2026-08-17. Stamps read `Standard: AE/MAJOR.MINOR.PATCH`:
 - **PATCH** — fixes and errata, backward compatible.
 
 Template or check changes always bump; docs-only refreshes never do.
-Every bump restamps the root `AGENTS.md` and the README version badge in
-the same change, and lands with its migration note
-(`skills/agent-init/references/migration.md`).
+Every bump restamps the root `AGENTS.md` in the same change, lands with
+its migration note (`skills/agent-init/references/migration.md`), and
+tags the release (`vMAJOR.MINOR.PATCH`) — the README badge reads the
+latest tag by itself.
 
 Entries before 1.0.0 shipped under the old `AE/<major>.<minor>` naming
 and keep their former name for traceability; repos still stamped with an

@@ -127,10 +127,11 @@ next migration.
   AE/2.x era is renumbered as the 0.x initial-development line; 1.0.0
   declared the standard stable on 2026-08-17 (ADR-003; former names kept
   per CHANGELOG entry).
-- A bump restamps this repo's root `AGENTS.md` and the README version
-  badge in the same change (the rule lives in the `CHANGELOG.md`
-  header). `examples/` stamps are authoring-time snapshots — never
-  restamped.
+- A bump restamps this repo's root `AGENTS.md` in the same change and
+  tags the release (`vMAJOR.MINOR.PATCH`); the README badge reads the
+  latest tag by itself, so it can never drift (the rule lives in the
+  `CHANGELOG.md` header). `examples/` stamps are authoring-time
+  snapshots — never restamped.
 - History: `CHANGELOG.md` at this repo's root records every bump and what
   it means for consumers.
 - Migration notes: `skills/agent-init/references/migration.md` records, per
