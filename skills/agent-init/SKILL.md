@@ -78,7 +78,10 @@ when a concrete effort or recurring task is starting (see
 `reference/task-tiers.md`, `reference/loops.md`).
 Then run the `agent-audit` skill as the final gate and report: files created,
 files deleted (migrations), audit score, and before/after line counts of
-always-loaded context when migrating.
+always-loaded context when migrating. When a tracker is connected to the
+workspace, also remind the owner once to point the coding-tools prompt
+template at the standard — first line `Read AGENTS.md first; tier per
+docs/tiers.md.` (`reference/tracker.md`, operator setup).
 
 ## Judgment notes
 
