@@ -13,6 +13,7 @@ chapter in the same change.**
 | [standard-lifecycle.md](standard-lifecycle.md) | install → audit → update/migrate flows, versioning | live since AE/2.0 |
 | [work-lifecycle.md](work-lifecycle.md) | task tiers S/M/L/XL, lanes, the four files, feature list, tracker plane | live since AE/2.1 |
 | [execution.md](execution.md) | loops, trigger matrix, Orca mapping, tracker connector, graphs/reducers, runners | live (portability proof passed 2026-08-16) |
+| [integrations.md](integrations.md) | how the planes connect: Linear ↔ GitHub ↔ Orca — wiring, events, who writes what | live (verified e2e 2026-08-17) |
 
 Convention: every section that documents behavior not yet built carries a
 `> Phase: PN` note, so this folder never claims unbuilt things exist.
