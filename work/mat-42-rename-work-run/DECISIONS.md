@@ -14,3 +14,9 @@
   them, but the SPEC's record rule takes precedence; intent met, no
   living name usage remains. Cost if wrong: a stale-looking link label,
   caught by any future docs-sweep.
+- 2026-08-17 — Ruling (R1b concern): the 4 residual agent-init/audit
+  hits stay — docs/specs/* are records amended by pointer (ADR
+  pattern, never rewritten; MAT-35's terminology pass may add the
+  rename pointers), and examples/* are authoring-time snapshots by
+  design (excluded from restamps). Cost if wrong: stale names in
+  reference material, caught by docs-sweep.
