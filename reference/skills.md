@@ -69,6 +69,10 @@ Write evals BEFORE skill content, from observed gaps — not imagined ones:
 
 ## Composing with process-skill suites
 
+`using-ae` is the always-loaded entry point (SessionStart): it carries
+the precedence rule below (ADR-005) into every session so a suite chain
+never has to be caught mid-drift.
+
 Process suites (e.g. superpowers: brainstorming, test-driven-development,
 systematic-debugging) supply the *how* of thinking; this standard
 supplies the artifacts and gates. One rule joins them: **the standard

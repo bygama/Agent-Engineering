@@ -95,7 +95,7 @@ When in doubt, take the higher tier. Consumers receive this table as
 
 **Deep dive → [docs/how-it-works/work-lifecycle.md](docs/how-it-works/work-lifecycle.md)** · tiers: [reference/task-tiers.md](reference/task-tiers.md)
 
-## The eight skills
+## The nine skills
 
 Skills are plain markdown procedures — runtimes with native skill support
 load them by trigger, and any other agent can simply be told to read the
@@ -103,6 +103,7 @@ file and follow it. Each ships with ≥3 evals, written before the skill.
 
 | Skill | Fires when |
 |---|---|
+| [`using-ae`](skills/using-ae/SKILL.md) | always-loaded (SessionStart) — the entry point: triages the tier and routes to the skill that owns it |
 | [`agent-init`](skills/agent-init/SKILL.md) | installing the standard in a repo, or migrating a legacy setup |
 | [`agent-audit`](skills/agent-audit/SKILL.md) | measuring a repo against the standard (report-only by default) |
 | [`work-plan`](skills/work-plan/SKILL.md) | shaping an approved design into a relay-ready lane PLAN.md |
@@ -111,6 +112,10 @@ file and follow it. Each ships with ≥3 evals, written before the skill.
 | [`work-handoff`](skills/work-handoff/SKILL.md) | closing or pausing work — clean state, card + tracker sync |
 | [`loop-setup`](skills/loop-setup/SKILL.md) | a recurring task passes the loop filter — standing automation |
 | [`fan-out`](skills/fan-out/SKILL.md) | XL work — frozen anchors, worker table, reducer contract |
+
+**`using-ae`** is the entry point: loaded at every session start, it
+triages an arriving task's tier and routes to whichever skill below
+owns the current phase, before any action.
 
 How they chain on one unit of work: a thinking suite (superpowers or
 any other) designs; **work-plan** shapes that design into
