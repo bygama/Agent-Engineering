@@ -57,7 +57,7 @@ when the working tree is dirty or not on `main`.
 2. Precheck: `git status --porcelain --untracked-files=no` non-empty, or
    branch ≠ `main` ⇒ skip.
 3. Run the gate commands; collect any findings.
-4. Dogfooding checks per `skills/agent-audit` dogfooding mode: stamp ==
+4. Dogfooding checks per `skills/ae-audit` dogfooding mode: stamp ==
    newest CHANGELOG entry; how-it-works coverage (every top-level dir and
    skill has a current section); phase-tag honesty.
 5. Docs sweep: run one iteration of `.claude/skills/docs-sweep` (its

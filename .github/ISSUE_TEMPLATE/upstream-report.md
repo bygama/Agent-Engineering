@@ -27,4 +27,4 @@ that didn't cover your case. -->
 <!-- Note: issues are not worked from GitHub. This report gets triaged
 into the maintainer's tracker (a comment will say "tracked as MAT-xx")
 and the fix returns through the normal release flow — your repo picks it
-up on its next agent-init migration. -->
+up on its next ae-init migration. -->

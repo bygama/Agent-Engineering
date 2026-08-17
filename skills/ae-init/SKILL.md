@@ -1,9 +1,9 @@
 ---
-name: agent-init
+name: ae-init
 description: Installs the agent-engineering standard in a repository — canonical AGENTS.md, pointer CLAUDE.md, docs tree — or migrates v1 (canonical-CLAUDE.md) and legacy (adapters, read orders) setups to it. Use when setting up agent context for a new or existing repo, when a repo lacks AGENTS.md or a version stamp, or when modernizing an outdated context setup.
 ---
 
-# Agent init
+# AE init
 
 Instantiates the per-repo skeleton from the Agent-Engineering templates,
 adapted to the target repo. Ask only what cannot be inferred; verify before
@@ -76,7 +76,7 @@ or `loops/` speculatively — lanes and feature lists are per-effort
 artifacts, loops need a task that passes the loop filter; offer them only
 when a concrete effort or recurring task is starting (see
 `reference/task-tiers.md`, `reference/loops.md`).
-Then run the `agent-audit` skill as the final gate and report: files created,
+Then run the `ae-audit` skill as the final gate and report: files created,
 files deleted (migrations), audit score, and before/after line counts of
 always-loaded context when migrating. When a tracker is connected to the
 workspace, also remind the owner once to point the coding-tools prompt

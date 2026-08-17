@@ -17,7 +17,7 @@ anywhere. Otherwise healthy.
       (CLAUDE.md is canonical, not a pointer) and `stamp-missing`.
 - [ ] Diagnoses the repo as **v1, healthy but behind** — not as sloppy: the
       report says the content is fine and the *shape* is outdated.
-- [ ] Recommends `agent-init` migration as one atomic step (flip + stamp),
+- [ ] Recommends `ae-init` migration as one atomic step (flip + stamp),
       citing that content moves verbatim and nothing is lost.
 - [ ] Does NOT flag the genuine gotchas/constraints as bloat.
 - [ ] Score reflects the two mediums/highs from drift only; no invented

@@ -51,7 +51,7 @@ Live since AE/2.0.
 
 The only directory whose content ever leaves this repo. It holds the
 canonical `AGENTS.md` skeleton (with `{{PLACEHOLDER}}` markers instantiated
-by `agent-init`, never copied verbatim), the one-line pointer `CLAUDE.md`,
+by `ae-init`, never copied verbatim), the one-line pointer `CLAUDE.md`,
 the `docs/` seed (ADR and spec templates plus the `tiers.md` guide), the
 `work/` four-file templates (SPEC, PLAN, PROGRESS, DECISIONS), the
 `feature_list` JSON schema with a worked example, and the `loops/`
@@ -61,9 +61,9 @@ stays out.
 
 ### `skills/` — how does it replicate and get used day to day?
 
-Live, all six: `agent-init`, `agent-audit` (AE/2.0); `work-verify`, `work-handoff` (AE/2.1); `loop-setup` (AE/2.2); `fan-out` (P4, no bump — no template or check changed).
+Live, all six: `ae-init`, `ae-audit` (AE/2.0); `work-verify`, `work-handoff` (AE/2.1); `loop-setup` (AE/2.2); `fan-out` (P4, no bump — no template or check changed).
 
-The actors. `agent-init` installs or migrates a repo; `agent-audit` judges
+The actors. `ae-init` installs or migrates a repo; `ae-audit` judges
 one against the standard and flags version drift; the `work-*` pair applies
 the daily discipline (verification before "done", clean-state handoffs);
 `loop-setup` and `fan-out` scale it to scheduled and parallel work. Skills
@@ -92,7 +92,7 @@ Live since AE/2.0 (`agent-lint` + the DESIGN.md generator).
 stamp, pointer shape, broken links, command drift, lane coherence, feature
 list schema. The split matters — the lint never argues, the audit never
 counts. Keeping the mechanical subset in code makes it cheap to run
-everywhere (pre-commit, CI, inside `agent-audit`) and keeps the judgment
+everywhere (pre-commit, CI, inside `ae-audit`) and keeps the judgment
 calls where judgment lives, in the skill.
 
 ### `global/` — what belongs in the global layer?

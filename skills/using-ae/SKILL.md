@@ -22,8 +22,8 @@ defer it.
 - **work-handoff** — closing or pausing a lane.
 - **fan-out** — two or more independent lanes, or XL.
 - **loop-setup** — work that repeats on a cadence or event.
-- **agent-init** — installing or migrating a repo onto the standard.
-- **agent-audit** — measuring a repo against the standard.
+- **ae-init** — installing or migrating a repo onto the standard.
+- **ae-audit** — measuring a repo against the standard.
 
 ## Precedence (ADR-005)
 

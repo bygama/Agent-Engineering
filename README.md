@@ -104,8 +104,8 @@ file and follow it. Each ships with ≥3 evals, written before the skill.
 | Skill | Fires when |
 |---|---|
 | [`using-ae`](skills/using-ae/SKILL.md) | always-loaded (SessionStart) — the entry point: triages the tier and routes to the skill that owns it |
-| [`agent-init`](skills/agent-init/SKILL.md) | installing the standard in a repo, or migrating a legacy setup |
-| [`agent-audit`](skills/agent-audit/SKILL.md) | measuring a repo against the standard (report-only by default) |
+| [`ae-init`](skills/ae-init/SKILL.md) | installing the standard in a repo, or migrating a legacy setup |
+| [`ae-audit`](skills/ae-audit/SKILL.md) | measuring a repo against the standard (report-only by default) |
 | [`work-plan`](skills/work-plan/SKILL.md) | shaping an approved design into a work-run-ready lane PLAN.md |
 | [`work-run`](skills/work-run/SKILL.md) | executing a lane's PLAN in this session — fresh subagent per step, per-step review, capped fix loop |
 | [`work-verify`](skills/work-verify/SKILL.md) | before any "done" — tiered definition of done, evidence by command |
@@ -124,8 +124,8 @@ step-by-step (default at L, available at M — a runner without
 subagents runs the same steps inline); **work-verify** stamps the PASS
 evidence; **work-handoff** closes or pauses. **fan-out** is work-run's
 parallel sibling: it splits XL work across lanes and every worker runs
-that same inner cycle in its own lane. **agent-init** installs the
-standard, **agent-audit** measures it, **loop-setup** turns recurring
+that same inner cycle in its own lane. **ae-init** installs the
+standard, **ae-audit** measures it, **loop-setup** turns recurring
 work into standing automation. Suite planners and executors are
 superseded in writing ([`reference/skills.md`](reference/skills.md),
 [ADR-004](docs/adrs/ADR-004-relay.md),
@@ -204,7 +204,7 @@ comment; nobody moves states by hand. Proven live, end to end.
 ## Installing in any repo
 
 Point any agent at
-[skills/agent-init/SKILL.md](skills/agent-init/SKILL.md) — on a machine
+[skills/ae-init/SKILL.md](skills/ae-init/SKILL.md) — on a machine
 with the skills installed, just say *"set up the agent-engineering
 standard in this repo"*. The flow:
 
@@ -218,7 +218,7 @@ standard in this repo"*. The flow:
 4. You end with a stamped `AGENTS.md` (≤60 lines: verified commands,
    real gotchas, hard constraints, tier one-liner), a pointer
    `CLAUDE.md`, and a `docs/` seed (`tiers.md`, ADR/spec templates) —
-   nothing speculative. `agent-audit` runs as the final gate.
+   nothing speculative. `ae-audit` runs as the final gate.
 
 ### Customizing
 

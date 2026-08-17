@@ -1,9 +1,9 @@
 ---
-name: agent-audit
-description: Audits a repository against the agent-engineering standard (entry files, version stamp, work lanes, feature lists, skills, docs, DESIGN.md) and reports a score with concrete fixes. Use when checking repo quality, after running agent-init, when context feels bloated or outdated, when checking version drift, or as the dogfooding gate on the Agent-Engineering repo itself.
+name: ae-audit
+description: Audits a repository against the agent-engineering standard (entry files, version stamp, work lanes, feature lists, skills, docs, DESIGN.md) and reports a score with concrete fixes. Use when checking repo quality, after running ae-init, when context feels bloated or outdated, when checking version drift, or as the dogfooding gate on the Agent-Engineering repo itself.
 ---
 
-# Agent audit
+# AE audit
 
 Measures a repo against the agent-engineering standard and reports what to
 fix. **Report-only by default** — apply fixes only when the user explicitly
@@ -61,7 +61,7 @@ Score: N/10
 Most severe first. Scoring: start at 10; −2 per high, −1 per medium, −0.5 per
 low; floor 0. A clean repo still gets the report (score + "no findings").
 When the stamp is behind the current version, the fix column recommends
-`agent-init` migration (one atomic step) instead of piecemeal edits.
+`ae-init` migration (one atomic step) instead of piecemeal edits.
 
 **Upstream findings.** A finding that traces to the standard itself — a
 check false-positive, a template bug, an incomplete migration note — is

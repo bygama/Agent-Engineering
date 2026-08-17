@@ -1,6 +1,6 @@
 # Community-health matrix
 
-`agent-init` asks the profile once and instantiates exactly this set.
+`ae-init` asks the profile once and instantiates exactly this set.
 
 | File | Personal | Public OSS | Team |
 |---|---|---|---|
@@ -14,5 +14,5 @@
 Notes:
 - These files are for humans and GitHub — they never load into model context,
   so they don't compete for the attention budget.
-- README.md is not templated here; `agent-init` writes it per repo (or keeps
+- README.md is not templated here; `ae-init` writes it per repo (or keeps
   the existing one).

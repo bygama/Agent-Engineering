@@ -15,7 +15,7 @@ records-vs-living judgment). Born 2026-08-17 from the MAT-15 sweep.
 | `AE/2\.\d` (old-scheme names) or hardcoded current versions on live surfaces — outside CHANGELOG "formerly" tags, migration.md, plans, ADRs, SPEC records | stale/old-scheme versions where only the badge + stamp should carry them | README said AE/2.3 at AE/2.5 (MAT-11); AE/2.x renumbered to 0.x at 1.0.0 (MAT-27, ADR-003) |
 | `connector ladder\|fallback ladder` (+ future dead terms as they die) | terminology retired by a later version | "connector ladder" survived AE/2.4 in work-lifecycle.md and an eval title (MAT-15) |
 | every ADR ⇒ its amended SPEC decision carries a pointer | stale law with no amendment signal | SPEC Decisions 7/8/9 lacked pointers to ADR-001/002 (MAT-15) |
-| `> Phase: P\d` | phase tags on shipped behavior | agent-audit dogfooding check, pinned here too |
+| `> Phase: P\d` | phase tags on shipped behavior | ae-audit dogfooding check, pinned here too |
 | how-it-works index rows vs chapter contents | index promising less/other than the chapter covers | index said "tiers S/M/L" after the chapter gained XL (MAT-11) |
 
 ## Restamp surfaces (checked when a version bump is in flight)
