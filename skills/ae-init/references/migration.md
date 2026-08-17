@@ -99,3 +99,8 @@ stable line's layout.
   entry hook (ADR-005). Migrating up: restamp only — skills are
   machine-global (junctions) and the hook applies via the workstation
   installer, so nothing changes inside an installed repo.
+- **1.3.0** (2026-08-17) — skill renames: relay → work-run,
+  agent-init → ae-init, agent-audit → ae-audit. Migrating up: restamp;
+  optionally refresh `docs/tiers.md` (its L row now names work-run).
+  Machine junctions pick up the new names on the next workstation
+  installer run; nothing inside an installed repo must change.
