@@ -38,6 +38,9 @@ itself.
   AGENTS.md Commands).
 - **M** — the acceptance commands in the lane's PLAN.md.
 - **L** — the `verification` command of each feature-list row in play.
+- **XL** — the per-lane L DoD for every worker lane, plus the synthesis
+  gate: the merged tree's full verification + every feature row's command
+  run from the merged tree (`skills/fan-out` reducer contract).
 
 No DoD exists → stop and write one with the owner first, then verify
 against it.
@@ -62,6 +65,8 @@ against it.
      decision, don't silently omit it.
 
 A red layer ends the run: no later layer, no review, no evidence block.
+At XL, per-lane green never substitutes for the synthesis gate — parts
+passing is not the whole passing.
 
 **4. Fresh-context review (M and above).** The maker never certifies its own
 work — an evaluator sharing the maker's conversation is the maker in a
@@ -84,7 +89,8 @@ lane's PROGRESS.md (newest on top):
 - Fresh-context review: <verdict> — <reviewer's key finding or "no findings">
 ```
 
-At L, additionally update the feature-list row: `state` → `passing` and
+At XL the block additionally names the synthesis gate command + exit,
+run from the merged tree. At L, additionally update the feature-list row: `state` → `passing` and
 `evidence` → non-null (command + exit + date) — but **only** when that row's
 own verification command exited 0 in this session. `passing` is
 irreversible: a regression found later gets a new row or lane, never a
