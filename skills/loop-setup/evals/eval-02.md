@@ -24,7 +24,10 @@ findings. Orca is installed on the machine.
       - budget: numeric caps (runs/week, max findings handled per run,
         2 consecutive failed runs ⇒ disable and report),
       - state file path + initial JSON written,
-      - trigger: primary `orca automations create --name <n> --trigger
-        weekly --day 1 …` AND a named no-Orca fallback (`/schedule`, cron).
+      - trigger: probe first (`orca status --json`); primary
+        `orca automations create --name <n> --trigger weekly --day 1 …
+        --disabled` (enabled only on explicit go) AND the manual fallback
+        named: "run one iteration of loops/<name>.md" to any agent.
+        No cron//schedule recipes.
 - [ ] Registers nothing enabled without the user's explicit go; the first
       run is executed by protocol and reported.

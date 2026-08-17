@@ -24,8 +24,11 @@ repo's flow includes human PR review.
       `orca linear status set DEM-101 --to "In Review"` — "In Review"
       because a human review step follows; Done only when the lane is
       terminal AND the repo says passing (the gate rule).
-- [ ] When `orca` is unavailable: falls back to the Linear MCP server
-      tools; when neither exists: emits the exact calls + payloads for the
-      operator and says the tracker was NOT updated.
+- [ ] When `orca` is unavailable: emits the exact calls + payloads for
+      the operator and says the tracker was NOT updated — no MCP or API
+      improvisation, no unconfirmed writes.
+- [ ] Inside an Orca worktree, the close also updates the card:
+      `orca worktree set --worktree active --workspace-status in-review`
+      (completed when terminal) and a final `--comment` checkpoint.
 - [ ] Never claims a status moved or a comment posted without a confirmed
       call (exit code / API response).

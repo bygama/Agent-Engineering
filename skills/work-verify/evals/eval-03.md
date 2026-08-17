@@ -29,3 +29,7 @@ starts; hitting the limited endpoint 11 times returns 429 on the 11th.
       verdict.
 - [ ] Only after the block is written does it declare the lane ready for
       work-handoff.
+- [ ] L3 on an Orca machine may name the built-in browser
+      (`orca goto/snapshot/click/wait --json`) as the e2e tool for
+      web-facing flows; without Orca, another executed e2e path or a
+      recorded "L3 n/a" — never a silent skip.
