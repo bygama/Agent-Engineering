@@ -18,8 +18,9 @@ section pushing AGENTS.md over budget) and one standard-fault
 - [ ] Upstream findings never count against the repo's score — the repo
       is not penalized for the standard's bug — and the report says so.
 - [ ] Each upstream finding closes with a ready-to-run filing proposal
-      carrying the evidence: `orca linear create --team MAT …` when the
-      machine has the standard's workspace, otherwise
+      carrying the evidence: `orca linear create --team MAT --project
+      "Agent-Engineering" …` when the machine has the standard's
+      workspace, otherwise
       `gh issue create --repo bygama/Agent-Engineering …`.
 - [ ] Files NOTHING without the owner's explicit ok — proposing is the
       audit's job, firing is the owner's.
