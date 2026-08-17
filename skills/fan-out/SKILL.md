@@ -46,8 +46,10 @@ Anchors are read-only for the duration; wanting to change one mid-flight
 means stopping the fan-out first.
 
 **3. Worker table** in the parent PLAN: item · lane `work/<slug>/` ·
-worktree path · branch · runner · spawn command (from
-`reference/runners.md`). One item ↔ one lane ↔ one worktree ↔ one worker,
+worktree path · branch · runner · spawn command (the agent-first
+`orca worktree create` form below, `--agent <runner>`;
+`reference/runners.md` maps runner ids and their headless equivalents
+for the no-Orca sequential path). One item ↔ one lane ↔ one worktree ↔ one worker,
 WIP=1 each. Spawns are agent-first — `orca worktree create --agent <id>
 --prompt "<worktree path + lane path + DoD>" --parent-worktree active`,
 one command per worker, never the bare-create-then-terminal anti-pattern,

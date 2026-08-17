@@ -43,6 +43,8 @@ when the working tree is dirty or not on `main`.
 - Primary: `orca automations create --name ae-self-audit --trigger weekly
   --day 1 --time 09:00 --prompt "Follow loops/self-audit.md in this repo"
   --provider claude --repo path:C:/Briar/repos/mine/Agent-Engineering`
+  (registered enabled 2026-08-16; a fresh registration adds `--disabled`
+  until the owner enables)
 - Manual fallback: "run one iteration of `loops/self-audit.md`" to any
   agent — works with or without Orca (the gate and the checks are files
   and commands)
