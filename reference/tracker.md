@@ -64,9 +64,15 @@ intake plane; an issue filed on GitHub gets triaged INTO the tracker,
 never worked from GitHub. Two affordances bridge the planes: branch
 slugs carry the issue key (autolink), and the close PR's body carries
 `Closes <KEY>` so a connected Linear↔GitHub integration moves the issue
-on merge — the strongest repo → tracker truth. Verify the integration is
-actually active (integration-native PR activity on an issue) before
-relying on it; absent that, attach and move states via `orca linear`.
+on merge — the strongest repo → tracker truth. Two integration levels
+exist and only one automates (Linear docs, read 2026-08-17): a
+user-level "Connected account" is attribution only; the **workspace
+GitHub app** (Settings → Integrations → GitHub, installed on the org by
+an org owner) is what links PRs and moves states, with the moves
+configured per team (Workflows & automations → Pull request; defaults:
+PR opened → In Progress, merged → Done). Verify the app is actually
+installed (integration-native PR activity on an issue) before relying on
+it; absent that, attach and move states via `orca linear`.
 
 ## Non-negotiables
 
