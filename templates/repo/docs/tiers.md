@@ -9,7 +9,7 @@ doubt, take the higher tier. Tier changes are one-way, upward, mid-task
 |---|---|---|---|
 | S | one sentence describes the change AND an existing command proves it | none — do it | run the verify command, quote the exit |
 | M | a new flow appears, or two modules meet for the first time | lane `work/<slug>/` with PLAN + PROGRESS (+ DECISIONS); WIP=1 | acceptance commands in PLAN + fresh-context review |
-| L | you cannot list the affected files up front, or the work outlives a session | four lane files + `feature_list.json`; init phase; recommended executor: the `relay` skill (fresh subagent per PLAN step) | every feature row's command; `passing` is irreversible |
+| L | you cannot list the affected files up front, or the work outlives a session | four lane files + `feature_list.json`; init phase; recommended executor: the `work-run` skill (fresh subagent per PLAN step) | every feature row's command; `passing` is irreversible |
 | XL | a correct PLAN forces ≥2 independent lanes in parallel | everything L per lane + mandatory fan-out: three questions in writing, frozen anchors, worker table, reducer contract | per-lane L DoD + the synthesis gate on the merged whole |
 
 Rules that hold at every tier:

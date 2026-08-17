@@ -27,7 +27,7 @@ is in maintenance — versions bump on template/check changes (CHANGELOG.md).
   immediately, no copy step.
 - Process-skill suites (superpowers etc.) compose by one rule: their
   artifacts land in the standard's locations; execution, handoff and
-  worktrees are the standard's — `skills/relay` supersedes suite
+  worktrees are the standard's — `skills/work-run` supersedes suite
   executors (`reference/skills.md`, ADR-004).
 
 ## Hard constraints
@@ -48,7 +48,7 @@ is in maintenance — versions bump on template/check changes (CHANGELOG.md).
 - The standard itself: `reference/`
 - What consumers receive: `templates/repo/`
 - Replication skills: `skills/agent-init/`, `skills/agent-audit/`
-- Usage skills: `skills/` — using-ae (entry), work-plan, relay,
+- Usage skills: `skills/` — using-ae (entry), work-plan, work-run,
   work-verify, work-handoff, fan-out, loop-setup
 - Repo-local skills: `.claude/skills/` — docs-sweep (drift battery),
   release (bump ritual)

@@ -37,7 +37,7 @@ downgrading is how half-done work gets declared simple retroactively.
 |---|---|
 | S | one-line definition of done + run the verify command. No files. |
 | M | DoD written **first** · lane `work/<slug>/` with PLAN + PROGRESS (+ DECISIONS when choices are made; SPEC when the prompt isn't the spec) · WIP=1 · fresh-context review · clean-state exit |
-| L | full four files + `feature_list.json` (schema-validated, states gated by verification evidence, `passing` irreversible) + dedicated init phase + staged context windows · recommended executor: `skills/relay` (ADR-004; also available at M, never mandatory) |
+| L | full four files + `feature_list.json` (schema-validated, states gated by verification evidence, `passing` irreversible) + dedicated init phase + staged context windows · recommended executor: `skills/work-run` (ADR-004; also available at M, never mandatory) |
 | XL | everything L, per worker lane, + fan-out mandatory: three questions in writing · frozen anchors · worker table in the parent PLAN · reducer contract · synthesis gate on the merged whole (`skills/fan-out`, ADR-002) |
 
 The tier decides *ceremony*, not effort: an S can be hard, an L can be easy —

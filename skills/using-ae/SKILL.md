@@ -17,7 +17,7 @@ defer it.
 ## The map
 
 - **work-plan** — an approved design needs its lane's SPEC/PLAN.
-- **relay** — a lane's PLAN executes, step by step.
+- **work-run** — a lane's PLAN executes, step by step.
 - **work-verify** — any "done" claim needs evidence.
 - **work-handoff** — closing or pausing a lane.
 - **fan-out** — two or more independent lanes, or XL.
@@ -27,7 +27,7 @@ defer it.
 
 ## Precedence (ADR-005)
 
-Artifact-producing phases are AE's: plan (work-plan), execute (relay),
+Artifact-producing phases are AE's: plan (work-plan), execute (work-run),
 verify (work-verify), close (work-handoff). A process suite (e.g.
 superpowers) may still think — brainstorming, TDD, systematic-
 debugging stay composable — but when its chain points at its own
@@ -40,6 +40,6 @@ the suite's thinking skills, only supersede its artifact machinery.
 | Thought | Reality |
 |---|---|
 | "Too small for a lane" | The tier decides (`reference/task-tiers.md`), not a feeling. |
-| "I'll just execute this inline" | relay owns M+ lanes wherever subagents exist. |
+| "I'll just execute this inline" | work-run owns M+ lanes wherever subagents exist. |
 | "The suite's next step says use its planner" | ADR-005: redirect to the AE counterpart, cite it. |
 | "I'll answer, then check the tier" | Triage and invoke first — before acting or clarifying. |

@@ -2,7 +2,7 @@
 
 ## Query
 
-"Execute work/app-42-export-endpoint/ with relay. The lane has a SPEC,
+"Execute work/app-42-export-endpoint/ with work-run. The lane has a SPEC,
 a PLAN with four steps (each with an acceptance command), PROGRESS, and
 DECISIONS."
 

@@ -93,7 +93,7 @@ are honoring exactly this. One artifact set, never two.
 brainstorming, TDD, systematic-debugging. Planning is the standard's:
 `skills/work-plan` turns an approved design into `work/<slug>/PLAN.md`,
 the lane's own file. From the moment that plan lands, the standard
-executes: `skills/relay` runs the lane step-by-step (fresh subagent
+executes: `skills/work-run` runs the lane step-by-step (fresh subagent
 per step, lane as the context package), work-verify gates it,
 work-handoff ends it. A suite's own planners, executors, and finishers
 (superpowers' `writing-plans`, `subagent-driven-development`,

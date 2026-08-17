@@ -21,7 +21,7 @@ needs subjective judgment rather than mechanical execution.
       explicitly on its PLAN line (the type/function signature and its
       file) rather than saying "use step 1's output".
 - [ ] The five same-shape one-line import-rename fixes are marked
-      `[batch]` and grouped as one PLAN entry so relay sends them to
+      `[batch]` and grouped as one PLAN entry so work-run sends them to
       ONE implementer in one dispatch, never five separate dispatches.
 - [ ] Each step carries a role hint (`mechanical` / `integration` /
       `judgment`) matching its nature: the batched rename is
@@ -31,5 +31,5 @@ needs subjective judgment rather than mechanical execution.
       not also absorb the batched rename or the judgment call.
 - [ ] Role hints are used consistently once introduced (not present on
       some steps and silently absent on others of comparable nature)
-      so relay's model-by-role selector can read them without
+      so work-run's model-by-role selector can read them without
       guessing.
