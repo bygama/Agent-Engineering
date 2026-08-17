@@ -8,7 +8,7 @@ requires a clean git tree so everything is reversible.
 | v1 element | Action | Destination |
 |---|---|---|
 | Canonical CLAUDE.md content (summary, Commands, Gotchas, Hard constraints, Map) | Move verbatim | AGENTS.md 4 blocks |
-| — | Add | current `Standard: AE/<major>.<minor>` stamp + tier one-liner after the summary |
+| — | Add | current `Standard: AE/MAJOR.MINOR.PATCH` stamp + tier one-liner after the summary |
 | AGENTS.md entry stub | Replace | The canonical AGENTS.md above |
 | CLAUDE.md | Replace | ≤3-line pointer (`@AGENTS.md`) |
 | Per-app CLAUDE.md (≤30) | Convert | Per-app AGENTS.md (≤30) + per-app pointer CLAUDE.md |
