@@ -1,6 +1,6 @@
 # Agent-Engineering
 
-Standard: AE/1.1.0
+Standard: AE/1.2.0
 
 Source of truth for the agent-engineering standard — six layers (context,
 memory, harness, loop, graph, with reducer/MCP cross-cutting) — and the
@@ -48,7 +48,7 @@ is in maintenance — versions bump on template/check changes (CHANGELOG.md).
 - The standard itself: `reference/`
 - What consumers receive: `templates/repo/`
 - Replication skills: `skills/agent-init/`, `skills/agent-audit/`
-- Usage skills: `skills/` — work-verify, work-handoff, fan-out, relay
-  (lane executor), loop-setup
+- Usage skills: `skills/` — using-ae (entry), work-plan, relay,
+  work-verify, work-handoff, fan-out, loop-setup
 - Repo-local skills: `.claude/skills/` — docs-sweep (drift battery),
   release (bump ritual)

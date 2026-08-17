@@ -23,6 +23,30 @@ and keep their former name for traceability; repos still stamped with an
 old name are "behind, not broken" — `agent-audit` flags them,
 `agent-init` migrates them.
 
+## [1.2.0] — 2026-08-17
+
+### Added
+
+- `skills/work-plan` — the planning phase becomes AE-owned: turns an
+  approved design into a relay-shaped lane PLAN (dispatchable steps,
+  executable acceptance, named interfaces, `[batch]` marks, role
+  hints; XL produces the parent plan). Two modes: design-first (SPEC →
+  owner gate → PLAN) and direct (SPEC + PLAN, one gate). Supersedes
+  superpowers' `writing-plans`.
+- `skills/using-ae` — the entry skill (≤80 lines, always-loaded):
+  entry rule, the nine-skill map, and the ADR-005 precedence rule.
+- `global/hooks/using-ae.ps1` — SessionStart hook emitting the entry
+  skill verbatim ($PSScriptRoot-relative through the junction; silent
+  and exit 0 when the skill is absent). Workstation installer applies
+  it.
+- ADR-005: artifact-producing phases are AE's (generalizes ADR-004).
+
+### Changed
+
+- `reference/skills.md`: `writing-plans` joins the superseded list;
+  using-ae documented as the always-loaded entry point.
+- README: "The nine skills", with work-plan and using-ae in the chain.
+
 ## [1.1.0] — 2026-08-17
 
 ### Added
