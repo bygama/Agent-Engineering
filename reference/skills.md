@@ -69,8 +69,8 @@ Write evals BEFORE skill content, from observed gaps — not imagined ones:
 
 ## Composing with process-skill suites
 
-Process suites (e.g. superpowers: brainstorming, writing-plans,
-executing-plans, finishing-a-development-branch) supply the *how* of
+Process suites (e.g. superpowers: brainstorming, test-driven-development,
+systematic-debugging, writing-plans) supply the *how* of
 thinking; this standard supplies the artifacts and gates. One rule joins
 them: **the standard owns locations and lifecycle endings.**
 
