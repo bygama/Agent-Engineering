@@ -23,6 +23,29 @@ and keep their former name for traceability; repos still stamped with an
 old name are "behind, not broken" — `agent-audit` flags them,
 `agent-init` migrates them.
 
+## [1.1.0] — 2026-08-17
+
+### Added
+
+- `skills/relay` — the lane executor: a fresh implementer subagent per
+  PLAN step with the lane as the entire context package, per-step
+  review (maker ≠ checker), a capped fix loop with model escalation,
+  and rulings recorded in DECISIONS.md. Recommended default at L,
+  available at M, never mandatory — a runner without subagents runs
+  the same steps inline under the same ceremony (ADR-004).
+- ADR-004: relay — the standard owns lane execution (amends SPEC
+  Decision 7's L-tier ceremony).
+
+### Changed
+
+- `reference/skills.md`: process-skill suites' own executors and
+  finishers are superseded in writing — suites supply the thinking
+  phases; from `work/<slug>/PLAN.md` on, the standard executes.
+- Consumer `docs/tiers.md` template: the L row names relay as the
+  recommended executor.
+- README: the skills section now documents all seven skills and how
+  they chain on one unit of work.
+
 ## [1.0.0] — 2026-08-17
 
 The standard declared stable.

@@ -1,6 +1,6 @@
 # {{REPO_NAME}}
 
-Standard: AE/1.0.0
+Standard: AE/1.1.0
 
 {{REPO_SUMMARY}}
 <!-- 2-3 lines: what + stack. Nothing the filesystem already says. -->
