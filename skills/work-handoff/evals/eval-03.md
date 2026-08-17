@@ -23,7 +23,12 @@ repo's flow includes human PR review.
 - [ ] Moves status with an exact state name:
       `orca linear status set DEM-101 --to "In Review"` — "In Review"
       because a human review step follows; Done only when the lane is
-      terminal AND the repo says passing (the gate rule).
+      terminal AND the repo says passing (the gate rule), and never
+      before the merge is confirmed.
+- [ ] The close PR's body carries the Linear magic word
+      (`Closes DEM-101`): with the Linear↔GitHub integration connected,
+      the merge itself moves the issue — the agent sets states manually
+      only when the integration is absent.
 - [ ] When `orca` is unavailable: emits the exact calls + payloads for
       the operator and says the tracker was NOT updated — no MCP or API
       improvisation, no unconfirmed writes.
