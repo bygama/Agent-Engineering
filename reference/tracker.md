@@ -1,8 +1,7 @@
 # Tracker plane
 
-Sources: `docs/specs/SPEC-agent-engineering.md` Decision 8;
-[Linear MCP server](https://linear.app/docs/mcp); `orca linear` CLI help
-output verified on-machine 2026-08-16. The tracker is optional by
+Sources: `docs/specs/SPEC-agent-engineering.md` Decision 8; `orca linear`
+CLI help output verified on-machine 2026-08-16. The tracker is optional by
 construction — a repo with no tracker runs the identical lifecycle.
 
 ## Two planes, no double truth
@@ -49,14 +48,12 @@ State names passed to `--to` must match the team's workflow exactly —
 list them first. Default handoff target is `"In Review"` when a human
 review step follows; `"Done"` only when terminal AND passing (gate rule).
 
-## Fallbacks, honest at every rung
+## Without Orca
 
-1. No Orca → the **Linear MCP server** (official; issue read/comment/status
-   tools) from any MCP-capable runner.
-2. No MCP → plain Linear API (GraphQL) with the same gate/direction rules.
-3. Nothing available → emit the exact calls + payloads for the operator
-   and state plainly that the tracker was NOT updated. Never claim a write
-   without a confirmed call.
+The no-Orca contract (`reference/orca.md`) applies: tracker writes are
+Orca-only. Emit the exact calls + payloads for the operator and state
+plainly that the tracker was NOT updated. Never claim a write without a
+confirmed call.
 
 ## Non-negotiables
 
