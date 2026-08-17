@@ -73,14 +73,16 @@ follow it — that readability is a design requirement, not an accident.
 Every skill ships with at least three evals, written before the skill
 content, and the evals change before the skill does.
 
-One skill sits outside `skills/` on purpose: `.claude/skills/docs-sweep`
-is repo-local maintenance — it sweeps this repo's own markdown against a
-living drift battery (`references/patterns.md`) that grows by rule: no
-drift is fixed without its pattern landing in the battery in the same
-change. It is never junctioned and never installed in consumers (its
-content is this repo's law, not portable technique), but it obeys the
-same ≥3-evals contract, enforced by the same suite. The weekly
-self-audit loop runs one iteration of it.
+Two skills sit outside `skills/` on purpose, in `.claude/skills/` —
+repo-local law, never junctioned, never installed in consumers, yet
+bound by the same ≥3-evals contract and the same suite:
+**docs-sweep** sweeps this repo's own markdown against a living drift
+battery (`references/patterns.md`) that grows by rule — no drift is
+fixed without its pattern landing in the battery in the same change;
+the weekly self-audit loop runs one iteration. **release** runs the
+version-bump ritual (size by the SemVer criterion, changelog entry,
+migration note, restamp surfaces, gates, post-merge tag) so the law in
+the CHANGELOG header is executed the same way every time.
 
 ### `scripts/` — what is checked mechanically, without judgment?
 

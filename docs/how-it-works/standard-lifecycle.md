@@ -134,6 +134,8 @@ next migration.
   snapshots — never restamped.
 - History: `CHANGELOG.md` at this repo's root records every bump and what
   it means for consumers.
+- The ritual is operationalized by the repo-local `.claude/skills/release`
+  skill — sizing, entry, note, restamps, gates, tag, one procedure.
 - Migration notes: `skills/agent-init/references/migration.md` records, per
   version step, exactly what changes in an installed repo — that file is what
   `agent-init` executes when the audit says "behind".
