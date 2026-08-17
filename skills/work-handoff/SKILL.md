@@ -94,9 +94,12 @@ repo → tracker, never ahead of it.
   replaces the key. Multiline summaries: `--body-file -` from stdin.
   Target state: `"In Review"` when a human review/merge step follows;
   `"Done"` only when the lane is terminal AND the repo says passing — an
-  issue never reaches Done ahead of the repo (the gate rule). State names
-  must match the team's workflow exactly (`orca linear team states` lists
-  them).
+  issue never reaches Done ahead of the repo (the gate rule), and never
+  before the merge is confirmed. State names must match the team's
+  workflow exactly (`orca linear team states` lists them). When the close
+  opens a PR, put the Linear magic word `Closes <KEY>` in the PR body:
+  with the Linear↔GitHub integration connected, the merge itself moves
+  the issue — set states manually only when the integration is absent.
 - **Pause** — no status change. An optional comment with the current state
   is fine; a state move is not.
 - **Without Orca** the no-Orca contract applies: emit the exact calls and
