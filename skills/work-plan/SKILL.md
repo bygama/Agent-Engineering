@@ -1,21 +1,21 @@
 ---
 name: work-plan
-description: Turns a design — a settled conversation, a tracker issue, or a direct ask — into a lane's SPEC.md and PLAN.md shaped for relay dispatch: dispatchable steps with executable acceptance, named interfaces between dependent steps, `[batch]`-marked same-shape fixes, and role hints, opening with a constraints block when the design imposes one. Two modes: design-first writes SPEC.md and stops for owner approval before shaping PLAN.md; direct writes both in one pass when the owner states certainty or a tracker issue stands in as the spec. At XL, produces the parent plan (the three fan-out questions plus a worker table skeleton) instead of executable steps. Use once a lane needs its SPEC and PLAN shaped, before relay executes the PLAN. Refuses S-tier asks (no lane, no plan), requests for a standalone plan document separate from the lane files, and asks with no design and genuine scope uncertainty.
+description: Turns a design — a settled conversation, a tracker issue, or a direct ask — into a lane's SPEC.md and PLAN.md shaped for work-run dispatch: dispatchable steps with executable acceptance, named interfaces between dependent steps, `[batch]`-marked same-shape fixes, and role hints, opening with a constraints block when the design imposes one. Two modes: design-first writes SPEC.md and stops for owner approval before shaping PLAN.md; direct writes both in one pass when the owner states certainty or a tracker issue stands in as the spec. At XL, produces the parent plan (the three fan-out questions plus a worker table skeleton) instead of executable steps. Use once a lane needs its SPEC and PLAN shaped, before work-run executes the PLAN. Refuses S-tier asks (no lane, no plan), requests for a standalone plan document separate from the lane files, and asks with no design and genuine scope uncertainty.
 ---
 
 # Work plan
 
-Completes the work-cycle family: **work-plan** (plan) → **relay**
+Completes the work-cycle family: **work-plan** (plan) → **work-run**
 (execute) → **work-verify** (prove) → **work-handoff** (close). This
 skill turns a design into the lane's SPEC.md and PLAN.md — design-first
 with an owner-approval gate between the two files, direct in one pass —
-so a stateless relay implementer can dispatch from PLAN.md without
+so a stateless work-run implementer can dispatch from PLAN.md without
 reading anything else.
 
 Adapted from superpowers' `writing-plans`: small self-contained tasks,
 explicit global constraints, the spec as referenced authority. NOT
 adapted: complete code inside the plan — steps stay one line +
-acceptance; a relay implementer reads the repo and the lane, not the
+acceptance; a work-run implementer reads the repo and the lane, not the
 plan, for detail (`reference/skills.md`).
 
 ## Workflow
@@ -46,7 +46,7 @@ always the alternative in the same breath:
 - *Standalone heavy plan document* (a document separate from the lane
   files, "spelling out every design decision before we touch code"):
   refuse. The lane PLAN plus the lane files ARE the plan; duplicating
-  them into a separate document re-creates the collision relay was
+  them into a separate document re-creates the collision work-run was
   built to remove. Point back at the lane's own PLAN.md and offer to
   enrich it instead — constraints block, named interfaces, role hints.
 - *No design, genuine uncertainty*: no prior conversation settled the
@@ -104,7 +104,7 @@ once, `reference/task-tiers.md`) and write the parent PLAN.md:
 Stop here for XL designs; steps 3-6 are for M/L.
 
 **3. Constraints block.** When the design imposes a cross-step
-constraint, PLAN.md opens with a short block naming it once — relay
+constraint, PLAN.md opens with a short block naming it once — work-run
 carries it into every dispatch. No such constraint, no block.
 
 **4. Draft steps.** Every PLAN line:
@@ -125,13 +125,13 @@ carries it into every dispatch. No such constraint, no block.
   never "use step N's output". That is what a stateless implementer
   cannot infer.
 - Several small same-shape steps (the same one-line fix repeated
-  across files) become ONE PLAN entry marked `[batch]` — relay sends
+  across files) become ONE PLAN entry marked `[batch]` — work-run sends
   them to a single implementer in one dispatch, never one dispatch
   per file.
 - Role hints (`mechanical` / `integration` / `judgment`) are optional
   per plan, but once introduced apply to every step of comparable
   nature — hints on some steps and silent gaps on others defeat
-  relay's model-by-role selector, which reads them instead of
+  work-run's model-by-role selector, which reads them instead of
   guessing.
 
 **6. Save.** Write PLAN.md to `work/<slug>/PLAN.md`; SPEC.md (step 1,
@@ -141,10 +141,10 @@ document elsewhere.
 
 ## Judgment notes
 
-- work-plan produces the lane's artifacts; relay executes the plan.
+- work-plan produces the lane's artifacts; work-run executes the plan.
   The two roles never blur inside one dispatch — this skill writes no
   code and runs no acceptance commands.
-- At M/L, work-plan runs before relay's first dispatch: once, inline,
+- At M/L, work-plan runs before work-run's first dispatch: once, inline,
   in direct mode; across two turns, split by the owner's SPEC
   approval, in design-first mode. At XL, it runs twice regardless of
   mode: once for the parent (step 2), and again inside each worker's

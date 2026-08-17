@@ -27,7 +27,7 @@ format used elsewhere in the pipeline. PLAN.md does not exist yet.
       format), the PLAN opens with a short constraints block carrying
       it, rather than repeating it ad hoc inside individual steps.
 - [ ] PLAN.md contains no complete code — steps stay one line +
-      acceptance; a relay implementer is expected to read the repo and
+      acceptance; a work-run implementer is expected to read the repo and
       the lane itself, not the plan, for implementation detail.
 - [ ] Writes the plan to `work/img-12-thumbnail-cache/PLAN.md` — the
       standard's location — never to a suite's default folder or a

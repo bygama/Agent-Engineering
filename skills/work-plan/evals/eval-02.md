@@ -26,7 +26,7 @@ get its PLAN.md.
 - [ ] (b) Refuses the standalone heavy plan document and states the
       house reason: the lane PLAN plus the lane files ARE the plan;
       duplicating them into a separate document re-creates the
-      collision relay was built to remove.
+      collision work-run was built to remove.
 - [ ] (b) Points back to the lane's own PLAN.md as the single artifact
       and offers to enrich it (constraints block, named interfaces,
       role hints) instead of producing a second document.

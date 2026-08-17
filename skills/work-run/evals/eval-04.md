@@ -1,9 +1,9 @@
-# Eval 04: closing — relay hands the lane to the standard
+# Eval 04: closing — work-run hands the lane to the standard
 
 ## Query
 
-"Step 4 of 4 just came back DONE with a clean review. Finish the relay
-run."
+"Step 4 of 4 just came back DONE with a clean review. Finish the
+work-run."
 
 ## Fixture
 
@@ -20,12 +20,12 @@ fix-loop cap.
       PROGRESS's `## Verification` block, pointing at the deferred
       minors for triage.
 - [ ] At L, feature_list rows move to `passing` only on work-verify
-      evidence — relay itself never flips a row.
-- [ ] After verification, invokes work-handoff (close or pause) — relay
-      never closes a lane by itself, deletes nothing, and leaves no
+      evidence — work-run itself never flips a row.
+- [ ] After verification, invokes work-handoff (close or pause) —
+      work-run never closes a lane by itself, deletes nothing, and leaves no
       scratch files committed (review packages live in session scratch).
 - [ ] Surfaces every ruling recorded in DECISIONS.md during the run to
       the owner in the final summary — decisions made on the owner's
       behalf are never silent.
-- [ ] Orca card mapping is untouched by relay: lane state changes flow
+- [ ] Orca card mapping is untouched by work-run: lane state changes flow
       through work-handoff as always.

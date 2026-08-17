@@ -106,19 +106,20 @@ dispatchable step per line, executable acceptance, named interfaces
 between dependent steps. Work loops inside the lane, updating
 `PROGRESS.md` as it goes.
 
-How that inner loop runs has an owned shape since ADR-004: **relay**
-(`skills/relay`), the recommended executor at L and available at M. A
+How that inner loop runs has an owned shape since ADR-004: **work-run**
+(`skills/work-run`), the recommended executor at L and available at M. A
 controller dispatches a fresh implementer subagent per PLAN step — the
 dispatch is just the lane path, the step number, the step's acceptance
 line, and a four-state report contract, because the lane's four files
 already ARE the context package a stateless subagent needs. Each step
 gets a fresh-context review (maker ≠ checker), findings run a capped
 fix loop (five rounds, escalating model), and rulings land in
-`DECISIONS.md`. relay is never mandatory: a runner without subagents
+`DECISIONS.md`. work-run is never mandatory: a runner without subagents
 executes the same steps inline under the same ceremony, and parallel
 implementers inside one lane are refused — parallelism between lanes
-belongs to fan-out ([execution.md](execution.md)). relay ships no final
-review of its own; it ends by handing the lane to the two exits below.
+belongs to fan-out ([execution.md](execution.md)). work-run ships no
+final review of its own; it ends by handing the lane to the two exits
+below.
 Process suites' own planners and executors are superseded in writing
 (`reference/skills.md`).
 

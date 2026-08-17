@@ -3,11 +3,11 @@
 ## Query
 
 "The step-3 review came back: spec ❌ (missing progress reporting) plus
-one Important finding (magic number). Continue the relay run."
+one Important finding (magic number). Continue the run."
 
 ## Fixture
 
-A lane mid-relay; step 3's review has one spec gap and one Important
+A lane mid-run; step 3's review has one spec gap and one Important
 finding; the implementer subagent is still resumable.
 
 ## Expected behavior

@@ -106,8 +106,8 @@ file and follow it. Each ships with ≥3 evals, written before the skill.
 | [`using-ae`](skills/using-ae/SKILL.md) | always-loaded (SessionStart) — the entry point: triages the tier and routes to the skill that owns it |
 | [`agent-init`](skills/agent-init/SKILL.md) | installing the standard in a repo, or migrating a legacy setup |
 | [`agent-audit`](skills/agent-audit/SKILL.md) | measuring a repo against the standard (report-only by default) |
-| [`work-plan`](skills/work-plan/SKILL.md) | shaping an approved design into a relay-ready lane PLAN.md |
-| [`relay`](skills/relay/SKILL.md) | executing a lane's PLAN in this session — fresh subagent per step, per-step review, capped fix loop |
+| [`work-plan`](skills/work-plan/SKILL.md) | shaping an approved design into a work-run-ready lane PLAN.md |
+| [`work-run`](skills/work-run/SKILL.md) | executing a lane's PLAN in this session — fresh subagent per step, per-step review, capped fix loop |
 | [`work-verify`](skills/work-verify/SKILL.md) | before any "done" — tiered definition of done, evidence by command |
 | [`work-handoff`](skills/work-handoff/SKILL.md) | closing or pausing work — clean state, card + tracker sync |
 | [`loop-setup`](skills/loop-setup/SKILL.md) | a recurring task passes the loop filter — standing automation |
@@ -119,10 +119,10 @@ owns the current phase, before any action.
 
 How they chain on one unit of work: a thinking suite (superpowers or
 any other) designs; **work-plan** shapes that design into
-`work/<slug>/PLAN.md`, the lane's own file; **relay** executes it
+`work/<slug>/PLAN.md`, the lane's own file; **work-run** executes it
 step-by-step (default at L, available at M — a runner without
 subagents runs the same steps inline); **work-verify** stamps the PASS
-evidence; **work-handoff** closes or pauses. **fan-out** is relay's
+evidence; **work-handoff** closes or pauses. **fan-out** is work-run's
 parallel sibling: it splits XL work across lanes and every worker runs
 that same inner cycle in its own lane. **agent-init** installs the
 standard, **agent-audit** measures it, **loop-setup** turns recurring
@@ -135,7 +135,7 @@ superseded in writing ([`reference/skills.md`](reference/skills.md),
 flowchart LR
     TH["thinking suite<br/>brainstorm · design"] --> WP["work-plan<br/>shapes PLAN.md"]
     WP --> PL["work/&lt;slug&gt;/<br/>PLAN.md"]
-    PL --> RE["relay<br/>step-by-step"]
+    PL --> RE["work-run<br/>step-by-step"]
     RE --> WV["work-verify<br/>PASS evidence"]
     WV --> WH["work-handoff<br/>close / pause"]
     FO["fan-out<br/>XL: parallel lanes"] -.->|"each worker,<br/>own lane"| RE
@@ -258,9 +258,9 @@ extended the standard: Orca-first execution
 ([ADR-001](docs/adrs/ADR-001-orca-is-the-executor.md)), tier XL
 ([ADR-002](docs/adrs/ADR-002-tier-xl.md)), semantic versioning with
 the 1.0.0 stable line
-([ADR-003](docs/adrs/ADR-003-semantic-versioning.md)), relay, the
+([ADR-003](docs/adrs/ADR-003-semantic-versioning.md)), work-run, the
 lane executor ([ADR-004](docs/adrs/ADR-004-relay.md)), and artifact
-phases as AE's, generalizing relay to planning and beyond
+phases as AE's, generalizing work-run to planning and beyond
 ([ADR-005](docs/adrs/ADR-005-artifact-phases.md)). The full flow is proven live:
 Linear intake → triaged tier → Orca worker on a linked worktree → PR →
 rebase merge → issue auto-moved to Done by the workspace GitHub app. The

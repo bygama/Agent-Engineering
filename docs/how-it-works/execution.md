@@ -2,12 +2,12 @@
 
 This chapter covers the execution machinery above single lanes: **loops**
 (standing automation — live since AE/2.2) and **graphs/reducers + runners**
-(live since P4). The work lifecycle of a single lane — including relay,
-the step-by-step executor inside one lane (ADR-004) — is the
+(live since P4). The work lifecycle of a single lane — including
+work-run, the step-by-step executor inside one lane (ADR-004) — is the
 [work-lifecycle](work-lifecycle.md) chapter; this one is about work that
 *keeps happening* and work that *happens in parallel*. The pairing is
-symmetric: relay = sequential within a lane, fan-out = parallel across
-lanes; both hand a worker the same package, the lane.
+symmetric: work-run = sequential within a lane; fan-out = parallel
+across lanes — both hand a worker the same package, the lane.
 
 ## Loops: standing automation as a file
 

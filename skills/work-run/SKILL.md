@@ -1,24 +1,26 @@
 ---
-name: relay
+name: work-run
 description: Executes one lane's PLAN step-by-step with a fresh subagent per step — the lane (SPEC, PLAN, PROGRESS, DECISIONS) is the entire context package, with a per-step review, a capped fix loop, and rulings recorded in the lane. Use when a work/<slug>/ lane with several PLAN steps should be executed in this session — the recommended default for L lanes, available for M, and inside an XL worker's own lane. Not for S tasks (no lane) and never for parallel work across lanes (that is fan-out).
 ---
 
-# relay
+# work-run
 
 Sequential execution of one lane by stateless runners: a fresh
-implementer subagent per PLAN step, the lane passed between them as the
-baton. The controller coordinates and rules; it never implements.
+implementer subagent per PLAN step, with the lane itself as the shared
+context between them. The controller coordinates and rules; it never
+implements.
 
-The pairing: **fan-out** = parallel across lanes (worktrees, one worker
-per lane); **relay** = sequential within a lane (in-session subagents,
-same worktree). Both hand a worker the same package: the lane.
+The pairing: **work-run** = sequential within a lane (in-session
+subagents, same worktree); **fan-out** = parallel across lanes
+(worktrees, one worker per lane). Both hand a worker the same package:
+the lane.
 
 ## Workflow
 
 Copy this checklist and tick items off:
 
 ```
-Relay progress:
+Work-run progress:
 - [ ] 0. Qualify (lane exists, several steps, subagents available)
 - [ ] 1. Read the lane; resume from PROGRESS
 - [ ] 2. Per step: dispatch → report → review → fix loop → record
@@ -28,15 +30,15 @@ Relay progress:
 
 **0. Qualify.** Three refusals, one fallback:
 
-- *No lane* (S-tier ask): refuse — relay executes lanes. Run the S
+- *No lane* (S-tier ask): refuse — work-run executes lanes. Run the S
   inline with its one-line DoD, or open an M lane if it grew. Never
   create a lane just to justify a dispatch.
 - *Parallel implementers inside the lane*: refuse — WIP=1 within a
   lane; parallelism between lanes is fan-out's job. If two steps are
   truly independent lanes' worth of work, say so and point at fan-out.
-- *One step, trivial lane*: relay adds ceremony without payoff —
+- *One step, trivial lane*: work-run adds ceremony without payoff —
   execute inline.
-- *No subagent capability on this runner*: relay is never mandatory
+- *No subagent capability on this runner*: work-run is never mandatory
   (the standard is runtime-neutral). Fall back to executing the SAME
   lane inline under the SAME ceremony: PLAN steps in order, acceptance
   per step, PROGRESS updated. Never simulate a dispatch.
@@ -91,13 +93,13 @@ tier; adjudication and risky-diff review → capable tier. State the
 model in every dispatch — an omitted model silently inherits the most
 expensive one.
 
-**3. Verification.** relay ships NO whole-branch final review: the
+**3. Verification.** work-run ships NO whole-branch final review: the
 lane-level gate is work-verify's (its fresh-context review at M+ is the
 final review). Invoke work-verify; PASS evidence lands in PROGRESS's
 `## Verification`, pointing at the deferred minors. At L, feature_list
-rows move to `passing` only on that evidence — relay never flips a row.
+rows move to `passing` only on that evidence — work-run never flips a row.
 
-**4. Close.** Invoke work-handoff (close or pause) — relay never closes
+**4. Close.** Invoke work-handoff (close or pause) — work-run never closes
 a lane itself and commits no scratch. Surface every DECISIONS ruling
 made during the run in the final summary: decisions taken on the
 owner's behalf are never silent.
@@ -117,10 +119,10 @@ owner's behalf are never silent.
 
 - Recommended default at L (multi-session horizon is where fresh
   context per step pays most); available at M when the lane has several
-  steps; an XL worker may run relay inside its own lane, becoming the
+  steps; an XL worker may run work-run inside its own lane, becoming the
   controller of its steps. Never mandatory (`reference/task-tiers.md`).
 - The step's implementer report in PROGRESS is the recovery map: it
   survives compaction and travels with the worktree. After compaction,
   trust PROGRESS and `git log` over recollection.
 - Suites' own executors are superseded (`reference/skills.md`): plans
-  land in `work/<slug>/PLAN.md` and relay executes from there.
+  land in `work/<slug>/PLAN.md` and work-run executes from there.
