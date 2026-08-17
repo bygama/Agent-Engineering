@@ -17,12 +17,13 @@ Copy this checklist and tick items off:
 
 ```
 Handoff progress:
+- [ ] 0. Probe: `orca status --json` (reference/orca.md)
 - [ ] 1. Pick the mode (close | pause)
 - [ ] 2. Debris sweep
 - [ ] 3. State check (mode-specific)
 - [ ] 4. PROGRESS + DECISIONS truthful
 - [ ] 5. Commit (close: remove the lane)
-- [ ] 6. Tracker step (only when Linear-linked)
+- [ ] 6. Card + tracker step (Orca worktree / Linear-linked)
 - [ ] 7. Report
 ```
 
@@ -63,11 +64,24 @@ resume. DECISIONS.md contains every choice made this effort (append-only).
 - **Pause:** commit the WIP on the lane's branch with an honest
   progress message. The lane folder SURVIVES — deleting a live lane loses
   the next session's state.
+- **Pause with transfer** (handing the lane to another agent): after the
+  pause commit, spawn the successor with the full-handoff recipe —
+  `orca worktree create --no-parent --agent <id> --prompt "<lane path +
+  resume brief>"` — never `orca orchestration task-create` (task rows are
+  supervised orchestration; a full handoff transfers ownership) — and
+  stop monitoring after the spawn. Without Orca: declare the transfer NOT
+  done and emit the ready-to-run spawn command (no-Orca contract).
 
-**6. Tracker step — only when Linear-linked.** Linked means `issue: <KEY>`
-in a lane file's frontmatter or the key in the lane slug
-(`work/dem-101-…/`). Runs strictly AFTER the repo side is clean: execution
-truth flows repo → tracker, never ahead of it.
+**6. Card + tracker step.** Inside an Orca worktree (probe passed), sync
+the card first — it is Orca state, tracker or not: close →
+`orca worktree set --worktree active --workspace-status in-review`
+(`completed` when the lane is terminal with nothing pending) plus a final
+`--comment` checkpoint; pause → a `--comment` only, never a status move.
+
+The tracker part runs only when Linear-linked: `issue: <KEY>` in a lane
+file's frontmatter or the key in the lane slug (`work/dem-101-…/`). It
+runs strictly AFTER the repo side is clean: execution truth flows
+repo → tracker, never ahead of it.
 
 - **Close** — comment, then status (verified syntax):
 
@@ -85,11 +99,10 @@ truth flows repo → tracker, never ahead of it.
   them).
 - **Pause** — no status change. An optional comment with the current state
   is fine; a state move is not.
-- **Fallback ladder**, honest at every rung: no `orca` on PATH → the Linear
-  MCP server's comment/status tools; no MCP either → emit the exact calls
-  and payloads for the operator and state plainly that the tracker was NOT
-  updated. Never report a post or a status move without a confirmed call
-  (exit code or API response).
+- **Without Orca** the no-Orca contract applies: emit the exact calls and
+  payloads for the operator and state plainly that the tracker was NOT
+  updated — no MCP or API improvisation. Never report a post or a status
+  move without a confirmed call (exit code).
 
 **7. Report.** What closed (or where it paused), the evidence summary, the
 commit hash, and exactly what the tracker received — or the emitted calls

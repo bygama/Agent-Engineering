@@ -1,6 +1,6 @@
 ---
 name: loop-setup
-description: Scaffolds a recurring agent loop as a standing artifact — stopping rule, verified gate command, numeric budget, state file, and a trigger (Orca automation, /loop, /schedule, cron, or on-new-issue) — and refuses tasks that fail the loop filter. Use when work should repeat on a cadence or on an event (nightly audits, issue triage, scheduled checks), or when someone says "keep doing X automatically".
+description: Scaffolds a recurring agent loop as a standing artifact — stopping rule, verified gate command, numeric budget, state file, and a trigger (Orca automation created disabled, with the manual-iteration fallback) — and refuses tasks that fail the loop filter. Use when work should repeat on a cadence or on an event (nightly audits, issue triage, scheduled checks), or when someone says "keep doing X automatically".
 ---
 
 # Loop setup
@@ -40,11 +40,10 @@ status moves) default to **report-only** until the user enables writes.
 
 ## Trigger matrix
 
-| Trigger | Primary (Orca) | No-Orca fallback |
-|---|---|---|
-| Schedule | `orca automations create --name <n> --trigger hourly\|daily\|weekly\|<cron> --prompt <run protocol> --provider claude [--precheck <cmd>] [--repo <sel>]` | `/schedule`, OS cron/Task Scheduler |
-| On new issue | scheduled automation whose precheck is `orca linear list --filter open --json` non-empty | cron + Linear MCP/API poll |
-| Manual / session | `orca automations run <name>` | `/loop` with the run protocol |
+| Trigger | Command |
+|---|---|
+| Schedule / on-event | `orca automations create --name <n> --trigger hourly\|daily\|weekly\|<cron> --prompt "follow loops/<name>.md" --provider <agent> [--precheck <cmd>] [--repo <sel>] --disabled` — on-new-issue = a schedule whose precheck is `orca linear list --filter open --json` non-empty |
+| Manual (universal fallback) | `orca automations run <name>`, or "run one iteration of `loops/<name>.md`" to any agent — works with or without Orca |
 
 ## Workflow
 
@@ -52,6 +51,7 @@ Copy this checklist and tick items off:
 
 ```
 Loop setup:
+- [ ] 0. Probe: `orca status --json` (reference/orca.md)
 - [ ] 1. Loop filter (refuse or proceed)
 - [ ] 2. Fix the five elements with the user
 - [ ] 3. Verify the gate command by running it
@@ -70,9 +70,12 @@ every run, which self-blocks any cleanliness precheck (check that
 interaction explicitly). The worked example
 `templates/repo/loops/issue-triage.example.md` shows a complete artifact.
 
-**5.** Register the primary trigger only with the user's explicit go;
-otherwise leave the exact registration command in the loop file's Trigger
-section, ready to paste. Document the fallback beside it.
+**5.** Register the trigger (`--disabled`) only with the user's explicit
+go; otherwise leave the exact registration command in the loop file's
+Trigger section, ready to paste. Without Orca (probe failed): the loop
+file still scaffolds — it is a file — but declare the trigger NOT wired
+per the no-Orca contract (`reference/orca.md`) and name the manual
+iteration as what runs meanwhile.
 
 **6.** Execute one run following the loop's run protocol — read state →
 precheck the queue (empty ⇒ stop, that's the stopping rule firing) → take
