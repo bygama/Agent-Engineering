@@ -12,7 +12,7 @@ records-vs-living judgment). Born 2026-08-17 from the MAT-15 sweep.
 |---|---|---|
 | `will hold\|will gain\|not yet built\|upcoming` | future-tense claims about things that already shipped | architecture.md said `docs/adrs/` "will hold" ADRs while two were live (MAT-15) |
 | `S/M/L` not followed by `/XL` | stale tier enumerations | triage loops + SPEC after ADR-002 (MAT-15) |
-| `AE/2\.\d` outside CHANGELOG, migration.md, plans, ADRs, SPEC stamp examples | hardcoded versions on live surfaces | README said AE/2.3 at AE/2.5 (MAT-11); Status line hardcode removed at AE/2.6 |
+| `AE/2\.\d` (old-scheme names) or hardcoded current versions on live surfaces — outside CHANGELOG "formerly" tags, migration.md, plans, ADRs, SPEC records | stale/old-scheme versions where only the badge + stamp should carry them | README said AE/2.3 at AE/2.5 (MAT-11); AE/2.x renumbered to 0.x at 1.0.0 (MAT-27, ADR-003) |
 | `connector ladder\|fallback ladder` (+ future dead terms as they die) | terminology retired by a later version | "connector ladder" survived AE/2.4 in work-lifecycle.md and an eval title (MAT-15) |
 | every ADR ⇒ its amended SPEC decision carries a pointer | stale law with no amendment signal | SPEC Decisions 7/8/9 lacked pointers to ADR-001/002 (MAT-15) |
 | `> Phase: P\d` | phase tags on shipped behavior | agent-audit dogfooding check, pinned here too |
@@ -26,6 +26,12 @@ Born from the AE/2.6 errata — first exercise of the CHANGELOG-header
 restamp rule.
 
 ## Deliberate-clean list (do not re-litigate)
+
+- `examples/` — authoring-time snapshots: stamps and content show the
+  version at writing time, excluded from self-lint and restamps
+  (MAT-27); their staleness is by design, the READMEs say so.
+- CHANGELOG "formerly AE/2.x" tags and 0.x renumbered entries — the
+  version-history record after ADR-003; never "modernize" them.
 
 - Cron/`/loop`/`/schedule` mentions in `execution.md` and
   `reference/loops.md` — illustrate artifact-neutrality; recorded

@@ -110,6 +110,16 @@ intake), each a five-element contract file with its gitignored state file
 beside it. The anatomy, run protocol, and diagrams live in
 [execution.md](execution.md).
 
+### `examples/` — what does an installed repo look like?
+
+Live since 1.0.0 (the SPEC deferred it "until real repos migrate" —
+workstation migrating satisfied that). Instantiated setups per repo
+shape: a single app, a monorepo with per-app files, and the
+machine-config entry that points at the living public consumer
+(workstation) instead of a snapshot that would drift. Stamps inside are
+authoring-time by design; the directory is excluded from the self-lint
+and from restamp rituals, like fixtures.
+
 ### `tests/` — how is the standard itself tested?
 
 Live since AE/2.0 (lint fixtures + generator fixtures; P5 added the

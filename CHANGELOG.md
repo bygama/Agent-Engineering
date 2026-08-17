@@ -1,116 +1,135 @@
 # Changelog
 
-Versions of the standard (`AE/<major>.<minor>`). Template or check changes
-bump the version; docs-only refreshes do not. A bump restamps the root
-`AGENTS.md` and the README version badge in the same change.
+All notable changes to the agent-engineering standard. Format:
+[Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/); versions:
+[Semantic Versioning 2.0.0](https://semver.org/) — both verified at
+source 2026-08-17. Stamps read `Standard: AE/MAJOR.MINOR.PATCH`:
 
-## AE/2.6 — 2026-08-17
+- **MAJOR** — breaking shape change: a migrated repo must change to stay
+  compliant.
+- **MINOR** — new capability, backward compatible: a new template piece,
+  check, or skill surface.
+- **PATCH** — fixes and errata, backward compatible.
 
-Errata: the triage-loop example catches up with tier XL.
+Template or check changes always bump; docs-only refreshes never do.
+Every bump restamps the root `AGENTS.md` and the README version badge in
+the same change, and lands with its migration note
+(`skills/agent-init/references/migration.md`).
 
-- Template change (the bump): `loops/issue-triage.example.md` now assigns
-  S/M/L/XL and points at `docs/tiers.md` — the consumer-side tier guide —
-  instead of `reference/task-tiers.md`, a path that only exists in this
-  repo. Found by the full-repo docs drift sweep.
+Entries before 1.0.0 shipped under the old `AE/<major>.<minor>` naming
+and keep their former name for traceability; repos still stamped with an
+old name are "behind, not broken" — `agent-audit` flags them,
+`agent-init` migrates them.
 
-## AE/2.5 — 2026-08-16
+## [1.0.0] — 2026-08-17
 
-Tier XL: the ceremony tier for work that cannot fit one lane (ADR-002).
+The standard declared stable.
 
-- Template change (the bump): consumer repos gain `docs/tiers.md`
-  (recognition cues, ceremony, ratchet, card mapping) in the seed, and
-  the AGENTS.md tier one-liner adds XL with a pointer to it.
-- XL = everything L per worker lane + mandatory fan-out (three questions
-  in writing, anchors, worker table, reducer, synthesis gate on the
-  merged whole). The ratchet extends L→XL.
-- work-verify owns the XL DoD; fan-out is mandatory at XL, available
-  at L.
+### Added
 
-## AE/2.4 — 2026-08-16
+- `examples/` — instantiated setups per repo type (single app, monorepo,
+  machine config with the living workstation example), excluded from the
+  self-lint like fixtures and from restamps (stamps show authoring time).
+- README: **Installing in any repo**, **Customizing**, and **Examples**
+  sections.
+- ADR-003: semantic versioning and the renumbered line (amends SPEC
+  Decision 3).
 
-Orca-first execution: one probe, one path, one contract (ADR-001).
+### Changed
 
-- Template change (the bump): `loops/LOOP.md.template` trigger element is
-  now Orca automation (created `--disabled`) + manual iteration — the
+- Versioning: SemVer + Keep a Changelog adopted. The predecessor
+  generation is 0.1.0; the AE/2.x era is renumbered as the 0.x
+  initial-development line (SemVer: "major version zero — anything may
+  change"); former names preserved below.
+- `agent-lint` stamp-shape accepts the three-part stamp; the two-part
+  shape stays valid so pre-1.0 repos read as behind, not malformed.
+- Self-lint ignore set gains `examples`.
+
+## [0.6.1] — 2026-08-16 — formerly AE/2.6
+
+### Fixed
+
+- The triage-loop example now assigns S/M/L/XL per `docs/tiers.md` — it
+  assigned S/M/L via `reference/task-tiers.md`, a path that only exists
+  in the standard's own repo. Found by the full-repo docs drift sweep.
+
+## [0.6.0] — 2026-08-16 — formerly AE/2.5
+
+### Added
+
+- Tier XL (ADR-002): consumer repos gain `docs/tiers.md` in the seed and
+  the AGENTS.md tier one-liner adds XL. XL = everything L per worker
+  lane + mandatory fan-out (three questions in writing, anchors, worker
+  table, reducer, synthesis gate on the merged whole); the ratchet
+  extends L→XL; `work-verify` owns the XL DoD.
+
+## [0.5.0] — 2026-08-16 — formerly AE/2.4
+
+### Changed
+
+- Orca-first execution (ADR-001): the probe is step 0 of every executing
+  skill; the no-Orca contract replaces per-capability fallbacks
+  (everything that is a file still happens; Orca-only steps are declared
+  NOT done); `loops/LOOP.md.template`'s trigger element is an Orca
+  automation (created `--disabled`) + manual iteration — the
   cron//schedule/MCP fallback ladders are gone everywhere.
-- The probe (`orca status --json`) is step 0 of every executing skill;
-  the no-Orca contract replaces per-capability fallbacks: everything that
-  is a file still happens, Orca-only steps are declared NOT done.
-- Five primitives adopted from the version-matched CLI survey:
-  agent-first worker spawn, card comments, card status mapped to the lane
-  lifecycle, `orca orchestration` for coordinator↔worker mail, built-in
-  browser as the named web e2e tool.
 
-## AE/2.3 — 2026-08-16
+### Added
 
-Hardening: the checks got checked.
+- Five primitives from the version-matched CLI survey: agent-first
+  worker spawn, card comments, card status mapped to the lane lifecycle,
+  `orca orchestration` mail, built-in browser as the named web e2e tool.
 
-- Check change (the bump): `agent-lint` cmd-drift now honors the
-  `# not verified` honesty marker — commands the standard itself says to
-  mark that way are no longer false-positived. Found by the new
-  kitchen-sink fixture on its first run.
-- `tests/fixtures/kitchen-sink/`: composite broken repo (16 mechanical +
-  8 judgment plants) with a planted-violations MANIFEST; lint suite pins
-  its mechanical subset (13 cases).
-- `tests/run-eval-checks.mjs`: the ≥3-evals-per-skill contract is now
-  executable (structure: Query + Expected behavior + checklists).
-- Failure-derived evals from P2-P4 real failures (tracked loop state
-  self-blocks; ambiguous anchors; close destroying uncommitted evidence)
-  + the skill lines they pin.
+## [0.4.1] — 2026-08-16 — formerly AE/2.3
 
-## AE/2.2 — 2026-08-16
+### Fixed
 
-The loop layer: standing automation as a file artifact.
+- `agent-lint` cmd-drift honors the `# not verified` honesty marker —
+  found by the kitchen-sink composite fixture on its first run.
 
-- `templates/repo/loops/` (the bump): `LOOP.md.template` — five elements
-  (stopping rule, verified gate, numeric budget + 2-strikes failure
-  budget, state file, trigger with named no-Orca fallback) — plus the
-  `issue-triage.example.md` worked example. New optional artifact; nothing
-  to migrate in existing repos.
-- `skills/loop-setup` (loop filter, five elements, run protocol,
-  report-only writes by default), 4 evals written first.
-- `reference/loops.md`, `reference/orca.md` (mapping table with verified
-  CLI syntax + fallbacks), `reference/tracker.md` (two planes, gate rule,
-  connector ladder).
+### Added
 
-## AE/2.1 — 2026-08-16
+- `tests/fixtures/kitchen-sink/` (16 mechanical + 8 judgment plants,
+  MANIFEST, lint cases pinned) and `tests/run-eval-checks.mjs` (the
+  ≥3-evals contract made executable); failure-derived evals from real
+  P2-P4 failures.
 
-Daily-use discipline: evidence-gated completion and clean-state handoffs.
+## [0.4.0] — 2026-08-16 — formerly AE/2.2
 
-- `skills/work-verify` (tier DoD by command — three layers, fresh-context
-  review at M+, refuses "done" without evidence) and `skills/work-handoff`
-  (close|pause exits, debris sweep, lane closure, Linear status/comment via
-  `orca linear` with MCP/operator fallback), 4 evals each.
-- Template change (the bump): `PROGRESS.md` gains a `## Verification`
-  section — PASS evidence written by work-verify, gate consumed by
-  work-handoff. Migration: append the section to open lanes, restamp.
-- Skill prose de-hardcoded from version literals: "current" now always
-  means the newest entry in this changelog.
+### Added
 
-## AE/2.0 — 2026-08-16
+- The loop layer: `templates/repo/loops/LOOP.md.template` (five
+  elements: stopping rule, verified gate, budgets, state file, trigger)
+  + worked triage example; `skills/loop-setup`; `reference/loops.md`,
+  `orca.md`, `tracker.md`. Loop state files are gitignored runtime
+  artifacts.
 
-The v2 baseline: the standard is installable and auditable.
+## [0.3.0] — 2026-08-16 — formerly AE/2.1
 
-- Canonical AGENTS.md (≤60 lines, `Standard:` stamp, tier one-liner) +
-  ≤3-line pointer CLAUDE.md; per-app AGENTS.md + pointer for monorepos.
-- `reference/`: principles, context, memory, harness, verification,
-  task-tiers, design-md, skills.
-- `templates/repo/`: entry files, docs seed, `work/` four-file lane
-  templates, `feature_list` schema + example; community pack (no
-  CODE_OF_CONDUCT).
-- `skills/agent-init` (install + v1/legacy migration) and
-  `skills/agent-audit` (judgment review + drift detection), 3 evals each.
-- `scripts/agent-lint`: budgets, pointer/stamp, adapters, read orders,
-  links, lanes, feature-list schema/regression, DESIGN.md drift, command
-  drift. 12 lint fixtures + generator self-tests.
-- P0 foundation: repo identity, founding spec, `docs/how-it-works/` chapters.
+### Added
 
-## v1 — the predecessor generation
+- Daily-work skills: `work-verify` (tier DoD by command, three layers,
+  fresh-context review at M+) and `work-handoff` (close|pause, evidence
+  gate, debris sweep, finalize-then-remove lane closure).
+- Template change: `PROGRESS.md` gains `## Verification`; skill prose
+  de-hardcoded from version literals ("current" = newest entry here).
 
-There is no AE/1.x on purpose. The first generation of this standard
-lived in the Context-Engineering repo (retired and deleted 2026-08-16):
-canonical CLAUDE.md as the context file, entry-stub AGENTS.md, no
-version stamps. This repo is the second generation and starts its line
-at AE/2.0, counting that era as v1 — which is why `agent-init` and
-`agent-audit` still recognize the "v1 shape" by sight and migrate it
+## [0.2.0] — 2026-08-16 — formerly AE/2.0
+
+### Added
+
+- The stable shape's baseline: canonical AGENTS.md (≤60, stamp, tier
+  one-liner) + ≤3-line pointer CLAUDE.md; per-app files for monorepos;
+  `reference/` (8 docs); `templates/repo/` (entry files, docs seed,
+  four-file lane templates, feature-list schema, community pack — no
+  CODE_OF_CONDUCT); `skills/agent-init` + `skills/agent-audit` (3 evals
+  each); `scripts/agent-lint` + 12 fixtures + generator self-tests; the
+  founding spec and `docs/how-it-works/`.
+
+## [0.1.0] — the predecessor generation
+
+The primitive first cut, in the retired Context-Engineering repo
+(deleted 2026-08-16): canonical CLAUDE.md as the context file,
+entry-stub AGENTS.md, no version stamps. `agent-init` still recognizes
+this layout — the "v1 shape" — and migrates it
 (`skills/agent-init/references/migration.md`).

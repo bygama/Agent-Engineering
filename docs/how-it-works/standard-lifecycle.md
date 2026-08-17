@@ -113,17 +113,24 @@ next migration.
 
 ## Versioning rules
 
-- Stamp format: `Standard: AE/<major>.<minor>` — one line, greppable,
-  in the installed `AGENTS.md`.
-- Semantics: template or check changes bump the version (breaking shape
-  changes bump major, additive ones minor); docs-only refreshes bump
-  nothing, because `reference/` files carry their own source+date headers.
-- Majors count generations: v1 was the predecessor standard (canonical
-  CLAUDE.md, no stamps — the retired Context-Engineering repo), so this
-  repo's line starts at AE/2.0; there is no AE/1.x (CHANGELOG, "v1 — the
-  predecessor generation").
+- Stamp format: `Standard: AE/MAJOR.MINOR.PATCH` — one line, greppable,
+  in the installed `AGENTS.md` (SemVer 2.0.0 since ADR-003; two-part
+  stamps from the 0.x era stay valid shapes and read as behind, not
+  malformed).
+- Semantics (the SemVer criterion, spelled out in the CHANGELOG header):
+  breaking shape changes bump MAJOR, new backward-compatible capability
+  bumps MINOR, fixes/errata bump PATCH. Template or check changes always
+  bump; docs-only refreshes never do, because `reference/` files carry
+  their own source+date headers.
+- The line's history: 0.1.0 was the predecessor generation (canonical
+  CLAUDE.md, no stamps — the retired Context-Engineering repo); the
+  AE/2.x era is renumbered as the 0.x initial-development line; 1.0.0
+  declared the standard stable on 2026-08-17 (ADR-003; former names kept
+  per CHANGELOG entry).
 - A bump restamps this repo's root `AGENTS.md` and the README version
-  badge in the same change (the rule lives in the `CHANGELOG.md` header).
+  badge in the same change (the rule lives in the `CHANGELOG.md`
+  header). `examples/` stamps are authoring-time snapshots — never
+  restamped.
 - History: `CHANGELOG.md` at this repo's root records every bump and what
   it means for consumers.
 - Migration notes: `skills/agent-init/references/migration.md` records, per
