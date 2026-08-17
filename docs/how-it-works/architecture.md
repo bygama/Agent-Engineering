@@ -53,10 +53,11 @@ The only directory whose content ever leaves this repo. It holds the
 canonical `AGENTS.md` skeleton (with `{{PLACEHOLDER}}` markers instantiated
 by `agent-init`, never copied verbatim), the one-line pointer `CLAUDE.md`,
 the `docs/` seed (ADR and spec templates plus the `tiers.md` guide), the
-`work/` four-file templates
-(SPEC, PLAN, PROGRESS, DECISIONS), the `feature_list` JSON schema with a
-worked example, and the `loops/` template with its issue-triage example. If a rule matters enough to install everywhere, it lives
-here; if it only matters to this repo, it stays out.
+`work/` four-file templates (SPEC, PLAN, PROGRESS, DECISIONS), the
+`feature_list` JSON schema with a worked example, and the `loops/`
+template with its issue-triage example. If a rule matters enough to
+install everywhere, it lives here; if it only matters to this repo, it
+stays out.
 
 ### `skills/` — how does it replicate and get used day to day?
 
