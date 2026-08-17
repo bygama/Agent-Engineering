@@ -3,6 +3,19 @@
 Versions of the standard (`AE/<major>.<minor>`). Template or check changes
 bump the version; docs-only refreshes do not.
 
+## AE/2.5 — 2026-08-16
+
+Tier XL: the ceremony tier for work that cannot fit one lane (ADR-002).
+
+- Template change (the bump): consumer repos gain `docs/tiers.md`
+  (recognition cues, ceremony, ratchet, card mapping) in the seed, and
+  the AGENTS.md tier one-liner adds XL with a pointer to it.
+- XL = everything L per worker lane + mandatory fan-out (three questions
+  in writing, anchors, worker table, reducer, synthesis gate on the
+  merged whole). The ratchet extends L→XL.
+- work-verify owns the XL DoD; fan-out is mandatory at XL, available
+  at L.
+
 ## AE/2.4 — 2026-08-16
 
 Orca-first execution: one probe, one path, one contract (ADR-001).

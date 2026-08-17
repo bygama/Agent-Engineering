@@ -78,3 +78,7 @@ Wait for explicit approval of this plan before touching anything.
   2.3 → 2.4: restamp; if the repo has `loops/`, replace each loop's
   trigger fallback line with the manual-iteration fallback ("run one
   iteration of `loops/<name>.md`" to any agent). No other file changes.
+- **AE/2.5** (2026-08-16) — tier XL (ADR-002). Migrating 2.4 → 2.5:
+  restamp, extend the tier one-liner with `· XL fan-out` and the
+  `(docs/tiers.md)` pointer, install `docs/tiers.md` from the template.
+  Open lanes unaffected.
