@@ -3,7 +3,7 @@
 Source: `docs/specs/SPEC-agent-engineering.md` (Decision 7, tier table)
 as amended by `docs/adrs/ADR-002-tier-xl.md` and
 `docs/adrs/ADR-004-relay.md`; normative walk-through in
-`docs/how-it-works/work-lifecycle.md`. Retrieved 2026-08-16.
+`docs/how-it-works/work-lifecycle.md`. Retrieved 2026-08-17.
 
 ## The rule
 
