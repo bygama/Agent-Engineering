@@ -68,8 +68,9 @@ check false-positive, a template bug, an incomplete migration note — is
 labeled `upstream` in the table and excluded from the repo's score: the
 repo is not penalized for the standard's bug. Close each one with a
 ready-to-run filing proposal carrying the evidence:
-`orca linear create --team MAT …` when this machine has the standard's
-workspace, otherwise `gh issue create --repo bygama/Agent-Engineering …`
+`orca linear create --team MAT --project "Agent-Engineering" …` when
+this machine has the standard's workspace, otherwise
+`gh issue create --repo bygama/Agent-Engineering …`
 (the standard's repo is public). Proposing is the audit's job; filing
 happens only on the owner's explicit ok.
 
