@@ -47,6 +47,16 @@ spawn command must select explicitly (e.g. Orca terminals take
 layer** (`~/.claude/CLAUDE.md`), never in a repo — repos stay
 machine-agnostic.
 
+## The adversarial seat
+
+`work-verify`'s adversarial rung (mandatory at XL, opt-in below) needs a
+reviewer from a **different model family than the maker** — same-family
+reviewers share the maker's blind spots. Pick from the table above,
+verify-on-install rule unchanged; on this machine the verified
+cross-family runner is opencode + DeepSeek (the portability-proof
+pairing). No second runner installed ⇒ the rung is declared NOT done,
+never approximated with a same-family reviewer.
+
 ## Orchestrating across runners
 
 The coordinator does not care which runner holds a lane: the reducer

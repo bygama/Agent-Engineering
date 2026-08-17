@@ -1,6 +1,6 @@
 ---
 name: work-verify
-description: Verifies a unit of work against its tier's definition of done — static, behavioral, and end-to-end layers, with a fresh-context review at M and above — and records command evidence into the lane's PROGRESS.md or feature_list.json. Use when work claims to be done, before work-handoff closes a lane, when a feature-list row should move to passing, or whenever "it works" needs proof.
+description: Verifies a unit of work against its tier's definition of done — static, behavioral, and end-to-end layers, a fresh-context review at M and above, and a cross-model adversarial review (mandatory at XL, opt-in below) — and records command evidence into the lane's PROGRESS.md or feature_list.json. Use when work claims to be done, before work-handoff closes a lane, when a feature-list row should move to passing, or whenever "it works" needs proof.
 ---
 
 # Work verify
@@ -20,8 +20,9 @@ Verify progress:
 - [ ] 2. Assemble the DoD
 - [ ] 3. Run the layers in order
 - [ ] 4. Fresh-context review (M and above)
-- [ ] 5. Record the evidence
-- [ ] 6. Verdict
+- [ ] 5. Adversarial review (XL always; M/L on request)
+- [ ] 6. Record the evidence
+- [ ] 7. Verdict
 ```
 
 **1. Locate.** Find what is being verified: a direct S-tier ask, a lane
@@ -77,7 +78,23 @@ exactly three things: the lane path, the diff range, the DoD. Require it to
 return a verdict quoting its own command outputs. No reviewer verdict, no
 PASS.
 
-**5. Record the evidence.** `## Verification` holds PASS evidence only —
+**5. Adversarial review — XL always, M/L on request.** The fresh-context
+reviewer removes shared conversation; it does not remove the model's
+shared blind spots. This rung does: a second reviewer from a **different
+model family** than the maker (pick per `reference/runners.md`, verified
+spawn only), given the same three inputs plus one inversion — its brief
+is to **refute the PASS**: run the commands itself and hunt for why the
+DoD is not actually met. Spawn agent-first on Orca (`orca worktree
+create --agent <runner> --prompt "<brief>" --parent-worktree active`);
+without Orca or without a second runner installed, declare the rung NOT
+done — at XL that withholds the PASS. Findings triage: confirmed real →
+the PASS is revoked, fix, re-verify from step 3; not real → the rebuttal
+needs recorded evidence in the lane's DECISIONS and the finding is never
+re-litigated. The maker never dismisses a finding alone. At M/L the rung
+fires only when the owner asks — or the agent proposes it for high-risk
+changes and waits for the yes.
+
+**6. Record the evidence.** `## Verification` holds PASS evidence only —
 failures belong under `## Tried and failed` (step 6). Append a block to the
 lane's PROGRESS.md (newest on top):
 
@@ -87,17 +104,19 @@ lane's PROGRESS.md (newest on top):
 - L2 behavioral: `<command>` → exit <code> (<key line>); starts: `<command>` → <observed>
 - L3 end-to-end: `<command>` → <observed result> | n/a: single component
 - Fresh-context review: <verdict> — <reviewer's key finding or "no findings">
+- Adversarial review (<runner>): survived | n/a: <tier, not requested>
 ```
 
 At XL the block additionally names the synthesis gate command + exit,
-run from the merged tree. At L, additionally update the feature-list row: `state` → `passing` and
+run from the merged tree, and the adversarial line is mandatory —
+`n/a` is not a valid XL value. At L, additionally update the feature-list row: `state` → `passing` and
 `evidence` → non-null (command + exit + date) — but **only** when that row's
 own verification command exited 0 in this session. `passing` is
 irreversible: a regression found later gets a new row or lane, never a
 state edit backward. Validate the file against the schema (or run
 agent-lint) after editing.
 
-**6. Verdict.** PASS → the work is ready for `work-handoff`. FAIL → report
+**7. Verdict.** PASS → the work is ready for `work-handoff`. FAIL → report
 in what/why/fix form (exact command, exact failure, concrete next step),
 log it under `## Tried and failed` in PROGRESS.md, move the claimed-done
 item out of Done, and leave the lane open. Done is binary; "mostly done"

@@ -152,7 +152,17 @@ write the work, reading the artifact and running the commands, with no
 memory of the reasoning that produced the bug. The reviewer receives
 exactly three things — the lane path, the diff range, the definition of
 done — and must *act* on the work (run the commands itself), not read the
-code and approve. Evidence goes into `PROGRESS.md` (and the feature list at
+code and approve.
+
+A third seat exists since 2026-08-17: the **adversarial review** —
+mandatory at XL, opt-in at M/L. A reviewer from a *different model
+family* than the maker (fresh context removes shared conversation; a
+different family removes shared blind spots) gets the same three inputs
+with the brief inverted: refute the PASS. It blocks: a confirmed
+finding revokes the PASS until fixed and re-verified, and a rebuttal
+needs recorded evidence in DECISIONS — the maker never dismisses a
+finding alone (`work-verify` step 5; runner choice per
+`reference/runners.md`, "The adversarial seat"). Evidence goes into `PROGRESS.md` (and the feature list at
 L): what ran, what it printed, what proves done. The block `work-verify`
 appends under `## Verification` (PASS only — failures live under
 `## Tried and failed`):
