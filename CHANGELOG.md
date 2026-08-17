@@ -1,9 +1,10 @@
 # Changelog
 
-All notable changes to the agent-engineering standard. Format:
+All notable changes to **AE**, the agent-engineering standard. Format:
 [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/); versions:
 [Semantic Versioning 2.0.0](https://semver.org/) — both verified at
-source 2026-08-17. Stamps read `Standard: AE/MAJOR.MINOR.PATCH`:
+source 2026-08-17. A version is spoken "AE 1.0.0" and written
+`Standard: AE/1.0.0` in stamps, `v1.0.0` in git tags:
 
 - **MAJOR** — breaking shape change: a migrated repo must change to stay
   compliant.

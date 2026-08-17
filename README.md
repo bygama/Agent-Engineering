@@ -2,7 +2,7 @@
 
 # Agent-Engineering
 
-[![Standard](https://img.shields.io/github/v/tag/bygama/Agent-Engineering?label=standard&color=blue)](CHANGELOG.md)
+[![AE](https://img.shields.io/github/v/tag/bygama/Agent-Engineering?label=AE&color=blue)](CHANGELOG.md)
 [![Status](https://img.shields.io/badge/status-maintenance-brightgreen)](docs/specs/SPEC-agent-engineering.md)
 [![Execution](https://img.shields.io/badge/execution-orca--first-8A2BE2)](docs/adrs/ADR-001-orca-is-the-executor.md)
 [![Runtime](https://img.shields.io/badge/runtime-neutral-lightgrey)](docs/how-it-works/execution.md)
