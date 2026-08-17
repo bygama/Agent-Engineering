@@ -4,6 +4,7 @@
 
 | Area | What lives there |
 |---|---|
+| [tiers.md](tiers.md) | Task tiers: recognition, ceremony, ratchet |
 | [`adrs/`](adrs/) | Architecture decision records (`ADR-NNN-<topic>.md`) |
 | [`specs/`](specs/) | Feature specs with rich references (`SPEC-<feature>.md`) |
 | [`architecture/`](architecture/) | Mermaid diagrams of non-inferable topology |
