@@ -11,7 +11,7 @@
   evals — accept: `node tests/run-eval-checks.mjs` AND `node
   scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
   exit 0; line count ≤80
-- [ ] U3 (integration): `global/hooks/using-ae.ps1` per SPEC §2 +
+- [x] U3 (integration): `global/hooks/using-ae.ps1` per SPEC §2 +
   amendments per SPEC §3 — accept: `powershell -NoProfile -File
   global/hooks/using-ae.ps1` exits 0; grep finds "using-ae" in
   README.md, reference/skills.md, and one docs/how-it-works chapter;

@@ -17,6 +17,11 @@ standard".
 
 > Live since AE/2.0: `agent-init`, `agent-audit`, and `agent-lint` implement every flow in this chapter.
 
+Since AE/1.2.0, `using-ae` is the always-loaded entry skill
+(SessionStart, global layer) that recognizes an AE-standard repo and
+routes an arriving task to whichever flow in this chapter owns it —
+install, audit, or work — before any action.
+
 ## What a consuming repo carries
 
 Always, and nothing more:

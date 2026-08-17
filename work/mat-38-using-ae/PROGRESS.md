@@ -23,16 +23,51 @@
   design — it needs `global/hooks/using-ae.ps1` (U3); SKILL.md is only
   half its fixture.
 
+- 2026-08-17 — U3 — wrote `global/hooks/using-ae.ps1` per SPEC §2
+  (orca-probe pattern: comment header, `$ErrorActionPreference`, always
+  `exit 0`) resolving the skill `$PSScriptRoot`-relative
+  (`Join-Path (Split-Path $PSScriptRoot) 'skills/using-ae/SKILL.md'`,
+  no env vars, no hardcoded user paths) and amended the three SPEC §3
+  surfaces (README "the nine skills" + using-ae row + chain-paragraph
+  line; `reference/skills.md` composing-section line; `docs/how-it-
+  works/standard-lifecycle.md` entry-skill mention). Walked
+  `skills/using-ae/evals/eval-03.md`'s checklist by simulating both
+  topologies in the scratchpad (sibling `hooks/`+`skills/`, matching
+  the real `~/.claude` junction shape, vs. an isolated `hooks/` with no
+  `skills/` sibling at all — the repo's own `global/hooks/` →
+  `global/skills/...` path doesn't exist pre-MAT-39, which is scenario
+  (b) natively). Found and fixed a real bug during that walk: Windows
+  PowerShell 5.1's `Get-Content` without an explicit `-Encoding UTF8`
+  misdecodes the BOM-less UTF-8 em-dashes/arrows in SKILL.md
+  (mojibake) when its own stdout is captured rather than shown on a
+  console; added `-Encoding UTF8` to the read and
+  `[Console]::OutputEncoding = [System.Text.Encoding]::UTF8` before any
+  output. Acceptance: `powershell -NoProfile -File
+  global/hooks/using-ae.ps1` → exit 0 (verified via the PowerShell
+  tool; the Bash tool's git-bash-invoked `powershell` hits a
+  pre-existing `Restricted`-policy wall that `orca-probe.ps1` hits
+  identically, unrelated to this file); scenario (a) simulated sibling
+  layout → header + byte-exact SKILL.md body (0/45 line mismatches)
+  under the header, exit 0; scenario (b) isolated layout → empty
+  stdout, exit 0; `grep -n using-ae README.md reference/skills.md
+  docs/how-it-works/standard-lifecycle.md` → 4 hits across the three
+  files; `node scripts/agent-lint.mjs . --ignore
+  tests,templates,global,examples` → 0 high/medium/low, PASS; `node
+  tests/run-eval-checks.mjs` → all eval checks passed (using-ae: 3
+  evals well-formed).
+
 ## In progress
 
 - 2026-08-17 — Lane opened; design approved by owner in chat (with
-  work-plan's two-mode amendment). Executing U1-U3 via relay.
+  work-plan's two-mode amendment). U1-U3 executed via relay; U4
+  (controller, shared release with mat-33) remains.
 
 ## Tried and failed
 
 ## Next
 
-- U1 dispatch (evals, judgment tier).
+- U4: four gates + release 1.2.0 + work-verify + handoff + PR (shared
+  with mat-33).
 
 ## Verification
 
