@@ -106,8 +106,11 @@ re-plan the rest as one lane.
 
 ## Judgment notes
 
-- Fan-out is for L-tier scope (or a genuine set of independent M items).
-  Two tiny items fan out fine; one big tangled item never does.
+- Fan-out is MANDATORY at XL — work that cannot fit one lane
+  (`reference/task-tiers.md`, ADR-002); its ceremony cannot be waived.
+  It is available for L or a genuine set of independent M items, and
+  refused below that. Two tiny items fan out fine; one big tangled item
+  never does.
 - The coordinator holds the contract and the merge; workers hold exactly
   one lane each. Nobody holds both roles for the same lane
   (maker ≠ checker survives the parallelism).
