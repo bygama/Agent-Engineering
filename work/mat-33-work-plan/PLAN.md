@@ -20,7 +20,7 @@
 - [x] S6 (judgment): eval-05 two modes per SPEC §3 amendment — accept:
   file exists with `## Query` + `## Expected behavior` + checklist;
   `node tests/run-eval-checks.mjs` exits 0
-- [ ] S7 (judgment): SKILL.md gains the mode fork per SPEC §1 "Two
+- [x] S7 (judgment): SKILL.md gains the mode fork per SPEC §1 "Two
   modes" — accept: `node tests/run-eval-checks.mjs` AND `node
   scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
   exit 0
