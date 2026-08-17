@@ -7,7 +7,7 @@
   per SPEC §3 — accept: all four files exist with `## Query` +
   `## Expected behavior` + checklist lines; `node
   tests/run-eval-checks.mjs` exits 0
-- [ ] S2 (judgment): `skills/work-plan/SKILL.md` — the minimum that
+- [x] S2 (judgment): `skills/work-plan/SKILL.md` — the minimum that
   passes the evals, house style (frontmatter description = what + when,
   third person; body mirrors fan-out/relay register) — accept: `node
   tests/run-eval-checks.mjs` exits 0 AND `node scripts/agent-lint.mjs .
