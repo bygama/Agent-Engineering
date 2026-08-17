@@ -17,6 +17,7 @@ records-vs-living judgment). Born 2026-08-17 from the MAT-15 sweep.
 | every ADR ⇒ its amended SPEC decision carries a pointer | stale law with no amendment signal | SPEC Decisions 7/8/9 lacked pointers to ADR-001/002 (MAT-15) |
 | `> Phase: P\d` | phase tags on shipped behavior | ae-audit dogfooding check, pinned here too |
 | how-it-works index rows vs chapter contents | index promising less/other than the chapter covers | index said "tiers S/M/L" after the chapter gained XL (MAT-11) |
+| `\brelay\b\|agent-init\|agent-audit` as skill names on living surfaces — outside records (adrs/plans/CHANGELOG/migration per-version notes/examples/closed-lane history) and the kept `ADR-004-relay.md` filename | dead skill names after a rename release | MAT-42's ruled residuals: SPEC Decisions 4/7 needed annotations, found by the post-1.3.0 sweep (MAT-48) |
 
 ## Restamp surfaces (checked when a version bump is in flight)
 

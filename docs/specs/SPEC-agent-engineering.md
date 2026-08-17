@@ -73,6 +73,10 @@ becomes a check.
    installer reference is updated in the same change. Until then the old local clone stays
    in place so the current skills keep working (GitHub deletion does not touch local
    clones); the clone is retired only after P1 is accepted and the deletion is done.
+   *Amended 2026-08-17 (v1.3.0, owner direction): a second rename generation —
+   `agent-init` → `ae-init`, `agent-audit` → `ae-audit`; the executor shipped as
+   `relay` (v1.1.0) is `work-run` since v1.3.0. Names in this decision's text are the
+   record of the first generation (CHANGELOG 1.3.0).*
 5. **Model-agnosticism lives in artifacts, not adapters.** Work state is files (four files +
    feature list), so any file-reading worker can take over a lane regardless of model or
    harness. `reference/runners.md` documents per-runner entry files, skill support, and
@@ -89,7 +93,11 @@ becomes a check.
    in `work/<slug>/` (one folder per lane) so parallel worktrees never collide on a root
    PROGRESS.md. The four files are per-effort artifacts, never permanent repo furniture.
    *Amended by [ADR-002](../adrs/ADR-002-tier-xl.md): the scale is S/M/L/XL — XL begins
-   when a correct plan forces ≥2 independent parallel lanes.*
+   when a correct plan forces ≥2 independent parallel lanes. Further amended by
+   [ADR-004](../adrs/ADR-004-relay.md): a lane executes step-by-step via the executor
+   skill (shipped as `relay` in v1.1.0, named `work-run` since v1.3.0), recommended
+   default at L; generalized by [ADR-005](../adrs/ADR-005-artifact-phases.md):
+   artifact-producing phases (plan → run → verify → close) are AE-owned.*
 8. **Linear is the intake/workflow plane; the repo is the execution plane.** They hold
    different states, so there is no double bookkeeping: Linear owns workflow state
    (Todo/In Progress/In Review/Done); the repo owns verification state
