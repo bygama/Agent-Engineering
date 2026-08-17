@@ -3,6 +3,21 @@
 Versions of the standard (`AE/<major>.<minor>`). Template or check changes
 bump the version; docs-only refreshes do not.
 
+## AE/2.4 — 2026-08-16
+
+Orca-first execution: one probe, one path, one contract (ADR-001).
+
+- Template change (the bump): `loops/LOOP.md.template` trigger element is
+  now Orca automation (created `--disabled`) + manual iteration — the
+  cron//schedule/MCP fallback ladders are gone everywhere.
+- The probe (`orca status --json`) is step 0 of every executing skill;
+  the no-Orca contract replaces per-capability fallbacks: everything that
+  is a file still happens, Orca-only steps are declared NOT done.
+- Five primitives adopted from the version-matched CLI survey:
+  agent-first worker spawn, card comments, card status mapped to the lane
+  lifecycle, `orca orchestration` for coordinator↔worker mail, built-in
+  browser as the named web e2e tool.
+
 ## AE/2.3 — 2026-08-16
 
 Hardening: the checks got checked.
