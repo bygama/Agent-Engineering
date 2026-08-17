@@ -91,3 +91,7 @@ stable line's layout.
   declared. Migrating 0.6.1/AE/2.6 → 1.0.0: restamp to
   `Standard: AE/1.0.0`. Nothing else changes in an installed repo —
   a naming-only release for consumers.
+- **1.1.0** (2026-08-17) — relay, the lane executor (ADR-004).
+  Migrating up: restamp; optionally refresh `docs/tiers.md` from the
+  template (its L row gains the recommended-executor mention). No
+  installed file must change to stay compliant.

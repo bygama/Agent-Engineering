@@ -1,6 +1,6 @@
 # Agent-Engineering
 
-Standard: AE/1.0.0
+Standard: AE/1.1.0
 
 Source of truth for the agent-engineering standard — six layers (context,
 memory, harness, loop, graph, with reducer/MCP cross-cutting) — and the
