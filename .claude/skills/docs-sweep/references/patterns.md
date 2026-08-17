@@ -20,10 +20,11 @@ records-vs-living judgment). Born 2026-08-17 from the MAT-15 sweep.
 
 ## Restamp surfaces (checked when a version bump is in flight)
 
-Root `AGENTS.md` · README version badge ·
-`templates/repo/AGENTS.md.template` · `tests/fixtures/v2-clean/AGENTS.md`.
-Born from the AE/2.6 errata — first exercise of the CHANGELOG-header
-restamp rule.
+Root `AGENTS.md` · `templates/repo/AGENTS.md.template` ·
+`tests/fixtures/v2-clean/AGENTS.md` · git tag `vMAJOR.MINOR.PATCH`
+(the README badge reads the latest tag by itself — dynamic since
+1.0.0, no longer a restamp surface). Born from the AE/2.6 errata —
+first exercise of the CHANGELOG-header restamp rule.
 
 ## Deliberate-clean list (do not re-litigate)
 
