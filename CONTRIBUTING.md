@@ -15,7 +15,9 @@ itself; nothing here may violate the standard it defines.
 
 ## Before opening a PR
 
-Run the four gates — all must exit 0:
+Run the four gates — all must exit 0. CI runs the same four on every PR
+(`.github/workflows/gates.yml`) and `main` requires the check green, so
+a red gate physically blocks the merge:
 
 ```
 node scripts/agent-lint.mjs . --ignore tests,templates,global

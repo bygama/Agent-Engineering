@@ -202,7 +202,10 @@ honest.
 
 - **Dogfooding gate.** The repo passes its own audit and lint at every phase
   boundary. Fixture directories that break rules on purpose are excluded
-  explicitly, never silently.
+  explicitly, never silently. Since 2026-08-17 the gate is physical: CI
+  (`.github/workflows/gates.yml`) runs the four gates on every PR and
+  `main`'s ruleset requires the check green — the flow cannot break by
+  omission.
 - **Evals before content.** A skill's evals are written first and updated
   before the skill changes. The evals are the skill's spec.
 - **Same-change documentation.** Any change that alters structure or
