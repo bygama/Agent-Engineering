@@ -30,7 +30,9 @@ skip the run when the Linear connector is unreachable.
 - File: `loops/issue-triage.state.json` — runtime artifact, gitignored;
   missing ⇒ the run initializes it. Per-machine state: this loop's
   trigger runs from one machine only.
-- Shape: `{ "last_run": null, "processed": [], "consecutive_failures": 0 }`
+- Shape: `{ "last_run": null, "processed": [], "gh_processed": [],
+  "consecutive_failures": 0 }` — `gh_processed` holds GitHub issue
+  numbers already mirrored into Linear.
 
 ## Trigger
 
@@ -45,19 +47,29 @@ skip the run when the Linear connector is unreachable.
   contract)
 - Writes: ENABLED by the owner 2026-08-17 — the triage lands as
   `orca linear comment add <KEY> --body "triage: tier <T> — <reason>"`.
-  Status moves stay forbidden from this loop (gate rule: Done only via
+  GitHub-intake writes (Linear mirror issue + "tracked as <KEY>" comment
+  on the GitHub issue) also enabled by the owner 2026-08-17. Status
+  moves stay forbidden from this loop (gate rule: Done only via
   work-verify → work-handoff).
 
 ## Run protocol
 
 1. Read the state file (missing ⇒ initialize with the shape above).
-2. Precheck the queue: `orca linear list --filter open --json` — empty ⇒ stop.
-3. Take at most 5 issues whose keys are not in `processed`.
-4. Per issue: read context (`orca linear issue <KEY>`), assign S/M/L/XL
+2. GitHub intake: `gh issue list --repo bygama/Agent-Engineering --state
+   open --json number,title,url` (verified 2026-08-17, exit 0). For each
+   issue not in `gh_processed`: create the Linear mirror
+   (`orca linear create --team MAT --title "<title>" --body "<url> +
+   summary"`), comment `tracked as <KEY>` on the GitHub issue
+   (`gh issue comment`), record the number. GitHub issues are never
+   worked from GitHub — the tracker is the single intake plane
+   (`reference/tracker.md`); mirrors count toward the 5-item budget.
+3. Precheck the queue: `orca linear list --filter open --json` — empty ⇒ stop.
+4. Take at most 5 issues whose keys are not in `processed`.
+5. Per issue: read context (`orca linear issue <KEY>`), assign S/M/L/XL
    per `reference/task-tiers.md` — or flag non-repo items (onboarding cards,
    duplicates) with a suggested disposition. Record the triage as a
    comment on the issue (writes enabled). Never move any issue to Done
    from this loop — that path runs through work-verify → work-handoff
    (gate rule).
-5. Update state (processed keys, `last_run`, failure count).
-6. Stop per the stopping rule.
+6. Update state (processed keys, `gh_processed`, `last_run`, failure count).
+7. Stop per the stopping rule.

@@ -102,6 +102,15 @@ behind the moment someone audits it, and catches up the moment someone runs
 the migration. Between those moments it keeps working on the version it was
 built against — stamps make drift visible, not fatal.
 
+The lifecycle also runs backward — **the standard improves from the
+edges in**. An audit in a consuming repo labels standard-fault findings
+`upstream` (excluded from the repo's score) and proposes filing them:
+into the standard's tracker on machines that carry its workspace, or as
+a public GitHub issue for anyone else. The triage loop sweeps those in,
+the fix ships through the normal flow, the version bumps if templates
+or checks changed — and the reporter receives their own fix through the
+next migration.
+
 ## Versioning rules
 
 - Stamp format: `Standard: AE/<major>.<minor>` — one line, greppable,

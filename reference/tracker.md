@@ -80,6 +80,16 @@ PR opened → In Progress, merged → Done). Verify the app is actually
 installed (integration-native PR activity on an issue) before relying on
 it; absent that, attach and move states via `orca linear`.
 
+The plane also carries **upstream feedback**. When an audit in a
+consuming repo traces a finding to the standard itself, the report
+labels it `upstream` and proposes the filing — into the standard's
+tracker team on machines that carry its workspace, or
+`gh issue create --repo bygama/Agent-Engineering` for everyone else —
+owner-approved, never automatic (`agent-audit`, Upstream findings). On
+the standard's side the triage loop sweeps open GitHub issues into the
+tracker (mirror issue + a "tracked as <KEY>" comment), so external
+reports run the same pipeline as internal work.
+
 ## Non-negotiables
 
 - Triage loops never move issues to Done (that path runs through

@@ -129,9 +129,11 @@ of this repo (gate: self-lint + every suite; one iteration of the
 repo-local `.claude/skills/docs-sweep` drift battery; queue: drift
 findings; trigger: Orca automation, fallback documented in the file), and
 `loops/issue-triage.md` is the live instance of the triage example —
-each weekday it reads the owner's Linear queue and tiers what arrived,
-posting the triage as a comment (writes owner-enabled 2026-08-17; the
-gate rule keeps Done out of its reach). State files sit
+each weekday it sweeps open GitHub issues on this repo into the tracker
+(mirror issue + "tracked as" comment: external reports enter the same
+pipeline as internal work), then reads the owner's Linear queue and
+tiers what arrived, posting the triage as a comment (writes
+owner-enabled 2026-08-17; the gate rule keeps Done out of its reach). State files sit
 beside them, gitignored. They exist because the anti-decay rule and the
 intake plane deserve a cadence, not just good intentions at merge time.
 

@@ -63,6 +63,16 @@ low; floor 0. A clean repo still gets the report (score + "no findings").
 When the stamp is behind the current version, the fix column recommends
 `agent-init` migration (one atomic step) instead of piecemeal edits.
 
+**Upstream findings.** A finding that traces to the standard itself — a
+check false-positive, a template bug, an incomplete migration note — is
+labeled `upstream` in the table and excluded from the repo's score: the
+repo is not penalized for the standard's bug. Close each one with a
+ready-to-run filing proposal carrying the evidence:
+`orca linear create --team MAT …` when this machine has the standard's
+workspace, otherwise `gh issue create --repo bygama/Agent-Engineering …`
+(the standard's repo is public). Proposing is the audit's job; filing
+happens only on the owner's explicit ok.
+
 **6. Fixes — only if requested.** Apply exactly the fixes listed in the
 report, nothing else. Genuine content (real gotchas, hard constraints) is
 MOVED to its correct place, never deleted. Re-run the audit afterward and
