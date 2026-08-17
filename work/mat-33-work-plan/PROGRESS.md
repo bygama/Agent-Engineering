@@ -2,6 +2,13 @@
 
 ## Done
 
+- 2026-08-17 — S1 — wrote `skills/work-plan/evals/eval-01..04` per
+  SPEC §3 (shaping, refusal, XL, interfaces/batching/roles) — acceptance:
+  `node tests/run-eval-checks.mjs` → exit 0 (work-plan has no SKILL.md
+  yet so the runner skips the dir per its own rule; manually verified
+  all four files carry `## Query` + `## Fixture` + `## Expected
+  behavior` + checklist lines, 23 checklist lines total).
+
 ## In progress
 
 - 2026-08-17 — Lane opened; design approved by owner in chat. Executing
