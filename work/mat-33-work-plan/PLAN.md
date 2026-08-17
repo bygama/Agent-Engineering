@@ -12,7 +12,7 @@
   third person; body mirrors fan-out/relay register) — accept: `node
   tests/run-eval-checks.mjs` exits 0 AND `node scripts/agent-lint.mjs .
   --ignore tests,templates,global,examples` exits 0
-- [ ] S3 (integration): ADR-005 + amendments per SPEC §2
+- [x] S3 (integration): ADR-005 + amendments per SPEC §2
   (reference/skills.md, README table+chain+diagram+Status,
   docs/how-it-works/work-lifecycle.md) — accept: grep finds
   "work-plan" in all four files AND `test docs/adrs/ADR-005 exists`;
