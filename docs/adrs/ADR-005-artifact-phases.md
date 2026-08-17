@@ -49,9 +49,10 @@ finishers, and the lane's PLAN.md is the one artifact a plan produces.
   suite still supplies) drops `writing-plans`, since planning now has a
   house owner too; brainstorming, TDD, and systematic-debugging stay as
   the examples that remain artifact-free.
-- README's skill chain grows to eight skills: `work-plan` sits between
-  the thinking suite and `relay`, shaping the PLAN a suite's
-  brainstorm/design output feeds into.
+- README's skill chain grows to nine skills in this release:
+  `work-plan` sits between the thinking suite and `relay`, shaping the
+  PLAN a suite's brainstorm/design output feeds into, and `using-ae`
+  (same release train) becomes the always-loaded entry point.
 - Future skill decisions ask this ADR's question first: does the phase
   produce a durable artifact in the lane? If yes, AE owns it and any
   suite counterpart is a supersession candidate; if no, it stays a
