@@ -58,7 +58,8 @@ merge what passed, re-plan the remainder as one lane.
 
 ## In this standard
 
-`skills/fan-out` operationalizes the layer: the three pre-fan-out
+`skills/fan-out` operationalizes the layer — mandatory at tier XL,
+available at L (`reference/task-tiers.md`): the three pre-fan-out
 questions in writing, one item ↔ one lane ↔ one worktree ↔ one worker,
 the contract in the parent lane's PLAN. Runner choice per worker is free
 (`reference/runners.md`) because workers consume artifacts, not

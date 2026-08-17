@@ -85,6 +85,8 @@ becomes a check.
    hidden complexity upgrades the tier mid-task, never downgrades. Per-task artifacts live
    in `work/<slug>/` (one folder per lane) so parallel worktrees never collide on a root
    PROGRESS.md. The four files are per-effort artifacts, never permanent repo furniture.
+   *Amended by [ADR-002](../adrs/ADR-002-tier-xl.md): the scale is S/M/L/XL — XL begins
+   when a correct plan forces ≥2 independent parallel lanes.*
 8. **Linear is the intake/workflow plane; the repo is the execution plane.** They hold
    different states, so there is no double bookkeeping: Linear owns workflow state
    (Todo/In Progress/In Review/Done); the repo owns verification state
@@ -96,10 +98,16 @@ becomes a check.
    comment add`); fallback without Orca is the official Linear MCP server or plain API +
    branch-key convention. The core standard never requires a tracker: the `issue:` field
    and key-in-slug convention are optional affordances.
+   *Amended by [ADR-001](../adrs/ADR-001-orca-is-the-executor.md): the MCP/API fallback
+   rung is gone — without Orca, tracker writes are emitted for the operator (no-Orca
+   contract).*
 9. **Orca is the preferred executor, never a dependency.** `reference/orca.md` maps standard
    concepts to Orca (lane → child worktree; long process → terminal tab; DAG/gates →
    orchestration; loops → automations) and names a no-Orca fallback for every mapping
    (git worktree, cron, `/loop`, `/schedule`).
+   *Amended by [ADR-001](../adrs/ADR-001-orca-is-the-executor.md): Orca is the executor;
+   the per-mapping fallbacks are replaced by the no-Orca contract — everything that is a
+   file still happens, Orca-only steps are declared NOT done.*
 10. **Quality gates carry over.** Every skill ships ≥3 evals written before skill content.
     Dogfooding: the repo must pass its own `agent-audit` and `agent-lint` (with the
     documented fixture exclusions).

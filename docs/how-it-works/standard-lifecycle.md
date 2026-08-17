@@ -109,6 +109,8 @@ built against — stamps make drift visible, not fatal.
 - Semantics: template or check changes bump the version (breaking shape
   changes bump major, additive ones minor); docs-only refreshes bump
   nothing, because `reference/` files carry their own source+date headers.
+- A bump restamps this repo's root `AGENTS.md` and the README version
+  badge in the same change (the rule lives in the `CHANGELOG.md` header).
 - History: `CHANGELOG.md` at this repo's root records every bump and what
   it means for consumers.
 - Migration notes: `skills/agent-init/references/migration.md` records, per
