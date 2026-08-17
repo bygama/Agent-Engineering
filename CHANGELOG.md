@@ -1,7 +1,8 @@
 # Changelog
 
 Versions of the standard (`AE/<major>.<minor>`). Template or check changes
-bump the version; docs-only refreshes do not.
+bump the version; docs-only refreshes do not. A bump restamps the root
+`AGENTS.md` and the README version badge in the same change.
 
 ## AE/2.5 — 2026-08-16
 

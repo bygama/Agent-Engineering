@@ -1,10 +1,10 @@
 # Agent-Engineering
 
-![Standard](https://img.shields.io/badge/standard-AE%2F2.5-blue)
-![Phases](https://img.shields.io/badge/phases-P0--P5%20shipped-success)
-![Execution](https://img.shields.io/badge/execution-orca--first-8A2BE2)
-![Runtime](https://img.shields.io/badge/runtime-neutral-lightgrey)
-![License](https://img.shields.io/badge/license-MIT-green)
+[![Standard](https://img.shields.io/badge/standard-AE%2F2.5-blue)](CHANGELOG.md)
+[![Status](https://img.shields.io/badge/status-maintenance-brightgreen)](docs/specs/SPEC-agent-engineering.md)
+[![Execution](https://img.shields.io/badge/execution-orca--first-8A2BE2)](docs/adrs/ADR-001-orca-is-the-executor.md)
+[![Runtime](https://img.shields.io/badge/runtime-neutral-lightgrey)](docs/how-it-works/execution.md)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
 The agent-engineering standard: one repo that defines, installs, and audits
 how AI-agent work happens across all of my repositories — six layers,
