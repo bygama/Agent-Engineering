@@ -95,3 +95,7 @@ stable line's layout.
   Migrating up: restamp; optionally refresh `docs/tiers.md` from the
   template (its L row gains the recommended-executor mention). No
   installed file must change to stay compliant.
+- **1.2.0** (2026-08-17) — work-plan + using-ae + the SessionStart
+  entry hook (ADR-005). Migrating up: restamp only — skills are
+  machine-global (junctions) and the hook applies via the workstation
+  installer, so nothing changes inside an installed repo.
