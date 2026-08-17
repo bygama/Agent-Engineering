@@ -1,4 +1,8 @@
+<div align="center">
+
 # Agent-Engineering
+
+---
 
 [![Standard](https://img.shields.io/badge/standard-AE%2F2.5-blue)](CHANGELOG.md)
 [![Status](https://img.shields.io/badge/status-maintenance-brightgreen)](docs/specs/SPEC-agent-engineering.md)
@@ -6,9 +10,15 @@
 [![Runtime](https://img.shields.io/badge/runtime-neutral-lightgrey)](docs/how-it-works/execution.md)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 
-The agent-engineering standard: one repo that defines, installs, and audits
-how AI-agent work happens across all of my repositories — six layers,
-runtime-neutral, model-agnostic.
+**The engineering standard for repositories that run on AI agents.**<br>
+One repo defines, installs, and audits how agent work happens — Claude,
+Codex, OpenCode, or any agent that reads files: same lanes, same gates,
+one version stamp.
+
+</div>
+
+The standard organizes agent work into six layers, each answering one
+question:
 
 | Layer | Question it answers |
 |---|---|
