@@ -74,3 +74,7 @@ Wait for explicit approval of this plan before touching anything.
   carrying the `# not verified` marker. Migrating 2.2 → 2.3: restamp
   only; repos that removed the marker to silence false drift may restore
   it.
+- **AE/2.4** (2026-08-16) — Orca-first execution (ADR-001). Migrating
+  2.3 → 2.4: restamp; if the repo has `loops/`, replace each loop's
+  trigger fallback line with the manual-iteration fallback ("run one
+  iteration of `loops/<name>.md`" to any agent). No other file changes.
