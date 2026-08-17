@@ -32,8 +32,10 @@
 
 ## Trigger
 
-- Primary: `{{ORCA_AUTOMATIONS_CREATE_COMMAND}}`
-- Fallback (no Orca): {{SLASH_SCHEDULE_OR_CRON}}
+- Primary: `{{ORCA_AUTOMATIONS_CREATE_COMMAND}}` (created `--disabled`;
+  enabled only on the owner's explicit go)
+- Manual fallback: "run one iteration of `loops/{{LOOP_SLUG}}.md`" to any
+  agent — works with or without Orca
 - Writes: report-only until the owner enables them
 
 ## Run protocol
