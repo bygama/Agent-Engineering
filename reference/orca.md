@@ -16,6 +16,9 @@ Resolve the executable once per session (rules from the `orca-cli` stub):
 ORCA status --json    # exit 0 + "ok": true ⇒ Orca session
 ```
 
+(`ORCA` is the resolved executable — substitute it, never run it
+literally.)
+
 Anything else ⇒ the no-Orca contract below. The response's `capabilities`
 array supports feature-level detection when a skill needs it; the same
 command is the natural automation `--precheck`.
