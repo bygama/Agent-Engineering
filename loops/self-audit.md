@@ -60,6 +60,9 @@ when the working tree is dirty or not on `main`.
 4. Dogfooding checks per `skills/agent-audit` dogfooding mode: stamp ==
    newest CHANGELOG entry; how-it-works coverage (every top-level dir and
    skill has a current section); phase-tag honesty.
-5. Report findings (new vs "reported before, still open" via `processed`);
+5. Docs sweep: run one iteration of `.claude/skills/docs-sweep` (its
+   battery lives in `references/patterns.md`). Report-only here per the
+   Writes line — sweep findings join the report as proposals.
+6. Report findings (new vs "reported before, still open" via `processed`);
    propose at most 1 fix as a lane suggestion.
-6. Update state (`last_run`, fingerprints, failure count); stop.
+7. Update state (`last_run`, fingerprints, failure count); stop.

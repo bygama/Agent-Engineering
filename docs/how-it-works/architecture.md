@@ -73,6 +73,15 @@ follow it — that readability is a design requirement, not an accident.
 Every skill ships with at least three evals, written before the skill
 content, and the evals change before the skill does.
 
+One skill sits outside `skills/` on purpose: `.claude/skills/docs-sweep`
+is repo-local maintenance — it sweeps this repo's own markdown against a
+living drift battery (`references/patterns.md`) that grows by rule: no
+drift is fixed without its pattern landing in the battery in the same
+change. It is never junctioned and never installed in consumers (its
+content is this repo's law, not portable technique), but it obeys the
+same ≥3-evals contract, enforced by the same suite. The weekly
+self-audit loop runs one iteration of it.
+
 ### `scripts/` — what is checked mechanically, without judgment?
 
 Live since AE/2.0 (`agent-lint` + the DESIGN.md generator).

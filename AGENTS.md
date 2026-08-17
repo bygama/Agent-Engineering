@@ -43,3 +43,4 @@ is in maintenance — versions bump on template/check changes (CHANGELOG.md).
 - The standard itself: `reference/`
 - What consumers receive: `templates/repo/`
 - Replication skills: `skills/agent-init/`, `skills/agent-audit/`
+- Repo-local docs maintenance: `.claude/skills/docs-sweep/` (drift battery)

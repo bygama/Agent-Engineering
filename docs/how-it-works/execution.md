@@ -125,8 +125,9 @@ installs, branch formats, who writes what — is
 ## This repo's own loops
 
 Dogfooding again: `loops/self-audit.md` is the standing weekly self-audit
-of this repo (gate: self-lint + every suite; queue: drift findings;
-trigger: Orca automation, fallback documented in the file), and
+of this repo (gate: self-lint + every suite; one iteration of the
+repo-local `.claude/skills/docs-sweep` drift battery; queue: drift
+findings; trigger: Orca automation, fallback documented in the file), and
 `loops/issue-triage.md` is the live instance of the triage example —
 each weekday it reads the owner's Linear queue and tiers what arrived,
 posting the triage as a comment (writes owner-enabled 2026-08-17; the
