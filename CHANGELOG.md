@@ -4,6 +4,15 @@ Versions of the standard (`AE/<major>.<minor>`). Template or check changes
 bump the version; docs-only refreshes do not. A bump restamps the root
 `AGENTS.md` and the README version badge in the same change.
 
+## AE/2.6 — 2026-08-17
+
+Errata: the triage-loop example catches up with tier XL.
+
+- Template change (the bump): `loops/issue-triage.example.md` now assigns
+  S/M/L/XL and points at `docs/tiers.md` — the consumer-side tier guide —
+  instead of `reference/task-tiers.md`, a path that only exists in this
+  repo. Found by the full-repo docs drift sweep.
+
 ## AE/2.5 — 2026-08-16
 
 Tier XL: the ceremony tier for work that cannot fit one lane (ADR-002).

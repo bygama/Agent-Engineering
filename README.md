@@ -2,7 +2,7 @@
 
 # Agent-Engineering
 
-[![Standard](https://img.shields.io/badge/standard-AE%2F2.5-blue)](CHANGELOG.md)
+[![Standard](https://img.shields.io/badge/standard-AE%2F2.6-blue)](CHANGELOG.md)
 [![Status](https://img.shields.io/badge/status-maintenance-brightgreen)](docs/specs/SPEC-agent-engineering.md)
 [![Execution](https://img.shields.io/badge/execution-orca--first-8A2BE2)](docs/adrs/ADR-001-orca-is-the-executor.md)
 [![Runtime](https://img.shields.io/badge/runtime-neutral-lightgrey)](docs/how-it-works/execution.md)
@@ -172,7 +172,7 @@ files, so any model or runtime can pick up any lane.
 
 ## Status
 
-**AE/2.5 — all phases (P0-P5) shipped; the repo is in maintenance.**
+**All phases (P0-P5) shipped; the repo is in maintenance.**
 Versions bump when templates or checks change
 ([CHANGELOG.md](CHANGELOG.md)). Since the ladder closed, two decisions
 extended the standard: Orca-first execution

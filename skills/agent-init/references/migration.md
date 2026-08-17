@@ -82,3 +82,7 @@ Wait for explicit approval of this plan before touching anything.
   restamp, extend the tier one-liner with `· XL fan-out` and the
   `(docs/tiers.md)` pointer, install `docs/tiers.md` from the template.
   Open lanes unaffected.
+- **AE/2.6** (2026-08-17) — errata: triage-loop example catches up with
+  tier XL. Migrating 2.5 → 2.6: restamp; if the repo instantiated the
+  issue-triage example, its tier line becomes "assign S/M/L/XL per
+  `docs/tiers.md`". Nothing else changes.
