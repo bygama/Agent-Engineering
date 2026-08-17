@@ -3,7 +3,7 @@
 <!-- Steps with executable acceptance. Executed via relay; commit per
      step; controller bookkeeping commits immediately (MAT-37). -->
 
-- [ ] U1 (judgment): evals per SPEC §4 —
+- [x] U1 (judgment): evals per SPEC §4 —
   `skills/using-ae/evals/eval-01..03` — accept: three files with
   `## Query` + `## Expected behavior` + checklists; `node
   tests/run-eval-checks.mjs` exits 0
