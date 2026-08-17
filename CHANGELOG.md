@@ -23,6 +23,22 @@ and keep their former name for traceability; repos still stamped with an
 old name are "behind, not broken" — `agent-audit` flags them,
 `agent-init` migrates them.
 
+## [1.3.0] — 2026-08-17
+
+### Changed
+
+- Skill renames, names now self-explanatory (owner direction): `relay`
+  → `work-run` (the family reads work-plan → work-run → work-verify →
+  work-handoff), `agent-init` → `ae-init`, `agent-audit` → `ae-audit`
+  (AE as the proper noun reaches the replication skills). Records keep
+  the old names; `ADR-004-relay.md` carries a status-line note and its
+  filename stays as the citable anchor. The `agent-lint` script keeps
+  its name (consumer Commands cite it).
+- `reference/skills.md` gains the Placement rule: AE ships the
+  fundamental skills (lifecycle + replication); complementary
+  methodology skills live in the personal library; a complementary
+  skill that becomes load-bearing for the standard moves upstream.
+
 ## [1.2.0] — 2026-08-17
 
 ### Added

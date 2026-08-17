@@ -76,7 +76,17 @@
 
 ## In progress
 
-- 2026-08-17 — Lane opened; rename approved by owner in chat.
+- 2026-08-17 — Release train closing: PR + rebase-merge + tag v1.3.0.
+
+## Verification (appended by work-verify)
+
+### 2026-08-17 — M DoD — PASS
+- L1 static: `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` → exit 0 (0 high, 0 medium, 0 low)
+- L2 behavioral: `run-lint-tests` (13) · `run-gen-tests` · `run-eval-checks` (work-run: 4, ae-init: 3, ae-audit: 4 evals well-formed) → all exit 0
+- L3 end-to-end: both acceptance greps executed with per-hit inspection; residuals covered by the two DECISIONS rulings (record filenames, spec-by-pointer, examples-as-snapshots)
+- Fresh-context review: covered by the two step reviewers — R1 and R1b are the lane's entire diff, each reviewed fresh (SPEC PASS / QUALITY APPROVED ×2), each reviewer ran all four gates itself
+- Adversarial review: n/a — M tier, not requested
+- work-run record: R1 dcd4cb8 (DONE_WITH_CONCERNS → ruled), R1b dae81f2 (DONE_WITH_CONCERNS → ruled) — two batched steps, two clean reviews, fix loop never fired, 2 controller rulings
 
 ## Tried and failed
 
