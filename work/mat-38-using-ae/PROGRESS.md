@@ -58,18 +58,24 @@
 
 ## In progress
 
-- 2026-08-17 — Lane opened; design approved by owner in chat (with
-  work-plan's two-mode amendment). U1-U3 executed via relay; U4
-  (controller, shared release with mat-33) remains.
+- 2026-08-17 — Release train closing: PR + rebase-merge + tag v1.2.0.
 
 ## Tried and failed
 
 ## Next
 
-- U4: four gates + release 1.2.0 + work-verify + handoff + PR (shared
-  with mat-33).
+- MAT-39: workstation installer applies the hook + creates the
+  using-ae junction; verify a fresh session shows the injection.
 
 ## Verification
 
 <!-- PASS evidence only, written by work-verify (newest on top); the close
      handoff refuses to close a lane without a current PASS block here. -->
+
+### 2026-08-17 — M DoD — PASS
+- L1 static: `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` → exit 0 (0 high, 0 medium, 0 low)
+- L2 behavioral: `run-lint-tests` (13 cases) · `run-gen-tests` · `run-eval-checks` (using-ae: 3 evals well-formed) → all exit 0; hook executed live: absent branch → silent, exit 0; simulated installed topology → header + byte-exact SKILL.md, both `powershell` and `pwsh`, no mojibake
+- L3 end-to-end: eval-03 walked live by the U3 reviewer against both hook branches, plus a detached-spawn stress run (Start-Process, redirected output) → exit 0, content intact
+- Fresh-context review: PASS — whole-branch (shared with mat-33); no findings specific to this lane
+- Adversarial review: n/a — M tier, not requested
+- Relay run record: U1 86b01d4 · U2 5b98008 · U3 e919197 — three steps, three clean per-step reviews, fix loop never fired; U3 caught and fixed a real PS 5.1 UTF-8 decode bug in the hook

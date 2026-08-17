@@ -24,7 +24,7 @@
   modes" — accept: `node tests/run-eval-checks.mjs` AND `node
   scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
   exit 0
-- [ ] S4 (controller): four gates green — accept: self-lint ·
+- [x] S4 (controller): four gates green — accept: self-lint ·
   run-lint-tests · run-gen-tests · run-eval-checks all exit 0
 - [ ] S5 (controller): release ritual (expected MINOR) + work-verify M
   DoD + handoff close + PR — accept: CHANGELOG new entry; PASS block in

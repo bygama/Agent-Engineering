@@ -70,16 +70,24 @@
 
 ## In progress
 
-- 2026-08-17 — Lane opened; design approved by owner in chat. Executing
-  S1-S3 via relay (second production run; MAT-37 lessons applied).
+- 2026-08-17 — Release train closing: PR + rebase-merge + tag v1.2.0.
 
 ## Tried and failed
 
 ## Next
 
-- S1 dispatch (implementer, judgment tier).
+- Rebase-merge the 1.2.0 PR; tag v1.2.0 post-merge; then MAT-39
+  (workstation wiring for the using-ae hook).
 
 ## Verification
 
 <!-- PASS evidence only, written by work-verify (newest on top); the close
      handoff refuses to close a lane without a current PASS block here. -->
+
+### 2026-08-17 — M DoD — PASS
+- L1 static: `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` → exit 0 (0 high, 0 medium, 0 low)
+- L2 behavioral: `run-lint-tests` (13 cases) · `run-gen-tests` · `run-eval-checks` (work-plan: 5 evals well-formed) → all exit 0
+- L3 end-to-end: PLAN acceptance re-verified by the fresh whole-branch reviewer (ADR-005 exists; "work-plan" in the four amended files; eval-05 walked 8/8 induced) | markdown-only change set
+- Fresh-context review: PASS — whole-branch, covering both 1.2.0 lanes; MEDIUM (controller close steps pending — closed by this block and the handoff), LOW (ADR-005 stale count — fixed pre-merge)
+- Adversarial review: n/a — M tier, not requested
+- Relay run record: S1 955af3f · S2 a5e953a · S3 41c2049 · S6 c99a254 · S7 18ff07d — five steps, five clean per-step reviews, fix loop never fired, 1 controller ruling (DECISIONS)
