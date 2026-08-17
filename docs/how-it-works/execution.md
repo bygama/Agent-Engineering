@@ -67,33 +67,42 @@ decision.
 
 ## The trigger matrix
 
-| Trigger | Orca primary | No-Orca fallback |
-|---|---|---|
-| Schedule | `orca automations create --trigger hourly\|daily\|weekly\|cron\|RRULE` | `/schedule`, OS cron / Task Scheduler |
-| On new issue | scheduled automation, precheck = `orca linear list --filter open --json` non-empty | cron + Linear MCP/API poll |
-| Manual | `orca automations run <name>` | `/loop`, or "follow loops/<name>.md" to any agent |
+| Trigger | Command |
+|---|---|
+| Schedule | `orca automations create --trigger hourly\|daily\|weekly\|cron\|RRULE … --disabled` (enabled on explicit go) |
+| On new issue | a scheduled automation whose precheck is `orca linear list --filter open --json` non-empty |
+| Manual (universal fallback) | `orca automations run <name>`, or "run one iteration of `loops/<name>.md`" to any agent — with or without Orca |
 
 The automation's `--prompt` says "follow `loops/<name>.md`" — it never
 duplicates the contract. One source of truth; the trigger is just an alarm
 clock.
 
-## The Orca mapping (and life without Orca)
+## The Orca mapping (and the no-Orca contract)
 
-Orca is the preferred executor and never a dependency (Decision 9). The
-full table with verified CLI syntax lives in `reference/orca.md`; the
-shape of it:
+Orca is the executor of the standard (ADR-001). The full table with
+verified CLI syntax lives in `reference/orca.md`; the shape of it:
 
 - **lane** → child worktree (`orca worktree create`, `--linear-issue`
-  links the tracker) — or plain `git worktree add`.
+  links the tracker); the card mirrors the lane (`--workspace-status`,
+  `--comment` checkpoints).
+- **worker (fan-out)** → agent-first create: `orca worktree create
+  --agent <id> --prompt "<brief>" --parent-worktree active` — one command
+  per worker.
 - **long-lived process** → terminal tab that outlives the agent session
-  (`orca terminal create`) — or a shell the agent doesn't own. Never a
-  background shell inside an agent session.
-- **DAG + gates** → `orca orchestration` runs/tasks/dispatch — or a plan
-  doc with manual gate commands.
-- **loop** → `orca automations` — or `/loop`, `/schedule`, cron.
+  (`orca terminal create`). Never a background shell inside an agent
+  session.
+- **DAG + gates** → `orca orchestration` runs/tasks/dispatch/inbox.
+- **loop** → `orca automations`, created `--disabled`.
 
-A repo authored on an Orca machine runs unchanged on a cron-and-worktree
-machine; if it doesn't, the repo broke the standard, not the machine.
+Where Orca is absent, one universal rule replaces every fallback recipe —
+the **no-Orca contract**: an agent may do everything that is a file (read
+and write lanes, run gates, append PASS blocks, execute one manual
+iteration of any loop); it may not schedule, parallelize with managed
+worktrees, or write to the tracker; on hitting an Orca-only step it
+declares it explicitly ("no Orca — X was NOT done; needs an Orca session
+or the operator") and continues with what remains. Never silently
+skipped, never faked. Features trim; quality never does — the gates were
+never Orca's to begin with.
 
 ## The tracker connector
 
@@ -102,9 +111,10 @@ state, the repo holds verification state, an issue reaches Done only when
 the repo says `passing`, and truth flows repo → tracker after
 verification, never before. Loops that *read* the tracker (triage) are the
 cheap end; loops never move issues to Done — that path always runs through
-`work-verify` → `work-handoff`. The connector ladder is honest at every
-rung: `orca linear` CLI → Linear MCP server → plain API → emit the calls
-for the operator and say the tracker was NOT updated.
+`work-verify` → `work-handoff`. The connector is `orca linear`; without
+Orca the calls are emitted for the operator and the tracker is declared
+NOT updated (the contract applied to the tracker) — never a claimed write
+without a confirmed call.
 
 ## This repo's own loops
 

@@ -100,7 +100,12 @@ since AE/2.1:
   PROGRESS names the exact state (a red test is allowed only as a recorded
   blocker), and the WIP gets committed honestly. A handoff with red tests
   claimed as done is not a handoff — it is a trap for the next session;
-  pause exists precisely so nobody is tempted to fake a close.
+  pause exists precisely so nobody is tempted to fake a close. Since
+  AE/2.4 the handoff also mirrors the Orca card: close sets
+  `--workspace-status in-review` (`completed` when terminal) with a final
+  `--comment` checkpoint, and pausing into another agent's hands uses the
+  full-transfer recipe (`orca worktree create --no-parent --agent <id>
+  --prompt "<lane + resume brief>"`, then stop monitoring).
 
 ```mermaid
 flowchart TD
