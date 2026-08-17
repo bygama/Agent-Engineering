@@ -55,6 +55,19 @@ plan document are refused with the reason: the lane PLAN plus the lane
 files ARE the plan; duplicating them into a standalone document
 re-creates the collision relay was built to remove.
 
+### Two modes (owner amendment, 2026-08-17)
+
+- **design-first** (default when the requirements emerged from a
+  conversation, or no SPEC exists): work-plan writes the lane SPEC.md
+  from the approved design and STOPS — the SPEC is owner property and
+  its approval is a gate. Only after that approval does it shape
+  PLAN.md from the approved SPEC.
+- **direct** (the owner states the requirements are settled, or the
+  tracker issue is the spec): SPEC.md and PLAN.md come out in one
+  pass, one approval gate at the end.
+- Either way the refusal holds: no design plus genuine uncertainty →
+  brainstorm first; work-plan never invents scope.
+
 ## 2. Normative changes
 
 - **ADR-005** — "artifact-producing phases are AE's": AE owns every
@@ -89,6 +102,11 @@ re-creates the collision relay was built to remove.
 - eval-04 interfaces/batching/roles: dependent steps name the
   interface; same-shape small steps carry `[batch]`; role hints match
   the step's nature.
+- eval-05 two modes (owner amendment): (a) design-first — after a
+  design conversation, produces the SPEC only and stops for owner
+  approval before any PLAN; (b) direct — owner states certainty (or
+  the issue is the spec) → SPEC + PLAN in one pass, one gate; (c) no
+  design + genuine uncertainty → refuses and points at brainstorming.
 
 ## 4. Order of work and DoD
 

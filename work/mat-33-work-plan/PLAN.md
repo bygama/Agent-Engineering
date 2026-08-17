@@ -17,6 +17,13 @@
   docs/how-it-works/work-lifecycle.md) — accept: grep finds
   "work-plan" in all four files AND `test docs/adrs/ADR-005 exists`;
   lint exits 0
+- [ ] S6 (judgment): eval-05 two modes per SPEC §3 amendment — accept:
+  file exists with `## Query` + `## Expected behavior` + checklist;
+  `node tests/run-eval-checks.mjs` exits 0
+- [ ] S7 (judgment): SKILL.md gains the mode fork per SPEC §1 "Two
+  modes" — accept: `node tests/run-eval-checks.mjs` AND `node
+  scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  exit 0
 - [ ] S4 (controller): four gates green — accept: self-lint ·
   run-lint-tests · run-gen-tests · run-eval-checks all exit 0
 - [ ] S5 (controller): release ritual (expected MINOR) + work-verify M

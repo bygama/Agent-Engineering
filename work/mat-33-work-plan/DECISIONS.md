@@ -18,6 +18,12 @@
   does not name it — it mirrors fan-out's own qualification rule and
   the skill must not produce a parent plan fan-out would refuse. Cost
   if wrong: one extra checklist line to delete.
+- 2026-08-17 — Owner amendment mid-run (approved in chat): work-plan
+  gains two modes — design-first (SPEC → owner gate → PLAN) and direct
+  (SPEC + PLAN, one gate) — and using-ae (MAT-38) joins the same
+  release train; the 1.2.0 release is held until both land. SPEC
+  amended on the owner's direction; evals change before content (S6
+  before S7).
 - 2026-08-17 — Executed via relay with MAT-37 lessons applied inline
   (controller bookkeeping commits immediately; no lane edits while an
   implementer is in flight) — the findings ride along before the skill
