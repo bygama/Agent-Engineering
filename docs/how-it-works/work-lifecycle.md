@@ -12,31 +12,45 @@ Three principles govern every task, whatever its size:
 
 ## Tier triage
 
-The rule, from the spec: **S** requires an existing flow to change *and* an
-existing verify command; anything creating new flows or crossing modules
-starts at **M**; anything with parallel lanes, unknown scope, or a
-multi-session horizon is **L**. When in doubt, take the higher tier.
+The rule, from the spec as amended by ADR-002: **S** requires an existing
+flow to change *and* an existing verify command; anything creating new
+flows or crossing modules starts at **M**; unknown scope or a
+multi-session horizon is **L**; and work that cannot fit one lane — a
+correct PLAN forces two or more independent lanes in parallel — is **XL**.
+When in doubt, take the higher tier.
 
 ```mermaid
 flowchart TD
     T[task arrives] --> Q1{existing flow +<br/>existing verify command?}
     Q1 -->|yes, single file-ish| S[Tier S<br/>one-line DoD + run verify]
-    Q1 -->|no| Q2{parallel lanes, unknown scope,<br/>or multi-session?}
+    Q1 -->|no| Q2{unknown scope<br/>or multi-session?}
     Q2 -->|no| M[Tier M<br/>lane + PLAN/PROGRESS + WIP=1]
-    Q2 -->|yes| L[Tier L<br/>four files + feature_list + init phase]
-    S -.->|hidden complexity| M -.->|hidden complexity| L
+    Q2 -->|yes| Q3{fits one lane?}
+    Q3 -->|yes| L[Tier L<br/>four files + feature_list + init phase]
+    Q3 -->|no, needs parallel lanes| XL[Tier XL<br/>L per lane + mandatory fan-out]
+    S -.->|hidden complexity| M -.->|hidden complexity| L -.->|forces parallel<br/>decomposition| XL
 ```
 
 The dotted arrows are the **ratchet**, and it only turns one way: a task
-that reveals hidden complexity upgrades mid-flight — S to M, M to L — and
-nothing ever downgrades mid-task. Downgrading is how half-done work gets
-declared simple retroactively; the ratchet exists to make that impossible.
+that reveals hidden complexity upgrades mid-flight — S to M, M to L, L to
+XL — and nothing ever downgrades mid-task. Downgrading is how half-done
+work gets declared simple retroactively; the ratchet exists to make that
+impossible.
 
 | Tier | Example | Ceremony |
 |---|---|---|
 | S | one-file front fix | one-line definition of done, run the verify command, no files |
 | M | a feature | DoD written *first*, lane folder with PLAN + PROGRESS, WIP=1, fresh-context review, clean-state exit |
 | L | build a system | full four files + `feature_list.json` + a dedicated init phase + staged context windows |
+| XL | migrate six repos in one push | everything L per worker lane + mandatory fan-out: three questions in writing, frozen anchors, worker table, reducer contract, synthesis gate on the merged whole ([execution.md](execution.md)) |
+
+XL is structural, never size-based: it begins exactly where one lane
+stops being able to hold the work, and its ceremony is the graph
+machinery made compulsory — the fan-out skill refuses an XL effort whose
+three questions were never written down, and work-verify refuses an XL
+"done" whose synthesis gate never ran. Consumer repos get the compact
+version of this table as `docs/tiers.md` (installed by agent-init since
+AE/2.5).
 
 ## The lane and the four files
 

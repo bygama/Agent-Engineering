@@ -130,7 +130,9 @@ intake plane deserve a cadence, not just good intentions at merge time.
 ## Graphs: parallel work that merges deterministically
 
 The graph layer coordinates many lanes: a DAG with verification gates on
-the edges, and fan-out/fan-in as the working shape. The `fan-out` skill
+the edges, and fan-out/fan-in as the working shape. Since AE/2.5 the
+layer has a tier that owns it: fan-out is **mandatory at XL** — work that
+cannot fit one lane (ADR-002) — and available at L. The `fan-out` skill
 refuses the split until the **three pre-fan-out questions** are answered
 in writing in the parent lane's PLAN — where does each unit work, how do
 results merge, who resolves disagreement — because a fan-out you can't
