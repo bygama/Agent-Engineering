@@ -2,8 +2,6 @@
 
 # Agent-Engineering
 
----
-
 [![Standard](https://img.shields.io/badge/standard-AE%2F2.5-blue)](CHANGELOG.md)
 [![Status](https://img.shields.io/badge/status-maintenance-brightgreen)](docs/specs/SPEC-agent-engineering.md)
 [![Execution](https://img.shields.io/badge/execution-orca--first-8A2BE2)](docs/adrs/ADR-001-orca-is-the-executor.md)
@@ -15,11 +13,6 @@ One repo defines, installs, and audits how agent work happens — Claude,
 Codex, OpenCode, or any agent that reads files: same lanes, same gates,
 one version stamp.
 
-</div>
-
-The standard organizes agent work into six layers, each answering one
-question:
-
 | Layer | Question it answers |
 |---|---|
 | Context | what does the model see right now? |
@@ -29,19 +22,21 @@ question:
 | Graph | how do many loops coordinate — lanes, gates, reducers? |
 | Cross-cutting | reducers between fan-out and synthesis; MCP as the tool standard |
 
+</div>
+
 ## Architecture
 
 Each directory answers exactly one question:
 
-| Directory | Question | Status |
-|---|---|---|
-| `reference/` | what is the standard, and why? | live, all layers |
-| `templates/repo/` | what gets installed in a consuming repo? | live |
-| `skills/` | how does it replicate and get used day to day? | all six live |
-| `scripts/` | what is checked mechanically, without judgment? | live |
-| `global/` | what belongs in the global (`~/.claude`) layer? | live |
-| `tests/` | how is the standard itself tested? | live |
-| `docs/` | why did we decide this, and how does it all work? | live |
+| Directory | Question |
+|---|---|
+| `reference/` | what is the standard, and why? |
+| `templates/repo/` | what gets installed in a consuming repo? |
+| `skills/` | how does it replicate and get used day to day? |
+| `scripts/` | what is checked mechanically, without judgment? |
+| `global/` | what belongs in the global (`~/.claude`) layer? |
+| `tests/` | how is the standard itself tested? |
+| `docs/` | why did we decide this, and how does it all work? |
 
 The arrows are dependencies of meaning: skills argue from the reference
 docs, templates embody them, the lint automates the part of the argument
