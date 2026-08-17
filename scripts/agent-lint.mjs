@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// agent-lint — mechanical checks for the agent-engineering standard (AE/2.x).
+// agent-lint — mechanical checks for the agent-engineering standard (AE).
 // Automates the countable subset of skills/agent-audit: entry-file budgets,
 // the canonical/pointer split, the version stamp, per-tool adapters, read
 // orders, block structure, broken local links, docs naming, skill hygiene,
@@ -88,7 +88,7 @@ for (const f of agents) {
     if (n > cap) add("high", "budget-cap", f, `${n} lines — over the hard cap (${cap})`);
     else if (n > budget) add("medium", "budget", f, `${n} lines — over target (${budget})`);
     const stampLines = fileLines(f).filter((l) => l.startsWith("Standard:"));
-    if (!stampLines.length) add("medium", "stamp-missing", f, "no `Standard: AE/<major>.<minor>` stamp line");
+    if (!stampLines.length) add("medium", "stamp-missing", f, "no `Standard: AE/MAJOR.MINOR.PATCH` stamp line");
     else if (!stampLines.some((l) => /^Standard: AE\/\d+\.\d+(\.\d+)?\s*$/.test(l)))
       add("medium", "stamp-shape", f, `malformed stamp: "${stampLines[0].trim()}"`);
   } else {

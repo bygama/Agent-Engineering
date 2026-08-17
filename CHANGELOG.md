@@ -47,7 +47,7 @@ The standard declared stable.
   shape stays valid so pre-1.0 repos read as behind, not malformed.
 - Self-lint ignore set gains `examples`.
 
-## [0.6.1] — 2026-08-16 — formerly AE/2.6
+## [0.6.1] — 2026-08-17 — formerly AE/2.6
 
 ### Fixed
 
