@@ -1,6 +1,6 @@
 # Agent-Engineering
 
-Standard: AE/2.4
+Standard: AE/2.5
 
 Source of truth for the agent-engineering standard — six layers (context,
 memory, harness, loop, graph, with reducer/MCP cross-cutting) — and the
