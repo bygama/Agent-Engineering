@@ -42,6 +42,31 @@
   DECISIONS.md (evals change before content; S7 makes it pass) —
   acceptance: `node tests/run-eval-checks.mjs` → exit 0 (work-plan: 5
   evals well-formed).
+- 2026-08-17 — S7 — added the mode fork to `skills/work-plan/SKILL.md`
+  per SPEC §1 "Two modes": qualify (step 0) gains a third refusal — no
+  design plus genuine scope uncertainty refuses SPEC.md/PLAN.md and
+  opens no lane, names what's missing, points at brainstorming, never
+  invents scope; step 1 becomes "pick the mode, then read the input" —
+  design-first (default: conversation-settled or no SPEC.md yet)
+  writes SPEC.md and STOPs with an explicit owner-approval ask, PLAN.md
+  only in a later turn after that approval is on record; direct (owner
+  states certainty, or the tracker issue is the spec) writes SPEC.md +
+  PLAN.md in one pass with one gate at the end covering both files —
+  frontmatter description, intro paragraph, step 6 (save location for
+  both files), and the Judgment notes refusal/cadence bullets updated
+  to match; the S-tier and standalone-document refusals and steps 2-6
+  otherwise unchanged — acceptance: `node tests/run-eval-checks.mjs` →
+  exit 0 (work-plan: 5 evals well-formed) AND `node
+  scripts/agent-lint.mjs . --ignore tests,templates,global,examples` →
+  exit 0 (0 high, 0 medium, 0 low). eval-05 checklist walked by hand,
+  all 8 lines induced: (a) design-first stop text matches "writes SPEC
+  ... stops" + "explicit" owner-approval ask + "PLAN.md only ... later
+  turn ... after approval"; (b) direct text matches "one pass" + "one
+  approval gate at the end, covering both files together, never one
+  gate per file"; (c) uncertainty refusal text matches "refuse to write
+  SPEC.md or PLAN.md and open no work/ lane" + "name what's missing and
+  point at brainstorming" + "never invent scope ... to force the ask
+  into design-first or direct". No item flagged as not induced.
 
 ## In progress
 

@@ -1,15 +1,16 @@
 ---
 name: work-plan
-description: Turns an approved design — a lane's SPEC.md, a tracker issue, or a direct ask — into the lane's PLAN.md shaped for relay dispatch: dispatchable steps with executable acceptance, named interfaces between dependent steps, `[batch]`-marked same-shape fixes, and role hints, opening with a constraints block when the design imposes one. At XL, produces the parent plan (the three fan-out questions plus a worker table skeleton) instead of executable steps. Use once a design is approved and a lane needs its PLAN.md, before relay executes it. Refuses S-tier asks (no lane, no plan) and requests for a standalone plan document separate from the lane files.
+description: Turns a design — a settled conversation, a tracker issue, or a direct ask — into a lane's SPEC.md and PLAN.md shaped for relay dispatch: dispatchable steps with executable acceptance, named interfaces between dependent steps, `[batch]`-marked same-shape fixes, and role hints, opening with a constraints block when the design imposes one. Two modes: design-first writes SPEC.md and stops for owner approval before shaping PLAN.md; direct writes both in one pass when the owner states certainty or a tracker issue stands in as the spec. At XL, produces the parent plan (the three fan-out questions plus a worker table skeleton) instead of executable steps. Use once a lane needs its SPEC and PLAN shaped, before relay executes the PLAN. Refuses S-tier asks (no lane, no plan), requests for a standalone plan document separate from the lane files, and asks with no design and genuine scope uncertainty.
 ---
 
 # Work plan
 
 Completes the work-cycle family: **work-plan** (plan) → **relay**
 (execute) → **work-verify** (prove) → **work-handoff** (close). This
-skill turns an approved design into one artifact — the lane's
-PLAN.md — shaped so a stateless relay implementer can dispatch from it
-without reading anything else.
+skill turns a design into the lane's SPEC.md and PLAN.md — design-first
+with an owner-approval gate between the two files, direct in one pass —
+so a stateless relay implementer can dispatch from PLAN.md without
+reading anything else.
 
 Adapted from superpowers' `writing-plans`: small self-contained tasks,
 explicit global constraints, the spec as referenced authority. NOT
@@ -23,8 +24,11 @@ Copy this checklist and tick items off:
 
 ```
 Work-plan progress:
-- [ ] 0. Qualify (S refuses; standalone document refuses; check shape)
-- [ ] 1. Read the input design; note any global constraint
+- [ ] 0. Qualify (S refuses; standalone document refuses; no design +
+      uncertainty refuses; check shape)
+- [ ] 1. Pick the mode (design-first writes SPEC.md and stops; direct
+      writes SPEC.md + PLAN.md together); read the input, note any
+      global constraint
 - [ ] 2. XL shape? → parent plan only, stop after step 2
 - [ ] 3. Constraints block (if the design imposes one)
 - [ ] 4. Draft steps: one commit, one concern, executable acceptance
@@ -32,7 +36,7 @@ Work-plan progress:
 - [ ] 6. Write work/<slug>/PLAN.md
 ```
 
-**0. Qualify.** Two refusals, one shape check — never a bare "no",
+**0. Qualify.** Three refusals, one shape check — never a bare "no",
 always the alternative in the same breath:
 
 - *S-tier ask*: no plan, no lane. Ceremony is the one-line DoD plus
@@ -45,16 +49,37 @@ always the alternative in the same breath:
   them into a separate document re-creates the collision relay was
   built to remove. Point back at the lane's own PLAN.md and offer to
   enrich it instead — constraints block, named interfaces, role hints.
+- *No design, genuine uncertainty*: no prior conversation settled the
+  approach and the ask itself is still open on real scope (where it
+  hooks in, which strategy) — not just missing paperwork. Refuse to
+  write SPEC.md or PLAN.md and open no `work/` lane; name what's
+  missing and point at brainstorming as the next step. Never invent
+  scope — no guessed strategy, no assumed shape — to force the ask
+  into design-first or direct.
 - *Shape*: an M/L design produces executable steps (steps 3-6 below).
   An XL design — work that cannot fit one lane — produces ONLY the
   parent plan (step 2); it never gets a flat list of executable steps
   at the parent level.
 
-**1. Read the input.** The lane's SPEC.md, a tracker issue, or a
-direct ask is the design — read it as given and do not invent scope
-beyond it. Note anything the design imposes across the whole change
-(an exact format, a value repeated wherever it appears) — that becomes
-the constraints block, not something repeated ad hoc per step.
+**1. Pick the mode, then read the input.** Two ways in, chosen by what
+already exists before this skill runs:
+
+- *design-first* (default: the requirements emerged from a
+  conversation, or no SPEC.md exists yet): write the lane's SPEC.md
+  from the settled design, then STOP — ask the owner to approve the
+  SPEC explicitly, the same turn does not also shape PLAN.md. PLAN.md
+  starts only once that approval is on record, in a later turn, back
+  at this same step.
+- *direct* (the owner states the requirements are settled, or a
+  tracker issue stands in as the spec): write SPEC.md and PLAN.md in
+  one pass — one approval gate at the end, covering both files
+  together, never one gate per file.
+
+Whichever mode, read the input — the settled conversation, the tracker
+issue, or the direct ask — as given and do not invent scope beyond it.
+Note anything the design imposes across the whole change (an exact
+format, a value repeated wherever it appears) — that becomes the
+constraints block, not something repeated ad hoc per step.
 
 **2. XL shape — parent plan only.** Recognize XL from the design's
 shape (a correct plan forces two or more independent lanes running at
@@ -109,21 +134,24 @@ carries it into every dispatch. No such constraint, no block.
   relay's model-by-role selector, which reads them instead of
   guessing.
 
-**6. Save.** Write to `work/<slug>/PLAN.md` — the lane's own file,
-the standard's location, never a suite's default folder or a
-standalone document elsewhere.
+**6. Save.** Write PLAN.md to `work/<slug>/PLAN.md`; SPEC.md (step 1,
+either mode) goes to `work/<slug>/SPEC.md` — the lane's own files, the
+standard's location, never a suite's default folder or a standalone
+document elsewhere.
 
 ## Judgment notes
 
-- work-plan produces the plan; relay executes it. The two roles never
-  blur inside one dispatch — this skill writes no code and runs no
-  acceptance commands.
-- At M/L, work-plan runs once, inline, before relay's first dispatch.
-  At XL, it runs twice: once for the parent (step 2), and again inside
-  each worker's own lane once that worker is spawned.
+- work-plan produces the lane's artifacts; relay executes the plan.
+  The two roles never blur inside one dispatch — this skill writes no
+  code and runs no acceptance commands.
+- At M/L, work-plan runs before relay's first dispatch: once, inline,
+  in direct mode; across two turns, split by the owner's SPEC
+  approval, in design-first mode. At XL, it runs twice regardless of
+  mode: once for the parent (step 2), and again inside each worker's
+  own lane once that worker is spawned.
 - A refusal is a diagnosis plus an alternative in the same response,
-  never a bare no — the S-tier and standalone-document refusals above
-  are the pattern for any future one.
+  never a bare no — the S-tier, standalone-document, and no-design
+  refusals above are the pattern for any future one.
 - Suites' own planning documents are superseded the same way their
   executors are (`reference/skills.md`): one artifact set, the lane's,
   never two.
