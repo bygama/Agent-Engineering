@@ -19,6 +19,21 @@
   tests/run-eval-checks.mjs` → exit 0 (10 skill dirs, work-plan: 4
   evals well-formed) AND `node scripts/agent-lint.mjs . --ignore
   tests,templates,global,examples` → exit 0 (0 high, 0 medium, 0 low).
+- 2026-08-17 — S3 — wrote `docs/adrs/ADR-005-artifact-phases.md`
+  (house format, generalizes ADR-004: artifact-producing phases are
+  AE's; work-plan named as its first consequence) · amended
+  `reference/skills.md` (writing-plans joins the ADR-004 superseded
+  list, pointer names ADR-005, suite-example list drops writing-plans)
+  · `README.md` ("The eight skills": work-plan row + chain
+  paragraph + mermaid diagram + Status sentence extended to five
+  decisions) · `docs/how-it-works/work-lifecycle.md` (work-plan named
+  as the how of the M+ planning moment, ADR-005 pointer) — acceptance:
+  `grep -l work-plan reference/skills.md README.md
+  docs/how-it-works/work-lifecycle.md docs/adrs/ADR-005-artifact-phases.md`
+  → all four match, exit 0; `test -f
+  docs/adrs/ADR-005-artifact-phases.md` → yes; `node
+  scripts/agent-lint.mjs . --ignore tests,templates,global,examples` →
+  exit 0 (0 high, 0 medium, 0 low).
 
 ## In progress
 

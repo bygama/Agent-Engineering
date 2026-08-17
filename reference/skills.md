@@ -70,9 +70,9 @@ Write evals BEFORE skill content, from observed gaps — not imagined ones:
 ## Composing with process-skill suites
 
 Process suites (e.g. superpowers: brainstorming, test-driven-development,
-systematic-debugging, writing-plans) supply the *how* of
-thinking; this standard supplies the artifacts and gates. One rule joins
-them: **the standard owns locations and lifecycle endings.**
+systematic-debugging) supply the *how* of thinking; this standard
+supplies the artifacts and gates. One rule joins them: **the standard
+owns locations and lifecycle endings.**
 
 - Design/brainstorm output → the lane's SPEC (or `docs/specs/` for
   standing designs), never the suite's default folder.
@@ -84,15 +84,17 @@ them: **the standard owns locations and lifecycle endings.**
 Suites that say "user preferences override defaults" (superpowers does)
 are honoring exactly this. One artifact set, never two.
 
-**Execution is the standard's, not the suite's** (ADR-004). Suites
-supply the thinking phases — brainstorming, TDD, systematic-debugging,
-writing-plans. From the moment a plan lands in `work/<slug>/PLAN.md`,
-the standard executes: `skills/relay` runs the lane step-by-step
-(fresh subagent per step, lane as the context package), work-verify
-gates it, work-handoff ends it. A suite's own executors and finishers
-(superpowers' `subagent-driven-development`, `executing-plans`,
-`finishing-a-development-branch`) are not used — their artifact
-machinery (workspace, ledger, rulings) collides 1:1 with the lane's
-files, and two protocols over the same information is permanent
-friction. The suite stays installed; this rule is what redirects the
-chain.
+**Every artifact-producing phase is the standard's, not the suite's**
+(ADR-004, generalized by ADR-005). Suites supply the thinking phases —
+brainstorming, TDD, systematic-debugging. Planning is the standard's:
+`skills/work-plan` turns an approved design into `work/<slug>/PLAN.md`,
+the lane's own file. From the moment that plan lands, the standard
+executes: `skills/relay` runs the lane step-by-step (fresh subagent
+per step, lane as the context package), work-verify gates it,
+work-handoff ends it. A suite's own planners, executors, and finishers
+(superpowers' `writing-plans`, `subagent-driven-development`,
+`executing-plans`, `finishing-a-development-branch`) are not used —
+their artifact machinery (a standalone plan document, workspace,
+ledger, rulings) collides 1:1 with the lane's files, and two protocols
+over the same information is permanent friction. The suite stays
+installed; this rule is what redirects the chain.

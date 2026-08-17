@@ -98,7 +98,12 @@ flowchart LR
 
 Intake can be a tracker issue or a direct request — the standard doesn't
 care. Triage assigns the tier and, at M+, opens the lane folder with its
-definition of done already written. Work loops inside the lane, updating
+definition of done already written. That planning moment has an owned
+shape since ADR-005: **work-plan** (`skills/work-plan`) turns the
+approved design — the lane's SPEC, a tracker issue, or a direct ask —
+into `work/<slug>/PLAN.md`, already shaped for what comes next: one
+dispatchable step per line, executable acceptance, named interfaces
+between dependent steps. Work loops inside the lane, updating
 `PROGRESS.md` as it goes.
 
 How that inner loop runs has an owned shape since ADR-004: **relay**
@@ -114,7 +119,7 @@ executes the same steps inline under the same ceremony, and parallel
 implementers inside one lane are refused — parallelism between lanes
 belongs to fan-out ([execution.md](execution.md)). relay ships no final
 review of its own; it ends by handing the lane to the two exits below.
-Process suites' own executors are superseded in writing
+Process suites' own planners and executors are superseded in writing
 (`reference/skills.md`).
 
 The two exits are skills, not vibes — both live since AE/2.1:
