@@ -25,5 +25,8 @@ are already triaged from previous runs.
 - [ ] Tier assignment follows `reference/task-tiers.md` triage, and the
       direction rules hold: intent flows tracker → repo; nothing moves an
       issue to Done from a triage loop.
-- [ ] No-Orca fallback named end to end: cron or `/schedule` for the
-      trigger, Linear MCP server or plain API for the queue and writes.
+- [ ] Without Orca, the no-Orca contract applies: the loop file still
+      scaffolds (it is a file), but the agent declares that scheduling
+      and the Linear queue are NOT wired ("no Orca — needs an Orca
+      session or the operator") and offers the manual iteration. It
+      never names cron/MCP/API recipes and never claims a wired trigger.
