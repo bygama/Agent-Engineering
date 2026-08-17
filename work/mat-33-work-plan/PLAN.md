@@ -17,7 +17,7 @@
   docs/how-it-works/work-lifecycle.md) — accept: grep finds
   "work-plan" in all four files AND `test docs/adrs/ADR-005 exists`;
   lint exits 0
-- [ ] S6 (judgment): eval-05 two modes per SPEC §3 amendment — accept:
+- [x] S6 (judgment): eval-05 two modes per SPEC §3 amendment — accept:
   file exists with `## Query` + `## Expected behavior` + checklist;
   `node tests/run-eval-checks.mjs` exits 0
 - [ ] S7 (judgment): SKILL.md gains the mode fork per SPEC §1 "Two
