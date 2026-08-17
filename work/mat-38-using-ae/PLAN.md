@@ -7,7 +7,7 @@
   `skills/using-ae/evals/eval-01..03` — accept: three files with
   `## Query` + `## Expected behavior` + checklists; `node
   tests/run-eval-checks.mjs` exits 0
-- [ ] U2 (judgment): `skills/using-ae/SKILL.md` ≤80 lines passing the
+- [x] U2 (judgment): `skills/using-ae/SKILL.md` ≤80 lines passing the
   evals — accept: `node tests/run-eval-checks.mjs` AND `node
   scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
   exit 0; line count ≤80
