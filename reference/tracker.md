@@ -25,6 +25,9 @@ Two rules join them:
 - `issue: <KEY>` in a lane file's frontmatter.
 - The key in the lane slug: `work/dem-101-checkout-fix/`.
 - Branch names may carry the key for Linear's branch-format autolinking.
+- When the workspace groups repos as Linear projects (one project per
+  repo), issues born from a repo's flow carry that repo's project — the
+  team stays single, the per-repo view comes from the project.
 
 Either alone is enough for the skills (`work-handoff`, triage loops) to
 detect the link; absence of both simply skips the tracker steps.
@@ -83,7 +86,8 @@ it; absent that, attach and move states via `orca linear`.
 The plane also carries **upstream feedback**. When an audit in a
 consuming repo traces a finding to the standard itself, the report
 labels it `upstream` and proposes the filing — into the standard's
-tracker team on machines that carry its workspace, or
+tracker team (project `Agent-Engineering`) on machines that carry its
+workspace, or
 `gh issue create --repo bygama/Agent-Engineering` for everyone else —
 owner-approved, never automatic (`agent-audit`, Upstream findings). On
 the standard's side the triage loop sweeps open GitHub issues into the

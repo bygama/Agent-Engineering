@@ -58,8 +58,9 @@ skip the run when the Linear connector is unreachable.
 2. GitHub intake: `gh issue list --repo bygama/Agent-Engineering --state
    open --json number,title,url` (verified 2026-08-17, exit 0). For each
    issue not in `gh_processed`: create the Linear mirror
-   (`orca linear create --team MAT --title "<title>" --body "<url> +
-   summary"`), comment `tracked as <KEY>` on the GitHub issue
+   (`orca linear create --team MAT --project "Agent-Engineering"
+   --title "<title>" --body "<url> + summary"`), comment
+   `tracked as <KEY>` on the GitHub issue
    (`gh issue comment`), record the number. GitHub issues are never
    worked from GitHub — the tracker is the single intake plane
    (`reference/tracker.md`); mirrors count toward the 5-item budget.
