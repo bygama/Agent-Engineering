@@ -119,16 +119,60 @@ issue: MAT-61
   behavior confirmed instructed, citation-not-restatement discipline
   held, prompt-template reminder untouched). No findings at any severity.
 
+- Step 4 DONE — `skills/work-handoff/evals/eval-03.md` gains one checklist
+  line (before "Posts the evidence summary" item, with tracker-call checks)
+  verifying the live binding's workspace slug against the repo's Tracker:
+  declaration before any tracker write — cites reference/tracker.md "Which
+  workspace — the repo declares, tools obey" (the single source of truth
+  for the format). Checklist item grades the contract: mismatch → NO write,
+  state it plainly, emit the operation for the operator.
+  Acceptance: `node tests/run-eval-checks.mjs` → `ok   work-handoff: 6
+  evals well-formed` … `all eval checks passed`, exit 0. Files changed:
+  `skills/work-handoff/evals/eval-03.md` only. No concerns: the item cites
+  the rule section rather than restating it, maintaining single-source-of-
+  truth discipline across step 4 and the prior steps.
+
+- Step 5 DONE — `skills/work-handoff/SKILL.md` step 6 gains one sentence
+  right before the close/pause tracker command bullets, after the "It runs
+  strictly AFTER the repo side is clean" paragraph. The sentence cites the
+  workspace binding verification requirement (reference/tracker.md, "Which
+  workspace — the repo declares, tools obey") and states the mismatch
+  consequence (write prevented). Worded to match surrounding voice and
+  line-wrap discipline (75-78 columns).
+  Acceptance: `node scripts/agent-lint.mjs . --ignore tests,templates,
+  global,examples` → `0 high, 0 medium, 0 low — PASS`, exit 0. Files
+  changed: `skills/work-handoff/SKILL.md` only. No concerns: the sentence
+  cites rather than restates, preserving the single source of truth in
+  reference/tracker.md.
+
+- Step 6 DONE — `docs/how-it-works/integrations.md` Orca ↔ Linear section
+  gains one sentence after the "automations as intake readers" bullet,
+  before the "Orca ↔ GitHub" section. The sentence describes the binding
+  verification requirement (live workspace vs. repo declaration, per
+  reference/tracker.md "Which workspace — the repo declares, tools obey")
+  and its consequence (mismatch prevents write). Worded for consistency
+  with the surrounding chapter voice and column wrap.
+  Acceptance: `node scripts/agent-lint.mjs . --ignore tests,templates,
+  global,examples` → `0 high, 0 medium, 0 low — PASS`, exit 0. Files
+  changed: `docs/how-it-works/integrations.md` only. No concerns: the
+  sentence cites the authority document rather than repeating its rules,
+  maintaining consistency with steps 4 and 5.
+
+- Batch final gates (all three steps committed and gated):
+  `node tests/run-eval-checks.mjs` → `all eval checks passed`, exit 0.
+  `node scripts/agent-lint.mjs . --ignore tests,templates,global,
+  examples` → `0 high, 0 medium, 0 low — PASS`, exit 0.
+  Commits: f878898 (step 4), f679e79 (step 5), 44c0d86 (step 6).
+
 ## In progress
 
-- work-run dispatch of PLAN steps 4-6 (batched: same-shape one-line
-  mechanical touches, one implementer, three commits in order 4 → 5 → 6).
+## Tried and failed
 
 ## Tried and failed
 
 ## Next
 
-- Execute PLAN steps in order; four gates; work-verify; PR; handoff.
+- work-verify; PR; handoff.
 
 ## Verification
 
