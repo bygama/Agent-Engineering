@@ -23,7 +23,7 @@ Copy this checklist and tick items off:
 Work-run progress:
 - [ ] 0. Qualify (lane exists, several steps, subagents available)
 - [ ] 1. Read the lane; resume from PROGRESS
-- [ ] 2. Per step: dispatch → report → review → fix loop → record
+- [ ] 2. Per step: dispatch → report → review → fix loop → record → release
 - [ ] 3. Last step lands → work-verify (the lane gate)
 - [ ] 4. work-handoff + surface every ruling
 ```
@@ -85,6 +85,17 @@ each finding ADDRESSED / NOT ADDRESSED. Minor findings never enter the
 loop — record them in PROGRESS as deferred for work-verify's triage. At the cap, adjudicate each open
 finding and record every ruling in DECISIONS.md (date — choice — why).
 No silent discards. Append one line to PROGRESS per round.
+
+*Release.* Record, then release the finished runner, then dispatch the
+next. A runner is finished when nothing further is expected of it, and a
+finished runner never lingers idle. The reviewer is finished once its
+verdict is recorded, a re-review seat once its re-verdict is — neither is
+held open in case a later step needs one. An implementer whose review is
+pending is NOT finished: it stays resumable for the fix loop, and is
+released only once its step's verdict is recorded as Approved or its fix
+round closes. Release is runtime-neutral — a no-op where a subagent ends
+naturally at its report, an explicit stop/release where runners linger,
+never left implicit.
 
 *Rulings, not stalls.* Ambiguities resolve against the SPEC; record the
 ruling in DECISIONS.md and keep going. Only four things stop the run:
