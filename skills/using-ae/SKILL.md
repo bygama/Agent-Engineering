@@ -16,6 +16,7 @@ defer it.
 
 ## The map
 
+- **shaping** — a raw ask has no settled design yet.
 - **work-plan** — an approved design needs its lane's SPEC/PLAN.
 - **work-run** — a lane's PLAN executes, step by step.
 - **work-verify** — any "done" claim needs evidence.

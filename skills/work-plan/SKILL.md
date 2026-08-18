@@ -53,9 +53,9 @@ always the alternative in the same breath:
   approach and the ask itself is still open on real scope (where it
   hooks in, which strategy) — not just missing paperwork. Refuse to
   write SPEC.md or PLAN.md and open no `work/` lane; name what's
-  missing and point at brainstorming as the next step. Never invent
-  scope — no guessed strategy, no assumed shape — to force the ask
-  into design-first or direct.
+  missing and invoke `shaping` as the next step. Never invent scope —
+  no guessed strategy, no assumed shape — to force the ask into
+  design-first or direct.
 - *Shape*: an M/L design produces executable steps (steps 3-6 below).
   An XL design — work that cannot fit one lane — produces ONLY the
   parent plan (step 2); it never gets a flat list of executable steps

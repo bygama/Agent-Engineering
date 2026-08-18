@@ -80,7 +80,7 @@ standard moves upstream into AE.
 the precedence rule below (ADR-005) into every session so a suite chain
 never has to be caught mid-drift.
 
-Process suites (e.g. superpowers: brainstorming, test-driven-development,
+Process suites (e.g. superpowers: test-driven-development,
 systematic-debugging) supply the *how* of thinking; this standard
 supplies the artifacts and gates. One rule joins them: **the standard
 owns locations and lifecycle endings.**
@@ -96,8 +96,8 @@ Suites that say "user preferences override defaults" (superpowers does)
 are honoring exactly this. One artifact set, never two.
 
 **Every artifact-producing phase is the standard's, not the suite's**
-(ADR-004, generalized by ADR-005). Suites supply the thinking phases —
-brainstorming, TDD, systematic-debugging. Planning is the standard's:
+(ADR-004, generalized by ADR-005). Suites supply the remaining thinking
+phases — TDD, systematic-debugging. Planning is the standard's:
 `skills/work-plan` turns an approved design into `work/<slug>/PLAN.md`,
 the lane's own file. From the moment that plan lands, the standard
 executes: `skills/work-run` runs the lane step-by-step (fresh subagent
@@ -109,3 +109,12 @@ their artifact machinery (a standalone plan document, workspace,
 ledger, rulings) collides 1:1 with the lane's files, and two protocols
 over the same information is permanent friction. The suite stays
 installed; this rule is what redirects the chain.
+
+Superpowers' `brainstorming` is superseded too, but on different
+grounds (ADR-006): not an artifact collision, but observed friction —
+work-plan's own refusal path pointed at an external suite for the one
+case that most needed an AE-owned home. `skills/shaping` is the design
+dialogue's house owner now; `brainstorming` stays installed, cited by
+name as the explicit fallback in a repo with no AE standard present.
+TDD and systematic-debugging are untouched — ADR-006's scope is the
+design dialogue only.
