@@ -118,6 +118,92 @@
   `--outcome`/`--body` split matches the DECISIONS ruling verbatim.
   No fix rounds.
 
+- Step 3 (2026-08-18): wrote `skills/orchestrate/SKILL.md` (213 lines) —
+  the parent role end to end, in the house skill shape (frontmatter →
+  premise + pairing sentence → copyable checklist → numbered steps → Red
+  flags table → Judgment notes), matching `skills/work-run/SKILL.md`.
+  - Workflow steps 0-8: probe + Run binding (`run-current` /
+    `run-create --objective` / `run-use --id`, one live Run per parent);
+    tier gate (S inline in the parent, M+ always a child, shaping stays
+    in the parent); lane → Task (`task-create --spec --task-title
+    --deps`, `--deps` as the file-overlap queue, chains deeper than 3-4
+    called out as stages-not-lanes); the dispatch dialogue as one owner
+    question before birth, default **1 ballena** glossed once as the
+    cross-family reviewer seat (deepseek v4 flash), answer recorded in
+    the Task spec; child birth via `worker-start --task <id> --worktree
+    new-child --name <slug> --agent claude --setup run` + `worktree set
+    --linear-issue <KEY>` immediately after (Linear bound at birth) +
+    `references/dispatch-child.md` filled verbatim, with the
+    `worktree create --agent --prompt` full-handoff path explicitly
+    refused; mailbox supervision (`check --wait --types
+    "worker_done,escalation,question"`, rolling waits, ack-the-Delivery,
+    `reply` rulings landing in the child's own DECISIONS, structured
+    mail via `send --to dispatch:<id>`, terminal reads/sends named as
+    the anti-pattern); review wave (`worker-retain` while the verdict is
+    in flight, `references/reviewer.md` filled verbatim, one Task per
+    reviewer on its own read-only worktree cut from the lane branch,
+    verdict read from the `worker_done` body not `--outcome`); fix loop
+    to the SAME child terminal (`worker-show` → `task-create` →
+    `worker-start --terminal <handle>`), cap 5 → `gate-create` /
+    `gate-resolve` with the ruling into the parent's DECISIONS; merge
+    (child rebases onto fresh main and reruns gates first, then the
+    parent runs `gh pr merge --rebase --delete-branch` in its chosen
+    order, whole-tree gates after the last merge);
+    `worker-release --dispatch` + `worktree rm` + record.
+  - `## Several children at once (XL)` carries fan-out's ceremony that
+    must survive step 4: frozen named anchors, worker table in the parent
+    PLAN, decided merge order, anchors-win disagreement rule, synthesis
+    gate on the merged whole, failure locality — plus the multi-parent
+    rule (one parent per repo; same-repo parents only with disjoint file
+    scopes and lanes agreed in writing).
+  - `## No-Orca fallback` absorbs fan-out's manual procedure BEFORE step 4
+    deletes it: the explicit NOT-done declaration, the three qualifying
+    questions, frozen anchors + worker table with verified spawn commands,
+    the reducer contract (PASS block + 3-5 line summary, merge order,
+    disagreement rule, synthesis gate), sequential execution under the
+    same ceremony with no simulated spawns, and a mandatory review before
+    merge.
+
+  Every `orca` command in the file was verified on-machine against
+  `orca orchestration <cmd> --help`, `orca worktree {create,set,rm} --help`
+  and `orca skills get orchestration` rather than recalled — that is what
+  produced three corrections to the obvious guesses: (a) `worker-start`
+  has no `--linear-issue`, so binding at birth is a following
+  `worktree set --worktree <id> --linear-issue <KEY>`; (b) the fix loop
+  reuses the child's own agent terminal via `worker-start --terminal
+  <handle>` (Orca's documented terminal-ownership transfer), which is why
+  the skill retains the worker at `worker_done` instead of releasing it
+  there — releasing at report time would destroy the terminal the loop
+  needs; (c) `--model` only takes Claude/Codex/Cursor ids, so the ballena
+  is launched two-step (`worktree create --base-branch <lane-branch>` →
+  `terminal create --command "opencode -m opencode/deepseek-v4-flash-free"`
+  → `terminal wait --for tui-idle` → `worker-start --terminal`), with
+  `opencode -m provider/model` confirmed in `opencode --help` here.
+  Step 2's `--outcome` vs `--body` concern is honored: the SKILL routes
+  FAIL-handling off the body text and says so in a sentence.
+
+  Acceptance: `node tests/run-eval-checks.mjs` → PASS, exit 0 — and this
+  step is the one that makes it meaningful for this skill: with SKILL.md
+  present, `orchestrate` is now checked by the runner (`ok orchestrate: 4
+  evals well-formed`) where before it was skipped. Also ran, all green
+  (not required by this step, kept as evidence nothing else broke):
+  `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  (0 high, 0 medium, 0 low — PASS), `node tests/run-lint-tests.mjs`
+  (all 13 cases passed), `node tests/run-gen-tests.mjs` (all gen cases
+  passed).
+
+  Files: `skills/orchestrate/SKILL.md` (new); `PLAN.md` step 3 ticked.
+
+  Concerns: none blocking. Two notes for review/later steps — (1) at 213
+  lines the file is above the house norm (77-135) though far under the
+  <500 cap; the extra length is the absorbed fan-out fallback plus the XL
+  ceremony, which have nowhere else to live once step 4 removes
+  `skills/fan-out/`. (2) The skill cites `reference/runners.md` for the
+  ballena spawn command and names
+  `opencode -m opencode/deepseek-v4-flash-free` inline; if that model id
+  ever changes, the reference is the source of truth and the skill's
+  example follows it.
+
 ## In progress
 
 - Lane opened 2026-08-18: SPEC approved by owner; PLAN written (10 steps).
@@ -126,9 +212,9 @@
 
 ## Next
 
-- Step 3: `skills/orchestrate/SKILL.md` — the parent role end to end,
-  citing `references/dispatch-child.md` and `references/reviewer.md`
-  by their exact paths.
+- Step 4: absorb fan-out — delete `skills/fan-out/` (its manual procedure
+  and XL ceremony now live in `skills/orchestrate/SKILL.md`) and update
+  `reference/skills.md`.
 
 ## Verification
 

@@ -41,7 +41,7 @@
       PASS/FAIL + findings via `worker_done`, never commit) — filled
       verbatim at dispatch, MAT-43 pattern —
       accept: `test -s skills/orchestrate/references/dispatch-child.md -a -s skills/orchestrate/references/reviewer.md`
-- [ ] 3. `judgment` Write `skills/orchestrate/SKILL.md` — the parent role
+- [x] 3. `judgment` Write `skills/orchestrate/SKILL.md` — the parent role
       end to end per `work/mat-55-orchestrate/SPEC.md`: Run binding
       (`run-create`/`run-use`), lane→Task with `--deps` overlap queuing,
       the dispatch dialogue (owner question: reviewers, count, model —
