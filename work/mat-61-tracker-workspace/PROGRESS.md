@@ -201,6 +201,20 @@ issue: MAT-61
   exit 0. `node scripts/agent-lint.mjs . --ignore tests,templates,global,
   examples` → `0 high, 0 medium, 0 low — PASS`, exit 0. Files changed:
   `reference/tracker.md`, `skills/ae-init/evals/eval-05.md`.
+  Fix round (fresh-context review of the polish commit, one Important +
+  one Minor): the resolution bullet's JSON path was still wrong — `url`
+  does not live under `result.meta.resolved` (that object holds only
+  `id`/`identifier`/`workspaceId`/`workspaceName`); corrected to
+  `result.issue.url` (`orca linear issue`) and `result.issues[n].url`
+  (`orca linear list`), keeping the "never compare `result.meta.resolved`'s
+  display/ID fields" warning and the on-machine verification date, which
+  now vouches for the corrected path. Also backticked the three bare
+  `reference/tracker.md` citations added by this lane
+  (`docs/how-it-works/integrations.md`, `skills/work-handoff/SKILL.md`,
+  `skills/work-handoff/evals/eval-03.md`) to match house style.
+  Acceptance: `node scripts/agent-lint.mjs . --ignore tests,templates,
+  global,examples` → `0 high, 0 medium, 0 low — PASS`, exit 0. `node
+  tests/run-eval-checks.mjs` → `all eval checks passed`, exit 0.
 
 ## In progress
 

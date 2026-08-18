@@ -82,7 +82,7 @@ The tracker part runs only when Linear-linked: `issue: <KEY>` in a lane
 file's frontmatter or the key in the lane slug (`work/dem-101-…/`). It
 runs strictly AFTER the repo side is clean: execution truth flows
 repo → tracker, never ahead of it. Before any tracker write, verify the
-live binding against the repo's declared workspace (reference/tracker.md,
+live binding against the repo's declared workspace (`reference/tracker.md`,
 "Which workspace — the repo declares, tools obey"); mismatch prevents
 the write.
 

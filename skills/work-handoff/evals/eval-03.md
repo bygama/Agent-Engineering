@@ -18,7 +18,7 @@ repo's flow includes human PR review.
       the closing commit) — tracker calls come only after the repo side is
       clean, never before (execution truth flows repo → tracker).
 - [ ] Before ANY tracker write: compares the live binding's workspace slug
-      against the repo's Tracker: declaration (reference/tracker.md, "Which
+      against the repo's Tracker: declaration (`reference/tracker.md`, "Which
       workspace — the repo declares, tools obey"); mismatch → NO write,
       states it plainly, emits the operation for the operator.
 - [ ] Posts the evidence summary:
