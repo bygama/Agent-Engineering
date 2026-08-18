@@ -81,7 +81,7 @@ Then one command, with the provenance attached:
 
 ```bash
 orca orchestration worker-start --task <task_id> --worktree new-child \
-  --name <slug> --agent claude --setup run --json
+  --name <slug> --agent claude --setup run --json   # reference/runners.md
 orca worktree set --worktree <new_worktree_id> --linear-issue <KEY> --json
 ```
 
@@ -127,7 +127,7 @@ selectable with `--model` (Claude, Codex, Cursor ids) starts in one call;
 the ballena needs custom argv, so it takes the two-step launch:
 
 ```bash
-orca worktree create --name <slug>-review --base-branch <lane-branch> \
+orca worktree create --name <slug>-review-<seat> --base-branch <lane-branch> \
   --parent-worktree active --setup run --json
 orca terminal create --worktree id:<review_worktree_id> \
   --command "opencode -m opencode-go/deepseek-v4-flash" --json   # reference/runners.md
@@ -135,9 +135,13 @@ orca terminal wait --terminal <handle> --for tui-idle --timeout-ms 60000 --json
 orca orchestration worker-start --task <review_task_id> --terminal <handle> --json
 ```
 
-No OpenCode Go auth on the machine ⇒ same launch with
-`-m opencode/deepseek-v4-flash-free`, the no-auth fallback
-(`reference/runners.md`).
+`<seat>` numbers each reviewer (`r1`, `r2`, …) so N>1 agreed reviewers
+never collide on one worktree name. No OpenCode Go auth on the machine ⇒
+same launch with `-m opencode/deepseek-v4-flash-free`, the no-auth
+fallback (`reference/runners.md`). The two-step create can leave an
+unused fallback startup shell behind — confirm it is actually unused
+before closing it (`reference/orca.md`); never close it blindly, never
+leave it running as debris.
 
 The verdict is the PASS/FAIL line in the reviewer's `worker_done` **body**;
 `--outcome` reports only whether the review itself finished. Route on the
@@ -151,18 +155,20 @@ already has one:
 ```bash
 orca orchestration worker-show --dispatch <child_dispatch_id> --json  # agent_terminal_handle
 orca orchestration task-create --spec "<findings verbatim + lane path>" --json
-orca orchestration worker-start --task <fix_task_id> --terminal <handle> --json
+orca orchestration worker-start --task <fix_task_id> --terminal <handle> \
+  --worktree <selector> --json
 ```
 
 One fix round plus one scoped re-review per round, **cap 5** (work-run's
 loop, one worktree out). The re-review returns to the **same** reviewer
 the same way the fix returned to the child: retain its terminal at the
-verdict, then `worker-start --task <re_review_task_id> --terminal
-<handle>` once it has re-fetched the branch. Cutting a fresh
-`<slug>-review` worktree per round pays a new ballena five times to
-reread one lane. Minor findings never enter the loop — they are deferred
-to the lane's work-verify triage. At the cap the owner decides, through a
-gate rather than a nudge:
+verdict with `worker-retain --dispatch <id>`, then `worker-start --task
+<re_review_task_id> --terminal <handle> --worktree <selector>` once it
+has re-fetched the branch. Cutting a fresh `<slug>-review-<seat>`
+worktree per round pays a new ballena five times to reread one lane.
+Minor findings never enter the loop — they are deferred to the lane's
+work-verify triage. At the cap the owner decides, through a gate rather
+than a nudge:
 
 ```bash
 orca orchestration gate-create --task <task_id> --question "<what is still open>" \
@@ -184,11 +190,13 @@ gh pr merge <pr-url> --rebase --delete-branch
 Several children sitting at PASS merge in the order the parent chose
 (anchor order, dependency order — decided, not arrival order), and the
 whole tree's gates run again after the last one: parts passing is not the
-whole passing.
+whole passing. Feature-list rows flip to passing only from that merged
+tree after the rerun — never from a lane branch checked out in isolation
+before the last merge.
 
 **8. Decommission and record.** Per merged lane, everything the lane
 spawned goes — the child's dispatch and its worktree, and every reviewer
-dispatch with its `<slug>-review` worktree:
+dispatch with its `<slug>-review-<seat>` worktree:
 `orca orchestration worker-release --dispatch <id> --json`, then
 `orca worktree rm --worktree <selector>` — an idle agent on a merged lane
 is debris (`reference/orca.md`), and a retained ballena idles exactly as
@@ -237,10 +245,15 @@ Orca session or the operator"), then run the same lanes by hand:
    order; the disagreement rule; the synthesis gate.
 4. **Execute sequentially** — the same lanes, the same four files, WIP=1,
    one at a time in this session, or handed to a runner that is actually
-   installed. Never simulate a spawn or a worker report.
+   installed. Never simulate a spawn or a worker report. A requested
+   runner that turns out not to be installed is never silently swapped
+   for whatever is — emit the full protocol ready to run (exact spawn
+   commands, the lane list, the execution order) and declare execution
+   explicitly NOT done.
 5. **Review before merge** stays mandatory: work-verify's fresh-context
    review per lane, then merge in contract order and run the synthesis
-   gate on the whole.
+   gate on the whole. Each lane still closes via `work-handoff` after
+   that gate — the fallback's discipline doesn't end at the gate.
 
 The automation is what is missing here. The discipline is not.
 
