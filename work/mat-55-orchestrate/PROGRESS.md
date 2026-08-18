@@ -660,6 +660,13 @@
   claimed happens versus what the CLI actually requires (per
   DECISIONS.md's three CLI-verified mechanics), not wording issues.
 
+- Step 8 fix round 1 re-review (2026-08-18): both Important findings
+  **ADDRESSED** (stage 6 alt/else splits the one-step `--model` launch
+  from the ballena four-command two-step, cause named in "What to see";
+  stage 4 splits `worker-start` from the separate `worktree set
+  --linear-issue` with narration). Mermaid blocks traced clean; lint
+  re-run green by the re-reviewer. Step 8 CLOSED — one fix round.
+
 ## In progress
 
 ## Tried and failed
