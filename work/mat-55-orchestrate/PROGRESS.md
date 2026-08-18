@@ -382,6 +382,12 @@
   leaving that case to inference, since eval-01's fixture is exactly
   that third case and needed a rule to point at.
 
+- Step 5 review (2026-08-18): spec ✅ Compliant, quality Approved, zero
+  findings. The flagged judgment call (third role-rule case: no bound
+  Run ⇒ map as written) ratified as warranted coverage — recorded as a
+  DECISIONS ruling. using-ae at 60/80 lines; evals-before-content
+  verified real by the reviewer. No fix rounds.
+
 ## In progress
 
 - Lane opened 2026-08-18: SPEC approved by owner; PLAN written (10 steps).
