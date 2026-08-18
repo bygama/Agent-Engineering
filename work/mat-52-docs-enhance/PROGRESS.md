@@ -240,3 +240,11 @@
 
 <!-- PASS evidence only, written by work-verify (newest on top); the close
      handoff refuses to close a lane without a current PASS block here. -->
+
+### 2026-08-18 — M DoD — PASS
+- L1 static: `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` → exit 0 (0 high, 0 medium, 0 low)
+- L2 behavioral: `run-lint-tests` (13) · `run-gen-tests` · `run-eval-checks` → all exit 0
+- L3 end-to-end: docs-sweep battery re-run over the eight touched files → clean (only the pre-existing judged-clean convention line); 17 mermaid blocks fence-balanced; PLAN acceptance greps exit 0
+- Fresh-context review: PASS — reviewer ran all gates itself, read README + work-lifecycle end to end against the Quality bar, walked the adoption section as an outsider (zero workstation dependency confirmed); no findings
+- Adversarial review: n/a — M tier, not requested
+- work-run record: E1 6656b9a · E2 62564bf · E3 e12d041 · E4 0573cad · E5 2398d76 · E6 68c5a5e — six steps, six clean per-step reviews, fix loop never fired
