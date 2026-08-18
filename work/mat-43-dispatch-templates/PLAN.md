@@ -13,7 +13,7 @@
   edits already name those paths) — accept: all four files exist;
   `node scripts/agent-lint.mjs . --ignore
   tests,templates,global,examples` exits 0
-- [ ] T3 (integration): SKILL.md pointer lines (work-run ×3,
+- [x] T3 (integration): SKILL.md pointer lines (work-run ×3,
   work-verify ×1) + the work-lifecycle.md sentence — accept: grep
   finds "references/implementer.md" in skills/work-run/SKILL.md and
   "references/lane-reviewer.md" in skills/work-verify/SKILL.md; lint

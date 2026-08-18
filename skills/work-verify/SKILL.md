@@ -73,7 +73,8 @@ passing is not the whole passing.
 work — an evaluator sharing the maker's conversation is the maker in a
 different font. Dispatch a reviewer with NO shared context: a subagent (on
 Claude Code, the Agent tool), a second session, or another runner. Hand it
-exactly three things: the lane path, the diff range, the DoD. Require it to
+exactly three things: the lane path, the diff range, the DoD, composed from
+`references/lane-reviewer.md`. Require it to
 **act** — run the commands itself, not read the code and approve — and to
 return a verdict quoting its own command outputs. No reviewer verdict, no
 PASS.
