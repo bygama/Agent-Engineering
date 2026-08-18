@@ -30,13 +30,28 @@
   --ignore tests,templates,global,examples` exits 0 (0 findings); `node
   tests/run-eval-checks.mjs` exits 0.
 
+- 2026-08-18 — T3: SKILL.md pointer lines + the work-lifecycle.md
+  sentence. `skills/work-run/SKILL.md` — Dispatch clause points at
+  `references/implementer.md`, Review clause at
+  `references/step-reviewer.md`, Fix-loop clause at
+  `references/re-reviewer.md` (all one clause each, body still 130
+  lines). `skills/work-verify/SKILL.md` step 4 (fresh-context review)
+  points at `references/lane-reviewer.md`. `docs/how-it-works/work-lifecycle.md`
+  — one sentence added to the work-run inner-loop paragraph: the
+  dispatch and review prompts ship as fill-in templates with the
+  skills (`references/`), so controllers never improvise them. `grep`
+  finds both required pointer strings; `node scripts/agent-lint.mjs .
+  --ignore tests,templates,global,examples` exits 0 (0 findings); `node
+  tests/run-eval-checks.mjs` exits 0.
+
 ## In progress
 
 ## Tried and failed
 
 ## Next
 
-- T3: SKILL.md pointer lines + the work-lifecycle.md sentence.
+- T4: four gates + work-verify (fresh whole-diff review) + handoff +
+  PR; release per owner's packaging call.
 
 ## Verification
 

@@ -123,7 +123,9 @@ How that inner loop runs has an owned shape since ADR-004: **work-run**
 controller dispatches a fresh implementer subagent per PLAN step — the
 dispatch is just the lane path, the step number, the step's acceptance
 line, and a four-state report contract, because the lane's four files
-already ARE the context package a stateless subagent needs. Each step
+already ARE the context package a stateless subagent needs. The dispatch
+and review prompts themselves ship as fill-in templates with the skills
+(`references/`), so controllers never improvise them. Each step
 gets a fresh-context review (maker ≠ checker), findings run a capped fix
 loop (five rounds, escalating model), and rulings land in `DECISIONS.md`
 — the skill's own doc owns the fix-loop and role-hint detail. work-run is

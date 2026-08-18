@@ -51,8 +51,9 @@ binding authority) and standing rulings in DECISIONS.
 
 *Dispatch.* A dispatch is exactly four things: the lane path · the step
 number · the step's PLAN line with its acceptance command · the report
-contract below. The subagent reads SPEC, PLAN, DECISIONS, and PROGRESS
-from the lane itself — paste no session history, no prior-step
+contract below — compose it from `references/implementer.md`'s fill-in
+template, never freehand. The subagent reads SPEC, PLAN, DECISIONS, and
+PROGRESS from the lane itself — paste no session history, no prior-step
 summaries, no extracted briefs. Batch several small same-shape steps
 into ONE dispatch (still one subagent — batching is not parallelism).
 One implementer in flight at a time.
@@ -70,16 +71,17 @@ acceptance command, appends its report to PROGRESS.md, and returns only
 
 *Review.* A fresh reviewer (never the implementer — maker ≠ checker)
 gets the step's diff as a file (generated from git into session
-scratch, never committed), the PLAN step, and the SPEC. Both verdicts
-required: spec compliance AND quality.
+scratch, never committed), the PLAN step, and the SPEC, composed from
+`references/step-reviewer.md`. Both verdicts required: spec compliance
+AND quality.
 
 *Fix loop, cap of 5.* One fix dispatch + one scoped re-review per
 round. Rounds 1-3 resume the same implementer with the findings
 verbatim; rounds 4-5 dispatch a fresh implementer on a more capable
-model, pointed at the lane and the open findings. The re-review sees
-only the fix diff and verdicts each finding ADDRESSED / NOT ADDRESSED.
-Minor findings never enter the loop — record them in PROGRESS as
-deferred for work-verify's triage. At the cap, adjudicate each open
+model, pointed at the lane and the open findings. The re-review, composed
+from `references/re-reviewer.md`, sees only the fix diff and verdicts
+each finding ADDRESSED / NOT ADDRESSED. Minor findings never enter the
+loop — record them in PROGRESS as deferred for work-verify's triage. At the cap, adjudicate each open
 finding and record every ruling in DECISIONS.md (date — choice — why).
 No silent discards. Append one line to PROGRESS per round.
 
