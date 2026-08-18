@@ -19,7 +19,7 @@ dispatch.
 - [x] E3 (judgment): how-it-works README index + architecture.md per
   the bar — accept: index rows match chapter contents (reviewer
   judgment); lint exits 0
-- [ ] E4 (judgment): work-lifecycle.md woven per the bar — accept:
+- [x] E4 (judgment): work-lifecycle.md woven per the bar — accept:
   reviewer confirms every diagram placed+explained; lint exits 0
 - [ ] E5 (judgment): execution.md per the bar — accept: same; lint
   exits 0
