@@ -268,6 +268,59 @@
   review` worktree name collides if multiple reviewers run per round
   (pre-existing, out of fix scope). Step 3 CLOSED — one fix round.
 
+- Step 4 (2026-08-18): deleted `skills/fan-out/` (SKILL.md + its 5 evals)
+  — its manual no-Orca procedure and XL ceremony already live in
+  `skills/orchestrate/SKILL.md` from step 3. Added a new paragraph to
+  `reference/skills.md`'s `## Placement` section recording the
+  supersession: "`skills/orchestrate` now owns dispatch and parallel
+  execution end to end ... superseding `skills/fan-out` (ADR-008) ...
+  fan-out's name stays in ADRs, CHANGELOG, closed lanes, and examples/" —
+  placed in `## Placement` rather than the `## Composing with
+  process-skill suites` section, since that section is scoped to
+  external suite skills (superpowers) and fan-out is AE-native; keeps
+  both existing paragraphs (the brainstorming/shaping supersession
+  paragraph and the original Placement paragraph) untouched and
+  coherent. Cites ADR-008 by plain parenthetical (matching the existing
+  "(ADR-006)" style, not a markdown link) since ADR-008 is step 7's
+  deliverable — confirmed this doesn't trip the lint's broken-link check
+  (`scripts/agent-lint.mjs`), which only scans CLAUDE/AGENTS/README.md
+  files for markdown link targets, not `reference/`.
+
+  Scope note: deleting `skills/fan-out/` broke one markdown link —
+  README.md's skill table row `[`fan-out`](skills/fan-out/SKILL.md)`
+  (under `## The ten skills`) — which is agent-lint's only *broken-link*
+  check and therefore blocking for this step's acceptance. Removed just
+  that row (the smallest fix that clears the dead link) and left
+  everything else in that README section untouched: the `## The ten
+  skills` heading still says "ten" (now 9 rows), the chain prose still
+  says "**fan-out** is work-run's parallel sibling...", and the mermaid
+  diagram still has its `FO["fan-out..."]` node — none of those trip
+  agent-lint (only real `[text](path)` links are checked), and all three
+  are explicitly PLAN step 9's scope ("README skill table + chain +
+  mermaid — orchestrate replaces fan-out; count stays 10"). Step 9 must
+  restore the row/heading count/prose/mermaid node for orchestrate; this
+  step intentionally does not pre-empt that judgment work.
+
+  Acceptance: `test ! -d skills/fan-out && node scripts/agent-lint.mjs .
+  --ignore tests,templates,global,examples` → PASS, exit 0 ("0 high, 0
+  medium, 0 low — PASS"). Also ran, all green (not required by this
+  step, kept as evidence nothing else broke): `node
+  tests/run-eval-checks.mjs` (all 12 remaining skill dirs well-formed —
+  fan-out no longer listed, orchestrate still is), `node
+  tests/run-lint-tests.mjs` (13/13), `node tests/run-gen-tests.mjs`
+  (7/7).
+
+  Files: deleted `skills/fan-out/SKILL.md`,
+  `skills/fan-out/evals/eval-{01..05}.md`; edited `reference/skills.md`
+  (new Placement paragraph), `README.md` (removed the dead fan-out
+  table row only); `PLAN.md` step 4 ticked.
+
+  Concerns: none blocking. Flagging for step 9 (not a defect in this
+  step): README's `## The ten skills` section (heading count, chain
+  prose, mermaid `FO` node) still names fan-out and needs orchestrate's
+  content added back — same three spots the PLAN already scopes to step
+  9.
+
 ## In progress
 
 - Lane opened 2026-08-18: SPEC approved by owner; PLAN written (10 steps).
@@ -276,9 +329,9 @@
 
 ## Next
 
-- Step 4: absorb fan-out — delete `skills/fan-out/` (its manual procedure
-  and XL ceremony now live in `skills/orchestrate/SKILL.md`) and update
-  `reference/skills.md`.
+- Step 5: using-ae — update its evals first, then SKILL.md (map's
+  fan-out row becomes `orchestrate`; add the parent/child role rule),
+  staying ≤80 lines.
 
 ## Verification
 

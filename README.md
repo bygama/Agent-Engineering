@@ -117,7 +117,6 @@ file and follow it. Each ships with ≥3 evals, written before the skill.
 | [`work-verify`](skills/work-verify/SKILL.md) | before any "done" — tiered definition of done, evidence by command |
 | [`work-handoff`](skills/work-handoff/SKILL.md) | closing or pausing work — clean state, card + tracker sync |
 | [`loop-setup`](skills/loop-setup/SKILL.md) | a recurring task passes the loop filter — standing automation |
-| [`fan-out`](skills/fan-out/SKILL.md) | XL work — frozen anchors, worker table, reducer contract |
 
 **`using-ae`** is the entry point: loaded at every session start, it
 triages an arriving task's tier and routes to whichever skill below
