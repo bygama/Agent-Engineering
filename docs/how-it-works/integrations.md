@@ -103,6 +103,16 @@ sequenceDiagram
     A->>O: card → completed, worker decommissioned
 ```
 
+What to see: only two arrows touch Linear's workflow state
+(`G->>L: → In Progress`, `G->>L: → Done`), and neither originates at
+the agent — both fire off the workspace app reacting to a GitHub event
+the agent merely caused (the `Closes KEY` PR body, then the merge
+itself). Every arrow the agent or Orca sends straight to Linear
+(`O->>L` the triage comment, `A->>L` the evidence comment) is a
+comment, never a status move — nothing in the happy path ever sets
+Done by hand. That split is the same rule the table below tabulates:
+state moves belong to the app, evidence stays the agent's job.
+
 ## Who writes what
 
 | Fact | Written by | Where |
@@ -120,7 +130,7 @@ passing" takes the physical form of a merged PR.
 
 ## One-time operator setup
 
-Everything above needs four owner actions, each once per workspace/org:
+Everything above needs five owner actions, each once per workspace/org:
 
 1. Install the **workspace GitHub app** on the org and enable the
    per-team Pull request automations (opened → In Progress, merged →

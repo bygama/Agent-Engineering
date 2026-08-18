@@ -6,7 +6,7 @@ standard itself moves. The whole cycle hangs on one greppable line in the
 repo's `AGENTS.md`:
 
 ```
-Standard: AE/<major>.<minor>
+Standard: AE/<major>.<minor>.<patch>
 ```
 
 That stamp is the contract between a repo and this one. It says which
@@ -17,10 +17,13 @@ standard".
 
 > Live since AE/2.0: `ae-init`, `ae-audit`, and `agent-lint` implement every flow in this chapter.
 
-Since AE/1.2.0, `using-ae` is the always-loaded entry skill
-(SessionStart, global layer) that recognizes an AE-standard repo and
-routes an arriving task to whichever flow in this chapter owns it —
-install, audit, or work — before any action.
+Since AE/1.2.0, `using-ae` is the entry skill that recognizes an
+AE-standard repo and routes an arriving task to whichever flow in this
+chapter owns it — install, audit, or work — before any action. The
+global layer wires it as a SessionStart hook, but that wiring is
+optional plumbing, not a dependency: the skill still triggers by its
+own description with no hook at all (detail: `global/hooks/README.md`,
+`skills/using-ae/SKILL.md`).
 
 ## What a consuming repo carries
 
@@ -58,6 +61,15 @@ flowchart TD
     E --> F[instantiate templates<br/>+ stamp the current version]
     F --> G[self-check: agent-lint passes]
 ```
+
+What to see: the branch at `B` is the only judgment call the diagram
+makes — everything else is sequence. A repo with no existing context
+files (`B -->|none|`) goes straight to asking; a v1 or legacy repo
+detours through `D` first, so a migration plan exists and is shown
+*before* anything is touched, then rejoins the same path at `C`. The
+diagram's close is a gate, not a formality: `G` re-runs the mechanical
+lint the skill itself will be judged against, so an install that fails
+its own check never gets called done.
 
 Two arrival states get special handling:
 
@@ -102,10 +114,17 @@ flowchart LR
     V --> S[repo stamp now behind] --> AU[next ae-audit flags drift] --> M[ae-init migrates]
 ```
 
-The important property: **repos never poll**. A consuming repo learns it is
-behind the moment someone audits it, and catches up the moment someone runs
-the migration. Between those moments it keeps working on the version it was
-built against — stamps make drift visible, not fatal.
+What to see: `Q` is the only gate in the flow, and it decides whether
+this round of guidance costs a consuming repo anything at all — a
+docs-only refresh (`Q -->|no|`) never touches a stamp, so `N` is a dead
+end with no consequence downstream. Only the `yes` branch reaches `S`,
+and from there the asymmetry is the point: **repos never poll**. `AU`
+and `M` fire on someone else's schedule — the next audit, the next
+migration — not the moment `V` bumps the version. A consuming repo
+learns it is behind the moment someone audits it, and catches up the
+moment someone runs the migration. Between those moments it keeps
+working on the version it was built against — stamps make drift
+visible, not fatal.
 
 The lifecycle also runs backward — **the standard improves from the
 edges in**. An audit in a consuming repo labels standard-fault findings
