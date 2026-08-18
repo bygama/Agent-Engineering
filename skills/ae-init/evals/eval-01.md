@@ -19,6 +19,10 @@ README, no AGENTS.md/CLAUDE.md, no docs/.
       (published package, API, sibling repos) or it is free to break
       compatibility; the answer lands in Gotchas or Hard constraints when it
       constrains future changes.
+- [ ] Asks NO tracker question when no tracker is in play — nothing in the
+      exploration or the workspace shows one connected: no workspace/team/
+      project prompt, and no `Tracker:` line in the generated AGENTS.md
+      (the question is gated on a tracker existing — `reference/tracker.md`).
 - [ ] Verifies commands by RUNNING them before writing them into AGENTS.md
       (skips destructive ones; marks unverifiable ones `# not verified`).
 - [ ] Instantiates the base skeleton only: AGENTS.md (stamped with the
