@@ -221,6 +221,41 @@
   (one line); ⚠️ reference/orca.md:45 still maps worker spawn to the
   full-handoff form — step 9's sweep must fix it.
 
+- Step 3 fix round 1 (2026-08-18): both Important findings from the step
+  review addressed in `skills/orchestrate/SKILL.md`, additively — no
+  rework of correct text, nothing else touched (minors stay deferred for
+  work-verify's triage).
+  - Finding 1 (re-review seat unspecified): the fix-loop paragraph now
+    sends the re-review back to the SAME reviewer, mirroring the fix
+    path's return to the same child — retain the reviewer's terminal at
+    its verdict, then `worker-start --task <re_review_task_id>
+    --terminal <handle>` once it has re-fetched the branch, with the
+    cost of the literal reading named ("cutting a fresh `<slug>-review`
+    worktree per round pays a new ballena five times to reread one
+    lane"). Retention is stated in the same clause because it is what
+    makes the reuse mechanically possible: a settled dispatch's terminal
+    must be reused, retained, or released before the next wait, so
+    without the retain the handle is gone by the next round — the same
+    reasoning the skill already gives for the child.
+  - Finding 2 (reviewer workers never decommissioned): step 8 now scopes
+    cleanup to everything the lane spawned — the child's dispatch and
+    worktree AND every reviewer dispatch with its `<slug>-review`
+    worktree — and cites `reference/orca.md` for the general rule, so
+    the skill no longer contradicts its own "idle agent on a merged lane
+    is debris" line one sentence later.
+
+  Acceptance re-run: `node tests/run-eval-checks.mjs` → "all eval checks
+  passed", exit 0. Also re-ran `node scripts/agent-lint.mjs . --ignore
+  tests,templates,global,examples` → 0 high, 0 medium, 0 low — PASS.
+  File now 224 lines (was 213), still far under the <500 cap.
+
+  Files: `skills/orchestrate/SKILL.md`.
+
+  Concerns: none. Both findings were genuine gaps in the dispatch
+  lifecycle rather than wording issues — the re-review seat and the
+  reviewer teardown were the two places the file described the child's
+  lifecycle without giving the reviewer's.
+
 ## In progress
 
 - Lane opened 2026-08-18: SPEC approved by owner; PLAN written (10 steps).

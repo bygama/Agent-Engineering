@@ -151,9 +151,14 @@ orca orchestration worker-start --task <fix_task_id> --terminal <handle> --json
 ```
 
 One fix round plus one scoped re-review per round, **cap 5** (work-run's
-loop, one worktree out). Minor findings never enter the loop — they are
-deferred to the lane's work-verify triage. At the cap the owner decides,
-through a gate rather than a nudge:
+loop, one worktree out). The re-review returns to the **same** reviewer
+the same way the fix returned to the child: retain its terminal at the
+verdict, then `worker-start --task <re_review_task_id> --terminal
+<handle>` once it has re-fetched the branch. Cutting a fresh
+`<slug>-review` worktree per round pays a new ballena five times to
+reread one lane. Minor findings never enter the loop — they are deferred
+to the lane's work-verify triage. At the cap the owner decides, through a
+gate rather than a nudge:
 
 ```bash
 orca orchestration gate-create --task <task_id> --question "<what is still open>" \
@@ -177,10 +182,14 @@ Several children sitting at PASS merge in the order the parent chose
 whole tree's gates run again after the last one: parts passing is not the
 whole passing.
 
-**8. Decommission and record.** Per merged lane:
+**8. Decommission and record.** Per merged lane, everything the lane
+spawned goes — the child's dispatch and its worktree, and every reviewer
+dispatch with its `<slug>-review` worktree:
 `orca orchestration worker-release --dispatch <id> --json`, then
 `orca worktree rm --worktree <selector>` — an idle agent on a merged lane
-is debris. The child closed its own lane (work-handoff) before reporting;
+is debris (`reference/orca.md`), and a retained ballena idles exactly as
+expensively as the child. The child closed its own lane (work-handoff)
+before reporting;
 the parent records the merge, the reviewer verdicts, and every ruling in
 its own PROGRESS.
 
