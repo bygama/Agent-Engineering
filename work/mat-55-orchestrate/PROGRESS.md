@@ -47,6 +47,10 @@
   Concerns: none — step scoped to evals only, no SKILL.md or references
   touched (those are steps 2-3). Commit: `429fa71`.
 
+- Step 1 review (2026-08-18): spec ✅ Compliant, quality Approved, zero
+  findings (fixtures create genuine temptation per rule; wording tracks
+  SPEC; evals-first ordering verified). No fix rounds.
+
 ## In progress
 
 - Lane opened 2026-08-18: SPEC approved by owner; PLAN written (10 steps).

@@ -18,7 +18,7 @@
 
 ## Steps
 
-- [ ] 1. `judgment` Write `skills/orchestrate/evals/` — ≥4 evals covering:
+- [x] 1. `judgment` Write `skills/orchestrate/evals/` — ≥4 evals covering:
       (a) parent entry + dispatch dialogue (M+ at a Run-bound session →
       orchestrate before acting; reviewers question with default 1 ballena
       before any worker-start), (b) supervision discipline (mailbox
