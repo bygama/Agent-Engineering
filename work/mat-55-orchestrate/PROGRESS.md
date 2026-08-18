@@ -530,13 +530,92 @@
   preserved. No new breakage, no out-of-scope items. Step 7 CLOSED —
   one fix round.
 
+- Step 8 (2026-08-18): wove orchestrate into `docs/how-it-works/execution.md`
+  — the "Graphs" section (previously entirely fan-out mechanics) becomes
+  `## Orchestration: the graph layer's parent/child cycle`, owned by
+  `skills/orchestrate` (ADR-008), with two new mermaid diagrams both
+  narrated per the house "What to see:" convention:
+  - **Topology** (`flowchart TB`): one Orca Run bound to the parent
+    worktree, `worker-start` into each child worktree, a read-only
+    reviewer/ballena worktree cut from each lane's branch reporting its
+    `worker_done` verdict back to the parent (never the child), and PRs
+    from children landing on `main` only through the parent's own
+    rebase-merge — matches SPEC's "topology diagram (parent Run,
+    children, ballenas, PRs to main)" line item exactly.
+  - **The 8-stage dispatch cycle** (`sequenceDiagram`, Owner/Parent/Child/
+    Reviewer/main participants, matching `integrations.md`'s existing
+    sequence-diagram style): stages 1-8 of `skills/orchestrate/SKILL.md`'s
+    own checklist (tier gate through decommission+record) — stage 0
+    (probe + bind the Run) is excluded because it is parent-session setup
+    done once, not part of the per-lane cycle that repeats, which is what
+    makes it exactly 8 stages rather than 9. An `alt` block shows the
+    FAIL/fix-loop branch (findings to the same child, re-review by the
+    same reviewer, cap-5 owner gate) inline rather than as a separate
+    diagram.
+  - Kept the existing `## Several children at once (XL)` flowchart
+    (qualify/anchors/worker-table/reduce/synthesis) as a subsection —
+    unchanged as a diagram, since the ceremony itself survived the
+    fan-out→orchestrate absorption verbatim (SKILL.md's own XL section);
+    updated its prose (`fan-out` → `orchestrate`, "stages, not parallel
+    items" → "stages, not lanes" to match the live skill's actual wording)
+    and added the "one parent per repo" property, which the old fan-out
+    prose never had (SKILL.md names it; the how-it-works text was
+    incomplete without it — a real behavior gap, not a wording one).
+  - Two more spots in the same chapter, both direct contradictions of the
+    new content two sections later: the intro paragraph's "fan-out =
+    parallel across lanes" → "orchestrate = parallel across lanes ...
+    (ADR-008)"; the Orca-mapping bullet's `worker (fan-out)` row, which
+    named the *wrong* command (raw `worktree create --agent --prompt`,
+    the unsupervised full-transfer form) for a supervised child — fixed
+    to `worker-start --task --worktree new-child` with a note
+    distinguishing it from the full-transfer form (which stays valid,
+    just for a different case — `work-lifecycle.md`'s pause handoff still
+    uses it correctly). One-word fix in the Runners section too
+    ("mid-fan-out" → "mid-dispatch").
+  - `docs/how-it-works/work-lifecycle.md`: fixed the four fan-out mentions
+    the step 6/7 reviews flagged (lines 30, 45, 49, 142 in the pre-step
+    file) — the tier-triage flowchart's XL node, the tier table's XL row,
+    the "XL is structural" prose ("the fan-out skill refuses" → "orchestrate
+    refuses"), and the work-run section's "parallelism ... belongs to
+    fan-out" line. All four directly cross-reference `execution.md`'s
+    content and would have contradicted the newly-woven chapter if left
+    alone.
+
+  Scope note: left `docs/how-it-works/architecture.md` (phase-ladder box
+  "P4 graphs<br/>fan-out · reducer · runners", directory-map skill list,
+  two prose mentions) and `docs/how-it-works/standard-lifecycle.md`
+  (one skill-list mention) untouched. The phase-ladder box in particular
+  reads as a historical record of what P4 shipped (same register as the
+  ADRs/CHANGELOG the Constraints block exempts), and both files are
+  exactly PLAN step 9's scope ("any other living surface still naming
+  fan-out as current") rather than this step's ("docs/how-it-works
+  chapter for orchestration" — the chapter being woven is execution.md,
+  with work-lifecycle.md's direct cross-references as the one
+  unavoidable spillover). `reference/graphs-and-reducers.md` (a
+  `reference/` file, not `docs/how-it-works/`) also still names
+  `skills/fan-out` — same reasoning, left for step 9 or later triage.
+
+  Acceptance: `grep -rq orchestrate docs/how-it-works && node
+  scripts/agent-lint.mjs . --ignore tests,templates,global,examples` →
+  PASS, exit 0 ("0 high, 0 medium, 0 low — PASS"). Also ran, all green
+  (not required by this step, kept as evidence nothing else broke):
+  `node tests/run-eval-checks.mjs` (all 12 skill dirs well-formed,
+  unaffected by a docs-only change), `node tests/run-lint-tests.mjs`
+  (13/13), `node tests/run-gen-tests.mjs` (7/7).
+
+  Files: `docs/how-it-works/execution.md`,
+  `docs/how-it-works/work-lifecycle.md`; `PLAN.md` step 8 ticked.
+
+  Concerns: none blocking. Flagging for step 9 (not a defect in this
+  step, matches its own named scope): `architecture.md`'s and
+  `standard-lifecycle.md`'s remaining fan-out mentions, plus
+  `reference/graphs-and-reducers.md`'s.
+
 ## In progress
 
 ## Tried and failed
 
 ## Next
-
-- Step 8 [judgment]: `docs/how-it-works/` chapter for orchestration.
 
 ## Verification
 

@@ -27,7 +27,7 @@ flowchart TD
     Q2 -->|no| M[Tier M<br/>lane + PLAN/PROGRESS + WIP=1]
     Q2 -->|yes| Q3{fits one lane?}
     Q3 -->|yes| L[Tier L<br/>four files + feature_list + init phase]
-    Q3 -->|no, needs parallel lanes| XL[Tier XL<br/>L per lane + mandatory fan-out]
+    Q3 -->|no, needs parallel lanes| XL[Tier XL<br/>L per lane + mandatory orchestrate]
     S -.->|hidden complexity| M -.->|hidden complexity| L -.->|forces parallel<br/>decomposition| XL
 ```
 
@@ -42,11 +42,11 @@ impossible.
 | S | one-file front fix | one-line definition of done, run the verify command, no files |
 | M | a feature | DoD written *first*, lane folder with PLAN + PROGRESS, WIP=1, fresh-context review, clean-state exit |
 | L | build a system | full four files + `feature_list.json` + a dedicated init phase + staged context windows |
-| XL | migrate six repos in one push | everything L per worker lane + mandatory fan-out: three questions in writing, frozen anchors, worker table, reducer contract, synthesis gate on the merged whole ([execution.md](execution.md)) |
+| XL | migrate six repos in one push | everything L per worker lane + mandatory orchestrate: three questions in writing, frozen anchors, worker table, reducer contract, synthesis gate on the merged whole ([execution.md](execution.md)) |
 
 XL is structural, never size-based: it begins exactly where one lane
 stops being able to hold the work, and its ceremony is the graph
-machinery made compulsory — the fan-out skill refuses an XL effort whose
+machinery made compulsory — orchestrate refuses an XL effort whose
 three questions were never written down, and work-verify refuses an XL
 "done" whose synthesis gate never ran. Consumer repos get the compact
 version of this table as `docs/tiers.md` (installed by ae-init since
@@ -139,7 +139,7 @@ loop (five rounds, escalating model), and rulings land in `DECISIONS.md`
 — the skill's own doc owns the fix-loop and role-hint detail. work-run is
 never mandatory: a runner without subagents executes the same steps
 inline under the same ceremony, and parallel implementers inside one lane
-are refused — parallelism between lanes belongs to fan-out
+are refused — parallelism between lanes belongs to orchestrate
 ([execution.md](execution.md)). work-run ships no final review of its
 own; it ends by handing the lane to the two exits below. Process suites'
 own planners and executors are superseded in writing
