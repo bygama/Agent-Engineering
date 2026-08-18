@@ -117,6 +117,48 @@
   scripts/agent-lint.mjs . --ignore tests,templates,global,examples` →
   `0 high, 0 medium, 0 low — PASS`, exit 0.
 
+- 2026-08-18 — E5 DONE — docs/how-it-works/execution.md pass. Checked the
+  intro's work-run↔fan-out pairing sentence (added at 1.1.0, mechanically
+  renamed at 1.3.0's relay→work-run sweep) against the bar's weave
+  requirement: it already sits at the exact point the chapter draws its
+  scope (right after pointing single-lane execution to
+  work-lifecycle.md), reads as one flowing paragraph rather than a bolted
+  addendum, and names what THIS chapter owns (loops = keeps happening,
+  graphs/fan-out = happens in parallel) — left unchanged, no rewrite
+  needed. Diagram pass, both mermaids: (1) the loop-run flowchart under
+  "One run, any runner" had zero lead-in prose between the heading and
+  the fence (orphaned at a section top per the bar) — added a one-line
+  lead-in ("every runner... walks the same shape"); its post-diagram
+  narration named only two of the three required things-to-see (cheap
+  empty-run exit, state-in-file) and left the failure budget's trip
+  point unconnected to the diagram's G/F nodes even though the concept
+  was covered two paragraphs earlier in prose — rewrote to a "What to
+  see" lead (matching E4's established pattern) naming all three, tied
+  explicitly to node labels (`Q`, `G`, `F`). (2) the fan-out flowchart
+  already had adequate lead-in prose (the three-questions paragraph) but
+  its post-diagram narration covered only anchors, the reducer contract,
+  and failure locality — silent on two of the four things the bar names:
+  the refuse path when a dependency is found (`Q -->|dependency found|
+  ONE`) and the reduce gate refusing lanes without a PASS block
+  (`R -->|missing| BACK`) — added a "What to see" paragraph naming both
+  gates explicitly by node label, then kept the three-properties
+  paragraph (trimmed to avoid repeating what the new gate paragraph now
+  covers) for anchors/reducer-contract/failure-locality. Verified the new
+  text against skills/fan-out/SKILL.md (`stages, not parallel items`,
+  "refuse to merge any lane without a current PASS block", "anchors
+  win", "item order, never arrival order" — all quoted/paraphrased to
+  match the skill's own wording) and reference/loops.md (two consecutive
+  failed runs → disable + report) before writing, per the Truth rule. No
+  "relay" outside any ADR-004 filename citation (none present in this
+  file); provenance notes (`live since AE/2.2`, `live since P4`, `since
+  AE/2.5`) left as written; the deliberate cron//loop mentions untouched;
+  records untouched. Touched only docs/how-it-works/execution.md.
+  Acceptance: both mermaid fences balanced (2 opens, 2 closes), no
+  syntax errors on review; every diagram placed with a lead-in and
+  What-to-see narration (reviewer judgment, reasoning above); `node
+  scripts/agent-lint.mjs . --ignore tests,templates,global,examples` →
+  `0 high, 0 medium, 0 low — PASS`, exit 0.
+
 ## In progress
 
 - 2026-08-18 — Owner approved SPEC+PLAN (direct-mode gate). Executing
