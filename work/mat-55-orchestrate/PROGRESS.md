@@ -469,6 +469,16 @@
   its Consequences section names both as still-pending rather than
   already-done — that's accurate to lane order, not a gap in this step.
 
+- Step 7 review (2026-08-18): spec ✅ Compliant on content, quality
+  **Needs fixes** — 1 Important: ADR-008 claims amendment
+  relationships (ADR-002, ADR-004, SPEC Decision 7, plus superseding
+  ADR-007's "1.4.0 reserved" line) with NO reciprocal pointers in the
+  amended documents; the house convention (SPEC Decision 7 chain,
+  ADR-003's forward pointer to ADR-007) requires them. Fix round 1
+  opened, same implementer. Minor DEFERRED: ADR-006 analogy at
+  :83-84 is thematically loose. Reviewer traced every ADR claim to
+  its lane source — none invented.
+
 ## In progress
 
 ## Tried and failed
