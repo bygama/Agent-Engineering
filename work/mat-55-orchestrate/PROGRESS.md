@@ -328,6 +328,60 @@
   was genuinely absorbed into orchestrate's fallback section before the
   deletion. No fix rounds.
 
+- Step 5 (2026-08-18): updated using-ae's evals first, then its SKILL.md,
+  per the hard constraint (evals precede content).
+  - `skills/using-ae/evals/eval-01.md`: added a fixture line pinning the
+    session as not Run-bound ("no Orca Run is bound... this is not a
+    parent orchestrator session") and a new expected-behavior bullet
+    stating it invokes `work-plan` directly, not `orchestrate`, because
+    the role rule only redirects Run-bound sessions — cross-referencing
+    eval-04. Without this the eval would have gone ambiguous the moment
+    the role rule shipped: the same M ask now has two valid routes
+    depending on session shape, and eval-01 didn't say which shape it
+    was.
+  - `skills/using-ae/evals/eval-04.md` (new): the mirror case — same M
+    ask, same repo state, but `orca orchestration run-current` returns a
+    live Run (a parent orchestrator session per
+    `skills/orchestrate/SKILL.md` step 0). Expects the agent to name the
+    tier, then invoke `orchestrate` (not `work-plan`, not inline
+    implementation), and explicitly not to fold M+ into a "just do it
+    inline, orchestrate is for XL" reading. States the contrast with
+    eval-01 as its own checklist line so the two evals are read as a
+    pair.
+  - `skills/using-ae/SKILL.md`: the map's `fan-out` row became
+    `**orchestrate** — dispatching M+ to a child worktree; XL fan-out
+    included.` A new `## Role rule` section (between `## The map` and
+    `## Precedence (ADR-005)`) states the binary: Run-bound session
+    (`run-current` returns a live Run) is a parent — M+ routes to
+    `orchestrate`; dispatch-bound session (spawned via `worker-start`)
+    uses the map as written; no bound Run also uses the map as written
+    (covers plain no-Orca sessions, which are neither parent nor child —
+    the SPEC/PLAN named only the parent/child pair, so this line makes
+    the implicit third case explicit rather than leaving it to
+    inference). Nothing else in the file changed — Entry rule, Precedence,
+    and Red flags are untouched.
+
+  Acceptance: `test $(wc -l < skills/using-ae/SKILL.md) -le 80 && grep -q
+  orchestrate skills/using-ae/SKILL.md && node tests/run-eval-checks.mjs`
+  → PASS. File is 60 lines (was 50); `grep orchestrate` matches (map row
+  + role rule); eval-checks reports `ok using-ae: 4 evals well-formed`
+  among all 12 skill dirs green. Also ran, both green (not required by
+  this step, kept as evidence nothing else broke): `node
+  scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  (0 high, 0 medium, 0 low — PASS), `node tests/run-lint-tests.mjs`
+  (13/13), `node tests/run-gen-tests.mjs` (7/7).
+
+  Files: `skills/using-ae/evals/eval-01.md`,
+  `skills/using-ae/evals/eval-04.md` (new), `skills/using-ae/SKILL.md`;
+  `PLAN.md` step 5 ticked.
+
+  Concerns: none blocking. One judgment call worth flagging for
+  review — the SPEC/PLAN only named the Run-bound/dispatch-bound pair;
+  I added the explicit "no bound Run ⇒ map as written" line to close the
+  gap for plain single-agent (no-Orca or no-Run) sessions rather than
+  leaving that case to inference, since eval-01's fixture is exactly
+  that third case and needed a rule to point at.
+
 ## In progress
 
 - Lane opened 2026-08-18: SPEC approved by owner; PLAN written (10 steps).
@@ -336,9 +390,10 @@
 
 ## Next
 
-- Step 5: using-ae — update its evals first, then SKILL.md (map's
-  fan-out row becomes `orchestrate`; add the parent/child role rule),
-  staying ≤80 lines.
+- Step 6 [batch]: tier surfaces name orchestrate — the L executor
+  mention and XL row in `reference/task-tiers.md`, the consumer tiers
+  template under `templates/repo/`, and this repo's own tiers doc if
+  present.
 
 ## Verification
 

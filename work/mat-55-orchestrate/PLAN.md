@@ -59,7 +59,7 @@
       update `reference/skills.md` (orchestrate owns dispatch/parallel
       execution; supersession + placement paragraphs stay coherent) —
       accept: `test ! -d skills/fan-out && node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
-- [ ] 5. `judgment` using-ae: update its evals first, then SKILL.md — the
+- [x] 5. `judgment` using-ae: update its evals first, then SKILL.md — the
       map's fan-out row becomes `orchestrate` (dispatching M+ to a child;
       XL fan-out included) and add the role rule (Run-bound session =
       parent → M+ routes to orchestrate; dispatch-bound session = child →
