@@ -49,6 +49,17 @@
   skill path `skills/fan-out` (a live pointer), matching the behavior
   and the step-9 review's repo-wide verification. Behavior text
   unchanged.
+- 2026-08-18 — Adversarial (ballena) minors adjudicated, PASS stands:
+  (1) F04's recorded command greps 2 of the 4 surfaces its behavior
+  names; extending it to reference/skills.md would trip on line 78 —
+  but that line is the SUPERSESSION sentence ("superseding
+  `skills/fan-out`"), which names the skill as replaced, not current,
+  so the behavior holds; the reviewer's repo-wide re-run is the
+  standing evidence. Rows are `passing` (irreversible) — the command
+  stays as recorded, this rationale is the rebuttal evidence. (2) F05
+  eval ordering not provable from git (single commit d37c60e) — known,
+  disclosed in the row's own evidence, covered by the split-commit
+  habit ruling. Neither finding re-litigates.
 - 2026-08-18 — Map AE onto Orca's native orchestration primitives
   (Run/Task/Dispatch/worker_done/gates) instead of inventing
   coordination — discovered in `orca skills get orchestration` during

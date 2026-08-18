@@ -853,7 +853,18 @@
 - L3 end-to-end: n/a by design — the release gate defers the live end-to-end (one real M dispatched through orchestrate) to post-merge dogfood; recorded in SPEC, PLAN Constraints, and ADR-008 Consequences
 - Feature rows: F01-F06 all `passing`, evidence from runs on clean tree `e82d581` (2026-08-18), each re-run independently by the fresh-context reviewer
 - Fresh-context review: PASS — round 1 verdicted FAIL (2 Criticals: templates' worker_done missing required `--subject`, probed live; feature rows unrecorded under an overstating commit message) → fix `e82d581` re-probed with the literal template shapes (argument validation passes; `run_required` outside a Dispatch, effects inert) → both Criticals ADDRESSED, no new breakage
-- Adversarial review: n/a — L tier, opt-in; offered to the owner at recording time
+- Adversarial review (opencode + DeepSeek v4 flash free, cross-model,
+  owner-requested): **SURVIVED** — 21m50s, launched via the skill's own
+  two-step mechanic on worktree `mat-55-adversarial` at the lane tip;
+  re-ran all six rows + four gates, re-verified every orca mechanic
+  flag-by-flag, re-probed the `--subject` fix (`run_required`, not
+  `invalid_argument`), swept for contradictions. "PASS stands", zero
+  refuting findings. Two non-refuting minors recorded in DECISIONS
+  (F04 command narrower than its behavior text; F05 eval ordering not
+  git-provable — both disclosed). Live side-catch: the two-step launch
+  left the default startup shell as debris (the documented orca.md
+  anti-pattern) — confirmed unused and closed; structural fix filed
+  with MAT-57's seat work.
 - Deferred-minors triage (by the lane reviewer): 1 fixed pre-merge (LANE_PATH separator), 6 filed-as-follow-up (ballena fallback-shell close; runners.md TUI/headless citation; ready-to-run emission in fallback; feature-rows-flip-from-merged-tree wording; fallback lane-close line; reviewer worker-retain literal + `<slug>-review` collision at N>1), rest accept-as-is
 
 <!-- First read of every session. If it isn't here, it didn't happen. -->
