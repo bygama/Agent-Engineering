@@ -19,6 +19,7 @@ records-vs-living judgment). Born 2026-08-17 from the MAT-15 sweep.
 | how-it-works index rows vs chapter contents | index promising less/other than the chapter covers | index said "tiers S/M/L" after the chapter gained XL (MAT-11) |
 | `\brelay\b\|agent-init\|agent-audit` as skill names on living surfaces — outside records (adrs/plans/CHANGELOG/migration per-version notes/examples/closed-lane history) and the kept `ADR-004-relay.md` filename | dead skill names after a rename release | MAT-42's ruled residuals: SPEC Decisions 4/7 needed annotations, found by the post-1.3.0 sweep (MAT-48) |
 | `all (nine\|ten\|eleven\|twelve\|[0-9]+)` near "skills" on living surfaces, checked against the actual `skills/` roster | hardcoded skill-roster counts that drift when a skill lands or dies | architecture.md said "all nine" and omitted `shaping` after the 1.2.2 package (MAT-59, pre-1.3.0 sweep) |
+| skill-step changes vs the how-it-works walk-through narrating them — when a skill's numbered step gains/loses a rule, grep the chapter that narrates that step | chapters that under-describe a skill after a lane changed it (usually a recorded out-of-fence deferral) | work-lifecycle.md's tracker plane kept "two rules" after 1.3.1's respect rule joined work-handoff step 6 (MAT-61 deferral, closed by MAT-64) |
 
 ## Restamp surfaces (checked when a version bump is in flight)
 
