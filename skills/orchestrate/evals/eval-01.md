@@ -1,0 +1,36 @@
+# Eval 01: parent entry — M+ routes to orchestrate, dispatch dialogue first
+
+## Query
+
+"Add CSV export to the reports module — new endpoint, new client call,
+its own tests."
+
+## Fixture
+
+A Run-bound parent session: `orca orchestration run-use` already bound
+this terminal to its Run at session start (the standard hook or a prior
+manual bind). The ask is M tier (crosses two modules, needs a file that
+doesn't exist yet). No lane exists for it yet.
+
+## Expected behavior
+
+- [ ] Recognizes the tier (M) before doing anything else, and — because
+      this session is Run-bound (parent) — routes to `skills/orchestrate`
+      instead of implementing inline or calling work-plan/work-run
+      directly in the parent worktree.
+- [ ] Confirms the Run binding for this terminal (or binds one via
+      `run-create`/`run-use` if this is the first orchestration action of
+      the session) — one live Run per parent, no other terminal
+      registration created alongside it.
+- [ ] Turns the lane into an Orca Task (`task-create --spec`), and if
+      another lane touching the same files is already in flight, encodes
+      that with `--deps` rather than dispatching both concurrently.
+- [ ] Before any `worker-start`, runs the dispatch dialogue with the
+      owner: adversarial reviewers yes/no, how many, which model — offers
+      **default 1 ballena** (deepseek v4 flash) rather than picking
+      silently. One question for this lane (not a batch question — this
+      isn't XL).
+- [ ] Waits for the owner's answer and records it in the Task spec; does
+      not call `worker-start` before the question is asked and answered.
+- [ ] The parent implements nothing itself at any point in this
+      sequence — its own checkout stays clean throughout.
