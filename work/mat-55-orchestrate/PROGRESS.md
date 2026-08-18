@@ -118,7 +118,7 @@
   `--outcome`/`--body` split matches the DECISIONS ruling verbatim.
   No fix rounds.
 
-- Step 3 (2026-08-18): wrote `skills/orchestrate/SKILL.md` (213 lines) —
+- Step 3 (2026-08-18): wrote `skills/orchestrate/SKILL.md` (260 lines; the step report originally said 213 — corrected by the controller per the fix-round-1 re-review) —
   the parent role end to end, in the house skill shape (frontmatter →
   premise + pairing sentence → copyable checklist → numbered steps → Red
   flags table → Judgment notes), matching `skills/work-run/SKILL.md`.
@@ -247,7 +247,7 @@
   Acceptance re-run: `node tests/run-eval-checks.mjs` → "all eval checks
   passed", exit 0. Also re-ran `node scripts/agent-lint.mjs . --ignore
   tests,templates,global,examples` → 0 high, 0 medium, 0 low — PASS.
-  File now 224 lines (was 213), still far under the <500 cap.
+  File now 269 lines (was 260; the fix report originally said 224/213 — corrected by the controller per the re-review), still far under the <500 cap.
 
   Files: `skills/orchestrate/SKILL.md`.
 
@@ -255,6 +255,18 @@
   lifecycle rather than wording issues — the re-review seat and the
   reviewer teardown were the two places the file described the child's
   lifecycle without giving the reviewer's.
+
+- Step 3 fix round 1 re-review (2026-08-18): both Important findings
+  **ADDRESSED** (re-review seat reuses the same reviewer terminal via
+  `worker-start --terminal`, SKILL.md:154-158; step 8 decommissions
+  everything the lane spawned incl. reviewer dispatches + worktrees,
+  SKILL.md:185-194). No new Critical/Important breakage. Re-reviewer
+  independently re-ran eval-checks + self-lint, both green. New Minors
+  DEFERRED: PROGRESS line counts were wrong (corrected by controller in
+  this commit: 260/269, not 213/224); reviewer retain instruction at
+  :155 lacks the literal `worker-retain` command (low risk); `<slug>-
+  review` worktree name collides if multiple reviewers run per round
+  (pre-existing, out of fix scope). Step 3 CLOSED — one fix round.
 
 ## In progress
 
