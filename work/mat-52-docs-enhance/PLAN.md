@@ -21,7 +21,7 @@ dispatch.
   judgment); lint exits 0
 - [x] E4 (judgment): work-lifecycle.md woven per the bar — accept:
   reviewer confirms every diagram placed+explained; lint exits 0
-- [ ] E5 (judgment): execution.md per the bar — accept: same; lint
+- [x] E5 (judgment): execution.md per the bar — accept: same; lint
   exits 0
 - [ ] E6 (judgment): standard-lifecycle.md + integrations.md per the
   bar — accept: same; lint exits 0
