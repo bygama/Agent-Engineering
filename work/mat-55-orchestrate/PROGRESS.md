@@ -762,6 +762,18 @@
   Concerns: none blocking, one flagged above (scope of the work-*
   skill edits) for review's judgment.
 
+- Step 9 review (2026-08-18): spec ✅ Compliant, quality Approved.
+  Breadth call ratified: every touched file verified as a living
+  surface, nothing living missed, no records touched (reviewer
+  re-grepped the whole repo independently). Both DEFERRED flags
+  resolved correctly (orca.md spawn row now the supervised form with
+  the full-transfer distinction). Important ADJUDICATED as a DECISIONS
+  ruling: single-commit evals+SKILL bundling accepted for mechanical
+  symmetric renames, habit fix going forward (split commits). Minors
+  DEFERRED: `FAN` node id in README's first mermaid; step 6 PLAN
+  checkbox was dangling (controller ticked it in this commit — its
+  work and review were already recorded). No fix rounds.
+
 ## In progress
 
 ## Tried and failed

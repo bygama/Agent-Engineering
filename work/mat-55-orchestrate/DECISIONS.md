@@ -31,6 +31,15 @@
   map applies as written" — a plain session with no Run and no dispatch
   is neither parent nor child, and leaving it undefined in an
   always-loaded skill would invite improvisation. One line of cost.
+- 2026-08-18 — Step 9's single-commit evals+SKILL sweep ACCEPTED
+  (controller adjudication of the review's Important): the letter of
+  "evals precede content" wants an evals commit before a content
+  commit even for mechanical renames; this batch bundled both for
+  work-run/work-plan. Accepted because the edits are deterministic
+  symmetric terminology substitutions (no eval design retrofitted to
+  content — the anti-gaming rationale doesn't bite), self-disclosed,
+  and zero behavioral risk. HABIT going forward: split the evals
+  commit from the content commit even in mechanical batches.
 - 2026-08-18 — Map AE onto Orca's native orchestration primitives
   (Run/Task/Dispatch/worker_done/gates) instead of inventing
   coordination — discovered in `orca skills get orchestration` during
