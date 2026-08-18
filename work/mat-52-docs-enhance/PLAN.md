@@ -16,7 +16,7 @@ dispatch.
   contains a SessionStart settings example; lint exits 0. Interface:
   E1's README section links to this file's path — keep the path
   `global/hooks/README.md`
-- [ ] E3 (judgment): how-it-works README index + architecture.md per
+- [x] E3 (judgment): how-it-works README index + architecture.md per
   the bar — accept: index rows match chapter contents (reviewer
   judgment); lint exits 0
 - [ ] E4 (judgment): work-lifecycle.md woven per the bar — accept:
