@@ -15,7 +15,7 @@
 
 ## Steps
 
-- [ ] 1. `judgment` — Add `skills/ae-init/evals/eval-04.md` (Query +
+- [x] 1. `judgment` — Add `skills/ae-init/evals/eval-04.md` (Query +
   Fixture + Expected behavior, checklist lines, matching evals 01-03's
   voice): fixture = fresh install on a single-app repo whose README and
   site content are Spanish; expected = the generated AGENTS.md comes
@@ -24,7 +24,7 @@
   language question; matching the README's language (a Spanish
   AGENTS.md) is named as the explicit failure case. Commit the eval
   alone. — accept: `node tests/run-eval-checks.mjs` exits 0
-- [ ] 2. `judgment` — Encode exactly what step 1's eval-04 expects:
+- [x] 2. `judgment` — Encode exactly what step 1's eval-04 expects:
   (a) `skills/ae-init/SKILL.md` step 3 (gotcha interview) gains the
   settled-once language question — artifacts default to ENGLISH even
   when the repo's human docs are another language; on divergence
