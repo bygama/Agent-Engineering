@@ -29,6 +29,23 @@ and keep their former name for traceability; repos still stamped with an
 old name are "behind, not broken" — `agent-audit` flags them,
 `agent-init` migrates them.
 
+## [1.3.2] — 2026-08-18
+
+Telemetry-vocabulary patch (PATCH per ADR-007 — a fix set, no
+milestone designation).
+
+### Changed
+
+- The child dispatch template
+  (`skills/orchestrate/references/dispatch-child.md`) fixes the
+  heartbeat `--phase` vocabulary: `investigating → planning →
+  implementing → reviewing → verifying → reporting`, with `blocked`
+  valid only alongside a live `ask` — never free text a child invents
+  (a live child's novel `waiting` read ambiguous from the parent's
+  seat). The mailbox-discipline section reuses the same words.
+- Root `AGENTS.md` now carries its own `Tracker:` declaration line —
+  the repo applies the 1.3.1 respect rule to itself.
+
 ## [1.3.1] — 2026-08-18
 
 The post-milestone polish and install-convention set (PATCH per
