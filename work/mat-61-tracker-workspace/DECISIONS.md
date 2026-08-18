@@ -30,3 +30,19 @@
   the source and eval-03, lowercase "any" in the two citing sentences):
   paraphrase versus the source's own emphasis device, no semantic
   effect; normalizing would churn three files for nothing.
+- 2026-08-18 — L3 end-to-end recorded n/a — the lane ships prose
+  contracts (skill instructions, a reference rule, a docs sentence);
+  the four suites are the executable surface, no cross-component flow
+  exists to drive end to end.
+- 2026-08-18 — Lane folder survives this worker's handoff — the parent
+  still owes the lane its adversarial seat (ballena) and the merge;
+  terminal finalize-then-remove is the parent's step, matching the
+  MAT-60 precedent in this repo's history. Worker exits with the lane
+  committed, PR open, card in-review, tracker commented + In Review.
+- 2026-08-18 — Fresh-context reviewer's Important finding (slug lookup
+  path) fixed before handoff in `aa61d04`, per the reviewer's own
+  prescription; its two no-fix observations recorded: work-lifecycle.md
+  under-description surfaced as an out-of-fence follow-up (PROGRESS),
+  and ae-init step-1's unstated tracker-connection signal left as-is —
+  consistent with the pre-existing step-6 reminder's reliance on the
+  same signal.
