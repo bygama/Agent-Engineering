@@ -105,19 +105,123 @@
      tie between eval-04 and SKILL.md content — work-verify confirms by
      reading.
 
+- 2026-08-18 — Fix round 1 (owner amendment, parent dispatch after the
+  adversarial FAIL) — re-encoded the zero-friction design in two commits,
+  evals first.
+  - Commit `c97ae30` (eval alone) — rewrote
+    `skills/ae-init/evals/eval-04.md` to grade the amended behavior: the
+    human-docs language is INFERRED while exploring, never asked; the
+    generated AGENTS.md comes out ENGLISH by the standard's standing
+    convention whatever the README's language and whatever language the
+    owner writes in; the split gotcha (canonical phrasing, instantiated to
+    Spanish) is recorded on its own without asking anyone; a language
+    question is now its own failure ("Never asks a language question… A
+    question here is friction the convention exists to remove") next to
+    the original one ("Never matches the README's language"); language
+    enters the interview only if the owner raises it first. The
+    chat-language input moved into the Fixture as a standing condition —
+    the owner writes in Spanish throughout and never brings language up —
+    so it is graded independently of any ask. Structure (## Query /
+    ## Fixture / ## Expected behavior, checklist lines, evals 01-03's
+    voice) and the fresh-install contract line kept. Two deferred minors
+    fixed in passing since the lines were being rewritten anyway: the
+    `FAILURE CASE:` label became house-register "Never…" lines, and the
+    weakly-supported "(step 6 keeps the existing README/LICENSE)"
+    parenthetical is gone.
+    - Acceptance `node tests/run-eval-checks.mjs` → exit 0, `ok   ae-init:
+      4 evals well-formed` … `all eval checks passed`.
+    - Files changed: `skills/ae-init/evals/eval-04.md`.
+  - Commit `ab4531b` (content alone, after the eval) — `skills/ae-init/
+    SKILL.md` now encodes exactly that. Step 1 (Explore) gains the
+    inference where inference already lives: "Also: `docs/`, repo skills,
+    `work/` lanes, README — including the language the repo's human docs
+    are written in (README, site copy, SEO metadata)." Step 3's six-line
+    ask is replaced by a standing default in its own paragraph: never ask
+    about the artifacts language and never take it from the language of
+    the conversation; agent context and technical docs are always ENGLISH
+    by the standard's convention; when step 1 found the human docs in
+    another language, add the split to the gotchas without asking
+    (canonical phrasing); language enters the interview only if the owner
+    raises it. Net +3 lines, no restructuring. `awk 'length > 80'` over
+    SKILL.md still reports only line 3, the frontmatter `description`.
+    - `templates/repo/AGENTS.md.template` left untouched: its two-line
+      HTML comment ("Filled in English by convention, whatever language
+      the repo's README and human docs use.") already states the standing
+      default and contradicts nothing in the amendment.
+    - Acceptance `node scripts/agent-lint.mjs . --ignore
+      tests,templates,global,examples` → exit 0, `0 high, 0 medium, 0 low
+      — PASS`; `node tests/run-eval-checks.mjs` → exit 0, `all eval checks
+      passed`.
+    - Files changed: `skills/ae-init/SKILL.md`.
+  - All four lane gates re-run at HEAD `ab4531b`: agent-lint → exit 0 (`0
+    high, 0 medium, 0 low — PASS`); `node tests/run-lint-tests.mjs` → exit
+    0 (`all 13 cases passed`); `node tests/run-gen-tests.mjs` → exit 0
+    (`all gen cases passed`); `node tests/run-eval-checks.mjs` → exit 0
+    (`ok   ae-init: 4 evals well-formed` … `all eval checks passed`).
+  - Scope fence held: `skills/ae-init/**` only; no template change was
+    needed, no bump, no CHANGELOG, no restamp. Lane files left uncommitted
+    for the controller's lane commit.
+  - Note: the SPEC's "one settled-once language question joins the
+    interview" wording and PLAN step 1's "the interview asks the
+    settled-once language question" now describe the superseded design —
+    the DECISIONS.md amendment governs (SPEC is owner-written; the agent
+    never edits it).
+
+- 2026-08-18 — Fix round 1 review — ✅ Amendment-compliant /
+  **Approved** (fresh reviewer, opus seat; own gate runs at `ab4531b`
+  exit 0). Verified: no interview ask survives anywhere in
+  skills/ae-init/; inference lives in step 1 (Explore) and the
+  auto-write in step 3 with an explicit cross-reference; eval-04
+  grades asking as its own failure; canonical phrasing byte-identical;
+  template comment already amendment-compatible; scope fence and
+  evals-first ordering exact. Important finding (PLAN.md still
+  described the superseded ask) fixed by the controller: dated AMENDED
+  banner atop PLAN.md's steps pointing at the DECISIONS amendment
+  (ruling in DECISIONS.md). Minor findings recorded: fix commits lack
+  the Co-Authored-By trailer (kept as-is — ruling in DECISIONS.md);
+  follow-up candidates — community files not named by the encoded
+  rule, no eval for the non-divergent (all-English) case, reference/
+  never states the convention SKILL.md cites.
+
 ## In progress
 
 ## Tried and failed
 
+- 2026-08-18 — Adversarial (ballena, parent seat) verdict FAIL — not on
+  verification (all evidence stands) but on design staleness: a
+  mid-flight owner amendment (zero-friction, no interview ask) was sent
+  to the dispatch mailbox and never received during the run, so the
+  shipped SKILL.md:52-57 ask + eval-04 "Asks the language question
+  once" grade the superseded design. Fix round 1 re-encodes the
+  amended behavior.
+
 ## Next
 
-- work-handoff: commit lane files, push, open PR; parent launches the
-  adversarial ballena seat after worker_done.
+- Push fix commits; parent's reviewer re-verdicts.
 
 ## Verification
 
 <!-- PASS evidence only, written by work-verify (newest on top); the close
      handoff refuses to close a lane without a current PASS block here. -->
+
+### 2026-08-18 — M DoD (fix round 1, amended design) — PASS
+- L1 static: `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` → exit 0 (`0 high, 0 medium, 0 low — PASS`)
+- L2 behavioral: `node tests/run-lint-tests.mjs` → exit 0 (`all 13 cases
+  passed`); `node tests/run-gen-tests.mjs` → exit 0 (`all gen cases
+  passed`); `node tests/run-eval-checks.mjs` → exit 0 (`all eval checks
+  passed`). All run at HEAD `ab4531b`, this session, by the controller;
+  the fix reviewer's own runs at `ab4531b` also exit 0.
+- L3 end-to-end: n/a: single component (unchanged).
+- Fresh-context review (scoped to the fix, fresh opus seat):
+  **Approved / amendment-compliant** — no interview ask survives,
+  inference + auto-write encoded where an installing agent follows
+  them, eval-04 grades asking as its own failure, canonical phrasing
+  byte-identical, scope fence and evals-first ordering exact. Its
+  Important finding (stale PLAN.md wording) fixed via AMENDED banner
+  before this block.
+- Adversarial review (ballena, parent seat): prior verdict FAIL on
+  design staleness (superseded design, not evidence) — fix round 1
+  re-encodes the amendment; parent re-verdicts after this push.
 
 ### 2026-08-18 — M DoD — PASS
 - L1 static: `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` → exit 0 (`0 high, 0 medium, 0 low — PASS`)

@@ -2,6 +2,14 @@
 
 <!-- Steps with executable acceptance. Not "improve X" — "command Y exits 0". -->
 
+> AMENDED 2026-08-18 (see DECISIONS.md "OWNER AMENDMENT"): the
+> settled-once language QUESTION both steps below describe was
+> superseded after they shipped — zero friction, no interview ask;
+> standing English default; infer README/site language and auto-write
+> the split gotcha on divergence. Fix round 1 (commits `c97ae30`,
+> `ab4531b`) re-encoded eval-04 and SKILL.md to the amended design.
+> The step lines are kept as executed history, not current design.
+
 ## Constraints (apply to every step)
 
 - Evals first, split commits: step 1 (eval) is its own commit and lands
