@@ -30,11 +30,15 @@ defer it.
 
 Artifact-producing phases are AE's: plan (work-plan), execute (work-run),
 verify (work-verify), close (work-handoff). A process suite (e.g.
-superpowers) may still think — brainstorming, TDD, systematic-
-debugging stay composable — but when its chain points at its own
+superpowers) may still think — TDD, systematic-debugging stay
+composable — but when its chain points at its own
 planner/executor/finisher next, redirect to the AE counterpart and
 cite ADR-005 (`docs/adrs/ADR-005-artifact-phases.md`); never disable
 the suite's thinking skills, only supersede its artifact machinery.
+Brainstorming is the one thinking skill already superseded: shaping
+owns daily design work instead, cite ADR-006
+(`docs/adrs/ADR-006-design-dialogue.md`); it stays composable only as
+the no-AE-setup fallback.
 
 ## Red flags
 
