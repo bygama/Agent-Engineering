@@ -87,6 +87,8 @@ tracker-linked; nothing breaks when it doesn't.
 
 ## The lane lifecycle
 
+One diagram holds the whole arc, from intake to a closed lane:
+
 ```mermaid
 flowchart LR
     I[intake<br/>issue or direct ask] --> TR[triage tier] --> W[work in lane<br/>update PROGRESS]
@@ -96,14 +98,24 @@ flowchart LR
     H --> D[lane closed<br/>tracker status moves]
 ```
 
-Intake can be a tracker issue or a direct request — the standard doesn't
-care. Triage assigns the tier and, at M+, opens the lane folder with its
-definition of done already written. That planning moment has an owned
-shape since ADR-005: **work-plan** (`skills/work-plan`) turns the
-approved design — the lane's SPEC, a tracker issue, or a direct ask —
-into `work/<slug>/PLAN.md`, already shaped for what comes next: one
-dispatchable step per line, executable acceptance, named interfaces
-between dependent steps. Work loops inside the lane, updating
+What to see: the loop closes on itself — a failed `work-verify` sends the
+lane straight back into `W` (work in lane), never into a separate rework
+state — and the only way off that loop is the same gate passing, which is
+why `work-verify` and `work-handoff` are the two exits below rather than
+one more step in the middle. Intake can be a tracker issue or a direct
+request — the standard doesn't care. Triage assigns the tier and, at M+,
+opens the lane folder with its definition of done already written.
+
+That planning moment has an owned shape since ADR-005: **work-plan**
+(`skills/work-plan`) turns the approved design — the lane's SPEC, a
+tracker issue, or a direct ask — into `work/<slug>/PLAN.md`, already
+shaped for what comes next: one dispatchable step per line, executable
+acceptance, named interfaces between dependent steps. It runs in one of
+two modes — *design-first*, which writes SPEC.md alone and stops for the
+owner's approval before shaping PLAN.md, or *direct*, which writes both
+files in one pass when the design is already settled or a tracker issue
+stands in as the spec; the skill's own doc owns the rest (constraints
+blocks, batching, role hints). Work loops inside the lane, updating
 `PROGRESS.md` as it goes.
 
 How that inner loop runs has an owned shape since ADR-004: **work-run**
@@ -112,15 +124,15 @@ controller dispatches a fresh implementer subagent per PLAN step — the
 dispatch is just the lane path, the step number, the step's acceptance
 line, and a four-state report contract, because the lane's four files
 already ARE the context package a stateless subagent needs. Each step
-gets a fresh-context review (maker ≠ checker), findings run a capped
-fix loop (five rounds, escalating model), and rulings land in
-`DECISIONS.md`. work-run is never mandatory: a runner without subagents
-executes the same steps inline under the same ceremony, and parallel
-implementers inside one lane are refused — parallelism between lanes
-belongs to fan-out ([execution.md](execution.md)). work-run ships no
-final review of its own; it ends by handing the lane to the two exits
-below.
-Process suites' own planners and executors are superseded in writing
+gets a fresh-context review (maker ≠ checker), findings run a capped fix
+loop (five rounds, escalating model), and rulings land in `DECISIONS.md`
+— the skill's own doc owns the fix-loop and role-hint detail. work-run is
+never mandatory: a runner without subagents executes the same steps
+inline under the same ceremony, and parallel implementers inside one lane
+are refused — parallelism between lanes belongs to fan-out
+([execution.md](execution.md)). work-run ships no final review of its
+own; it ends by handing the lane to the two exits below. Process suites'
+own planners and executors are superseded in writing
 (`reference/skills.md`).
 
 The two exits are skills, not vibes — both live since AE/2.1:
@@ -144,6 +156,9 @@ The two exits are skills, not vibes — both live since AE/2.1:
   full-transfer recipe (`orca worktree create --no-parent --agent <id>
   --prompt "<lane + resume brief>"`, then stop monitoring).
 
+Every exit resolves the same question first — is the PASS block current —
+before anything else happens:
+
 ```mermaid
 flowchart TD
     E[session or task ending] --> G{Verification PASS<br/>block current?}
@@ -155,6 +170,13 @@ flowchart TD
     T -->|yes| L[comment with evidence +<br/>status set - gate rule]
     T -->|no| D[done]
 ```
+
+What to see: three branches off that one question, not two — a current
+PASS closes, an absent one with work still moving pauses, and an absent
+one with the owner pushing for close anyway is a hard refuse, never a
+silent downgrade to pause on the owner's behalf. Only the close branch
+then gates on `Linear-linked` before touching the tracker; pause carries
+forward at most an optional comment, no status change either way.
 
 ## Verification: three layers
 

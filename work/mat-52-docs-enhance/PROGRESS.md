@@ -79,6 +79,44 @@
   --ignore tests,templates,global,examples` → `0 high, 0 medium, 0 low
   — PASS`, exit 0.
 
+- 2026-08-18 — E4 DONE — docs/how-it-works/work-lifecycle.md re-woven per
+  the bar. The chapter's arc already matched the target order (triage →
+  lane/four files → lane lifecycle → verification layers → feature list
+  → tracker plane), so the fix was narrower than a reorder: the two
+  accreted passages (work-plan, work-run) inside "## The lane lifecycle"
+  needed stronger diagram narration and one missing detail, not
+  relocation. Changes: (1) the lane-lifecycle overview diagram (intake →
+  triage → work → verify → handoff) got a one-line lead-in and a "What to
+  see" sentence naming the mechanism the diagram bar item 2 asked for —
+  the fail edge looping straight back into `W` (work in lane) vs. the
+  pass edge exiting to the two skills below, previously left for the
+  reader to infer from node labels alone; (2) the work-plan passage
+  gained its missing two-modes summary (design-first stops for SPEC
+  approval before PLAN; direct writes both in one pass) plus an explicit
+  "the skill's own doc owns the rest" pointer, both absent before even
+  though work-plan's SKILL.md leads with the mode split; (3) the work-run
+  passage got the same "skill doc owns the fix-loop/role-hint detail"
+  pointer and a paragraph reflow (a stray mid-sentence line break from an
+  earlier bolt-on); (4) the work-handoff close/pause diagram gained a
+  lead-in and a "What to see" sentence naming the three-way fork
+  (close/pause/refuse) the diagram already drew but no prose named — the
+  refuse branch was previously undernarrated next to close and pause.
+  The two diagrams that already carried adequate narration (tier-triage
+  ratchet, feature-list `passing` irreversibility) were left untouched —
+  re-verified against the bar, not rewritten for its own sake. No
+  unshipped features (work-design, dispatch templates) mentioned; ADR-004
+  (work-run/execution ownership) and ADR-005 (work-plan/planning
+  ownership) citations preserved where they already explained ownership;
+  provenance blockquotes and "live since AE/2.x" notes left AS WRITTEN;
+  records untouched. Skimmed skills/work-plan/SKILL.md and
+  skills/work-run/SKILL.md first to confirm the mode split and fix-loop
+  description match their contracts exactly. Touched only
+  docs/how-it-works/work-lifecycle.md.
+  Acceptance: reviewer confirms all four mermaid diagrams placed with
+  prose that says what to see (reasoning above); `node
+  scripts/agent-lint.mjs . --ignore tests,templates,global,examples` →
+  `0 high, 0 medium, 0 low — PASS`, exit 0.
+
 ## In progress
 
 - 2026-08-18 — Owner approved SPEC+PLAN (direct-mode gate). Executing
