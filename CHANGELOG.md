@@ -29,6 +29,58 @@ and keep their former name for traceability; repos still stamped with an
 old name are "behind, not broken" — `agent-audit` flags them,
 `agent-init` migrates them.
 
+## [1.3.0] — 2026-08-18
+
+The orchestration milestone (owner-designated; the number freed by the
+ADR-007 renumber, reserved since, and honored here). AE goes
+Orca-first for orchestration: every M+ task executes in a child
+worktree that a parent dispatches, supervises, reviews, and merges —
+mapped onto Orca's native primitives (Run, Task, Dispatch,
+`worker_done`, decision gates), never onto invented coordination.
+Gate met before this bump: one real M (MAT-56) ran the whole cycle in
+production — supervised child, blocking ask/reply, cross-model review
+wave, parent merge ([ADR-008](docs/adrs/ADR-008-orchestration.md)).
+
+### Added
+
+- `skills/orchestrate` — the parent orchestrator role end to end: Run
+  binding, lane→Task with `--deps` overlap queuing, the owner dispatch
+  dialogue (default 1 ballena), `worker-start`-only children with
+  Linear bound at birth, mailbox supervision, review wave, fix loop
+  cap 5 → decision gate, parent-only rebase merges, full
+  decommissioning — plus the manual no-Orca fallback (the standard
+  stays followable without Orca).
+- Dispatch templates `skills/orchestrate/references/dispatch-child.md`
+  and `references/reviewer.md` — filled verbatim at dispatch;
+  `worker_done` command shapes probed against the live CLI.
+- using-ae role rule: Run-bound session = parent (M+ routes to
+  orchestrate); dispatch-bound session = child (map as written); no
+  bound Run = map as written.
+- `docs/adrs/ADR-008-orchestration.md`, with reciprocal amendment
+  pointers in ADR-002, ADR-004, ADR-007, and SPEC Decision 7.
+- how-it-works: execution.md gains the orchestration section (topology
+  + 8-stage dispatch-cycle diagrams, narrated).
+- work-run: released-runners discipline — once a runner's
+  report/verdict is recorded, the controller releases it (record →
+  release → dispatch next), with the timing nuance (implementers held
+  until their verdict; reviewers released at verdict). Shipped through
+  orchestrate itself as the dogfood gate (MAT-56, PR #50).
+
+### Changed
+
+- Tier surfaces: L names orchestrate as an executor option alongside
+  work-run; XL's mandatory ceremony is orchestrate's (was fan-out's).
+- The ballena reviewer seat defaults to the owner's OpenCode Go model
+  (`reference/runners.md` as the per-machine seat registry); the free
+  gateway model stays documented as the no-auth portability fallback.
+
+### Removed
+
+- `skills/fan-out` — absorbed into orchestrate (closed
+  finalize-then-remove; its manual procedure survives as orchestrate's
+  no-Orca fallback section, its XL ceremony as the "several children
+  at once" section). Records keep the name.
+
 ## [1.2.2] — 2026-08-18
 
 The templates + shaping package (sized PATCH per ADR-007; 1.4.0 stays
