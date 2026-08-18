@@ -55,6 +55,6 @@ the no-AE-setup fallback.
 | Thought | Reality |
 |---|---|
 | "Too small for a lane" | The tier decides (`reference/task-tiers.md`), not a feeling. |
-| "I'll just execute this inline" | work-run owns M+ lanes wherever subagents exist. |
+| "I'll just execute this inline" | M+ never inline: parent routes to orchestrate, work-run executes within a lane. |
 | "The suite's next step says use its planner" | ADR-005: redirect to the AE counterpart, cite it. |
 | "I'll answer, then check the tier" | Triage and invoke first — before acting or clarifying. |
