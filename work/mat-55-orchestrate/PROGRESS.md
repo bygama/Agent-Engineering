@@ -522,6 +522,14 @@
   Concerns: none. All four edits are one-clause annotations following an
   existing, verified-active convention — no content rewritten.
 
+- Step 7 fix round 1 re-review (2026-08-18): the Important finding
+  **ADDRESSED** — four reciprocal annotations verified against the live
+  files (SPEC Decision 7 chain clause; ADR-002/ADR-004/ADR-007
+  Status-line pointers), all pure appends, zero record content
+  rewritten; ADR-007's historical Consequences bullet deliberately
+  preserved. No new breakage, no out-of-scope items. Step 7 CLOSED —
+  one fix round.
+
 ## In progress
 
 ## Tried and failed
