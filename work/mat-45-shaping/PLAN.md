@@ -18,7 +18,7 @@
   `skills/work-plan/SKILL.md` refusal reword + `skills/using-ae/SKILL.md`
   map row (≤80 lines held) — accept: F03 and F04 commands exit 0; lint
   exits 0
-- [ ] H4 (integration): README (ten skills + chain + adoption phrasing)
+- [x] H4 (integration): README (ten skills + chain + adoption phrasing)
   + work-lifecycle + standard-lifecycle mentions — accept: F05 command
   exits 0; lint exits 0
 - [ ] H5 (controller): four gates + release ritual — the 1.3.1 package

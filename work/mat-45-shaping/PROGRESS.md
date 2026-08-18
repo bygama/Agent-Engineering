@@ -171,18 +171,62 @@
   - Files changed: `skills/using-ae/SKILL.md` (edit).
   - Concerns: none.
 
-## In progress
+- 2026-08-18 — H4 (integration): README (ten skills + chain + adoption
+  phrasing) + work-lifecycle + standard-lifecycle mentions.
+  - `README.md`: "## The nine skills" → "## The ten skills"; inserted a
+    `shaping` row into the skills table right before `work-plan`
+    ("a raw ask has no settled design yet — the dialogue that hands
+    off to work-plan design-first"), matching using-ae's map wording
+    for the same skill; reworded work-plan's own row from "shaping an
+    approved design..." to "turning an approved design..." to remove
+    the now-ambiguous verb collision with the new skill's name.
+  - Rewrote the "How they chain..." paragraph: "a thinking suite
+    (superpowers or any other) designs" → "**shaping** turns a raw ask
+    with no settled design into an approved one through dialogue, then
+    hands it straight to work-plan — no thinking suite borrowed for
+    the job anymore (ADR-006)"; added `brainstorming` to the
+    superseded-in-writing clause and ADR-006 to its citation list —
+    this is the same and only "thinking suite" text in the file, so it
+    covers SPEC §3's "adoption section" bullet too (no separate
+    section uses that phrasing).
+  - Mermaid diagram: `TH["thinking suite<br/>brainstorm · design"]` →
+    `SH["shaping<br/>raw ask → design"]`, same edge into `work-plan`.
+  - `docs/how-it-works/work-lifecycle.md`: added a one-paragraph
+    passage right before the existing "That planning moment has an
+    owned shape since ADR-005: **work-plan**..." paragraph, naming
+    where the approved design comes from (`shaping`, ADR-006 pointer,
+    one sentence on the dialogue shape) — the "how the plan comes to
+    exist" passage SPEC §3 named.
+  - `docs/how-it-works/standard-lifecycle.md`: extended the existing
+    using-ae skills-surface paragraph (added by the MAT-38 U3 commit,
+    same pattern) with one new paragraph naming all ten skills and the
+    work chain's new opening (`shaping` ahead of `work-plan`), pointing
+    back at README for the full table/diagram rather than duplicating
+    it.
+  - Verified "nine skills" now only remains in
+    `docs/adrs/ADR-005-artifact-phases.md` (a historical ADR, correctly
+    untouched — ADRs are not restamped) and nowhere else.
+  - Acceptance: F05 —
+    `node -e "const fs=require('fs');const r=fs.readFileSync('README.md','utf8');const wl=fs.readFileSync('docs/how-it-works/work-lifecycle.md','utf8');const sl=fs.readFileSync('docs/how-it-works/standard-lifecycle.md','utf8');process.exit(r.includes('ten skills') && r.includes('shaping') && wl.includes('shaping') && sl.includes('shaping')?0:1)"`
+    → exit 0. Lint — `node scripts/agent-lint.mjs . --ignore
+    tests,templates,global,examples` → "0 high, 0 medium, 0 low —
+    PASS". Sanity re-run (not part of H4's acceptance, no eval files
+    touched) of `node tests/run-eval-checks.mjs` → "all eval checks
+    passed" (12 skills, unchanged).
+  - Files changed: `README.md` (edit),
+    `docs/how-it-works/work-lifecycle.md` (edit),
+    `docs/how-it-works/standard-lifecycle.md` (edit).
+  - Concerns: none. Scope held to the three files SPEC §3 named; H5
+    (release ritual, four gates, PR) is not touched here.
 
-- 2026-08-18 — Owner approved SPEC+PLAN (direct-mode gate). Executing
-  H1-H4 via work-run — dispatches composed from
-  skills/work-run/references/ (the templates' first production use).
+## In progress
 
 ## Tried and failed
 
 ## Next
 
-- H4: README (ten skills + chain + adoption phrasing) + work-lifecycle
-  + standard-lifecycle mentions.
+- H5: four gates + release ritual — the 1.3.1 package entry + restamp
+  + migration note + work-verify + handoff + PR.
 
 ## Verification
 
