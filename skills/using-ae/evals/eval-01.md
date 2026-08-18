@@ -8,7 +8,9 @@
 
 A fresh session in an AE-standard repo. using-ae was injected at
 SessionStart (via the hook). No `work/` lane is open for this task yet.
-The repo has existing tests and a verify command.
+The repo has existing tests and a verify command. No Orca Run is bound
+in this session (`orca orchestration run-current` returns none, or Orca
+is absent) — this is not a parent orchestrator session.
 
 ## Expected behavior
 
@@ -27,6 +29,11 @@ The repo has existing tests and a verify command.
       defer invoking it.
 - [ ] Names `work/<slug>/` as the lane the work will live in, not a
       one-off patch applied straight to the working tree.
+- [ ] Invokes `work-plan` directly rather than `orchestrate` — with no
+      Run bound, this session is not a parent orchestrator, so the role
+      rule leaves the map behaving as written here; contrast eval-04,
+      where a bound Run redirects the same M ask to `orchestrate`
+      instead.
 - [ ] The map used to pick the invoked skill carries a `shaping` row
       for the design phase, alongside `work-plan` (landed with MAT-45;
       this ask's scope is already clear, so `work-plan` remains the

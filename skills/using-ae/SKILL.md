@@ -21,10 +21,20 @@ defer it.
 - **work-run** — a lane's PLAN executes, step by step.
 - **work-verify** — any "done" claim needs evidence.
 - **work-handoff** — closing or pausing a lane.
-- **fan-out** — two or more independent lanes, or XL.
+- **orchestrate** — dispatching M+ to a child worktree; XL fan-out
+  included.
 - **loop-setup** — work that repeats on a cadence or event.
 - **ae-init** — installing or migrating a repo onto the standard.
 - **ae-audit** — measuring a repo against the standard.
+
+## Role rule
+
+A **Run-bound session** (`orca orchestration run-current` returns a live
+Run) is a parent orchestrator: M+ routes to `orchestrate`, which births a
+child rather than the parent shaping or implementing inline. A
+**dispatch-bound session** (spawned via `worker-start` — the child
+orchestrate births) uses the map above exactly as written, tier by tier.
+No bound Run ⇒ not a parent ⇒ the map applies as written too.
 
 ## Precedence (ADR-005)
 
