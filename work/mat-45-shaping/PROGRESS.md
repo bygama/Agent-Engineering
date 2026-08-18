@@ -51,6 +51,51 @@
     `skills/using-ae/evals/eval-01.md` (edit).
   - Concerns: none — no SKILL.md content was written in this step, no
     scope beyond the eval files named in H1.
+- 2026-08-18 — H2 (judgment): `skills/shaping/SKILL.md` — the minimum
+  that passes the four evals from H1, house register.
+  - Read superpowers' `brainstorming` SKILL.md
+    (`~/.claude/plugins/cache/claude-plugins-official/superpowers/6.3.0/skills/brainstorming/SKILL.md`)
+    to steal the dialogue shape per SPEC §1, and `skills/work-plan/SKILL.md`
+    + `skills/work-run/SKILL.md` for the house register (frontmatter,
+    workflow checklist, numbered steps, red-flags table, judgment
+    notes).
+  - Wrote `skills/shaping/SKILL.md` (110 lines): frontmatter
+    (name/description, third person, what+when, cites the ADR-006
+    supersession and the S-tier probe by name); intro naming shaping's
+    place in the work-cycle family and what's adapted vs. NOT adopted
+    from brainstorming (no spike/bounded/architectural ladder — tier
+    is consumed, never re-derived; no written spec file of its own);
+    a 5-item workflow checklist; step 0 (tier consumption +
+    feasibility-probe special case); steps 1-3 (one question at a
+    time, 2-3 approaches with recommendation first + YAGNI, sectioned
+    design confirmed section-by-section) inside a `<HARD-GATE>` block
+    matching brainstorming's own, including the "approval is a
+    discrete stop" line eval-02(b) needs; step 4 (handoff to
+    work-plan design-first, no own artifacts, tier carried forward
+    unchanged); a red-flags table adapted from brainstorming's; a
+    judgment-notes section carrying the ADR-006 supersession detail
+    (cites it by name, doesn't disable brainstorming globally, TDD/
+    systematic-debugging untouched, explicit fallback when AE isn't
+    installed, never both dialogues on one ask) for eval-03.
+  - Cross-checked every line against eval-01..04's checklists before
+    stopping — each checklist item has a corresponding sentence in the
+    skill body (see the eval files under `skills/shaping/evals/`).
+  - No other file touched — ADR-006 itself, `reference/skills.md`,
+    the work-plan refusal reword, and using-ae's map row are H3's job,
+    not this step's.
+  - Acceptance: `node scripts/agent-lint.mjs . --ignore
+    tests,templates,global,examples` → "0 high, 0 medium, 0 low —
+    PASS" (F02). `node tests/run-eval-checks.mjs` → "all eval checks
+    passed" (12 skills now checked, shaping's 4 evals picked up
+    automatically and reported well-formed).
+  - Files changed: `skills/shaping/SKILL.md` (new, 110 lines).
+  - Concerns: none. The eval-checks runner only verifies structural
+    well-formedness (Query/Expected-behavior sections, checklist
+    lines) — it does not execute the behavioral scenarios, so the
+    actual dialogue behavior described here will only be exercised
+    once an agent runs the skill for real; I mapped every eval
+    checklist line to skill content by hand as the best available
+    proxy for "passes the evals" at this stage.
 
 ## In progress
 
@@ -62,8 +107,8 @@
 
 ## Next
 
-- H2: `skills/shaping/SKILL.md` — the minimum that passes the evals
-  just written.
+- H3: ADR-006 + `reference/skills.md` supersession + work-plan refusal
+  reword + using-ae map row.
 
 ## Verification
 

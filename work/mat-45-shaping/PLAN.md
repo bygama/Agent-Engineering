@@ -11,7 +11,7 @@
   brainstorming" → "invokes shaping") + one routing line in a
   `skills/using-ae/evals/` checklist — accept: `node
   tests/run-eval-checks.mjs` exits 0; F01 command green
-- [ ] H2 (judgment): `skills/shaping/SKILL.md` — the minimum that
+- [x] H2 (judgment): `skills/shaping/SKILL.md` — the minimum that
   passes the evals, house register — accept: F02 command exits 0 AND
   `node tests/run-eval-checks.mjs` exits 0
 - [ ] H3 (integration): ADR-006 + `reference/skills.md` supersession +
