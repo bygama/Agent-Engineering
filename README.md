@@ -62,8 +62,13 @@ stamp, obeys the same budgets, and passes the same audit it prescribes.
 Every unit of work runs the same lifecycle: intake on the tracker, triage
 into a tier, execution under that tier's ceremony, verification by command
 — never by confidence — and a clean handoff that ends in a rebase-merged
-PR. With the Linear↔GitHub integration active, the merge itself moves the
-issue to Done — repo truth drives tracker state, not the other way around.
+PR. The fork right after triage is the diagram's whole point: S skips the
+lane and verifies inline; M and L run one lane; XL forks into parallel
+lanes that rejoin through a reduce-and-synthesis gate before hitting the
+same verify step — a merged-whole gate that per-lane green never
+substitutes for. With the Linear↔GitHub integration active, the merge
+itself moves the issue to Done — repo truth drives tracker state, not the
+other way around.
 
 ```mermaid
 flowchart LR
@@ -149,7 +154,11 @@ maintain this repo itself and are never installed in consumers.
 ## Loops and graphs
 
 A loop is standing automation as a file: five elements, no exceptions —
-if one is missing, it is not a loop yet.
+if one is missing, it is not a loop yet. The diagram is one iteration:
+the gate is the asymmetry that makes standing automation cheap — nothing
+to do exits clean, only a yes triggers the bounded batch — then the
+state file records what happened so nothing reprocesses, and the stop
+rule plus budget decide whether the next trigger is even allowed to try.
 
 ```mermaid
 flowchart LR
@@ -237,6 +246,36 @@ Instantiated setups per repo shape live in [`examples/`](examples/): a
 single app, a monorepo, and a machine-config repo — the last one
 pointing at [workstation](https://github.com/bygama/workstation), a
 real public repo living under the standard.
+
+## Adopting AE on your own machine
+
+Installing in any repo (above) and adopting AE on your own machine are
+siblings, not the same step twice: one puts the standard's files inside a
+project, this one gets the skills that read those files into your agent
+runner in the first place. Nothing here needs anything beyond this
+repo's own files.
+
+Three ways to get the skills into a runner:
+
+1. **Clone and point at it** — clone this repo anywhere and tell the
+   runner to treat each `skills/<name>/SKILL.md` as a procedure.
+2. **Copy the skill folders** into the runner's own skills directory
+   (e.g. `~/.claude/skills`).
+3. **Junction or symlink them** instead of copying, so edits in the
+   clone go live immediately — the owner's own setup works this way.
+
+The SessionStart injection of `using-ae` — the entry skill's content
+pushed into context at the start of every session — is **optional**:
+without it, the skill still triggers by its description the first time a
+task needs it; the hook only saves that first lookup. The canonical
+wiring snippet — the hook script plus the settings entry that calls it —
+lives at `global/hooks/README.md`.
+
+None of this depends on any other repo.
+[bygama/workstation](https://github.com/bygama/workstation) is the
+owner's own reference implementation of this machine layer — a real
+`~/.claude` built by applying `global/` end to end — worth reading, but
+never a dependency.
 
 ## The standard in one paragraph
 
