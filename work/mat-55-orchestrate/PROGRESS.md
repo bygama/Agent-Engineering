@@ -819,6 +819,27 @@
   the installed CLI. Deferred-minors triage recorded in the review
   (1 fix-before-merge, 6 file-as-follow-up, rest accept-as-is).
 
+  Fix (2026-08-18): added `--subject "Lane complete"` to
+  `dispatch-child.md`'s `worker_done` command and `--subject "Review
+  verdict"` to `reviewer.md`'s, matching the shape already correct at
+  `skills/orchestrate/SKILL.md:112`. Re-probed the live CLI with the
+  fixed shape: `orca orchestration send --type worker_done --outcome
+  succeeded --subject "probe" --body "probe" --json` now fails with
+  `run_required` ("No recipient or active Dispatch Run could be
+  resolved") instead of the prior `Missing required --subject` —
+  confirms the argument-validation error is gone (the `run_required`
+  failure is expected outside an active Dispatch context). Also fixed
+  the fix-before-merge minor in the same command block:
+  `dispatch-child.md`'s Placeholders entry for `[LANE_PATH]` now states
+  the trailing-slash convention explicitly (the `PROGRESS.md`
+  concatenation has no separator and depends on it). Re-ran both gates,
+  both exit 0: `node scripts/agent-lint.mjs . --ignore
+  tests,templates,global,examples` → "0 high, 0 medium, 0 low — PASS";
+  `node tests/run-eval-checks.mjs` → "all eval checks passed" (12/12
+  skill dirs, including `orchestrate: 4 evals well-formed`). Files:
+  `skills/orchestrate/references/dispatch-child.md`,
+  `skills/orchestrate/references/reviewer.md`.
+
 ## Next
 
 ## Verification

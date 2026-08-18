@@ -63,6 +63,7 @@ Do not leave your findings only in a chat reply — the parent is
 watching the mailbox, not a terminal. Report `worker_done` yourself:
 
   orca orchestration send --type worker_done --outcome succeeded \
+    --subject "Review verdict" \
     --body "<PASS|FAIL — findings by severity, file:line, command
            output quoted>"
 
