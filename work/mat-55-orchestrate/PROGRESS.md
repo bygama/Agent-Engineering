@@ -800,6 +800,25 @@
 
 ## Tried and failed
 
+- 2026-08-18 — work-verify fresh-context lane review: **FAIL** (PASS
+  withheld). What: (C1) both dispatch templates' `worker_done` commands
+  omit the REQUIRED `--subject` flag — reviewer probed the live CLI:
+  `{"ok": false, "error": … "Missing required --subject"}`; a verbatim
+  child/reviewer could never report done. SKILL.md:112 has the flag
+  right — template oversight. (C2) recording defect: all six feature
+  rows still `not_started`/`evidence: null`, `## Verification` empty,
+  while commit 8309bcd's message said "rows F01-F06 green" — the rows
+  were run green by the controller but never recorded; the message
+  overstated. Why: template commands were built from `send --help`
+  reading but never probed end-to-end; controller sequencing error on
+  the commit wording. Fix: add `--subject` to both templates (+ the
+  fix-before-merge minor: `[LANE_PATH]PROGRESS.md` separator, same
+  block), then re-run rows, re-verdict with the same reviewer, and
+  only then flip rows + write the PASS block. All other substance
+  held: reviewer re-verified every orca mechanic flag-by-flag against
+  the installed CLI. Deferred-minors triage recorded in the review
+  (1 fix-before-merge, 6 file-as-follow-up, rest accept-as-is).
+
 ## Next
 
 ## Verification
