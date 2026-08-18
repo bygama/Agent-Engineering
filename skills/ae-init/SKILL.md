@@ -50,12 +50,12 @@ does anything outside the repo depend on it (published package, API, sibling
 repos), or is it free to break compatibility? Neither answer is inferable and
 it governs every later edit. Accept "none". Never invent filler to make
 blocks look complete; empty blocks are valid.
-Settle the artifacts language here too, once for the repo: agent context and
-technical docs default to ENGLISH — never inferred from the README or from
-the language of this conversation. When the repo's human docs are another
-language, record the split as a gotcha in the generated AGENTS.md: agent
-context and technical docs English; site content/SEO/README in the project's
-own language — never fix one side into the other.
+Ask about the artifacts language here too, and settle it once for the repo:
+agent context and technical docs default to ENGLISH — never inferred from
+the README or from the language of this conversation. When the repo's human
+docs are another language, record the split as a gotcha in the generated
+AGENTS.md: agent context and technical docs English; site content/SEO/README
+in the project's own language — never fix one side into the other.
 
 **4. Verify commands.** Run each build/test/run/lint command before writing
 it into AGENTS.md. Skip destructive or long-running ones — mark them
