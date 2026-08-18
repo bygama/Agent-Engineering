@@ -6,8 +6,9 @@ This chapter covers the execution machinery above single lanes: **loops**
 work-run, the step-by-step executor inside one lane (ADR-004) — is the
 [work-lifecycle](work-lifecycle.md) chapter; this one is about work that
 *keeps happening* and work that *happens in parallel*. The pairing is
-symmetric: work-run = sequential within a lane; fan-out = parallel
-across lanes — both hand a worker the same package, the lane.
+symmetric: work-run = sequential within a lane; orchestrate = parallel
+across lanes, one child worktree per lane (ADR-008) — both hand a worker
+the same package, the lane.
 
 ## Loops: standing automation as a file
 
@@ -95,9 +96,11 @@ verified CLI syntax lives in `reference/orca.md`; the shape of it:
 - **lane** → child worktree (`orca worktree create`, `--linear-issue`
   links the tracker); the card mirrors the lane (`--workspace-status`,
   `--comment` checkpoints).
-- **worker (fan-out)** → agent-first create: `orca worktree create
-  --agent <id> --prompt "<brief>" --parent-worktree active` — one command
-  per worker.
+- **child (orchestrate)** → supervised birth via `orca orchestration
+  worker-start --task <id> --worktree new-child` (full Task + Dispatch +
+  launch provenance); the raw `worktree create --agent --prompt` form is
+  reserved for an unsupervised full-transfer handoff, never a dispatched
+  child.
 - **long-lived process** → terminal tab that outlives the agent session
   (`orca terminal create`). Never a background shell inside an agent
   session.
@@ -147,16 +150,118 @@ owner-enabled 2026-08-17; the gate rule keeps Done out of its reach). State file
 beside them, gitignored. They exist because the anti-decay rule and the
 intake plane deserve a cadence, not just good intentions at merge time.
 
-## Graphs: parallel work that merges deterministically
+## Orchestration: the graph layer's parent/child cycle
 
-The graph layer coordinates many lanes: a DAG with verification gates on
-the edges, and fan-out/fan-in as the working shape. Since AE/2.5 the
-layer has a tier that owns it: fan-out is **mandatory at XL** — work that
-cannot fit one lane (ADR-002) — and available at L. The `fan-out` skill
-refuses the split until the **three pre-fan-out questions** are answered
-in writing in the parent lane's PLAN — where does each unit work, how do
-results merge, who resolves disagreement — because a fan-out you can't
-write down is a queue wearing a costume.
+This is the graph layer from `architecture.md`'s six-layer table —
+coordinating many lanes with verification gates on the edges — now owned
+end to end by one skill: **orchestrate** (`skills/orchestrate`, ADR-008).
+It maps AE onto Orca's native orchestration primitives (Run, Task,
+Dispatch, `worker_done`, decision gates) instead of inventing
+coordination, and it absorbed `fan-out` (closed finalize-then-remove;
+`reference/skills.md`) — the same skill now owns both the one-child case,
+which is every M+ task, and the many-children case, XL, below.
+
+The tier gate is unconditional: **S** resolves inline in the parent, no
+lane, no Task, no child. **M and above always goes to a child** — the
+parent's own checkout never touches the work it is supervising, and
+"this M is two lines, I'll just do it here" is exactly the thought the
+skill refuses.
+
+### Topology: one Run, its children, their reviewers
+
+```mermaid
+flowchart TB
+    RUN[["Orca Run<br/>one per parent — never a second registration"]] --- P["Parent worktree<br/>orchestrator — implements nothing"]
+    P -->|worker-start --task<br/>--worktree new-child| C1["Child 1<br/>work/&lt;slug-1&gt; lane"]
+    P -->|worker-start --task<br/>--worktree new-child| C2["Child 2<br/>work/&lt;slug-2&gt; lane"]
+    P -.->|XL: more children,<br/>--deps queues file overlap| C3["Child N"]
+    C1 -->|worker-start, read-only<br/>worktree cut from lane branch| B1["Reviewer / ballena<br/>different model family"]
+    C2 -->|worker-start, read-only| B2["Reviewer / ballena"]
+    B1 -.->|worker_done body:<br/>PASS or FAIL| P
+    B2 -.->|worker_done body:<br/>PASS or FAIL| P
+    C1 -->|PR opened, never merged| MAIN(["main"])
+    C2 -->|PR opened, never merged| MAIN
+    P -->|gh pr merge --rebase<br/>parent's chosen order| MAIN
+```
+
+What to see: every arrow into a worktree is a `worker-start`, never the
+raw `worktree create --agent --prompt` form — that full-handoff path is
+for an unsupervised transfer, not a dispatched child (the Orca mapping
+above). Reviewers sit one hop off the *child*, not off the parent: their
+worktree is cut from the lane's own branch, read-only, and their verdict
+— the `worker_done` **body**, never `--outcome` — reports back to the
+parent, never straight to the child; a child only ever sees a reviewer's
+findings as something the parent relays. And only one arrow ever lands
+on `main`: children open PRs but never merge them, so the parent is the
+sole rebase point, in whatever order it has chosen — never arrival
+order.
+
+### The 8-stage dispatch cycle
+
+Binding the Run (`run-current` / `run-create` / `run-use`) happens once
+per parent session, before any lane exists. What repeats, once per lane,
+is this cycle:
+
+```mermaid
+sequenceDiagram
+    participant O as Owner
+    participant P as Parent (orchestrator)
+    participant C as Child worktree
+    participant R as Reviewer / ballena
+    participant M as main
+
+    P->>P: 1. tier gate — S stops here, M+ continues
+    P->>P: 2. lane -> Task (--deps queues file overlap)
+    P->>O: 3. dispatch dialogue - reviewers? how many? which model?
+    O-->>P: answer recorded in the Task spec
+    P->>C: 4. worker-start --task --worktree new-child<br/>+ Linear bound at birth
+    activate C
+    C->>C: work-plan -> work-run -> work-verify -> work-handoff
+    C-->>P: 5. question (check --wait)
+    P-->>C: reply - ruling lands in the child's own DECISIONS
+    C->>M: opens PR, never merges
+    C-->>P: 5. worker_done
+    deactivate C
+    P->>R: 6. review wave - reviewer.md verbatim, read-only worktree
+    activate R
+    R-->>P: worker_done body: PASS or FAIL
+    deactivate R
+    alt FAIL, up to 5 rounds
+        P->>C: findings return to the SAME child, same terminal
+        C-->>P: worker_done again
+        P->>R: re-review, same reviewer terminal
+        R-->>P: verdict again
+    else cap exhausted
+        P->>O: 6. gate-create - merge as-is / keep fixing / drop
+        O-->>P: gate-resolve
+    end
+    P->>C: 7. rebase onto fresh main, rerun gates
+    C-->>P: rebased, gates green
+    P->>M: 7. gh pr merge --rebase --delete-branch
+    P->>P: 8. worker-release + worktree rm, record in PROGRESS
+```
+
+What to see: stages 5 and 6 are the two places the cycle can loop back —
+`5` on a question (the ruling lands in the child's *own* DECISIONS, not
+the parent's) and `6` on a FAIL (findings return to the *same* child's
+terminal, never a fresh one, capped at five rounds before an owner gate
+replaces the loop with a decision). Stage 7's ordering is easy to miss:
+the rebase and re-gate happen *before* the merge, inside the child, not
+after — a PASS earned against a stale `main` is not a PASS against the
+`main` the PR is about to land on. And stage 8 is not optional
+housekeeping: the reviewer's own dispatch and worktree are decommissioned
+right alongside the child's — a retained ballena idles exactly as
+expensively as a retained child.
+
+### Several children at once (XL)
+
+At XL — work that cannot fit one lane (ADR-002) — orchestrate dispatches
+many children under one more rule: it refuses the split until the
+**three pre-dispatch questions** are answered in writing in the parent
+lane's PLAN — where does each unit work, how do results merge, who
+resolves disagreement — because a parallel split you can't write down is
+a queue wearing a costume. Mandatory at XL (ADR-008, superseding
+ADR-002's original mandate), available at L.
 
 ```mermaid
 flowchart TD
@@ -174,17 +279,17 @@ flowchart TD
 
 What to see: two hard gates bracket the parallel middle, not one. `Q` is
 a real fork — a dependency found routes straight to `ONE`, a refuse (one
-lane or a gated sequence: `stages, not parallel items` in the skill's own
-words), and only the independent branch ever reaches the worker table.
-`R` mirrors it on the way back: reduce refuses to merge any lane without
-a current PASS block, sending a `missing` lane to `BACK` — redone or
+lane or a gated sequence: `stages, not lanes` in the skill's own words),
+and only the independent branch ever reaches the worker table. `R`
+mirrors it on the way back: reduce refuses to merge any lane without a
+current PASS block, sending a `missing` lane to `BACK` — redone or
 dropped, never patched by a sibling reaching across — while only `all
 present` proceeds to the merge. And clearing `R` still isn't the finish
 line: the synthesis gate (`G`) re-runs the whole merged tree's
 verification before any row moves to `passing`, because per-lane tests
 are structurally blind to mismatches *between* lanes.
 
-Three properties carry the rest of the layer. **Anchors** — the SPEC,
+Four properties carry the rest of the layer. **Anchors** — the SPEC,
 interfaces, and feature list frozen read-only the moment qualification
 passes — keep parallel lanes from drifting apart while nobody watches; a
 worker that diverges from an anchor loses by rule, and the divergence is
@@ -195,11 +300,14 @@ the standard's existing currency), deterministic merge order (item
 order, never arrival order), and anchors win any disagreement.
 **Failure locality** holds throughout: any lane — refused up front,
 missing its PASS, or failing synthesis — is redone or dropped, never
-repaired by a sibling reaching in.
+repaired by a sibling reaching in. And **one parent per repo**: two
+parents over the same `main` are two merge queues on one branch, allowed
+only with disjoint file scopes and disjoint lanes agreed in writing —
+otherwise the second waits, or becomes a child itself.
 
 The tax is real (`reference/graphs-and-reducers.md`): every worker and
-edge costs coordination, so fan-out pays only on true independence, with
-the smallest worker count that keeps items independent.
+edge costs coordination, so orchestrate pays only on true independence,
+with the smallest worker count that keeps items independent.
 
 ## Runners: any file-reading agent can hold a lane
 
@@ -208,7 +316,7 @@ support, verified spawn command. The design premise is that work state
 lives in files — canonical AGENTS.md plus lane folders — so a worker's
 runner is a free choice per row of the worker table: Claude Code today,
 codex or opencode or dsh tomorrow, with zero runner-specific files (the
-adapter ban holds mid-fan-out; runners without SKILL.md support are told
+adapter ban holds mid-dispatch; runners without SKILL.md support are told
 to read the skill file and follow it as a procedure). "Verify on install"
 is a hard rule: no spawn command enters a worker table until it ran on the
 target machine.

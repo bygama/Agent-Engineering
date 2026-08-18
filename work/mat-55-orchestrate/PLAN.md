@@ -79,7 +79,7 @@
       execution-in-child; fan-out absorbed with manual fallback kept;
       1.3.0 reused post-renumber (ADR-007 addendum lineage) —
       accept: `test -s docs/adrs/ADR-008-orchestration.md`
-- [ ] 8. `judgment` docs/how-it-works chapter for orchestration (same
+- [x] 8. `judgment` docs/how-it-works chapter for orchestration (same
       change as the behavior, hard constraint): topology diagram (parent
       Run, children, ballenas, PRs to main) + lifecycle sequence diagram
       (the 8-stage dispatch cycle), every mermaid narrated ("what to
