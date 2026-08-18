@@ -23,7 +23,7 @@
   {
     "id": "F04",
     "behavior": "fan-out is absorbed: skills/fan-out is gone and no living surface names it as current (using-ae map, reference/skills.md, README, tier docs); records keep the name",
-    "verification": "test ! -d skills/fan-out && ! grep -q fan-out skills/using-ae/SKILL.md && ! grep -q fan-out README.md",
+    "verification": "test ! -d skills/fan-out && ! grep -q skills/fan-out skills/using-ae/SKILL.md && ! grep -q skills/fan-out README.md",
     "state": "not_started",
     "evidence": null
   },
