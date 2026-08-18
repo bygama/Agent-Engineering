@@ -36,6 +36,6 @@
 - Never run a long-lived process (dev server, driven browser) as a
   background shell in an agent session — it blocks working→idle and dies
   with the session. Dev servers get their own Orca terminal tab (`orca
-  terminal create --command "npm run dev"`; read via `terminal read`);
-  browser work uses Orca's embedded browser (`orca goto/snapshot/click`),
-  never Playwright, chrome-devtools, or claude-in-chrome.
+  terminal create --command "npm run dev"`); browser work uses Orca's
+  embedded browser (`orca goto/snapshot/click`), never Playwright or
+  Chrome MCPs (chrome-devtools, claude-in-chrome).
