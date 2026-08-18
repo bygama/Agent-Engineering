@@ -166,6 +166,16 @@ issue: MAT-61
   Fixed: corrected step 6 hash (e33ac30 is the amended commit) and removed
   duplicate heading in PROGRESS.md structure; lint gate re-run: exit 0.
 
+- Steps 4-6 review: ✅ spec-compliant all three (fresh reviewer, sonnet);
+  quality verdict Needs fixes on two Important bookkeeping defects in
+  PROGRESS.md (wrong step-6 hash `44c0d86`, duplicate `## Tried and
+  failed` heading). Fix round 1: same implementer resumed, fix commit
+  `8c34e4c`; scoped re-review verdicts both findings ADDRESSED, no new
+  breakage — round closed, batch Approved. One Minor deferred to
+  work-verify triage: capitalization drift on "before ANY tracker write"
+  (source and eval-03 capitalize ANY; SKILL.md and integrations.md use
+  lowercase "any") — cosmetic.
+
 ## In progress
 
 ## Tried and failed
