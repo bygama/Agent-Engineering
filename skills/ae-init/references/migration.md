@@ -99,8 +99,13 @@ stable line's layout.
   entry hook (ADR-005). Migrating up: restamp only — skills are
   machine-global (junctions) and the hook applies via the workstation
   installer, so nothing changes inside an installed repo.
-- **1.3.0** (2026-08-17) — skill renames: relay → work-run,
-  agent-init → ae-init, agent-audit → ae-audit. Migrating up: restamp;
-  optionally refresh `docs/tiers.md` (its L row now names work-run).
-  Machine junctions pick up the new names on the next workstation
-  installer run; nothing inside an installed repo must change.
+- **1.2.1** (2026-08-17; shipped as 1.3.0, renumbered 2026-08-18 per
+  ADR-007) — skill renames: relay → work-run, agent-init → ae-init,
+  agent-audit → ae-audit. Migrating up: restamp; optionally refresh
+  `docs/tiers.md` (its L row now names work-run). Machine junctions
+  pick up the new names on the next workstation installer run; nothing
+  inside an installed repo must change.
+- **1.2.2** (2026-08-18) — the templates + shaping package: dispatch
+  templates ship with work-run/work-verify; `skills/shaping` owns the
+  design dialogue (ADR-006). Migrating up: restamp only — skills are
+  machine-global; nothing inside an installed repo must change.

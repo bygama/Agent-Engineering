@@ -42,8 +42,14 @@ the MINOR/PATCH split changes meaning.
 - The release skill's Size step and eval-04 re-encode the criterion;
   when milestone status is unclear, the ritual asks the owner.
 - Immediate application: the dispatch-templates + shaping package
-  ships as 1.3.1; 1.4.0 is reserved for the worktrees/orchestration
+  ships as 1.2.2; 1.4.0 stays reserved for the worktrees/orchestration
   milestone (owner, 2026-08-18).
+- Addendum (2026-08-18, owner): applied retroactively one release back
+  — 1.3.0 (the renames) renumbered to 1.2.1: tag moved to `v1.2.1` on
+  the same commit, CHANGELOG heading annotated, consumers restamp on
+  their next migration. Renumbering reached only a release with zero
+  external adopters and hours of life; shipped releases older than
+  that keep their numbers.
 
 ## Alternatives considered
 

@@ -29,7 +29,42 @@ and keep their former name for traceability; repos still stamped with an
 old name are "behind, not broken" — `agent-audit` flags them,
 `agent-init` migrates them.
 
-## [1.3.0] — 2026-08-17
+## [1.2.2] — 2026-08-18
+
+The templates + shaping package (sized PATCH per ADR-007; 1.4.0 stays
+reserved for the orchestration milestone).
+
+### Added
+
+- `skills/shaping` — AE owns the design dialogue (ADR-006): one
+  question at a time, 2-3 approaches with a recommendation, a design
+  confirmed section by section under a hard approval gate, feasibility
+  probes as S-tier ask-and-report; consumes the tier from using-ae and
+  hands the approved design to work-plan design-first, leaving no
+  artifact of its own. Supersedes superpowers' `brainstorming` for
+  daily design work (installed suite remains the no-AE-setup fallback).
+- Dispatch prompt templates ship with the executor skills
+  (`skills/work-run/references/`: implementer, step-reviewer,
+  re-reviewer; `skills/work-verify/references/`: lane-reviewer) —
+  fill-in skeletons encoding the lane contracts; controllers compose
+  dispatches from them instead of improvising, and the evals now
+  require it.
+- ADR-006: the design dialogue is AE's (narrower than ADR-005:
+  supersession on observed friction, not artifact collision).
+
+### Changed
+
+- `reference/skills.md`: brainstorming leaves the composable examples;
+  the Placement rule and the ADR-006 supersession paragraph land;
+  using-ae routes design asks to shaping; work-plan's refusal invokes
+  shaping instead of pointing at an external suite.
+- README: "The ten skills" with shaping opening the chain.
+
+## [1.2.1] — 2026-08-17
+
+*(Shipped as 1.3.0; renumbered 2026-08-18 under ADR-007's retroactive
+application — owner decision, tag moved to `v1.2.1` on the same
+commit.)*
 
 ### Changed
 

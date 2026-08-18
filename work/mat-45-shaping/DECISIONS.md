@@ -17,6 +17,13 @@
 - 2026-08-18 — TDD and systematic-debugging stay in the composable
   examples list — their replacements are MAT-46/47 (skills repo), not
   this lane; ADR-006's scope is the design dialogue only.
+- 2026-08-18 — Owner-approved renumber folded into H5 ("borrala nomás"):
+  v1.3.0 deleted and retagged v1.2.1 on the same commit; CHANGELOG
+  heading annotated (shipped-as note); migration note renumbered;
+  ADR-007 addendum records the retroactive application; SPEC amendment
+  pointers refreshed as navigation. The package releases as 1.2.2.
+  Renumber reached only a release with zero external adopters and
+  hours of life.
 - 2026-08-18 — Ruling (H3 review Important): using-ae's Precedence
   section still asserting "brainstorming... stay composable" is a real
   SPEC gap (no step owned it) and load-bearing — the entry skill would
