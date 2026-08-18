@@ -9,7 +9,9 @@ DECISIONS."
 ## Fixture
 
 An M-tier lane with four independent-ish sequential steps; step 2's
-acceptance is `npm test -- export.test.js` exits 0.
+acceptance is `npm test -- export.test.js` exits 0. Step 3's review
+comes back FAIL and takes one fix round. Runners on this runtime linger
+after reporting instead of ending on their own.
 
 ## Expected behavior
 
@@ -39,6 +41,19 @@ acceptance is `npm test -- export.test.js` exits 0.
       `skills/work-run/references/step-reviewer.md` with its three
       inputs — diff package path, PLAN step, SPEC — never a freehand
       prompt written from scratch.
+- [ ] Releases a runner the moment its report or verdict is RECORDED —
+      a finished runner never lingers idle waiting for the next step.
+- [ ] Releases the reviewer once its verdict is recorded, and each
+      re-review seat once its re-verdict is recorded — neither is held
+      open in case a later step needs a review.
+- [ ] Does NOT release step 3's implementer while its review is pending:
+      that runner stays resumable for the fix loop, and is released only
+      once the step's verdict is recorded as Approved (or its fix round
+      closes).
+- [ ] Treats release as runtime-neutral — where a subagent ends
+      naturally at its report the release is a no-op; on this fixture's
+      lingering runtime it is an explicit stop/release, never left
+      implicit.
 - [ ] One implementer at a time — never two steps in flight (WIP=1
       inside the lane).
 - [ ] Picks the model per step by role: mechanical → cheap tier;
