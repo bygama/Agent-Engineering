@@ -23,7 +23,7 @@ dispatch.
   reviewer confirms every diagram placed+explained; lint exits 0
 - [x] E5 (judgment): execution.md per the bar — accept: same; lint
   exits 0
-- [ ] E6 (judgment): standard-lifecycle.md + integrations.md per the
+- [x] E6 (judgment): standard-lifecycle.md + integrations.md per the
   bar — accept: same; lint exits 0
 - [ ] E7 (controller): four gates + docs-sweep battery over touched
   files + work-verify (fresh whole-diff review) + handoff + PR —
