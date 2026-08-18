@@ -28,7 +28,10 @@ flowchart LR
 Read the arrows as dependencies of meaning: skills argue from the reference
 docs, templates embody them, the lint automates the part of the argument
 that needs no judgment, and the fixtures prove the lint tells the truth.
-`docs/how-it-works/` sits outside the flow and explains all of it — which is
+`global/` carries no arrow on purpose — it feeds no consumer inside this
+repo; a separate machine-setup mechanism applies its content straight to
+`~/.claude`, outside the dependency chain the arrows trace. `docs/how-it-works/`
+sits outside the flow too, on the other side: it explains all of it — which is
 why every structural change must touch it too.
 
 ## What each directory answers
@@ -61,14 +64,32 @@ stays out.
 
 ### `skills/` — how does it replicate and get used day to day?
 
-Live, all six: `ae-init`, `ae-audit` (AE/2.0); `work-verify`, `work-handoff` (AE/2.1); `loop-setup` (AE/2.2); `fan-out` (P4, no bump — no template or check changed).
+Live, all nine: `ae-init`, `ae-audit` (AE/2.0); `work-verify`,
+`work-handoff` (AE/2.1); `loop-setup` (AE/2.2); `fan-out` (P4, no bump —
+no template or check changed); `work-run` (1.1.0 —
+[ADR-004](../adrs/ADR-004-relay.md) gave execution a house owner);
+`work-plan`, `using-ae` (1.2.0 —
+[ADR-005](../adrs/ADR-005-artifact-phases.md) generalized ADR-004 to
+every artifact-producing phase).
 
-The actors. `ae-init` installs or migrates a repo; `ae-audit` judges
-one against the standard and flags version drift; the `work-*` pair applies
-the daily discipline (verification before "done", clean-state handoffs);
-`loop-setup` and `fan-out` scale it to scheduled and parallel work. Skills
-are plain markdown procedures: runtimes with native skill support load them
-by trigger, and any other agent can simply be told to read the file and
+The actors. `using-ae` is the always-loaded entry point: it triages an
+arriving task's tier and routes to whichever skill below owns the
+current phase, before any action. `ae-init` installs or migrates a
+repo; `ae-audit` judges one against the standard and flags version
+drift. The work-* chain applies the daily discipline end to end:
+`work-plan` shapes an approved design into the lane's `PLAN.md`,
+`work-run` executes it step-by-step (a fresh implementer subagent per
+step, the lane as its entire context package), `work-verify` gates
+"done" on command evidence, `work-handoff` closes or pauses the lane
+clean. `loop-setup` and `fan-out` scale the same discipline to
+scheduled and parallel work — `fan-out` is `work-run`'s parallel
+sibling, splitting XL work across lanes where every worker runs that
+same inner cycle in its own lane. Process-skill suites' own planners
+and executors are superseded in writing by this chain
+(`reference/skills.md`, [ADR-004](../adrs/ADR-004-relay.md),
+[ADR-005](../adrs/ADR-005-artifact-phases.md)). Skills are plain
+markdown procedures: runtimes with native skill support load them by
+trigger, and any other agent can simply be told to read the file and
 follow it — that readability is a design requirement, not an accident.
 Every skill ships with at least three evals, written before the skill
 content, and the evals change before the skill does.
