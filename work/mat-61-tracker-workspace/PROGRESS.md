@@ -222,11 +222,44 @@ issue: MAT-61
 
 ## Next
 
-- work-verify; PR; handoff.
+- Parent's steps, not this worker's: launch the ballena adversarial seat
+  (opencode-go/deepseek-v4-flash) against the PR, request rebase onto
+  fresh main if needed, merge, then finalize-then-remove this lane
+  (MAT-60 precedent). Follow-up owed (out of this lane's fence):
+  `docs/how-it-works/work-lifecycle.md:272` under-describes
+  work-handoff's tracker step (no binding check).
 
 ## Verification
 
-<!-- PASS evidence only, written by work-verify (newest on top); the close
-     handoff refuses to close a lane without a current PASS block here. -->
+### 2026-08-18 — M DoD — PASS
+
+- L1 static: `node scripts/agent-lint.mjs . --ignore
+  tests,templates,global,examples` → exit 0 (`0 high, 0 medium, 0 low —
+  PASS`)
+- L2 behavioral: `node tests/run-lint-tests.mjs` → exit 0 (`all 13 cases
+  passed`); `node tests/run-gen-tests.mjs` → exit 0 (`all gen cases
+  passed`); `node tests/run-eval-checks.mjs` → exit 0 (`ok   ae-init: 5
+  evals well-formed` / `ok   work-handoff: 6 evals well-formed` / `all
+  eval checks passed`)
+- L3 end-to-end: n/a — prose contract change (skill instructions,
+  reference rule, docs distillation); no executable cross-component flow
+  beyond the suites (recorded in DECISIONS.md)
+- Fresh-context review: PASS (opus, no shared context; all four gates
+  re-run independently, fence verified via `git diff --stat`
+  b732b30..e0c380c — 11 files all inside the fence, no
+  bump/CHANGELOG/restamp, evals-before-content ordering confirmed per
+  skill). Its one Important finding — polish had attached the slug lookup
+  to `result.meta.resolved`; the `url` actually lives at
+  `result.issue.url` — was fixed in `aa61d04` together with its
+  backtick-citation Minor; all four gates re-run green on the final tree
+  (exits 0/0/0/0, tree clean at `aa61d04`).
+- Adversarial review: n/a at M in-lane — the cross-model seat (ballena,
+  opencode-go/deepseek-v4-flash) is the PARENT's to launch after
+  worker_done, per the dispatch brief; not run by this worker.
 
 <!-- First read of every session. If it isn't here, it didn't happen. -->
+
+Follow-up surfaced (out of fence, parent's call):
+`docs/how-it-works/work-lifecycle.md:272` describes work-handoff's
+tracker step and now under-describes it (no binding check) — the fence
+ruling scoped the how-it-works touch to integrations.md only.
