@@ -479,6 +479,49 @@
   :83-84 is thematically loose. Reviewer traced every ADR claim to
   its lane source — none invented.
 
+- Step 7 fix round 1 (2026-08-18): the one Important finding addressed —
+  four reciprocal pointers added, each an annotation in the house form
+  the reviewer already verified is real and active, no rewrite of any
+  document's original content:
+  - `docs/specs/SPEC-agent-engineering.md` Decision 7's existing
+    "Amended by ... Further amended by ..." chain gained one more clause:
+    "Further amended by [ADR-008](../adrs/ADR-008-orchestration.md): XL's
+    mandatory fan-out is reassigned to `orchestrate`, which also becomes
+    an additional L executor option alongside `work-run`."
+  - `docs/adrs/ADR-002-tier-xl.md`'s Status line gained
+    `; XL's mandatory fan-out reassigned to orchestrate by ADR-008
+    (2026-08-18)`, appended to its existing "Amends SPEC Decision 7"
+    comment.
+  - `docs/adrs/ADR-004-relay.md`'s Status line gained a third HTML
+    comment, `<!-- orchestrate added as an additional L executor option
+    by ADR-008 (2026-08-18) -->`, matching its existing pattern of one
+    comment per fact rather than editing the two already there.
+  - `docs/adrs/ADR-007-milestone-versioning.md`'s Status line gained
+    `; 1.4.0 reservation superseded by ADR-008 (2026-08-18) — the
+    orchestration milestone shipped as 1.3.0 instead`. Landed as a
+    Status-line pointer (ADR-003's pattern for a forward-pointing
+    supersession) rather than editing the Consequences bullet that still
+    reads "1.4.0 stays reserved" — that sentence is accurate to what was
+    true when ADR-007 shipped and stays untouched as the historical
+    record; the pointer is what tells a reader it was later superseded.
+
+  Deferred, per the controller's instruction to fix exactly this
+  finding: the Minor about the ADR-006 design-in-parent/execution-in-
+  child analogy at ADR-008.md:83-84 being thematically loose — left for
+  a later triage, not addressed here.
+
+  Acceptance re-run: `test -s docs/adrs/ADR-008-orchestration.md` → PASS
+  (unaffected — this round touched other files, not ADR-008 itself).
+  Also re-ran `node scripts/agent-lint.mjs . --ignore
+  tests,templates,global,examples` → 0 high, 0 medium, 0 low — PASS.
+
+  Files: `docs/specs/SPEC-agent-engineering.md`,
+  `docs/adrs/ADR-002-tier-xl.md`, `docs/adrs/ADR-004-relay.md`,
+  `docs/adrs/ADR-007-milestone-versioning.md`.
+
+  Concerns: none. All four edits are one-clause annotations following an
+  existing, verified-active convention — no content rewritten.
+
 ## In progress
 
 ## Tried and failed

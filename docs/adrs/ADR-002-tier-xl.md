@@ -1,7 +1,7 @@
 # ADR-002: Tier XL — work that cannot fit one lane
 
 Date: 2026-08-16
-Status: Accepted <!-- Amends SPEC Decision 7 -->
+Status: Accepted <!-- Amends SPEC Decision 7; XL's mandatory fan-out reassigned to orchestrate by ADR-008 (2026-08-18) -->
 
 ## Context
 

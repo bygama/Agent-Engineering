@@ -98,7 +98,10 @@ becomes a check.
    [ADR-004](../adrs/ADR-004-relay.md): a lane executes step-by-step via the executor
    skill (shipped as `relay` in v1.1.0, named `work-run` since v1.2.1), recommended
    default at L; generalized by [ADR-005](../adrs/ADR-005-artifact-phases.md):
-   artifact-producing phases (plan → run → verify → close) are AE-owned.*
+   artifact-producing phases (plan → run → verify → close) are AE-owned. Further
+   amended by [ADR-008](../adrs/ADR-008-orchestration.md): XL's mandatory fan-out is
+   reassigned to `orchestrate`, which also becomes an additional L executor option
+   alongside `work-run`.*
 8. **Linear is the intake/workflow plane; the repo is the execution plane.** They hold
    different states, so there is no double bookkeeping: Linear owns workflow state
    (Todo/In Progress/In Review/Done); the repo owns verification state
