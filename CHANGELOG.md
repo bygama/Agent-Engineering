@@ -12,7 +12,9 @@ source 2026-08-17. A version is spoken "AE 1.0.0" and written
   check, or skill surface.
 - **PATCH** — fixes and errata, backward compatible.
 
-Template or check changes always bump; docs-only refreshes never do.
+Template or check changes always land in a bump — never shipped
+silently; related change sets may accumulate unreleased and ship
+together, owner-paced. Docs-only refreshes never bump.
 Every bump restamps the root `AGENTS.md` in the same change, lands with
 its migration note (`skills/agent-init/references/migration.md`), and
 tags the release (`vMAJOR.MINOR.PATCH`) — the README badge reads the
