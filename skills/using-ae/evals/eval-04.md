@@ -33,3 +33,6 @@ step 0). No child worktree, Task, or Dispatch exists for this ask yet.
       route to a different skill solely because this session carries a
       bound Run — the role rule is a property of the session, not the
       task.
+- [ ] The SKILL.md red-flags table's "I'll just execute this inline"
+      row's Reality cell states the role-split — M+ never inline: parent
+      routes to orchestrate, work-run executes within a lane.
