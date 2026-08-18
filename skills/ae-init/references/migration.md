@@ -109,3 +109,7 @@ stable line's layout.
   templates ship with work-run/work-verify; `skills/shaping` owns the
   design dialogue (ADR-006). Migrating up: restamp only — skills are
   machine-global; nothing inside an installed repo must change.
+- **1.3.0** (2026-08-18) — orchestration (ADR-008): `skills/orchestrate`
+  owns the parent role end to end (dispatch, review, merge); `skills/fan-out`
+  absorbed. Migrating up: restamp only — skills are machine-global; the
+  workstation installer must sweep the dangling fan-out junction.
