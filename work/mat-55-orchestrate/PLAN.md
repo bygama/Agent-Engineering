@@ -90,7 +90,7 @@
       10), root AGENTS.md Map line, any other living surface still
       naming fan-out as current (records excluded) —
       accept: `grep -q orchestrate README.md && node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
-- [ ] 10. `mechanical` ae-init migration note: `**1.3.0** (2026-08-…)` —
+- [x] 10. `mechanical` ae-init migration note: `**1.3.0** (2026-08-…)` —
       restamp only; skills are machine-global; the workstation installer
       must sweep the dangling fan-out junction (MAT-50 gap named) —
       accept: `grep -qF "**1.3.0** (2026-08" skills/ae-init/references/migration.md`

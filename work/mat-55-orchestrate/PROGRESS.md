@@ -774,6 +774,23 @@
   checkbox was dangling (controller ticked it in this commit — its
   work and review were already recorded). No fix rounds.
 
+- Step 10 (2026-08-18): added the 1.3.0 migration note to
+  `skills/ae-init/references/migration.md` — restamp only, recording
+  that orchestration (ADR-008) ships as 1.3.0, that skills are
+  machine-global (junctions), and that the workstation installer must
+  sweep the dangling fan-out junction per MAT-50 guidance.
+
+  Acceptance: `grep -qF "**1.3.0** (2026-08" skills/ae-init/references/migration.md`
+  → PASS. Also ran (not required by this step, kept as evidence nothing
+  else broke): `node scripts/agent-lint.mjs . --ignore
+  tests,templates,global,examples` (0 high, 0 medium, 0 low — PASS).
+
+  Files: `skills/ae-init/references/migration.md`; `PLAN.md` step 10
+  ticked.
+
+  Concerns: none — mechanical restamp-only step, single-file edit
+  following the established per-version format. Commit: `3e3e04d`.
+
 ## In progress
 
 ## Tried and failed
