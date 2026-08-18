@@ -11,7 +11,7 @@ dispatch.
   machine" section (SPEC scope bullet 1) — accept: section exists
   (`git grep -q "Adopting AE" README.md`); `node scripts/agent-lint.mjs
   . --ignore tests,templates,global,examples` exits 0
-- [ ] E2 (mechanical): `global/hooks/README.md` canonical wiring
+- [x] E2 (mechanical): `global/hooks/README.md` canonical wiring
   snippet (SPEC bullet 2) — accept: file exists, names both hooks,
   contains a SessionStart settings example; lint exits 0. Interface:
   E1's README section links to this file's path — keep the path
