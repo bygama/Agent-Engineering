@@ -231,6 +231,20 @@ issue: MAT-61
 
 ## Verification
 
+### 2026-08-18 — parent adversarial seat + rebase onto fresh main — PASS
+
+- Adversarial review (parent-launched ballena seat, per dispatch): PASS —
+  parent relayed "all targeted checks hold"; recorded here per the
+  close-out dispatch.
+- Rebase: branch rebased onto `origin/main` (236ac38, `chore(global):
+  tighten to the 40-line cap exactly`) — 12 commits replayed, zero
+  conflicts (fence disjoint from the moved `global/` files), tree clean.
+- Post-rebase gates, all exit 0: `node scripts/agent-lint.mjs . --ignore
+  tests,templates,global,examples` (`0 high, 0 medium, 0 low — PASS`);
+  `node tests/run-lint-tests.mjs` (`all 13 cases passed`);
+  `node tests/run-gen-tests.mjs` (`all gen cases passed`);
+  `node tests/run-eval-checks.mjs` (`all eval checks passed`).
+
 ### 2026-08-18 — M DoD — PASS
 
 - L1 static: `node scripts/agent-lint.mjs . --ignore
