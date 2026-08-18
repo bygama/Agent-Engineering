@@ -12,7 +12,7 @@ chapter in the same change.**
 | [architecture.md](architecture.md) | the directory map, what each part answers, the six layers, the phase ladder, design rules that bind the repo | current |
 | [standard-lifecycle.md](standard-lifecycle.md) | install → audit → update/migrate flows, versioning | live since AE/2.0 |
 | [work-lifecycle.md](work-lifecycle.md) | task tiers S/M/L/XL, lanes, the four files, the lane lifecycle (work-plan → work-run → work-verify → work-handoff), verification layers, feature list, tracker plane | live since AE/2.1 |
-| [execution.md](execution.md) | loops, trigger matrix, Orca mapping, tracker connector, graphs/reducers, runners | live (portability proof passed 2026-08-16) |
+| [execution.md](execution.md) | loops, trigger matrix, Orca mapping, tracker connector, orchestration (the parent/child dispatch cycle, review wave, XL), runners | live (portability proof passed 2026-08-16; dogfood dispatch passed 2026-08-18) |
 | [integrations.md](integrations.md) | how the planes connect: Linear ↔ GitHub ↔ Orca — wiring, events, who writes what | live (verified e2e 2026-08-17) |
 
 Convention: every section that documents behavior not yet built carries a

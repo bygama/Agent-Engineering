@@ -18,6 +18,7 @@ records-vs-living judgment). Born 2026-08-17 from the MAT-15 sweep.
 | `> Phase: P\d` | phase tags on shipped behavior | ae-audit dogfooding check, pinned here too |
 | how-it-works index rows vs chapter contents | index promising less/other than the chapter covers | index said "tiers S/M/L" after the chapter gained XL (MAT-11) |
 | `\brelay\b\|agent-init\|agent-audit` as skill names on living surfaces — outside records (adrs/plans/CHANGELOG/migration per-version notes/examples/closed-lane history) and the kept `ADR-004-relay.md` filename | dead skill names after a rename release | MAT-42's ruled residuals: SPEC Decisions 4/7 needed annotations, found by the post-1.3.0 sweep (MAT-48) |
+| `all (nine\|ten\|eleven\|twelve\|[0-9]+)` near "skills" on living surfaces, checked against the actual `skills/` roster | hardcoded skill-roster counts that drift when a skill lands or dies | architecture.md said "all nine" and omitted `shaping` after the 1.2.2 package (MAT-59, pre-1.3.0 sweep) |
 
 ## Restamp surfaces (checked when a version bump is in flight)
 
@@ -42,6 +43,12 @@ first exercise of the CHANGELOG-header restamp rule.
   by design, not by omission.
 - Orca trigger syntax listing `cron|RRULE` presets (`orca.md`,
   `loop-setup`) — CLI surface, not a fallback ladder.
+- `docs/how-it-works/` provenance notes ("live/Live since AE/2.x") —
+  ship-time names by the folder's own stated convention
+  (how-it-works/README.md, ADR-003 note); the CHANGELOG maps them to
+  0.x. Battery entry 3 does not apply there (correction recorded
+  MAT-59: a sweep renumbered them, the convention was found, the
+  renumbering reverted).
 
 ## Records vs living docs
 
