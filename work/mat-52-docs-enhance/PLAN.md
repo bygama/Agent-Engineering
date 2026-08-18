@@ -7,7 +7,7 @@
 Global constraints: SPEC "Quality bar" section, verbatim, in every
 dispatch.
 
-- [ ] E1 (judgment): README.md full pass + "Adopting AE on your own
+- [x] E1 (judgment): README.md full pass + "Adopting AE on your own
   machine" section (SPEC scope bullet 1) — accept: section exists
   (`git grep -q "Adopting AE" README.md`); `node scripts/agent-lint.mjs
   . --ignore tests,templates,global,examples` exits 0
