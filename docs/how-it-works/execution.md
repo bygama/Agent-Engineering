@@ -214,7 +214,8 @@ sequenceDiagram
     P->>P: 2. lane -> Task (--deps queues file overlap)
     P->>O: 3. dispatch dialogue - reviewers? how many? which model?
     O-->>P: answer recorded in the Task spec
-    P->>C: 4. worker-start --task --worktree new-child<br/>+ Linear bound at birth
+    P->>C: 4. worker-start --task --worktree new-child
+    P->>C: 4. worktree set --linear-issue &lt;KEY&gt;<br/>separate call, bound at birth
     activate C
     C->>C: work-plan -> work-run -> work-verify -> work-handoff
     C-->>P: 5. question (check --wait)
@@ -222,7 +223,14 @@ sequenceDiagram
     C->>M: opens PR, never merges
     C-->>P: 5. worker_done
     deactivate C
-    P->>R: 6. review wave - reviewer.md verbatim, read-only worktree
+    alt reviewer selectable with --model (Claude, Codex, Cursor ids)
+        P->>R: 6. worker-start --task --model &lt;id&gt;<br/>one-step launch
+    else ballena (deepseek v4 flash - no --model id)
+        P->>R: 6. worktree create --base-branch &lt;lane-branch&gt;
+        P->>R: terminal create --command "opencode -m ..."
+        P->>R: terminal wait --for tui-idle
+        P->>R: worker-start --terminal &lt;handle&gt;<br/>two-step launch
+    end
     activate R
     R-->>P: worker_done body: PASS or FAIL
     deactivate R
@@ -241,11 +249,19 @@ sequenceDiagram
     P->>P: 8. worker-release + worktree rm, record in PROGRESS
 ```
 
-What to see: stages 5 and 6 are the two places the cycle can loop back —
+What to see: stage 4 is two calls, not one — `worker-start` has no Linear
+flag, so the tracker binding is a separate `worktree set --linear-issue`
+issued right after it, and the child is only "bound at birth" once both
+have landed. Stages 5 and 6 are the two places the cycle can loop back —
 `5` on a question (the ruling lands in the child's *own* DECISIONS, not
 the parent's) and `6` on a FAIL (findings return to the *same* child's
 terminal, never a fresh one, capped at five rounds before an owner gate
-replaces the loop with a decision). Stage 7's ordering is easy to miss:
+replaces the loop with a decision). Stage 6's launch also forks for a
+reason the CLI enforces, not a stylistic one: `--model` only accepts
+Claude, Codex, and Cursor ids, so a `--model`-selectable reviewer starts
+in one call while the ballena — custom argv, no such id — takes the
+four-command two-step launch (`worktree create` → `terminal create` →
+`terminal wait` → `worker-start --terminal`). Stage 7's ordering is easy to miss:
 the rebase and re-gate happen *before* the merge, inside the child, not
 after — a PASS earned against a stale `main` is not a PASS against the
 `main` the PR is about to land on. And stage 8 is not optional
