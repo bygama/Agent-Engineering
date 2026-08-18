@@ -22,9 +22,20 @@ runner-specific adapter file is ever created (the ban stands mid-fan-out).
 | Claude Code (`claude`) | `CLAUDE.md` → imports `AGENTS.md` via the pointer | native (SKILL.md) | `claude -p "<prompt>"` in the worktree | verified on this machine 2026-08-16 |
 | Codex CLI (`codex`) | `AGENTS.md` natively | none — point at the skill file | `codex exec "<prompt>"` | docs-cited; verify on install |
 | Gemini CLI (`gemini`) | `GEMINI.md` by default — set `contextFileName: "AGENTS.md"` in settings; never create a GEMINI.md adapter | none — point at the skill file | `gemini -p "<prompt>"` | docs-cited; verify on install |
-| opencode | `AGENTS.md` natively | own format — point at the skill file | `opencode run -m <provider/model> "<prompt>"` (ballena default `-m opencode-go/deepseek-v4-flash`, OpenCode Go subscription auth; no Go auth ⇒ fall back to `-m opencode/deepseek-v4-flash-free`, a no-auth free model via the opencode gateway) | free model verified on this machine 2026-08-16 — completed the portability-proof lane; Go model verified 2026-08-18 |
+| opencode | `AGENTS.md` natively | own format — point at the skill file | `opencode run -m <provider/model> "<prompt>"` — one-shot prompts (ballena default `-m opencode-go/deepseek-v4-flash`, OpenCode Go subscription auth; no Go auth ⇒ fall back to `-m opencode/deepseek-v4-flash-free`, a no-auth free model via the opencode gateway) | free model verified on this machine 2026-08-16 — completed the portability-proof lane; Go model verified 2026-08-18 |
 | Grok CLI (`grok`) | unverified | unverified | unverified | verify on install |
 | deepseek-harness (`dsh`) | `AGENTS.md` | unverified | unverified | dev preview, breaking changes announced — zero coupling by decision; verify on install |
+
+opencode has two invocation forms, not one. The table's headless spawn is
+`opencode run -m <provider/model> "<prompt>"` — it runs one prompt to
+completion and exits, the shape a child dispatch or a fan-out worker
+needs. Orchestrate's reviewer seat needs an interactive session instead,
+so it launches the bare TUI form — `opencode -m <provider/model>`, no
+`run`, no prompt argument — waits for it (`terminal wait --for
+tui-idle`), then attaches the Task to the already-running terminal
+(`worker-start --terminal`). Same binary, two launches, two jobs — using
+the headless form where the TUI form belongs leaves nothing to attach to,
+and vice versa.
 
 "Verify on install" is a hard rule: no spawn command enters a worker table
 until it ran on the target machine (`--help` at minimum). Install gotcha:
@@ -56,6 +67,17 @@ verify-on-install rule unchanged; on this machine the verified
 cross-family runner is opencode + DeepSeek (the portability-proof
 pairing). No second runner installed ⇒ the rung is declared NOT done,
 never approximated with a same-family reviewer.
+
+## The child seat
+
+The standing convention for a supervised child (`worker-start --task <id>
+--worktree new-child --agent <id>`) is **default `--agent claude`** —
+same family as the parent orchestrator; the child is not the cross-family
+check, the adversarial seat above is. Override per dispatch —
+`--agent`, `--model`, `--effort` — only with a concrete reason recorded
+at dispatch (a runner-specific brief, a cost or speed call), never a
+silent swap. The default needs no owner input; it does not grow the
+dispatch dialogue past its one question (reviewers).
 
 ## Orchestrating across runners
 
