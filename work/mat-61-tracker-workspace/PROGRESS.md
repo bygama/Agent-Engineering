@@ -77,9 +77,46 @@ issue: MAT-61
   fixture never states explicitly that the owner's answer IS the ground
   truth values (inferable from Expected behavior).
 
+- Step 2 review: ✅ spec-compliant, Approved (fresh reviewer, opus; gate
+  reproduced independently, exit 0; JSON-shape claims re-verified
+  on-machine). Five Minor findings deferred to work-verify triage:
+  (1) resolution bullet leads with the non-comparable display-name
+  fields before the slug — reorder to lead with the `url` slug and name
+  the `workspace.name` trap explicitly; (2) JSON path imprecise — say
+  `result.meta.resolved`, not `meta.resolved`; (3) trailing simile on the
+  inertness bullet is padding — drop it; (4) coverage gap: no named slug
+  resolution when the workspace has no issues yet ("issue create" on an
+  empty workspace) — treat an unresolved binding like a mismatch;
+  (5) standing note: eval-05's partial format restatement (step 1 minor
+  (a)) needs a deliberate ruling at verify, not a silent trim.
+
+- Step 3 DONE — `skills/ae-init/SKILL.md` gains the tracker layer in the two
+  named steps. Step 3 (gotcha interview): a new paragraph right after the
+  artifacts-language default, framed explicitly as its contrast — unlike
+  language, the tracker workspace IS a real question. Asked once, settled
+  for the repo, gated on a tracker being in play (step 1's exploration or
+  the workspace's own signals showing Linear connected); asks workspace /
+  team key / project; accepts "none"; never infers the answer from the
+  session's live binding, with the reason stated (the binding is exactly
+  what can be wrong) and cited to `reference/tracker.md`. Step 6
+  (instantiate): the `AGENTS.md` bullet gains a clause — when step 3 named a
+  workspace, the declaration line lands directly under the version stamp,
+  in the canonical format defined in `reference/tracker.md` (cited, not
+  restated); answer "none" writes no line. The existing tracker-connected
+  reminder about the coding-tools prompt template (end of step 6) was left
+  untouched — it still fires independently of the new declaration line, per
+  eval-05's checklist.
+  Acceptance: `node tests/run-eval-checks.mjs` → `ok   ae-init: 5 evals
+  well-formed` … `all eval checks passed`, exit 0. `node
+  scripts/agent-lint.mjs . --ignore tests,templates,global,examples` →
+  `0 high, 0 medium, 0 low — PASS`, exit 0. Files changed:
+  `skills/ae-init/SKILL.md` only. No concerns: both new passages cite
+  `reference/tracker.md` for the format rather than restating it, matching
+  step 2's single-source-of-truth design.
+
 ## In progress
 
-- work-run dispatch of PLAN steps 2-6.
+- work-run dispatch of PLAN steps 4-6.
 
 ## Tried and failed
 
