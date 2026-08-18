@@ -18,6 +18,6 @@
   finds "references/implementer.md" in skills/work-run/SKILL.md and
   "references/lane-reviewer.md" in skills/work-verify/SKILL.md; lint
   AND `node tests/run-eval-checks.mjs` exit 0
-- [ ] T4 (controller): four gates + work-verify (fresh whole-diff
+- [x] T4 (controller): four gates + work-verify (fresh whole-diff
   review) + handoff + PR; release per owner's packaging call — accept:
   PASS block; PR opens green with `Closes MAT-43`

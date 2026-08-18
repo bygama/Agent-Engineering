@@ -57,3 +57,11 @@
 
 <!-- PASS evidence only, written by work-verify (newest on top); the close
      handoff refuses to close a lane without a current PASS block here. -->
+
+### 2026-08-18 — M DoD — PASS
+- L1 static: `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` → exit 0 (0 high, 0 medium, 0 low)
+- L2 behavioral: `run-lint-tests` (13) · `run-gen-tests` · `run-eval-checks` (11 skills; work-run 4, work-verify 6) → all exit 0
+- L3 end-to-end: T3 acceptance greps exit 0; consumer simulation — reviewer filled all four templates against the SKILL.md contracts, placeholder sets match exactly; its own dispatch was a live positive test of lane-reviewer.md
+- Fresh-context review: PASS — no findings; no-bump ruling verified (CHANGELOG/stamp/migration untouched, AGENTS.md still AE/1.3.0)
+- Adversarial review: n/a — M tier, not requested
+- work-run record: T1 13ce4c3 · T2 5b16180 · T3 6c46ecb — three steps, three clean reviews, fix loop never fired, 2 controller rulings (re-reviewer calibration; no-bump packaging)
