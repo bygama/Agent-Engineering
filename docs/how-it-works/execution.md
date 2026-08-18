@@ -40,6 +40,9 @@ definition, never widening the budget.
 
 ## One run, any runner
 
+Every runner — Orca automation, cron, or an agent told to run one
+iteration — walks the same shape, from trigger to the next stop:
+
 ```mermaid
 flowchart TD
     T[trigger fires] --> S[read loops/name.state.json]
@@ -56,13 +59,17 @@ flowchart TD
     N -->|no| W[write state] --> STOP2[stop]
 ```
 
-Two properties matter. **Empty runs are nearly free** — the queue check
-runs before anything expensive (Orca's automation `--precheck` can
-front-run it; the protocol keeps the same check so the loop is correct on
-any trigger). And **state
-lives in a file**, not in anyone's memory: `processed` keys are never
-reprocessed, `consecutive_failures` survives restarts, and any runner can
-resume where any other stopped.
+What to see: three things happen in that loop. **Empty runs are nearly
+free** — the queue check at `Q` runs before anything expensive, so a
+fired trigger with nothing to do costs one precheck call (Orca's
+automation `--precheck` can front-run it; the protocol keeps the same
+check so the loop is correct on any trigger). **The failure budget trips
+inside the loop, not beside it** — `G`'s no branch is `F`: record the
+failure, and on the second consecutive miss, disable the loop and report
+to a human, right there mid-run rather than at some separate audit step.
+And **state lives in a file**, not in anyone's memory: `processed` keys
+are never reprocessed, `consecutive_failures` survives restarts, and any
+runner can resume where any other stopped.
 
 Writes to external systems (tracker comments, status moves) default to
 **report-only** until the owner enables them. Reads are free; writes are a
@@ -165,18 +172,30 @@ flowchart TD
     G -->|red| BACK
 ```
 
-Three properties carry the layer. **Anchors** — the SPEC, interfaces, and
-feature list frozen read-only before the split — keep parallel lanes from
-drifting apart while nobody watches; a worker that diverges from an anchor
-loses by rule, and the divergence is recorded (maybe the anchor was
-wrong — that becomes its own lane later). **The reducer contract** makes
-merging mechanical: fixed output shape (the Verification PASS block plus a
-short summary — the standard's existing currency), deterministic merge
-order, a named resolver, and a synthesis gate on the merged whole, because
-per-lane tests are structurally blind to mismatches *between* lanes.
-**Failure locality**: a failed lane is redone or dropped, never repaired
-by a sibling reaching across — cross-lane repair couples what the
-worktrees isolated.
+What to see: two hard gates bracket the parallel middle, not one. `Q` is
+a real fork — a dependency found routes straight to `ONE`, a refuse (one
+lane or a gated sequence: `stages, not parallel items` in the skill's own
+words), and only the independent branch ever reaches the worker table.
+`R` mirrors it on the way back: reduce refuses to merge any lane without
+a current PASS block, sending a `missing` lane to `BACK` — redone or
+dropped, never patched by a sibling reaching across — while only `all
+present` proceeds to the merge. And clearing `R` still isn't the finish
+line: the synthesis gate (`G`) re-runs the whole merged tree's
+verification before any row moves to `passing`, because per-lane tests
+are structurally blind to mismatches *between* lanes.
+
+Three properties carry the rest of the layer. **Anchors** — the SPEC,
+interfaces, and feature list frozen read-only the moment qualification
+passes — keep parallel lanes from drifting apart while nobody watches; a
+worker that diverges from an anchor loses by rule, and the divergence is
+recorded (maybe the anchor was wrong — that becomes its own lane later).
+**The reducer contract** makes merging mechanical once a lane clears `R`:
+fixed output shape (the Verification PASS block plus a short summary —
+the standard's existing currency), deterministic merge order (item
+order, never arrival order), and anchors win any disagreement.
+**Failure locality** holds throughout: any lane — refused up front,
+missing its PASS, or failing synthesis — is redone or dropped, never
+repaired by a sibling reaching in.
 
 The tax is real (`reference/graphs-and-reducers.md`): every worker and
 edge costs coordination, so fan-out pays only on true independence, with
