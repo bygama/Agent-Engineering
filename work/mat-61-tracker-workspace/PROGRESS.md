@@ -162,11 +162,11 @@ issue: MAT-61
   `node tests/run-eval-checks.mjs` → `all eval checks passed`, exit 0.
   `node scripts/agent-lint.mjs . --ignore tests,templates,global,
   examples` → `0 high, 0 medium, 0 low — PASS`, exit 0.
-  Commits: f878898 (step 4), f679e79 (step 5), 44c0d86 (step 6).
+  Commits: f878898 (step 4), f679e79 (step 5), e33ac30 (step 6).
+  Fixed: corrected step 6 hash (e33ac30 is the amended commit) and removed
+  duplicate heading in PROGRESS.md structure; lint gate re-run: exit 0.
 
 ## In progress
-
-## Tried and failed
 
 ## Tried and failed
 
