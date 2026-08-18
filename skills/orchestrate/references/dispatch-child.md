@@ -75,8 +75,8 @@ checks can ship work a standing ruling already superseded.
 
 ## Browser discipline
 
-Browser needs go through Orca's embedded browser — `orca tab
-create/goto/snapshot/click/wait --json` — never Playwright,
+Browser needs go through Orca's embedded browser — `orca
+goto/snapshot/click/wait --json` — never Playwright,
 chrome-devtools, or claude-in-chrome from a supervised child session. A
 driven browser is a long-lived process that blocks the card's
 working→idle transition and dies with the session, while Orca's
