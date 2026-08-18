@@ -64,20 +64,23 @@ stays out.
 
 ### `skills/` — how does it replicate and get used day to day?
 
-Live, all nine: `ae-init`, `ae-audit` (AE/2.0); `work-verify`,
+Live, all ten: `ae-init`, `ae-audit` (AE/2.0); `work-verify`,
 `work-handoff` (AE/2.1); `loop-setup` (AE/2.2); `orchestrate` (1.3.0 —
 [ADR-008](../adrs/ADR-008-orchestration.md) absorbed `fan-out`); `work-run`
 (1.1.0 — [ADR-004](../adrs/ADR-004-relay.md) gave execution a house
 owner); `work-plan`, `using-ae` (1.2.0 —
 [ADR-005](../adrs/ADR-005-artifact-phases.md) generalized ADR-004 to
-every artifact-producing phase).
+every artifact-producing phase); `shaping` (1.2.2 —
+[ADR-006](../adrs/ADR-006-design-dialogue.md) gave the design dialogue
+a house owner).
 
 The actors. `using-ae` is the always-loaded entry point: it triages an
 arriving task's tier and routes to whichever skill below owns the
 current phase, before any action. `ae-init` installs or migrates a
 repo; `ae-audit` judges one against the standard and flags version
-drift. The work-* chain applies the daily discipline end to end:
-`work-plan` shapes an approved design into the lane's `PLAN.md`,
+drift. The work-cycle applies the daily discipline end to end:
+`shaping` turns a raw ask into an approved design through dialogue,
+`work-plan` shapes that approved design into the lane's `PLAN.md`,
 `work-run` executes it step-by-step (a fresh implementer subagent per
 step, the lane as its entire context package), `work-verify` gates
 "done" on command evidence, `work-handoff` closes or pauses the lane
