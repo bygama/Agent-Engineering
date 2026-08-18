@@ -9,14 +9,15 @@
 
 ## In progress
 
-- 2026-08-18 — Lane opened (work-plan direct mode; L: four files +
-  feature_list). Awaiting owner gate on SPEC+PLAN before H1.
+- 2026-08-18 — Owner approved SPEC+PLAN (direct-mode gate). Executing
+  H1-H4 via work-run — dispatches composed from
+  skills/work-run/references/ (the templates' first production use).
 
 ## Tried and failed
 
 ## Next
 
-- Owner gate → H1 (all eval work).
+- H1 dispatch (all eval work, judgment tier).
 
 ## Verification
 
