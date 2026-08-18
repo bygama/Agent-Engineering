@@ -14,7 +14,7 @@
 - [x] H2 (judgment): `skills/shaping/SKILL.md` — the minimum that
   passes the evals, house register — accept: F02 command exits 0 AND
   `node tests/run-eval-checks.mjs` exits 0
-- [ ] H3 (integration): ADR-006 + `reference/skills.md` supersession +
+- [x] H3 (integration): ADR-006 + `reference/skills.md` supersession +
   `skills/work-plan/SKILL.md` refusal reword + `skills/using-ae/SKILL.md`
   map row (≤80 lines held) — accept: F03 and F04 commands exit 0; lint
   exits 0

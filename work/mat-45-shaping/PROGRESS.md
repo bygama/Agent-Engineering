@@ -97,6 +97,56 @@
     checklist line to skill content by hand as the best available
     proxy for "passes the evals" at this stage.
 
+- 2026-08-18 — H3 (integration): ADR-006 + `reference/skills.md`
+  supersession + `skills/work-plan/SKILL.md` refusal reword +
+  `skills/using-ae/SKILL.md` map row.
+  - Wrote `docs/adrs/ADR-006-design-dialogue.md` (Date/Status/Context/
+    Decision/Consequences/Alternatives, matching ADR-004/005/007's
+    house shape). Context: work-plan's own "no design, genuine
+    uncertainty" refusal pointed at an external suite (brainstorming)
+    for the case that most needed an AE-owned home, contradicting the
+    files-only adoption story. Decision: `skills/shaping` becomes the
+    design dialogue's house owner; `brainstorming` joins the
+    superseded list for daily design work, cited by name, staying
+    installed as the explicit fallback where AE isn't set up. Scoped
+    narrower than ADR-005 on purpose — one suite skill superseded on
+    observed friction, not a category; TDD and systematic-debugging
+    explicitly untouched (their own replacements, if any, are
+    MAT-46/47's question).
+  - `reference/skills.md`: dropped `brainstorming` from the two
+    suite-example lists (the intro sentence and the ADR-004/005
+    paragraph, both now read "TDD, systematic-debugging"); added a new
+    closing paragraph naming the `brainstorming` supersession, citing
+    ADR-006, and stating the fallback + TDD/systematic-debugging
+    carve-out explicitly.
+  - `skills/work-plan/SKILL.md`: reworded the "no design, genuine
+    uncertainty" refusal's next-step pointer from "point at
+    brainstorming as the next step" to "invoke `shaping` as the next
+    step" — the only occurrence of "brainstorming" in the file.
+  - `skills/using-ae/SKILL.md`: added a `shaping` row to "The map"
+    ("a raw ask has no settled design yet"), placed first — ahead of
+    `work-plan` — matching the work-cycle chain order (shaping →
+    work-plan → work-run → work-verify → work-handoff). File is now 46
+    lines, well inside the ≤80 line hold. Left the red-flags table and
+    the ADR-005 precedence section untouched — SPEC scopes H3 to the
+    map row only; the entry eval's routing line was already added in
+    H1.
+  - Acceptance: F03 —
+    `node -e "const fs=require('fs');if(!fs.existsSync('docs/adrs/ADR-006-design-dialogue.md'))process.exit(1);const s=fs.readFileSync('reference/skills.md','utf8');process.exit(s.includes('brainstorming') && s.includes('ADR-006')?0:1)"`
+    → exit 0. F04 —
+    `node -e "const fs=require('fs');const wp=fs.readFileSync('skills/work-plan/SKILL.md','utf8');const ua=fs.readFileSync('skills/using-ae/SKILL.md','utf8');process.exit(wp.includes('shaping') && ua.includes('shaping')?0:1)"`
+    → exit 0. Lint — `node scripts/agent-lint.mjs . --ignore
+    tests,templates,global,examples` → "0 high, 0 medium, 0 low —
+    PASS". Sanity re-run of `node tests/run-eval-checks.mjs` (not part
+    of H3's acceptance, no eval files touched this step) → "all eval
+    checks passed" (12 skills, unchanged from H2).
+  - Files changed: `docs/adrs/ADR-006-design-dialogue.md` (new),
+    `reference/skills.md` (edit), `skills/work-plan/SKILL.md` (edit),
+    `skills/using-ae/SKILL.md` (edit).
+  - Concerns: none. Scope held to exactly H3's four targets — README,
+    work-lifecycle.md, and standard-lifecycle.md (SPEC §3) are H4's
+    job, not touched here.
+
 ## In progress
 
 - 2026-08-18 — Owner approved SPEC+PLAN (direct-mode gate). Executing
@@ -107,8 +157,8 @@
 
 ## Next
 
-- H3: ADR-006 + `reference/skills.md` supersession + work-plan refusal
-  reword + using-ae map row.
+- H4: README (ten skills + chain + adoption phrasing) + work-lifecycle
+  + standard-lifecycle mentions.
 
 ## Verification
 
