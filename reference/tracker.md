@@ -82,11 +82,12 @@ create — compare the live binding against the declaration:
 
 - Compare on the workspace slug in any resolved issue's `url`
   (`linear.app/<slug>/issue/…`) — the identity the declaration names.
-  `orca linear issue <KEY> --json` returns it in the envelope's
-  `result.meta.resolved`, and `orca linear list … --json` carries a
-  `url` per row too. Do NOT compare `result.meta.resolved.workspaceName`
-  or a list row's `workspace.name` — both are the workspace's display
-  name and need not equal its slug (verified on-machine 2026-08-18).
+  `orca linear issue <KEY> --json` returns it at `result.issue.url`, and
+  `orca linear list … --json` carries a `url` per row at
+  `result.issues[n].url`. Do NOT compare `result.meta.resolved`'s
+  `workspaceName`/`workspaceId` (or a list row's `workspace.name`) —
+  those are display/ID fields, never the slug to compare (verified
+  on-machine 2026-08-18).
 - **Mismatch → NO write.** State it plainly — declared workspace,
   resolved workspace, and that the tracker was NOT updated — then emit
   the exact operation (command + payload) for the operator to run from a

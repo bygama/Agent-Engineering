@@ -70,7 +70,7 @@ powers:
   `orca linear list --filter open --json`.
 
 Before any tracker write, the agent verifies the live binding's workspace
-matches the repo's declared workspace (reference/tracker.md, "Which
+matches the repo's declared workspace (`reference/tracker.md`, "Which
 workspace — the repo declares, tools obey"); mismatch prevents the write.
 
 ### Orca ↔ GitHub — branches and the gh CLI
