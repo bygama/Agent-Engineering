@@ -388,18 +388,34 @@
   DECISIONS ruling. using-ae at 60/80 lines; evals-before-content
   verified real by the reviewer. No fix rounds.
 
-## In progress
+- Step 6 (2026-08-18): updated tier surfaces to surface orchestrate in L
+  executor mention and XL ceremony — same one-line fix across two files:
+  - `reference/task-tiers.md` L row: added `skills/orchestrate`
+    (parent-bound) as executor option alongside `skills/work-run`
+    (ADR-004); XL row: replaced `fan-out` with `orchestrate` and updated
+    ADR reference to ADR-008.
+  - `templates/repo/docs/tiers.md` L row: added `orchestrate`
+    (parent-bound) as executor option; XL row: replaced `fan-out` with
+    `orchestrate` in ceremony description.
+  - This repo (`docs/tiers.md`) does not exist; no third-file update
+    needed.
 
-- Lane opened 2026-08-18: SPEC approved by owner; PLAN written (10 steps).
+  Acceptance: `grep -q orchestrate reference/task-tiers.md && node
+  scripts/agent-lint.mjs . --ignore tests,templates,global,examples` →
+  PASS. grep confirms orchestrate appears; lint: 0 high, 0 medium, 0 low.
+
+  Files: `reference/task-tiers.md`, `templates/repo/docs/tiers.md`.
+
+  Concerns: none — mechanical batch step, two-file fix with consistent
+  wording. Commit: `25705f5`.
+
+## In progress
 
 ## Tried and failed
 
 ## Next
 
-- Step 6 [batch]: tier surfaces name orchestrate — the L executor
-  mention and XL row in `reference/task-tiers.md`, the consumer tiers
-  template under `templates/repo/`, and this repo's own tiers doc if
-  present.
+- Step 7 [judgment]: write `docs/adrs/ADR-008-orchestration.md`.
 
 ## Verification
 
