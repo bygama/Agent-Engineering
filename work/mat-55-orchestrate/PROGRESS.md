@@ -611,6 +611,16 @@
   `standard-lifecycle.md`'s remaining fan-out mentions, plus
   `reference/graphs-and-reducers.md`'s.
 
+- Step 8 review (2026-08-18): quality **Needs fixes** — 2 Important
+  against the DECISIONS "must reflect all three" mandate: two-step
+  ballena launch entirely absent from both diagrams; Linear-at-birth
+  compressed into one arrow as if it were a worker-start flag (it is a
+  separate `worktree set --linear-issue` call). Retain-until-merge and
+  the `--outcome`/body nuance correctly captured; diagrams otherwise
+  accurate 1:1 vs the skill; acceptance re-run green by the reviewer.
+  Minor DEFERRED: deactivate/activate asymmetry in the sequence
+  diagram. Fix round 1 opened, same implementer.
+
 ## In progress
 
 ## Tried and failed
