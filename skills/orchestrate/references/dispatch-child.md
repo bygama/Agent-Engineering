@@ -65,10 +65,18 @@ This blocks until the parent answers; the ruling lands back with you to
 record in your own DECISIONS.md. Never proceed on an assumption, and
 never substitute a raw terminal message for this call.
 
+## Heartbeat phases
+
+Your heartbeats carry `--phase`; report it only from the fixed set —
+`investigating → planning → implementing → reviewing → verifying →
+reporting` — never a word you invent. `blocked` is valid only alongside
+a live `ask` (above), never as a silent state: from the parent's seat a
+silent `blocked` is indistinguishable from idle-before-reporting.
+
 ## Mailbox discipline
 
-Run `orca orchestration check` yourself at every phase transition —
-investigate → implement → review → verify — and once more before you
+Run `orca orchestration check` yourself at every phase transition — the
+same fixed phases your heartbeats report — and once more before you
 report `worker_done`. The parent supervises by mailbox, not your
 terminal: guidance and gate rulings arrive there, and a lane that never
 checks can ship work a standing ruling already superseded.
