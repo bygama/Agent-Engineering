@@ -159,6 +159,61 @@
   scripts/agent-lint.mjs . --ignore tests,templates,global,examples` →
   `0 high, 0 medium, 0 low — PASS`, exit 0.
 
+- 2026-08-18 — E6 DONE — standard-lifecycle.md + integrations.md pass.
+  Checked the "rename agent-init/agent-audit" premise first: commit
+  `bc09d50` already swept both files to `ae-init`/`ae-audit` (and
+  `docs-sweep/references/patterns.md`'s own dead-name pattern confirms
+  no residual) — false premise, no rename needed, verified not assumed.
+  standard-lifecycle.md: (1) the using-ae paragraph called it "the
+  always-loaded entry skill (SessionStart, global layer)" with no
+  optionality caveat, while README's new "Adopting AE" section (E1) and
+  `global/hooks/README.md` (E2) both document the SessionStart wiring as
+  optional (skill still triggers by description) — reworded to state
+  the hook is optional plumbing, not a dependency, with a two-line
+  pointer to the skill docs for detail, per the brief-mention
+  instruction; (2) found a real internal inconsistency while reading in
+  full: the opening stamp illustration still read `AE/<major>.<minor>`
+  (pre-ADR-003 two-part shape) while the same file's own "Versioning
+  rules" section correctly documents `AE/MAJOR.MINOR.PATCH` and the root
+  AGENTS.md actually carries `AE/1.3.0` — fixed the illustration to
+  `AE/<major>.<minor>.<patch>` so the chapter is consistent with itself
+  post-ADR-003; (3) both mermaid diagrams (install flowchart, update/
+  migration flowchart) had no "what to see" narration — added one to
+  each naming the gate the bar asks for: the install diagram's branch at
+  `B` (none vs. v1/legacy detour through `D` before rejoining `C`) and
+  its closing self-check gate `G` (agent-lint re-run); the update
+  diagram's bump/no-bump gate `Q` (docs-only refresh `N` is a dead end;
+  only `yes` reaches `S`) tied to the existing "repos never poll"
+  paragraph, which was already accurate and is now explicitly anchored
+  to nodes `AU`/`M`. Left the `> Live since AE/2.0` provenance line and
+  the versioning-rules content otherwise untouched (already matched
+  ADR-003 exactly on re-check against the ADR text). integrations.md:
+  (1) the sequence diagram ("One issue, end to end") had a lead-in but
+  zero post-diagram narration — orphaned per the bar — added a "what to
+  see" paragraph naming the asymmetry the table below tabulates: only
+  the two `G->>L` arrows move Linear's workflow state and neither
+  originates at the agent, every direct agent/Orca write to Linear is a
+  comment; (2) the triangle flowchart's existing narration already named
+  the mechanism and the asymmetry (different truth per edge, intent vs.
+  execution-truth direction, merge-as-signal) — left unchanged, adequate
+  on review; (3) found and fixed an unrelated factual drift while
+  reading in full: "One-time operator setup" said "four owner actions"
+  but enumerates five (`git log -p` confirms step 5, Linear projects,
+  was appended later without updating the count) — corrected "four" to
+  "five". No stale skill names, no unshipped features (work-design,
+  dispatch templates), no invented behavior — the PR-opened/merged →
+  In Progress/Done flow, `Closes <KEY>` magic word, and evidence-comment
+  convention all re-verified against the file's own "Each edge,
+  physically" and "Who writes what" sections before narrating the
+  diagram. Provenance line ("Everything here was verified live on this
+  machine (2026-08-16/17)") and records untouched. Touched only
+  docs/how-it-works/standard-lifecycle.md and
+  docs/how-it-works/integrations.md.
+  Acceptance: every diagram now placed with lead-in + "what to see"
+  narration (reviewer judgment, reasoning above); `node
+  scripts/agent-lint.mjs . --ignore tests,templates,global,examples` →
+  `0 high, 0 medium, 0 low — PASS`, exit 0.
+
 ## In progress
 
 - 2026-08-18 — Owner approved SPEC+PLAN (direct-mode gate). Executing
