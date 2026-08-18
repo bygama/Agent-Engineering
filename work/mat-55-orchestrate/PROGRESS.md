@@ -409,6 +409,15 @@
   Concerns: none — mechanical batch step, two-file fix with consistent
   wording. Commit: `25705f5`.
 
+- Step 6 review (2026-08-18): spec ✅ Compliant, quality Approved.
+  XL mandatory force survived the rename (both files), ADR citation
+  correctly forwarded to ADR-008, runtime neutrality holds, the
+  "repo's own tiers doc" negative check recorded explicitly. Minors
+  DEFERRED: L-row parenthetical now ambiguously scoped (cosmetic);
+  `docs/how-it-works/work-lifecycle.md:30,45,49` still names fan-out
+  incl. a prose line pointing at the deleted skill — steps 8/9 must
+  catch it. No fix rounds.
+
 ## In progress
 
 ## Tried and failed
