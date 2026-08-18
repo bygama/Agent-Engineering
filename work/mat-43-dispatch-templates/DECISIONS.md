@@ -16,6 +16,10 @@
   strengths-first there would be filler. file:line + mandatory verdict
   are present. Deferred to the whole-lane review's triage. Cost if
   wrong: one section added later.
-- 2026-08-18 — Release packaging deferred to the owner's call: solo
-  MINOR (1.4.0) recommended vs one package with shaping — templates
-  merge either way; only the bump timing differs.
+- 2026-08-18 — Release packaging DECIDED by owner mid-lane: no bump
+  now — MAT-43 merges unreleased and packages with shaping (MAT-45)
+  into ONE release when that lane closes ("dejá de pasar tan rápido
+  entre versiones"). Sizing note for that release: by the ADR-003
+  criterion it is MINOR (new capability, not fixes) → 1.4.0 once,
+  covering both; if the owner wants such changes to count as PATCH,
+  that is an ADR-003 amendment, raised separately.
