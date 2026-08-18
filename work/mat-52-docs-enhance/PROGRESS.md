@@ -40,6 +40,16 @@
 - 2026-08-18 — Owner approved SPEC+PLAN (direct-mode gate). Executing
   E1-E6 via work-run. E1 done; E2 (global/hooks/README.md) next —
   resolves the E1 dangling reference.
+- 2026-08-18 — E2 DONE — global/hooks/README.md created: one paragraph
+  framing the folder as canonical SessionStart hooks the standard ships
+  and applied by workstation installer to ~/.claude/hooks/ (or wired
+  manually on other machines); one line per hook (orca-probe: session
+  Orca availability, using-ae: entry skill emission); SessionStart
+  settings.json example with absolute path requirement (MAT-31 lesson),
+  hook optionality note (triggers still work by description), and skill
+  reachability note (silent by design if skill not found). Acceptance:
+  `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  → `0 high, 0 medium, 0 low — PASS`, exit 0.
 
 ## Tried and failed
 
