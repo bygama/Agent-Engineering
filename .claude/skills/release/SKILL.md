@@ -29,6 +29,14 @@ Release progress:
 refresh ⇒ STOP and say so — no version, no restamp, no tag. When the
 owner insists, ask what template or check actually changed.
 
+The set must also be COMPLETE, not just coherent: when a RELATED lane
+is queued or in flight (same capability family), propose holding the
+bump — related sets accumulate unreleased and ship as one release when
+the set completes. The owner paces releases; never bump past that
+question. A second bump in the same day always needs the owner's
+explicit yes. "Template or check changes always bump" means they always
+END UP in a release — never shipped silently — not bump-per-merge.
+
 **2. Size the bump.** The criterion (CHANGELOG header): a migrated repo
 must change to stay compliant ⇒ **MAJOR**; new backward-compatible
 capability ⇒ **MINOR**; fix/errata ⇒ **PATCH**. Size measures
@@ -73,6 +81,10 @@ verified.
   not an omission.
 - One release per coherent change set; never batch unrelated bumps to
   "save a version number".
+- Pacing never re-sizes: capability is MINOR even when the owner wants
+  fewer versions — fewer, bigger MINORs are the lever, never a smaller
+  number for the same change (born from the aborted fourth same-day
+  bump, MAT-53).
 - When the release itself changes this skill's inputs (the criterion,
   the surfaces list), those docs change in the same PR — the ritual and
   its law never drift apart.

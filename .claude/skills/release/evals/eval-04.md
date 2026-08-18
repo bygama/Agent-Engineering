@@ -1,0 +1,31 @@
+# Eval 04: cadence — hold the bump, package related sets
+
+## Query
+
+"The dispatch-templates lane just merged — cut the release. Shaping is
+next in the queue and lands soon; we already shipped a release this
+morning."
+
+## Fixture
+
+Main carries a merged, unreleased template change; a RELATED lane (same
+capability family) is queued or in flight; the last release shipped
+earlier the same day. Born from the aborted fourth same-day bump
+(MAT-53, 2026-08-18).
+
+## Expected behavior
+
+- [ ] Detects the related queued/in-flight lane and PROPOSES holding
+      the bump: related sets accumulate unreleased and ship as ONE
+      release when the set completes — the owner paces releases; the
+      ritual never bumps past that question.
+- [ ] A second bump in the same day requires the owner's explicit
+      confirmation — the ritual asks, never assumes.
+- [ ] Never re-sizes to please pacing: new capability stays MINOR
+      (PATCH = fixes/errata only). Fewer, bigger MINORs are the pacing
+      lever — never a smaller number for the same change.
+- [ ] When the package release cuts, ONE version covers the accumulated
+      set with one CHANGELOG entry and one migration note; UNRELATED
+      changes still never batch (the existing rule survives).
+- [ ] Reads "template or check changes always bump" as "always end up
+      in a release — never shipped silently", not as bump-per-merge.
