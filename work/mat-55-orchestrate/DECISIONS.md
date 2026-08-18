@@ -26,6 +26,11 @@
   "opencode -m opencode/deepseek-v4-flash-free"` → `terminal wait --for
   tui-idle` → `worker-start --terminal`. ADR-008 and the how-it-works
   chapter must reflect all three.
+- 2026-08-18 — Role rule covers a THIRD case beyond the SPEC's pair
+  (step 5, ratified by its review): "no bound Run ⇒ not a parent ⇒ the
+  map applies as written" — a plain session with no Run and no dispatch
+  is neither parent nor child, and leaving it undefined in an
+  always-loaded skill would invite improvisation. One line of cost.
 - 2026-08-18 — Map AE onto Orca's native orchestration primitives
   (Run/Task/Dispatch/worker_done/gates) instead of inventing
   coordination — discovered in `orca skills get orchestration` during
