@@ -4,7 +4,7 @@
      Global constraints: SPEC "Constraints" section verbatim in every
      dispatch. -->
 
-- [ ] T1 (judgment): eval edits per SPEC "Evals first" — work-run
+- [x] T1 (judgment): eval edits per SPEC "Evals first" — work-run
   eval-01/eval-02 + the work-verify eval covering the fresh-context
   seat — accept: `node tests/run-eval-checks.mjs` exits 0; edited
   checklists name the template files by path
