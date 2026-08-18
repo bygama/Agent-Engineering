@@ -146,6 +146,30 @@
   - Concerns: none. Scope held to exactly H3's four targets — README,
     work-lifecycle.md, and standard-lifecycle.md (SPEC §3) are H4's
     job, not touched here.
+- 2026-08-18 — H3 fix round 1: review Important finding — reviewer
+  caught that `skills/using-ae/SKILL.md`'s Precedence (ADR-005)
+  section, left untouched by the H3 diff, still read "brainstorming,
+  TDD, systematic-debugging stay composable", directly contradicting
+  the new `reference/skills.md` paragraph ten lines away in the same
+  file that supersedes brainstorming. Ruling recorded in DECISIONS.md:
+  real SPEC gap, fix folded into this round.
+  - Removed `brainstorming` from the Precedence section's "stay
+    composable" list (now reads "TDD, systematic-debugging stay
+    composable"); added one tight caveat sentence in the section's own
+    register: "Brainstorming is the one thinking skill already
+    superseded: shaping owns daily design work instead, cite ADR-006
+    (`docs/adrs/ADR-006-design-dialogue.md`); it stays composable only
+    as the no-AE-setup fallback." No other section touched (red-flags
+    table and the map row from the original H3 pass are unchanged).
+  - File is now 50 lines — still well under the ≤80 hold.
+  - Re-ran: `node scripts/agent-lint.mjs . --ignore
+    tests,templates,global,examples` → "0 high, 0 medium, 0 low —
+    PASS". `node tests/run-eval-checks.mjs` → "all eval checks passed"
+    (12 skills, unchanged). F04 —
+    `node -e "const fs=require('fs');const wp=fs.readFileSync('skills/work-plan/SKILL.md','utf8');const ua=fs.readFileSync('skills/using-ae/SKILL.md','utf8');process.exit(wp.includes('shaping') && ua.includes('shaping')?0:1)"`
+    → exit 0.
+  - Files changed: `skills/using-ae/SKILL.md` (edit).
+  - Concerns: none.
 
 ## In progress
 
