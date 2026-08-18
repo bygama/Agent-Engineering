@@ -80,24 +80,24 @@ definition: other files cite this section, they do not restate it.
 **Before ANY tracker write** — status move, comment, attachment, issue
 create — compare the live binding against the declaration:
 
-- Read the workspace the binding actually resolves:
-  `orca linear issue <KEY> --json` reports it under `meta.resolved`
-  (`workspaceName`, `workspaceId`), and `orca linear list … --json`
-  carries a `workspace` object per row. Both also return each issue's
-  `url`, and its slug (`linear.app/<slug>/issue/…`) is the identity the
-  declaration names — compare slugs: `workspaceName` is the workspace's
-  display name and need not equal its slug (verified on-machine
-  2026-08-18).
+- Compare on the workspace slug in any resolved issue's `url`
+  (`linear.app/<slug>/issue/…`) — the identity the declaration names.
+  `orca linear issue <KEY> --json` returns it in the envelope's
+  `result.meta.resolved`, and `orca linear list … --json` carries a
+  `url` per row too. Do NOT compare `result.meta.resolved.workspaceName`
+  or a list row's `workspace.name` — both are the workspace's display
+  name and need not equal its slug (verified on-machine 2026-08-18).
 - **Mismatch → NO write.** State it plainly — declared workspace,
   resolved workspace, and that the tracker was NOT updated — then emit
   the exact operation (command + payload) for the operator to run from a
   correctly bound session. Same pattern as the no-Orca contract below:
   different reason, identical contract. Nothing lands in the wrong
-  workspace silently.
+  workspace silently. Same treatment when the binding cannot be resolved
+  at all — no issue to read (fresh or empty workspace) or an erroring
+  read: no write, state it, emit the operation.
 - **No declaration line → the rule is inert.** Repos that predate the
   declaration, and repos whose owner answered "none", behave exactly as
-  they did before. Absence degrades cleanly, like every other tracker
-  affordance here.
+  they did before. Absence degrades cleanly.
 
 ## Without Orca
 

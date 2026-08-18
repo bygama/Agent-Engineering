@@ -176,6 +176,32 @@ issue: MAT-61
   (source and eval-03 capitalize ANY; SKILL.md and integrations.md use
   lowercase "any") — cosmetic.
 
+- Polish commit DONE — applied the work-verify triage ruling (DECISIONS.md,
+  2026-08-18) as one commit, exactly the six FIX items: (a) `reference/
+  tracker.md`'s resolution bullet reordered to lead with the workspace slug
+  in a resolved issue's `url`, then names the `result.meta.resolved.
+  workspaceName` / list-row `workspace.name` display-name trap explicitly,
+  keeping the on-machine verification date; (b) JSON path corrected to
+  `result.meta.resolved` throughout; (c) trailing simile dropped from the
+  inertness bullet ("Absence degrades cleanly." only); (d) empty-workspace
+  gap closed — an unresolved binding (no issue to read, fresh/empty
+  workspace, or an erroring read) now gets the same treatment as a
+  mismatch (no write, state it, emit the operation), folded into the
+  Mismatch bullet as one added sentence; (e) `skills/ae-init/evals/
+  eval-05.md` Fixture section now states explicitly that the owner's
+  answer, not the live binding, is the fixture's ground truth (`bygama` /
+  `MAT` / `Agent-Engineering`); (f) the abstract format-structure bullet
+  trimmed to the citation ("matches the canonical format of
+  `reference/tracker.md`'s declaration section, not reinvented per repo"),
+  the earlier bullet with the concrete instantiated `Tracker:` line left
+  untouched. Capitalization drift ("ANY") left as-is per the triage's
+  explicit ACCEPT ruling. No other sections, SKILL.md files,
+  integrations.md, templates, or CHANGELOG touched.
+  Acceptance: `node tests/run-eval-checks.mjs` → `all eval checks passed`,
+  exit 0. `node scripts/agent-lint.mjs . --ignore tests,templates,global,
+  examples` → `0 high, 0 medium, 0 low — PASS`, exit 0. Files changed:
+  `reference/tracker.md`, `skills/ae-init/evals/eval-05.md`.
+
 ## In progress
 
 ## Tried and failed
