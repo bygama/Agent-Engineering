@@ -321,6 +321,13 @@
   content added back — same three spots the PLAN already scopes to step
   9.
 
+- Step 4 review (2026-08-18): spec ✅ Compliant, quality Approved, zero
+  Critical/Important (one Minor: verbose PROGRESS entry, no fix round).
+  Reviewer verified the lint broken-link check's actual regex before
+  trusting the README scope call, and confirmed the fan-out procedure
+  was genuinely absorbed into orchestrate's fallback section before the
+  deletion. No fix rounds.
+
 ## In progress
 
 - Lane opened 2026-08-18: SPEC approved by owner; PLAN written (10 steps).
