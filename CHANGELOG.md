@@ -29,6 +29,54 @@ and keep their former name for traceability; repos still stamped with an
 old name are "behind, not broken" — `agent-audit` flags them,
 `agent-init` migrates them.
 
+## [1.3.1] — 2026-08-18
+
+The post-milestone polish and install-convention set (PATCH per
+ADR-007 — capability without milestone designation). Every lane in
+this release was itself built through orchestrate: supervised child,
+cross-model ballena review, parent merge.
+
+### Added
+
+- ae-init settles the **artifacts language** as a standing default:
+  agent context and technical docs come out English regardless of the
+  repo's human-docs language; ae-init infers the divergence and
+  auto-writes the language-split gotcha — no interview question, zero
+  friction (born from a real Spanish-README install).
+- The repo **declares its tracker workspace**: ae-init's interview
+  gains one settled-once tracker question ("none" accepted); the
+  answer lands as a one-line `Tracker:` declaration in the generated
+  AGENTS.md; `reference/tracker.md` gains the respect rule — before
+  any tracker write the agent compares its live binding against the
+  declaration, and a mismatch (or unresolved binding) means NO write,
+  the operation is emitted for the operator instead. work-handoff
+  cites the rule.
+- Child dispatch discipline: `references/dispatch-child.md` instructs
+  children to check their orchestration mailbox at every phase
+  transition (mid-flight amendments travel by mail), and to use
+  Orca's embedded browser for web needs — never Playwright or Chrome
+  MCPs (a driven browser is a long-lived in-session process).
+- The child/implementer seat joins `reference/runners.md` as a
+  registry entry (default `--agent claude`; per-dispatch override
+  only with a concrete reason); orchestrate's birth command cites the
+  registry.
+
+### Changed
+
+- orchestrate teardown and mechanics polish: the ballena two-step
+  launch closes its unused fallback shell; re-engage `worker-start`
+  examples carry the `--worktree` flag (live `terminal_worktree_mismatch`
+  fix); reviewer retain names the literal `worker-retain` command;
+  `<slug>-review` worktrees suffix per seat at N>1; feature rows flip
+  from the merged tree; the no-Orca fallback emits the ready-to-run
+  protocol for missing runners and closes lanes via work-handoff.
+- `reference/runners.md` labels both opencode forms (headless vs TUI).
+
+### Fixed
+
+- "pre-dispatch" naming drift aligned to "pre-fan-out"; stale `FAN`
+  mermaid node id; using-ae's red-flag row aligned with the role rule.
+
 ## [1.3.0] — 2026-08-18
 
 The orchestration milestone (owner-designated; the number freed by the

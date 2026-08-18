@@ -113,3 +113,9 @@ stable line's layout.
   owns the parent role end to end (dispatch, review, merge); `skills/fan-out`
   absorbed. Migrating up: restamp only — skills are machine-global; the
   workstation installer must sweep the dangling fan-out junction.
+- **1.3.1** (2026-08-18) — orchestration polish + install conventions:
+  artifacts-language standing default, tracker workspace declaration +
+  respect rule, child dispatch discipline. Migrating up: restamp only —
+  skills are machine-global; repos that track work may add the one-line
+  `Tracker:` declaration to AGENTS.md (optional, ae-init asks on the
+  next init/migration).
