@@ -65,6 +65,14 @@ This blocks until the parent answers; the ruling lands back with you to
 record in your own DECISIONS.md. Never proceed on an assumption, and
 never substitute a raw terminal message for this call.
 
+## Mailbox discipline
+
+Run `orca orchestration check` yourself at every phase transition —
+investigate → implement → review → verify — and once more before you
+report `worker_done`. The parent supervises by mailbox, not your
+terminal: guidance and gate rulings arrive there, and a lane that never
+checks can ship work a standing ruling already superseded.
+
 ## Reporting done
 
 When your lane passes its own verification (work-verify PASS) and the
