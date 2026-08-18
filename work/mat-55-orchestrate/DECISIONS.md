@@ -14,6 +14,18 @@
   `orca orchestration send --help` on-machine (step 2 implementer).
   Step 3's SKILL.md routes FAIL-handling off the body text, never off
   `--outcome`.
+- 2026-08-18 — Three CLI-verified mechanics (step 3, against `--help`
+  on-machine, never recalled): (1) Linear-at-birth = `orca worktree set
+  --linear-issue <KEY>` immediately after worker-start (worker-start has
+  no such flag); (2) the fix loop reuses the child's own terminal via
+  `worker-start --terminal <handle>` — the parent RETAINS the worker at
+  `worker_done` and releases only after merge (releasing at report time
+  would destroy the terminal the loop needs); (3) `--model` accepts only
+  Claude/Codex/Cursor ids, so the ballena launches two-step: `worktree
+  create --base-branch <lane-branch>` → `terminal create --command
+  "opencode -m opencode/deepseek-v4-flash-free"` → `terminal wait --for
+  tui-idle` → `worker-start --terminal`. ADR-008 and the how-it-works
+  chapter must reflect all three.
 - 2026-08-18 — Map AE onto Orca's native orchestration primitives
   (Run/Task/Dispatch/worker_done/gates) instead of inventing
   coordination — discovered in `orca skills get orchestration` during
