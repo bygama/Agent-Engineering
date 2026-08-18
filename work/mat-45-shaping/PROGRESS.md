@@ -232,3 +232,11 @@
 
 <!-- PASS evidence only, written by work-verify (newest on top); the close
      handoff refuses to close a lane without a current PASS block here. -->
+
+### 2026-08-18 — L DoD — PASS
+- L1 static: `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` → exit 0 (0 high, 0 medium, 0 low)
+- L2 behavioral: `run-lint-tests` (13) · `run-gen-tests` · `run-eval-checks` (shaping: 4 evals well-formed) → all exit 0
+- L3 end-to-end / feature rows: F01-F06 each run exactly as written → all exit 0 (rows moved to passing with evidence); reviewer ran F01-F05 + gates independently, F06 re-run post-fix by the controller
+- Fresh-context review (lane-reviewer template, whole diff): FAIL as-written on F06's stale [1.3.1] string only — corrected with a recorded ruling and re-verified; every other layer and the full judgment half (SKILL.md vs §1, ADR-006/reference/work-plan/using-ae mutual consistency incl. the H3 fix-round caveat, README ten-skills, renumber consistency vs the live tag state) reported solid
+- Adversarial review: n/a — L tier, not requested by the owner
+- work-run record: H1 eec2278 · H2 6452e78 · H3 574c78a + fix e4685c4 (1 round, ADDRESSED) · H4 475bc0f — four steps, four step reviews, ONE fix round total, 3 controller rulings; dispatches composed from the MAT-43 templates (their first production use)
