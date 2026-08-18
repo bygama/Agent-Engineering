@@ -3,12 +3,12 @@
 Lane: work/mat-58-orchestrate-polish/ · Issue: MAT-58 · Branch:
 bygama/mat-58-orchestrate-polish
 
-Status: CLOSED (verified PASS) — PR open, awaiting the parent's
-review wave (1 ballena agreed at dispatch). The lane folder is
-retained on the branch so the reviewer can read
-SPEC/PLAN/DECISIONS/PROGRESS from the checkout; the
-finalize-then-remove commit lands when the lane goes terminal
-(post-verdict/merge), per the mat-60 precedent.
+Status: TERMINAL — parent's ballena verdicted PASS (refutation
+failed on all four targeted checks); rebased onto origin/main after
+mat-61's merge (clean, 11/11 commits replayed, no conflicts); all
+four gates re-run green AFTER the rebase; PR #56 ready for the
+parent's merge. Finalize-then-remove: this is the finalized lane
+state entering history; the next commit removes the folder.
 
 ## Done
 
@@ -512,5 +512,12 @@ original step-9 report (the literal-mismatch note above, lines
   `--worktree` + `--terminal` composable, `worker-retain` and
   `--effort` real) also resolves step 3's deferred `--effort` doubt.
 - Adversarial review (1 ballena, opencode-go/deepseek-v4-flash —
-  agreed at dispatch): parent-owned, launches after this lane's
-  worker_done; intentionally not run inside the lane.
+  agreed at dispatch, parent-launched after worker_done): **PASS** —
+  refutation failed on all four targeted checks (parent's verdict
+  relay at re-engagement, 2026-08-18).
+- Post-rebase re-verification (2026-08-18, after rebase onto
+  origin/main at mat-61's merge — clean, 11/11 replayed): agent-lint
+  → exit 0 ("0 high, 0 medium, 0 low — PASS"); run-lint-tests →
+  exit 0 ("all 13 cases passed"); run-gen-tests → exit 0 ("all gen
+  cases passed"); run-eval-checks → exit 0 ("all eval checks
+  passed").
