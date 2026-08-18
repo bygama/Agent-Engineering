@@ -667,6 +667,101 @@
   --linear-issue` with narration). Mermaid blocks traced clean; lint
   re-run green by the re-reviewer. Step 8 CLOSED — one fix round.
 
+- Step 9 (2026-08-18): swept every remaining living surface naming
+  `fan-out` as current, catching both the two DEFERRED flags named for
+  this step and the broader "any other living surface" clause. Records
+  (ADRs, CHANGELOG, closed lanes, examples/, `tests/fixtures/`,
+  `docs/specs/SPEC-agent-engineering.md`'s founding phase-ladder/skill-
+  list, `docs/how-it-works/architecture.md`'s phase-ladder box,
+  `skills/ae-init/references/migration.md`'s per-version ledger) were
+  left untouched by design — they document what was true when written,
+  same register as the CHANGELOG the Constraints block exempts;
+  `docs/specs/SPEC-agent-engineering.md` still says `agent-init`/
+  `agent-audit` (never renamed post-founding either), confirming it's a
+  frozen founding record, not a live surface, so I did not start
+  modernizing it here. Generic uses of "fan-out" as the graph-topology
+  term (not a claim that `skills/fan-out` exists) were kept verbatim
+  where the lane's own already-shipped text keeps them too — ADR-008's
+  "three pre-fan-out questions", `reference/skills.md`'s "XL fan-out",
+  `using-ae/SKILL.md`'s "XL fan-out included", `reference/runners.md`'s
+  "mid-fan-out"/"one fan-out".
+
+  Fixed (all current-state claims that `skills/fan-out` exists or names
+  its now-wrong spawn command):
+  - **reference/orca.md:45** (the named DEFERRED flag from step 3's
+    review) — the "Worker spawn (fan-out)" row used the unsupervised
+    full-transfer command (`worktree create --agent --prompt`); replaced
+    with the supervised `orca orchestration worker-start --task <id>
+    --worktree new-child` form and a note distinguishing it from the
+    "Full lane transfer" row below it — same fix shape step 8 already
+    applied to execution.md's identical error.
+  - **reference/graphs-and-reducers.md** ("## In this standard") — `skills/
+    fan-out` → `skills/orchestrate`; the worker-spawn command had the
+    same wrong full-transfer form as orca.md, fixed the same way.
+  - **README.md** — skill table gained the `orchestrate` row (between
+    work-handoff and loop-setup, matching every other doc's ordering),
+    restoring the count to 10 under the already-correct "The ten skills"
+    heading; the chain prose's fan-out sentence replaced with orchestrate's
+    actual scope (parent role, M+ single child through XL, ADR-008 cited);
+    the chain mermaid's `FO` node renamed to `ORCH`; the "How work flows"
+    mermaid's XL node and the tier table's XL ceremony cell both changed
+    from "fan-out" to "orchestrate" (they were the one place in this
+    lane's own file where fan-out and orchestrate wording had gone
+    inconsistent, since only the skill-table cluster was named in the
+    PLAN line — treated as "any other living surface" scope).
+  - **AGENTS.md** (root) Map line — `fan-out` → `orchestrate` in the
+    Usage skills list (the explicitly named line).
+  - **docs/how-it-works/architecture.md** — the three current-state spots
+    step 8 flagged (map mermaid's `SK` node; the "Live, all nine" skill
+    inventory's `fan-out (P4, no bump)` entry → `orchestrate (1.3.0 —
+    ADR-008 absorbed fan-out)`; the `loop-setup and fan-out scale...`
+    prose). Left the phase-ladder mermaid box untouched, per step 8's own
+    reasoning (historical record of what P4 shipped).
+  - **docs/how-it-works/standard-lifecycle.md** — the "Ten skills..."
+    completing-the-set list, `fan-out` → `orchestrate`.
+  - **templates/repo/AGENTS.md.template** — the installed tier one-liner's
+    "XL fan-out" → "XL orchestrate" (this exact string ships into every
+    future consumer via `ae-init`).
+  - **skills/work-run/SKILL.md** + its `evals/eval-03.md`,
+    **skills/work-plan/SKILL.md** + its `evals/eval-03.md`,
+    **skills/work-verify/SKILL.md** — all pointed an agent at `fan-out`
+    as the live tool for cross-lane parallelism / the XL reducer
+    contract / the XL parent-plan ceremony; every pointer now says
+    `orchestrate`. Evals updated in the same change as their skill's
+    content (not strictly "evals precede content" order since these are
+    wording fixes to already-approved evals, not new eval design, but
+    kept together per the hard constraint's spirit). work-plan kept its
+    established "three questions" phrasing (no "fan-out" qualifier,
+    matching `reference/task-tiers.md`'s already-updated XL row from
+    step 6) rather than inventing "pre-orchestrate questions".
+
+  Judgment call flagged for review: touching work-run/work-plan/
+  work-verify — three already-shipped, high-traffic skills predating
+  this lane — is broader than a typical single-file "mechanical" fix,
+  but the PLAN's own catch-all ("any other living surface still naming
+  fan-out as current") and the dispatch message's "files still naming
+  the deleted skill" (plural) both name this scope explicitly, and an
+  agent following work-run's old text would try to invoke a skill that
+  no longer exists. Every edit was a same-shape word substitution
+  (`fan-out` → `orchestrate`), never a rewrite of surrounding prose.
+
+  Acceptance: `grep -q orchestrate README.md && node scripts/agent-lint.mjs
+  . --ignore tests,templates,global,examples` → PASS, exit 0 ("0 high, 0
+  medium, 0 low — PASS"). Also ran, all green (not required by this step,
+  kept as evidence nothing else broke): `node tests/run-eval-checks.mjs`
+  (all 12 skill dirs well-formed, orchestrate included), `node
+  tests/run-lint-tests.mjs` (13/13), `node tests/run-gen-tests.mjs` (7/7).
+
+  Files: `AGENTS.md`, `README.md`, `docs/how-it-works/architecture.md`,
+  `docs/how-it-works/standard-lifecycle.md`, `reference/graphs-and-reducers.md`,
+  `reference/orca.md`, `templates/repo/AGENTS.md.template`,
+  `skills/work-run/SKILL.md`, `skills/work-run/evals/eval-03.md`,
+  `skills/work-plan/SKILL.md`, `skills/work-plan/evals/eval-03.md`,
+  `skills/work-verify/SKILL.md`; `PLAN.md` step 9 ticked.
+
+  Concerns: none blocking, one flagged above (scope of the work-*
+  skill edits) for review's judgment.
+
 ## In progress
 
 ## Tried and failed

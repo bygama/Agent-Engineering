@@ -1,6 +1,6 @@
 ---
 name: work-run
-description: Executes one lane's PLAN step-by-step with a fresh subagent per step — the lane (SPEC, PLAN, PROGRESS, DECISIONS) is the entire context package, with a per-step review, a capped fix loop, and rulings recorded in the lane. Use when a work/<slug>/ lane with several PLAN steps should be executed in this session — the recommended default for L lanes, available for M, and inside an XL worker's own lane. Not for S tasks (no lane) and never for parallel work across lanes (that is fan-out).
+description: Executes one lane's PLAN step-by-step with a fresh subagent per step — the lane (SPEC, PLAN, PROGRESS, DECISIONS) is the entire context package, with a per-step review, a capped fix loop, and rulings recorded in the lane. Use when a work/<slug>/ lane with several PLAN steps should be executed in this session — the recommended default for L lanes, available for M, and inside an XL worker's own lane. Not for S tasks (no lane) and never for parallel work across lanes (that is orchestrate).
 ---
 
 # work-run
@@ -11,9 +11,9 @@ context between them. The controller coordinates and rules; it never
 implements.
 
 The pairing: **work-run** = sequential within a lane (in-session
-subagents, same worktree); **fan-out** = parallel across lanes
-(worktrees, one worker per lane). Both hand a worker the same package:
-the lane.
+subagents, same worktree); **orchestrate** = dispatch across lanes
+(child worktrees, one worker per lane — M+ single-child through XL
+fan-out). Both hand a worker the same package: the lane.
 
 ## Workflow
 
@@ -34,8 +34,9 @@ Work-run progress:
   inline with its one-line DoD, or open an M lane if it grew. Never
   create a lane just to justify a dispatch.
 - *Parallel implementers inside the lane*: refuse — WIP=1 within a
-  lane; parallelism between lanes is fan-out's job. If two steps are
-  truly independent lanes' worth of work, say so and point at fan-out.
+  lane; parallelism between lanes is orchestrate's job. If two steps
+  are truly independent lanes' worth of work, say so and point at
+  orchestrate.
 - *One step, trivial lane*: work-run adds ceremony without payoff —
   execute inline.
 - *No subagent capability on this runner*: work-run is never mandatory
@@ -111,7 +112,7 @@ owner's behalf are never silent.
 | Thought | Reality |
 |---|---|
 | "I'll just fix this one-liner myself" | Controller fixes skip review and pollute coordination context. Dispatch it. |
-| "Steps 2 and 3 are independent, run both" | WIP=1 inside a lane. Independent lanes' worth of work → fan-out. |
+| "Steps 2 and 3 are independent, run both" | WIP=1 inside a lane. Independent lanes' worth of work → orchestrate. |
 | "Paste the last report so the next subagent has background" | The lane is the background. PROGRESS already carries it. |
 | "Skip the review, the acceptance command passed" | Acceptance proves the step ran; review proves it's the SPEC's step. Both. |
 | "One more round past the cap will converge" | Past 5 the failure is structural. Adjudicate and record the ruling. |

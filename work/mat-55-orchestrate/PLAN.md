@@ -85,7 +85,7 @@
       (the 8-stage dispatch cycle), every mermaid narrated ("what to
       SEE"), woven into the existing chapter arc —
       accept: `grep -rq orchestrate docs/how-it-works && node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
-- [ ] 9. `mechanical` [batch] Remaining living surfaces: README skill
+- [x] 9. `mechanical` [batch] Remaining living surfaces: README skill
       table + chain + mermaid (orchestrate replaces fan-out; count stays
       10), root AGENTS.md Map line, any other living surface still
       naming fan-out as current (records excluded) —

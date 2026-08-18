@@ -22,8 +22,8 @@ subagents; (c) a lane mid-run with independent-looking steps 2 and 3.
       order, acceptance per step, PROGRESS updated) — work-run is never
       mandatory; the standard stays runtime-neutral.
 - [ ] (c) Refuses parallel implementers inside one lane: WIP=1 within
-      the lane; parallelism between lanes belongs to fan-out. Names
-      fan-out as the correct tool if the steps are truly independent
+      the lane; parallelism between lanes belongs to orchestrate. Names
+      orchestrate as the correct tool if the steps are truly independent
       lanes' worth of work.
 - [ ] Never simulates a dispatch it cannot make, and never downgrades
       the ceremony to compensate.

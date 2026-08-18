@@ -75,7 +75,7 @@ flowchart LR
     IN["intake<br/>Linear issue"] --> TR{"triage:<br/>which tier?"}
     TR -->|S| S["do + verify"]
     TR -->|M / L| LANE["lane<br/>work/&lt;slug&gt;/"]
-    TR -->|XL| FAN["fan-out:<br/>parallel lanes"]
+    TR -->|XL| FAN["orchestrate:<br/>parallel lanes"]
     FAN --> RED["reduce +<br/>synthesis gate"]
     LANE --> V["work-verify<br/>DoD by command"]
     RED --> V
@@ -93,7 +93,7 @@ only moves up:
 | **S** | one step, obvious verification | do it, verify, done |
 | **M** | it needs a plan and fits one focused effort | lane + PLAN + PROGRESS |
 | **L** | it outlives sessions and needs multiple gates | four files + feature list |
-| **XL** | a correct plan forces ≥2 independent parallel lanes | everything L per lane + mandatory fan-out + synthesis gate |
+| **XL** | a correct plan forces ≥2 independent parallel lanes | everything L per lane + mandatory orchestrate + synthesis gate |
 
 When in doubt, take the higher tier. Consumers receive this table as
 `docs/tiers.md` in their own repo.
@@ -116,6 +116,7 @@ file and follow it. Each ships with ≥3 evals, written before the skill.
 | [`work-run`](skills/work-run/SKILL.md) | executing a lane's PLAN in this session — fresh subagent per step, per-step review, capped fix loop |
 | [`work-verify`](skills/work-verify/SKILL.md) | before any "done" — tiered definition of done, evidence by command |
 | [`work-handoff`](skills/work-handoff/SKILL.md) | closing or pausing work — clean state, card + tracker sync |
+| [`orchestrate`](skills/orchestrate/SKILL.md) | a Run-bound parent session takes M+ work — dispatches it to a child worktree; XL fan-out included |
 | [`loop-setup`](skills/loop-setup/SKILL.md) | a recurring task passes the loop filter — standing automation |
 
 **`using-ae`** is the entry point: loaded at every session start, it
@@ -129,9 +130,11 @@ straight to work-plan — no thinking suite borrowed for the job anymore
 the lane's own file; **work-run** executes it step-by-step (default at
 L, available at M — a runner without subagents runs the same steps
 inline); **work-verify** stamps the PASS evidence; **work-handoff**
-closes or pauses. **fan-out** is work-run's parallel sibling: it splits
-XL work across lanes and every worker runs that same inner cycle in its
-own lane. **ae-init** installs the standard, **ae-audit** measures it,
+closes or pauses. **orchestrate** is the parent role, end to end: a
+Run-bound session dispatches M+ work to a child worktree it supervises,
+reviews, and merges — one child every time, XL's parallel lanes included
+([ADR-008](docs/adrs/ADR-008-orchestration.md), absorbing `fan-out`).
+**ae-init** installs the standard, **ae-audit** measures it,
 **loop-setup** turns recurring work into standing automation. Suite
 planners, executors, and `brainstorming` are superseded in writing
 ([`reference/skills.md`](reference/skills.md),
@@ -146,7 +149,7 @@ flowchart LR
     PL --> RE["work-run<br/>step-by-step"]
     RE --> WV["work-verify<br/>PASS evidence"]
     WV --> WH["work-handoff<br/>close / pause"]
-    FO["fan-out<br/>XL: parallel lanes"] -.->|"each worker,<br/>own lane"| RE
+    ORCH["orchestrate<br/>M+ dispatch · XL: parallel lanes"] -.->|"each child,<br/>own lane"| RE
 ```
 
 Two repo-local skills (`.claude/skills/`: `docs-sweep`, `release`)

@@ -16,7 +16,7 @@ not survive contact with real work.
 
 ```mermaid
 flowchart LR
-    REF["reference/<br/>the standard: 1 doc per layer"] -->|grounds| SK["skills/<br/>init · audit · work-* · loop-setup · fan-out"]
+    REF["reference/<br/>the standard: 1 doc per layer"] -->|grounds| SK["skills/<br/>init · audit · work-* · loop-setup · orchestrate"]
     REF -->|shapes| TPL["templates/repo/<br/>what consumers receive"]
     SK -->|installs| TPL
     SCR["scripts/agent-lint<br/>mechanical checks"] -->|backs| SK
@@ -65,10 +65,10 @@ stays out.
 ### `skills/` — how does it replicate and get used day to day?
 
 Live, all nine: `ae-init`, `ae-audit` (AE/2.0); `work-verify`,
-`work-handoff` (AE/2.1); `loop-setup` (AE/2.2); `fan-out` (P4, no bump —
-no template or check changed); `work-run` (1.1.0 —
-[ADR-004](../adrs/ADR-004-relay.md) gave execution a house owner);
-`work-plan`, `using-ae` (1.2.0 —
+`work-handoff` (AE/2.1); `loop-setup` (AE/2.2); `orchestrate` (1.3.0 —
+[ADR-008](../adrs/ADR-008-orchestration.md) absorbed `fan-out`); `work-run`
+(1.1.0 — [ADR-004](../adrs/ADR-004-relay.md) gave execution a house
+owner); `work-plan`, `using-ae` (1.2.0 —
 [ADR-005](../adrs/ADR-005-artifact-phases.md) generalized ADR-004 to
 every artifact-producing phase).
 
@@ -81,10 +81,11 @@ drift. The work-* chain applies the daily discipline end to end:
 `work-run` executes it step-by-step (a fresh implementer subagent per
 step, the lane as its entire context package), `work-verify` gates
 "done" on command evidence, `work-handoff` closes or pauses the lane
-clean. `loop-setup` and `fan-out` scale the same discipline to
-scheduled and parallel work — `fan-out` is `work-run`'s parallel
-sibling, splitting XL work across lanes where every worker runs that
-same inner cycle in its own lane. Process-skill suites' own planners
+clean. `loop-setup` and `orchestrate` scale the same discipline to
+scheduled and dispatched work — `orchestrate` owns dispatch end to end,
+from one child at M+ through XL's parallel lanes, where every worker
+runs that same inner cycle in its own lane. Process-skill suites' own
+planners
 and executors are superseded in writing by this chain
 (`reference/skills.md`, [ADR-004](../adrs/ADR-004-relay.md),
 [ADR-005](../adrs/ADR-005-artifact-phases.md)). Skills are plain
