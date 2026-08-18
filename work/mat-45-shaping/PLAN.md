@@ -5,7 +5,7 @@
      use). Global constraints: SPEC §1 (narrow scope, no re-triage, no
      own artifacts) and §4 verbatim in every dispatch. -->
 
-- [ ] H1 (judgment): ALL eval work first — new
+- [x] H1 (judgment): ALL eval work first — new
   `skills/shaping/evals/eval-01..04` per SPEC §4 + reword
   `skills/work-plan/evals/eval-05.md` scenario (c) ("points at
   brainstorming" → "invokes shaping") + one routing line in a
