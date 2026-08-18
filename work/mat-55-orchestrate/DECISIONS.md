@@ -40,6 +40,15 @@
   content — the anti-gaming rationale doesn't bite), self-disclosed,
   and zero behavioral risk. HABIT going forward: split the evals
   commit from the content commit even in mechanical batches.
+- 2026-08-18 — F04 verification amended (controller ruling at
+  work-verify, mat-45 F06 precedent): the row's behavior is "no living
+  surface names fan-out AS CURRENT"; its original command grepped the
+  bare word and tripped on topology-term uses ("XL fan-out", "reducers
+  between fan-out and synthesis") and the historical absorption note —
+  none of which point at the deleted skill. Command now greps the
+  skill path `skills/fan-out` (a live pointer), matching the behavior
+  and the step-9 review's repo-wide verification. Behavior text
+  unchanged.
 - 2026-08-18 — Map AE onto Orca's native orchestration primitives
   (Run/Task/Dispatch/worker_done/gates) instead of inventing
   coordination — discovered in `orca skills get orchestration` during
