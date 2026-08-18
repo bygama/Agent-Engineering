@@ -119,3 +119,6 @@ stable line's layout.
   skills are machine-global; repos that track work may add the one-line
   `Tracker:` declaration to AGENTS.md (optional, ae-init asks on the
   next init/migration).
+- **1.3.2** (2026-08-18) — heartbeat phase vocabulary fixed in the
+  child dispatch template. Migrating up: restamp only — skills are
+  machine-global; nothing inside an installed repo must change.
