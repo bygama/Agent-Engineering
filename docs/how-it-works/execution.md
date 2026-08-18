@@ -273,7 +273,7 @@ expensively as a retained child.
 
 At XL — work that cannot fit one lane (ADR-002) — orchestrate dispatches
 many children under one more rule: it refuses the split until the
-**three pre-dispatch questions** are answered in writing in the parent
+**three pre-fan-out questions** are answered in writing in the parent
 lane's PLAN — where does each unit work, how do results merge, who
 resolves disagreement — because a parallel split you can't write down is
 a queue wearing a costume. Mandatory at XL (ADR-008, superseding

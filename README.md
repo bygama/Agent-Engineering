@@ -75,8 +75,8 @@ flowchart LR
     IN["intake<br/>Linear issue"] --> TR{"triage:<br/>which tier?"}
     TR -->|S| S["do + verify"]
     TR -->|M / L| LANE["lane<br/>work/&lt;slug&gt;/"]
-    TR -->|XL| FAN["orchestrate:<br/>parallel lanes"]
-    FAN --> RED["reduce +<br/>synthesis gate"]
+    TR -->|XL| ORC["orchestrate:<br/>parallel lanes"]
+    ORC --> RED["reduce +<br/>synthesis gate"]
     LANE --> V["work-verify<br/>DoD by command"]
     RED --> V
     V --> HO["work-handoff<br/>clean close"]
