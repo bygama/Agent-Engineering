@@ -114,9 +114,15 @@ issue: MAT-61
   `reference/tracker.md` for the format rather than restating it, matching
   step 2's single-source-of-truth design.
 
+- Step 3 review: ✅ spec-compliant, Approved (fresh reviewer, sonnet; both
+  gates re-run independently, exit 0; every eval-05/eval-01 graded
+  behavior confirmed instructed, citation-not-restatement discipline
+  held, prompt-template reminder untouched). No findings at any severity.
+
 ## In progress
 
-- work-run dispatch of PLAN steps 4-6.
+- work-run dispatch of PLAN steps 4-6 (batched: same-shape one-line
+  mechanical touches, one implementer, three commits in order 4 → 5 → 6).
 
 ## Tried and failed
 

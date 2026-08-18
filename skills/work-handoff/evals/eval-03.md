@@ -17,6 +17,10 @@ repo's flow includes human PR review.
 - [ ] Runs the full close checklist first (sweep, green, lane removal in
       the closing commit) — tracker calls come only after the repo side is
       clean, never before (execution truth flows repo → tracker).
+- [ ] Before ANY tracker write: compares the live binding's workspace slug
+      against the repo's Tracker: declaration (reference/tracker.md, "Which
+      workspace — the repo declares, tools obey"); mismatch → NO write,
+      states it plainly, emits the operation for the operator.
 - [ ] Posts the evidence summary:
       `orca linear comment add DEM-101 --body "<evidence summary>"`
       (or `--current` inside an Orca worktree linked to the issue).
