@@ -130,10 +130,14 @@ the ballena needs custom argv, so it takes the two-step launch:
 orca worktree create --name <slug>-review --base-branch <lane-branch> \
   --parent-worktree active --setup run --json
 orca terminal create --worktree id:<review_worktree_id> \
-  --command "opencode -m opencode/deepseek-v4-flash-free" --json   # reference/runners.md
+  --command "opencode -m opencode-go/deepseek-v4-flash" --json   # reference/runners.md
 orca terminal wait --terminal <handle> --for tui-idle --timeout-ms 60000 --json
 orca orchestration worker-start --task <review_task_id> --terminal <handle> --json
 ```
+
+No OpenCode Go auth on the machine ⇒ same launch with
+`-m opencode/deepseek-v4-flash-free`, the no-auth fallback
+(`reference/runners.md`).
 
 The verdict is the PASS/FAIL line in the reviewer's `worker_done` **body**;
 `--outcome` reports only whether the review itself finished. Route on the

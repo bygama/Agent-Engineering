@@ -22,7 +22,7 @@ runner-specific adapter file is ever created (the ban stands mid-fan-out).
 | Claude Code (`claude`) | `CLAUDE.md` → imports `AGENTS.md` via the pointer | native (SKILL.md) | `claude -p "<prompt>"` in the worktree | verified on this machine 2026-08-16 |
 | Codex CLI (`codex`) | `AGENTS.md` natively | none — point at the skill file | `codex exec "<prompt>"` | docs-cited; verify on install |
 | Gemini CLI (`gemini`) | `GEMINI.md` by default — set `contextFileName: "AGENTS.md"` in settings; never create a GEMINI.md adapter | none — point at the skill file | `gemini -p "<prompt>"` | docs-cited; verify on install |
-| opencode | `AGENTS.md` natively | own format — point at the skill file | `opencode run -m <provider/model> "<prompt>"` (e.g. `-m opencode/deepseek-v4-flash-free`, a no-auth free model via the opencode gateway) | verified on this machine 2026-08-16 — completed the portability-proof lane |
+| opencode | `AGENTS.md` natively | own format — point at the skill file | `opencode run -m <provider/model> "<prompt>"` (ballena default `-m opencode-go/deepseek-v4-flash`, OpenCode Go subscription auth; no Go auth ⇒ fall back to `-m opencode/deepseek-v4-flash-free`, a no-auth free model via the opencode gateway) | free model verified on this machine 2026-08-16 — completed the portability-proof lane; Go model verified 2026-08-18 |
 | Grok CLI (`grok`) | unverified | unverified | unverified | verify on install |
 | deepseek-harness (`dsh`) | `AGENTS.md` | unverified | unverified | dev preview, breaking changes announced — zero coupling by decision; verify on install |
 
