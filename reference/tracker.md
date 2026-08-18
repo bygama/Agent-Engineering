@@ -57,6 +57,48 @@ State names passed to `--to` must match the team's workflow exactly —
 list them first. Default handoff target is `"In Review"` when a human
 review step follows; `"Done"` only when terminal AND passing (gate rule).
 
+## Which workspace — the repo declares, tools obey
+
+Tool bindings are per-workspace (Linear MCP OAuth, the `orca linear` API
+key), so a session can be bound to a different workspace than the repo
+tracks in — and the write lands, invisibly, in the wrong place. The repo
+settles it once, in writing:
+
+```text
+Tracker: Linear — workspace <workspace> · team <KEY> · project <project>
+```
+
+One always-loaded line in AGENTS.md, directly under the `Standard:
+AE/<version>` stamp and above the summary. `<workspace>` is the URL slug
+(the `<slug>` in `linear.app/<slug>/…`), `<KEY>` is the team key, and the
+`· project <project>` segment is omitted entirely when the repo has none.
+ae-init asks for it once at install, whenever a tracker is in play, and
+writes the answer verbatim — never inferred from the live session, since
+the binding is exactly what can be wrong. This is the format's single
+definition: other files cite this section, they do not restate it.
+
+**Before ANY tracker write** — status move, comment, attachment, issue
+create — compare the live binding against the declaration:
+
+- Read the workspace the binding actually resolves:
+  `orca linear issue <KEY> --json` reports it under `meta.resolved`
+  (`workspaceName`, `workspaceId`), and `orca linear list … --json`
+  carries a `workspace` object per row. Both also return each issue's
+  `url`, and its slug (`linear.app/<slug>/issue/…`) is the identity the
+  declaration names — compare slugs: `workspaceName` is the workspace's
+  display name and need not equal its slug (verified on-machine
+  2026-08-18).
+- **Mismatch → NO write.** State it plainly — declared workspace,
+  resolved workspace, and that the tracker was NOT updated — then emit
+  the exact operation (command + payload) for the operator to run from a
+  correctly bound session. Same pattern as the no-Orca contract below:
+  different reason, identical contract. Nothing lands in the wrong
+  workspace silently.
+- **No declaration line → the rule is inert.** Repos that predate the
+  declaration, and repos whose owner answered "none", behave exactly as
+  they did before. Absence degrades cleanly, like every other tracker
+  affordance here.
+
 ## Without Orca
 
 The no-Orca contract (`reference/orca.md`) applies: tracker writes are
