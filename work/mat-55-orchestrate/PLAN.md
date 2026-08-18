@@ -70,7 +70,7 @@
       consumer tiers template under `templates/repo/`, and this repo's
       own tiers doc if present — same one-line fix shape across files —
       accept: `grep -q orchestrate reference/task-tiers.md && node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
-- [ ] 7. `judgment` Write `docs/adrs/ADR-008-orchestration.md` recording
+- [x] 7. `judgment` Write `docs/adrs/ADR-008-orchestration.md` recording
       the shaping decisions: child=lane via worker-start provenance (no
       grandchildren); PR-per-lane, child opens / parent merges
       rebase-only in parent order, `--deps` overlap queuing; S inline /

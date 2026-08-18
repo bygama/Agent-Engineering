@@ -418,13 +418,64 @@
   incl. a prose line pointing at the deleted skill — steps 8/9 must
   catch it. No fix rounds.
 
+- Step 7 (2026-08-18): wrote `docs/adrs/ADR-008-orchestration.md` (Date /
+  Status / Context / Decision / Consequences / Alternatives considered,
+  matching ADR-001/002/004/006/007's shape). Status line amends ADR-002
+  (XL fan-out mandate → orchestrate) and ADR-004 (adds orchestrate as an
+  L executor option), plus SPEC Decision 7 by extension — same citation
+  pattern ADR-002/004 already use.
+
+  Decision section records all eight items the step named, each as its
+  own bullet: child=lane via `worker-start` provenance with no
+  grandchildren (a child that needs parallel work folds it into its own
+  lane or asks for a sibling task); tier gating (S inline, M+ always a
+  child); `--deps` overlap queuing; the dispatch-time reviewer question
+  with default 1 ballena, framed explicitly as making maker≠checker the
+  default rather than an opt-in (child is Claude, ballena is a different
+  model family); fix loop cap 5 → decision gate; PR-per-lane with child
+  opens/parent merges rebase-only in parent-chosen order; design in the
+  parent / execution in the child (cross-referenced to ADR-006 rather
+  than reopening it); fan-out absorbed (ceremony + no-Orca fallback both
+  moved before deletion, records untouched); and 1.3.0 reused
+  post-renumber, tied explicitly to the ADR-007 addendum's freed number.
+  A closing paragraph under Decision also carries the three CLI-verified
+  mechanics from DECISIONS.md (Linear-at-birth via `worktree set`, fix
+  loop's `worker-start --terminal` reuse, ballena's two-step launch)
+  since they're load-bearing for anyone implementing against this ADR,
+  not just SKILL.md's own prose.
+
+  Consequences section points at every living surface already updated
+  by steps 4-6 (using-ae's role rule, task-tiers.md/tiers.md's L and XL
+  rows, reference/skills.md's Placement paragraph, the `--outcome` vs
+  `--body` verdict-channel ruling) plus the two still-pending (steps 8's
+  how-it-works chapter, the dogfood gate before the version bump) — read
+  as one line matching that this ADR is written mid-lane, not after.
+  Alternatives considered records the two rejected shapes from
+  DECISIONS.md's "Approach A" ruling (no separate child skill, no
+  separate reviewer skill) plus why reusing 1.3.0 beats a fresh MINOR.
+
+  Acceptance: `test -s docs/adrs/ADR-008-orchestration.md` → PASS. Also
+  ran, both green (not required by this step, kept as evidence nothing
+  else broke): `node scripts/agent-lint.mjs . --ignore
+  tests,templates,global,examples` (0 high, 0 medium, 0 low — PASS) and
+  `node tests/run-eval-checks.mjs` (all 12 skill dirs well-formed,
+  orchestrate included — unaffected by a docs-only ADR add).
+
+  Files: `docs/adrs/ADR-008-orchestration.md` (new); `PLAN.md` step 7
+  ticked.
+
+  Concerns: none blocking. This ADR is written before step 8's
+  how-it-works chapter and step 9's remaining living-surface sweep, so
+  its Consequences section names both as still-pending rather than
+  already-done — that's accurate to lane order, not a gap in this step.
+
 ## In progress
 
 ## Tried and failed
 
 ## Next
 
-- Step 7 [judgment]: write `docs/adrs/ADR-008-orchestration.md`.
+- Step 8 [judgment]: `docs/how-it-works/` chapter for orchestration.
 
 ## Verification
 
