@@ -60,6 +60,14 @@ technical docs English; site content/SEO/README in the project's own
 language — never fix one side into the other. Language enters the interview
 only if the owner raises it.
 
+Unlike the language default above, the tracker workspace IS a real question:
+ask it once, settled for the repo, but only when a tracker is in play — step
+1's exploration or the workspace's own signals show Linear connected. Does
+this repo track in Linear, and if so: workspace, team key, project? Accept
+"none"; the tracker stays optional. Never infer the answer from this
+session's live binding — the binding is exactly what can be wrong, which is
+the reason the question exists (`reference/tracker.md`).
+
 **4. Verify commands.** Run each build/test/run/lint command before writing
 it into AGENTS.md. Skip destructive or long-running ones — mark them
 `# not verified` instead. A command that fails does not go in.
@@ -75,8 +83,11 @@ for the version gap, same gate).
 **6. Instantiate.** Fill `{{PLACEHOLDER}}` markers from what steps 1-4
 produced; delete optional sections that have no content (e.g. Map). Always:
 `AGENTS.md` (stamped with the current version — newest `CHANGELOG.md` entry
-in the Agent-Engineering repo — tier one-liner, 4 blocks) + pointer
-`CLAUDE.md` + `docs/README.md` + `docs/tiers.md` + `adrs/` + `specs/`.
+in the Agent-Engineering repo — tier one-liner, 4 blocks; when step 3 named a
+tracker workspace, its declaration line lands directly under that stamp, in
+the canonical format defined in `reference/tracker.md` — cite it, never
+restate it; answer "none" writes no line) + pointer `CLAUDE.md` +
+`docs/README.md` + `docs/tiers.md` + `adrs/` + `specs/`.
 Monorepo: one
 `app-AGENTS.md` (≤30 lines) + pointer per app. Keep existing README/LICENSE.
 UI stack detected in step 1: offer `DESIGN.md.template` per app — opt-in, per
