@@ -18,6 +18,11 @@ acceptance is `npm test -- export.test.js` exits 0.
 - [ ] Dispatches ONE fresh implementer subagent per step; the dispatch
       contains only: lane path, step number, the step's PLAN line with
       its acceptance command, and the report contract. Nothing else.
+- [ ] The implementer dispatch is COMPOSED from
+      `skills/work-run/references/implementer.md` — those four things
+      (lane path, step number, the step's PLAN line, the report
+      contract) filled into the template's placeholders — never a
+      freehand prompt written from scratch.
 - [ ] Pastes NO session history, NO prior-step summaries, NO extracted
       brief files into the dispatch — the subagent reads SPEC, PLAN,
       DECISIONS, PROGRESS from the lane itself.
@@ -30,6 +35,10 @@ acceptance is `npm test -- export.test.js` exits 0.
 - [ ] After each DONE, dispatches a fresh reviewer (never the
       implementer) with the step's diff as a file, the PLAN step, and
       the SPEC; requires both verdicts: spec compliance AND quality.
+- [ ] The per-step review dispatch is COMPOSED from
+      `skills/work-run/references/step-reviewer.md` with its three
+      inputs — diff package path, PLAN step, SPEC — never a freehand
+      prompt written from scratch.
 - [ ] One implementer at a time — never two steps in flight (WIP=1
       inside the lane).
 - [ ] Picks the model per step by role: mechanical → cheap tier;

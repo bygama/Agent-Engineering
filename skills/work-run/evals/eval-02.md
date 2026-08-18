@@ -20,6 +20,9 @@ finding; the implementer subagent is still resumable.
 - [ ] The re-review is scoped to the fix diff (as a file); it verdicts
       each finding ADDRESSED / NOT ADDRESSED and flags only new
       breakage in the fix diff.
+- [ ] The scoped re-review dispatch is COMPOSED from
+      `skills/work-run/references/re-reviewer.md` — never a freehand
+      prompt written from scratch.
 - [ ] Minor findings never enter the loop — they are recorded in
       PROGRESS as deferred and left for work-verify's lane gate.
 - [ ] The controller NEVER fixes the code itself, no matter how small

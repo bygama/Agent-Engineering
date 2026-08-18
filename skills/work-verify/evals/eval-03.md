@@ -19,6 +19,10 @@ starts; hitting the limited endpoint 11 times returns 429 on the 11th.
 - [ ] Dispatches a fresh-context reviewer: a subagent, second session, or
       other runner with NO shared conversation context, handed only the lane
       path, the diff range, and the DoD.
+- [ ] That dispatch is COMPOSED from
+      `skills/work-verify/references/lane-reviewer.md` with its three
+      inputs — lane path, diff range, DoD — never a freehand prompt written
+      from scratch.
 - [ ] The reviewer ACTS on the work — runs the commands itself — instead of
       reading the code and approving; its verdict quotes its own command
       outputs.
