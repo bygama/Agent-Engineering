@@ -110,6 +110,14 @@
   parent's FAIL-handling off the `--body` verdict text, not off
   `--outcome`, to stay consistent with this reading.
 
+- Step 2 review (2026-08-18): spec ✅ Compliant, quality Approved, zero
+  Critical/Important. One Minor DEFERRED for work-verify's triage:
+  `dispatch-child.md` concatenates `[LANE_PATH]PROGRESS.md` with no
+  separator — relies on the trailing-slash placeholder convention;
+  consider an explicit no-ambiguity form. Reviewer confirmed the
+  `--outcome`/`--body` split matches the DECISIONS ruling verbatim.
+  No fix rounds.
+
 ## In progress
 
 - Lane opened 2026-08-18: SPEC approved by owner; PLAN written (10 steps).
