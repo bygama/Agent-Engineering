@@ -17,3 +17,11 @@
 - 2026-08-18 — TDD and systematic-debugging stay in the composable
   examples list — their replacements are MAT-46/47 (skills repo), not
   this lane; ADR-006's scope is the design dialogue only.
+- 2026-08-18 — Ruling (H3 review Important): using-ae's Precedence
+  section still asserting "brainstorming... stay composable" is a real
+  SPEC gap (no step owned it) and load-bearing — the entry skill would
+  contradict itself every session. Fix folded into H3's fix round: one
+  tight caveat in that section (brainstorming's design-dialogue use →
+  shaping per ADR-006; TDD/systematic-debugging remain), ≤80-line cap
+  held. No new eval needed: shaping eval-03 already pins the
+  supersession this aligns with.
