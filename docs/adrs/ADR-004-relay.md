@@ -1,7 +1,7 @@
 # ADR-004: relay — the standard owns lane execution
 
 Date: 2026-08-17
-Status: Accepted <!-- Amends SPEC Decision 7 (L-tier ceremony note) --> <!-- skill renamed work-run in the next MINOR (owner direction 2026-08-17); file name kept as record -->
+Status: Accepted <!-- Amends SPEC Decision 7 (L-tier ceremony note) --> <!-- skill renamed work-run in the next MINOR (owner direction 2026-08-17); file name kept as record --> <!-- orchestrate added as an additional L executor option by ADR-008 (2026-08-18) -->
 
 ## Context
 

@@ -1,7 +1,7 @@
 # ADR-007: milestone-weighted versioning
 
 Date: 2026-08-18
-Status: Accepted <!-- Amends ADR-003 and the CHANGELOG header criterion -->
+Status: Accepted <!-- Amends ADR-003 and the CHANGELOG header criterion; 1.4.0 reservation superseded by ADR-008 (2026-08-18) — the orchestration milestone shipped as 1.3.0 instead -->
 
 ## Context
 
