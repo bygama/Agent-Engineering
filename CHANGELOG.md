@@ -1,16 +1,20 @@
 # Changelog
 
 All notable changes to **AE**, the agent-engineering standard. Format:
-[Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/); versions:
-[Semantic Versioning 2.0.0](https://semver.org/) — both verified at
-source 2026-08-17. A version is spoken "AE 1.0.0" and written
-`Standard: AE/1.0.0` in stamps, `v1.0.0` in git tags:
+[Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/); numbers:
+SemVer-shaped, milestone-weighted since
+[ADR-007](docs/adrs/ADR-007-milestone-versioning.md) — a deliberate
+deviation from strict SemVer's MINOR/PATCH split. A version is spoken
+"AE 1.0.0" and written `Standard: AE/1.0.0` in stamps, `v1.0.0` in git
+tags:
 
 - **MAJOR** — breaking shape change: a migrated repo must change to stay
   compliant.
-- **MINOR** — new capability, backward compatible: a new template piece,
-  check, or skill surface.
-- **PATCH** — fixes and errata, backward compatible.
+- **MINOR** — an owner-designated milestone package: a coherent set the
+  owner names as a milestone of the standard.
+- **PATCH** — everything else backward compatible: fixes, errata, and
+  incremental capability (new skills, templates, checks) not designated
+  a milestone.
 
 Template or check changes always land in a bump — never shipped
 silently; related change sets may accumulate unreleased and ship

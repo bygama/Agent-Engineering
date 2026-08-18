@@ -37,14 +37,15 @@ question. A second bump in the same day always needs the owner's
 explicit yes. "Template or check changes always bump" means they always
 END UP in a release — never shipped silently — not bump-per-merge.
 
-**2. Size the bump.** The criterion (CHANGELOG header): a migrated repo
-must change to stay compliant ⇒ **MAJOR**; new backward-compatible
-capability ⇒ **MINOR**; fix/errata ⇒ **PATCH**. Size measures
-compatibility impact, never effort — a one-word breaking rename is
-MAJOR, a large compatible addition is MINOR. Genuinely unsure ⇒ take
-the larger and say so. Before releasing a MAJOR, check whether a
-non-breaking alternative exists (e.g. support both shapes for one
-version) and offer it.
+**2. Size the bump.** The criterion (CHANGELOG header, ADR-007): a
+migrated repo must change to stay compliant ⇒ **MAJOR**; an
+owner-designated milestone package ⇒ **MINOR**; everything else
+backward compatible — fixes, errata, AND incremental capability —
+⇒ **PATCH**. Milestone designation is the owner's, never inferred:
+when it is unclear whether a set is a milestone, ASK. Breaking-vs-not
+still measures compatibility impact, never effort. Before releasing a
+MAJOR, check whether a non-breaking alternative exists (e.g. support
+both shapes for one version) and offer it.
 
 **3. CHANGELOG entry.** Keep a Changelog form: `## [X.Y.Z] — <ISO
 date>`, newest on top, sections from
@@ -81,10 +82,11 @@ verified.
   not an omission.
 - One release per coherent change set; never batch unrelated bumps to
   "save a version number".
-- Pacing never re-sizes: capability is MINOR even when the owner wants
-  fewer versions — fewer, bigger MINORs are the lever, never a smaller
-  number for the same change (born from the aborted fourth same-day
-  bump, MAT-53).
+- Sizing follows ADR-007, not effort and not pacing: PATCH absorbs
+  incremental capability; MINOR is only ever an owner-designated
+  milestone; reserved milestone numbers (e.g. "1.4.0 is the
+  orchestration package") are honored — nothing else may take them
+  (born from the aborted fourth same-day bump, MAT-53/MAT-54).
 - When the release itself changes this skill's inputs (the criterion,
   the surfaces list), those docs change in the same PR — the ritual and
   its law never drift apart.
