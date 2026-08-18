@@ -204,6 +204,23 @@
   ever changes, the reference is the source of truth and the skill's
   example follows it.
 
+- Step 3 review (2026-08-18): spec ✅ Compliant, quality **Needs fixes**
+  — 2 Important: (1) SKILL.md:153 re-review seat unspecified (should
+  reuse the same reviewer terminal via `worker-start --terminal`, like
+  the fix seat); (2) SKILL.md:180-183 reviewer workers/worktrees never
+  decommissioned in step 8 (release them alongside the child's). Fix
+  round 1 opened, same implementer. Reviewer independently re-verified
+  every `orca` flag against the installed CLI — all hold. Minors
+  DEFERRED for work-verify triage: PROGRESS says 213 lines, file is
+  260; ballena two-step should close its unused fallback shell
+  (reference/orca.md:83-85); runners.md citation shows the headless
+  form, skill uses the TUI form — label or add; four fan-out items to
+  land in later steps (XL-mandatory wording → step 6; ambiguity rule
+  for the no-Orca fallback; ready-to-run protocol emission; feature
+  rows passing from the merged tree); fallback never closes lanes
+  (one line); ⚠️ reference/orca.md:45 still maps worker spawn to the
+  full-handoff form — step 9's sweep must fix it.
+
 ## In progress
 
 - Lane opened 2026-08-18: SPEC approved by owner; PLAN written (10 steps).
