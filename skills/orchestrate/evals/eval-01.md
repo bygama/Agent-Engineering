@@ -44,5 +44,9 @@ doesn't exist yet). No lane exists for it yet.
       the standing mailbox-check instruction: run `orca orchestration
       check` at every phase transition (investigate→implement→review→
       verify) and before reporting `worker_done`.
+- [ ] The same filled spec carries the standing browser rule: browser
+      needs go through Orca's embedded browser (`orca tab
+      create/goto/snapshot/click/wait --json`) — never Playwright,
+      chrome-devtools, or claude-in-chrome from a supervised child.
 - [ ] The parent implements nothing itself at any point in this
       sequence — its own checkout stays clean throughout.
