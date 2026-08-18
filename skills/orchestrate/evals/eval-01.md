@@ -42,8 +42,13 @@ doesn't exist yet). No lane exists for it yet.
       uncited id.
 - [ ] The filled `dispatch-child.md` spec injected into the child carries
       the standing mailbox-check instruction: run `orca orchestration
-      check` at every phase transition (investigate→implement→review→
-      verify) and before reporting `worker_done`.
+      check` at every phase transition and before reporting `worker_done`.
+- [ ] The same filled spec fixes the heartbeat vocabulary: the child
+      reports `--phase` only from `investigating → planning →
+      implementing → reviewing → verifying → reporting`, with `blocked`
+      valid only alongside a live `ask` — a spec that leaves the child
+      free to invent phase words (a novel `waiting`, ambiguous from the
+      parent's seat) fails this check.
 - [ ] The same filled spec carries the standing browser rule: browser
       needs go through Orca's embedded browser (`orca
       goto/snapshot/click/wait --json`) — never Playwright,
