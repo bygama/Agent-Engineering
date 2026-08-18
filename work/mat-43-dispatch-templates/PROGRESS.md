@@ -14,13 +14,29 @@
   three inputs — lane path, diff range, DoD). `node
   tests/run-eval-checks.mjs` exits 0.
 
+- 2026-08-18 — T2: the four templates per SPEC "Constraints". Created
+  `skills/work-run/references/implementer.md` (lane path + step number +
+  step's PLAN line + 4-state report contract + no-subagents rule),
+  `skills/work-run/references/step-reviewer.md` (three inputs — diff
+  file, PLAN step, SPEC path — both verdicts, Critical/Important/Minor
+  with file:line, read-only + no-subagents), `skills/work-run/references/re-reviewer.md`
+  (scoped to the fix diff, ADDRESSED/NOT ADDRESSED per finding, new
+  breakage only), and `skills/work-verify/references/lane-reviewer.md`
+  (lane path + diff range + DoD, act-and-quote, PASS/FAIL). Stole
+  calibration, strengths-first, file:line, mandatory verdict, read-only
+  review, no-subagents, and don't-review-unread-code from superpowers'
+  four source templates, adapted to the lane shape (no
+  workspace/ledger/plan-file concepts). `node scripts/agent-lint.mjs .
+  --ignore tests,templates,global,examples` exits 0 (0 findings); `node
+  tests/run-eval-checks.mjs` exits 0.
+
 ## In progress
 
 ## Tried and failed
 
 ## Next
 
-- T2: the four templates per SPEC "Constraints".
+- T3: SKILL.md pointer lines + the work-lifecycle.md sentence.
 
 ## Verification
 

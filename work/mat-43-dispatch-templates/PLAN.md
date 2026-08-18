@@ -8,7 +8,7 @@
   eval-01/eval-02 + the work-verify eval covering the fresh-context
   seat — accept: `node tests/run-eval-checks.mjs` exits 0; edited
   checklists name the template files by path
-- [ ] T2 (judgment): the four templates per SPEC "Constraints" —
+- [x] T2 (judgment): the four templates per SPEC "Constraints" —
   interface: file paths exactly as SPEC "Files" lists them (T1's eval
   edits already name those paths) — accept: all four files exist;
   `node scripts/agent-lint.mjs . --ignore
