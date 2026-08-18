@@ -49,6 +49,6 @@ is in maintenance — versions bump on template/check changes (CHANGELOG.md).
 - What consumers receive: `templates/repo/`
 - Replication skills: `skills/ae-init/`, `skills/ae-audit/`
 - Usage skills: `skills/` — using-ae (entry), work-plan, work-run,
-  work-verify, work-handoff, fan-out, loop-setup
+  work-verify, work-handoff, orchestrate, loop-setup
 - Repo-local skills: `.claude/skills/` — docs-sweep (drift battery),
   release (bump ritual)

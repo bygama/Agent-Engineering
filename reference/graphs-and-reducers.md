@@ -58,13 +58,13 @@ merge what passed, re-plan the remainder as one lane.
 
 ## In this standard
 
-`skills/fan-out` operationalizes the layer — mandatory at tier XL,
+`skills/orchestrate` operationalizes the layer — mandatory at tier XL,
 available at L (`reference/task-tiers.md`): the three pre-fan-out
 questions in writing, one item ↔ one lane ↔ one worktree ↔ one worker,
 the contract in the parent lane's PLAN. Runner choice per worker is free
 (`reference/runners.md`) because workers consume artifacts, not
-conversations. Workers spawn agent-first (`orca worktree create
---agent <id> --prompt "<brief>" --parent-worktree active` — one command
-per worker) and coordinate through `orca orchestration`; without Orca the
-same lanes run sequentially under the same ceremony (the no-Orca
-contract, `reference/orca.md`).
+conversations. Workers spawn via `orca orchestration worker-start --task
+<id> --worktree new-child` (full Task+Dispatch+launch provenance) and
+coordinate through `orca orchestration`; without Orca the same lanes run
+sequentially under the same ceremony (the no-Orca contract,
+`reference/orca.md`).

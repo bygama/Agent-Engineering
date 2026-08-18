@@ -5,7 +5,7 @@ Standard: AE/1.2.2
 {{REPO_SUMMARY}}
 <!-- 2-3 lines: what + stack. Nothing the filesystem already says. -->
 
-Tiers: S direct+verify · M lane+plan · L four files+feature list · XL fan-out — doubt → higher (docs/tiers.md).
+Tiers: S direct+verify · M lane+plan · L four files+feature list · XL orchestrate — doubt → higher (docs/tiers.md).
 
 ## Commands
 

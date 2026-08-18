@@ -41,7 +41,7 @@ itself.
 - **L** — the `verification` command of each feature-list row in play.
 - **XL** — the per-lane L DoD for every worker lane, plus the synthesis
   gate: the merged tree's full verification + every feature row's command
-  run from the merged tree (`skills/fan-out` reducer contract).
+  run from the merged tree (`skills/orchestrate` reducer contract).
 
 No DoD exists → stop and write one with the owner first, then verify
 against it.

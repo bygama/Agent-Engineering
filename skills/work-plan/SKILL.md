@@ -1,6 +1,6 @@
 ---
 name: work-plan
-description: Turns a design — a settled conversation, a tracker issue, or a direct ask — into a lane's SPEC.md and PLAN.md shaped for work-run dispatch: dispatchable steps with executable acceptance, named interfaces between dependent steps, `[batch]`-marked same-shape fixes, and role hints, opening with a constraints block when the design imposes one. Two modes: design-first writes SPEC.md and stops for owner approval before shaping PLAN.md; direct writes both in one pass when the owner states certainty or a tracker issue stands in as the spec. At XL, produces the parent plan (the three fan-out questions plus a worker table skeleton) instead of executable steps. Use once a lane needs its SPEC and PLAN shaped, before work-run executes the PLAN. Refuses S-tier asks (no lane, no plan), requests for a standalone plan document separate from the lane files, and asks with no design and genuine scope uncertainty.
+description: Turns a design — a settled conversation, a tracker issue, or a direct ask — into a lane's SPEC.md and PLAN.md shaped for work-run dispatch: dispatchable steps with executable acceptance, named interfaces between dependent steps, `[batch]`-marked same-shape fixes, and role hints, opening with a constraints block when the design imposes one. Two modes: design-first writes SPEC.md and stops for owner approval before shaping PLAN.md; direct writes both in one pass when the owner states certainty or a tracker issue stands in as the spec. At XL, produces the parent plan (the three questions plus a worker table skeleton, orchestrate's XL ceremony) instead of executable steps. Use once a lane needs its SPEC and PLAN shaped, before work-run executes the PLAN. Refuses S-tier asks (no lane, no plan), requests for a standalone plan document separate from the lane files, and asks with no design and genuine scope uncertainty.
 ---
 
 # Work plan
@@ -85,16 +85,16 @@ constraints block, not something repeated ad hoc per step.
 shape (a correct plan forces two or more independent lanes running at
 once, `reference/task-tiers.md`) and write the parent PLAN.md:
 
-- Answer fan-out's three questions in writing, inside the parent PLAN:
-  where does each item's work happen, how do results merge, who
-  resolves disagreement (`skills/fan-out`).
-- Add a worker table skeleton shaped for fan-out to consume: item ·
+- Answer orchestrate's three questions in writing, inside the parent
+  PLAN: where does each item's work happen, how do results merge, who
+  resolves disagreement (`skills/orchestrate`).
+- Add a worker table skeleton shaped for orchestrate to consume: item ·
   lane `work/<slug>/` · worktree path · branch · runner · spawn
   command.
 - No executable steps with acceptance commands at the parent — each
   worker's own steps belong in that worker's own PLAN.md, written
   later inside that worker's lane by this same skill.
-- Name fan-out as the mechanism that executes the parent plan;
+- Name orchestrate as the mechanism that executes the parent plan;
   work-plan itself spawns no workers, worktrees, or subagents.
 - If the three questions cannot be answered honestly — the "modules"
   turn out to share files, or merge order is unclear — refuse the XL

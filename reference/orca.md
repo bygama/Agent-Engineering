@@ -42,7 +42,7 @@ and continues with what remains. Never silently skipped, never faked.
 | Standard concept | Orca command (verified) |
 |---|---|
 | Lane in isolation | `orca worktree create` (`--parent-worktree active` for children; `--linear-issue <KEY>` links the tracker) |
-| Worker spawn (fan-out) | `orca worktree create --agent <id> --prompt "<brief>" --parent-worktree active` — one command: worktree + agent in its first terminal + the brief |
+| Worker spawn (orchestrate, supervised) | `orca orchestration worker-start --task <id> --worktree new-child` — full Task+Dispatch+launch provenance for a child the parent supervises by mailbox; distinct from the unsupervised full-transfer form below |
 | Worker follow-up | the single `startupTerminal.handle`: `orca terminal wait --terminal <h> --for tui-idle --timeout-ms <ms>`, then `orca terminal send --terminal <h> --text "…" --enter`; stale handle ⇒ re-list, never dual-send |
 | Lane visibility | `orca worktree set --worktree active --comment "<checkpoint>"` at PROGRESS state changes; `--workspace-status in-progress\|in-review\|completed` mirrors the lane lifecycle |
 | Coordinator↔workers (XL) | `orca orchestration` — task DAGs, dispatch, inbox/reply; a worker reads mail with `orca orchestration check --unread --inject`. Never ad-hoc `terminal send` for structured coordination |
