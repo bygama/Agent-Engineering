@@ -42,7 +42,7 @@ genuine unresolved scope, not just missing paperwork.
       both files together — not one gate per file.
 - [ ] (c) Refuses to write SPEC.md or PLAN.md, and does not open a
       `work/` lane for the ask.
-- [ ] (c) The refusal names the missing design explicitly and points
-      at brainstorming as the next step, rather than a bare "no".
+- [ ] (c) The refusal names the missing design explicitly and invokes
+      shaping as the next step, rather than a bare "no".
 - [ ] (c) Invents no scope to force the ask into either mode — no
       guessed caching strategy, no assumed location in the pipeline.

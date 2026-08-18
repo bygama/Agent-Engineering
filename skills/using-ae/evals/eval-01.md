@@ -27,3 +27,7 @@ The repo has existing tests and a verify command.
       defer invoking it.
 - [ ] Names `work/<slug>/` as the lane the work will live in, not a
       one-off patch applied straight to the working tree.
+- [ ] The map used to pick the invoked skill carries a `shaping` row
+      for the design phase, alongside `work-plan` — present once
+      MAT-45 H3 lands (this bullet fails until then; this ask's scope
+      is already clear, so `work-plan` remains the one invoked here).
