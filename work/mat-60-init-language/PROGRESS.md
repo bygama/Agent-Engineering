@@ -197,7 +197,8 @@
 
 ## Next
 
-- Push fix commits; parent's reviewer re-verdicts.
+- Nothing — lane terminal. Parent merges PR #53; the branch is rebased
+  clean on origin/main (no-op, main unmoved at abe76bd).
 
 ## Verification
 
@@ -219,9 +220,10 @@
   byte-identical, scope fence and evals-first ordering exact. Its
   Important finding (stale PLAN.md wording) fixed via AMENDED banner
   before this block.
-- Adversarial review (ballena, parent seat): prior verdict FAIL on
-  design staleness (superseded design, not evidence) — fix round 1
-  re-encodes the amendment; parent re-verdicts after this push.
+- Adversarial review (ballena, parent seat): re-verdict **PASS** — all
+  four findings ADDRESSED (parent's close-out dispatch, 2026-08-18).
+  The prior FAIL was design staleness (superseded design, not
+  evidence); fix round 1 re-encoded the amendment.
 
 ### 2026-08-18 — M DoD — PASS
 - L1 static: `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` → exit 0 (`0 high, 0 medium, 0 low — PASS`)
