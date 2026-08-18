@@ -30,7 +30,7 @@
       always a child; no grandchildren; no-Orca fallback = manual
       procedure, Orca-only steps declared NOT done, never faked) —
       accept: `test $(ls skills/orchestrate/evals/eval-*.md | wc -l) -ge 4`
-- [ ] 2. `integration` Write the two dispatch templates:
+- [x] 2. `integration` Write the two dispatch templates:
       `skills/orchestrate/references/dispatch-child.md` (supervised
       worker preamble: run the work-cycle inside the lane, read your
       Linear ticket via `orca linear issue --current`, push branch +
