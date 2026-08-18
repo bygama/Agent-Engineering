@@ -74,6 +74,13 @@ methodology skills live in the personal library (`bygama/skills`,
 junctioned); a complementary skill that becomes load-bearing for the
 standard moves upstream into AE.
 
+`skills/orchestrate` now owns dispatch and parallel execution end to
+end — one child through XL fan-out — superseding `skills/fan-out`
+(ADR-008), which is removed: closed finalize-then-remove, its no-Orca
+manual procedure preserved as orchestrate's fallback section. Only this
+living reference updates; fan-out's name stays in ADRs, CHANGELOG,
+closed lanes, and examples/.
+
 ## Composing with process-skill suites
 
 `using-ae` is the always-loaded entry point (SessionStart): it carries

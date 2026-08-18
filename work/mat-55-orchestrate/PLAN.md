@@ -55,7 +55,7 @@
       scopes), and the manual no-Orca fallback section (absorb the
       procedure from `skills/fan-out/SKILL.md` BEFORE step 4 deletes it) —
       accept: `node tests/run-eval-checks.mjs`
-- [ ] 4. `integration` Absorb fan-out: delete `skills/fan-out/` and
+- [x] 4. `integration` Absorb fan-out: delete `skills/fan-out/` and
       update `reference/skills.md` (orchestrate owns dispatch/parallel
       execution; supersession + placement paragraphs stay coherent) —
       accept: `test ! -d skills/fan-out && node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
