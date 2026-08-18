@@ -65,7 +65,7 @@
       parent → M+ routes to orchestrate; dispatch-bound session = child →
       map behaves as today) —
       accept: `test $(wc -l < skills/using-ae/SKILL.md) -le 80 && grep -q orchestrate skills/using-ae/SKILL.md && node tests/run-eval-checks.mjs`
-- [ ] 6. `mechanical` [batch] Tier surfaces name orchestrate: the L
+- [x] 6. `mechanical` [batch] Tier surfaces name orchestrate: the L
       executor mention and XL row in `reference/task-tiers.md`, the
       consumer tiers template under `templates/repo/`, and this repo's
       own tiers doc if present — same one-line fix shape across files —
