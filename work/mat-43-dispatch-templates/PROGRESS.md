@@ -4,14 +4,14 @@
 
 ## In progress
 
-- 2026-08-18 — Lane opened (work-plan direct mode); awaiting owner gate
-  on SPEC+PLAN before T1.
+- 2026-08-18 — Owner approved SPEC+PLAN (direct-mode gate). Executing
+  T1-T3 via work-run.
 
 ## Tried and failed
 
 ## Next
 
-- Owner gate → T1 dispatch (eval edits).
+- T1 dispatch (eval edits, judgment tier).
 
 ## Verification
 
