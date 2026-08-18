@@ -21,7 +21,7 @@
 - [x] H4 (integration): README (ten skills + chain + adoption phrasing)
   + work-lifecycle + standard-lifecycle mentions — accept: F05 command
   exits 0; lint exits 0
-- [ ] H5 (controller): four gates + release ritual — the 1.3.1 package
+- [x] H5 (controller): four gates + release ritual — the 1.3.1 package
   entry (templates + shaping, ADR-007 owner-designated small; restamp
   surfaces to AE/1.3.1; migration note) + work-verify (fresh whole-lane
   review; feature rows to passing on evidence) + handoff + PR — accept:

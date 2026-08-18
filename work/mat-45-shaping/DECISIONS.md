@@ -17,6 +17,13 @@
 - 2026-08-18 — TDD and systematic-debugging stay in the composable
   examples list — their replacements are MAT-46/47 (skills repo), not
   this lane; ADR-006's scope is the design dialogue only.
+- 2026-08-18 — Ruling (lane review Critical): F06's verification string
+  still checked [1.3.1] — invalidated by the owner's mid-lane renumber,
+  not by the work; string and behavior updated to [1.2.2], re-run exit
+  0. The reviewer's FAIL verdict was correct as-written and is
+  satisfied by this fix; its judgment half found everything else solid.
+  Stale forward-declaration prose in using-ae eval-01 (Minor) reworded
+  in the same fix.
 - 2026-08-18 — Owner-approved renumber folded into H5 ("borrala nomás"):
   v1.3.0 deleted and retagged v1.2.1 on the same commit; CHANGELOG
   heading annotated (shipped-as note); migration note renumbered;
