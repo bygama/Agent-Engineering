@@ -106,6 +106,14 @@ one more step in the middle. Intake can be a tracker issue or a direct
 request — the standard doesn't care. Triage assigns the tier and, at M+,
 opens the lane folder with its definition of done already written.
 
+Where that approved design comes from has an owned shape since
+ADR-006: **shaping** (`skills/shaping`) runs the raw-ask-to-design
+dialogue — one question at a time, 2-3 approaches with a
+recommendation, a design confirmed section by section — for exactly
+the case work-plan's own refusal names, no settled design yet, then
+hands the result straight to work-plan design-first with no artifact
+of its own left behind (`docs/adrs/ADR-006-design-dialogue.md`).
+
 That planning moment has an owned shape since ADR-005: **work-plan**
 (`skills/work-plan`) turns the approved design — the lane's SPEC, a
 tracker issue, or a direct ask — into `work/<slug>/PLAN.md`, already

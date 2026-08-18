@@ -25,6 +25,12 @@ optional plumbing, not a dependency: the skill still triggers by its
 own description with no hook at all (detail: `global/hooks/README.md`,
 `skills/using-ae/SKILL.md`).
 
+Ten skills carry the whole surface this doc describes: the work chain
+now opens with `shaping` (the design dialogue, ADR-006) ahead of
+`work-plan`, `work-run`, `work-verify`, and `work-handoff`, with
+`ae-init`, `ae-audit`, `loop-setup`, `fan-out`, and `using-ae` itself
+completing the set (README carries the full table and chain diagram).
+
 ## What a consuming repo carries
 
 Always, and nothing more:

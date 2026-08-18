@@ -100,7 +100,7 @@ When in doubt, take the higher tier. Consumers receive this table as
 
 **Deep dive → [docs/how-it-works/work-lifecycle.md](docs/how-it-works/work-lifecycle.md)** · tiers: [reference/task-tiers.md](reference/task-tiers.md)
 
-## The nine skills
+## The ten skills
 
 Skills are plain markdown procedures — runtimes with native skill support
 load them by trigger, and any other agent can simply be told to read the
@@ -111,7 +111,8 @@ file and follow it. Each ships with ≥3 evals, written before the skill.
 | [`using-ae`](skills/using-ae/SKILL.md) | always-loaded (SessionStart) — the entry point: triages the tier and routes to the skill that owns it |
 | [`ae-init`](skills/ae-init/SKILL.md) | installing the standard in a repo, or migrating a legacy setup |
 | [`ae-audit`](skills/ae-audit/SKILL.md) | measuring a repo against the standard (report-only by default) |
-| [`work-plan`](skills/work-plan/SKILL.md) | shaping an approved design into a work-run-ready lane PLAN.md |
+| [`shaping`](skills/shaping/SKILL.md) | a raw ask has no settled design yet — the dialogue that hands off to work-plan design-first |
+| [`work-plan`](skills/work-plan/SKILL.md) | turning an approved design into a work-run-ready lane PLAN.md |
 | [`work-run`](skills/work-run/SKILL.md) | executing a lane's PLAN in this session — fresh subagent per step, per-step review, capped fix loop |
 | [`work-verify`](skills/work-verify/SKILL.md) | before any "done" — tiered definition of done, evidence by command |
 | [`work-handoff`](skills/work-handoff/SKILL.md) | closing or pausing work — clean state, card + tracker sync |
@@ -122,23 +123,26 @@ file and follow it. Each ships with ≥3 evals, written before the skill.
 triages an arriving task's tier and routes to whichever skill below
 owns the current phase, before any action.
 
-How they chain on one unit of work: a thinking suite (superpowers or
-any other) designs; **work-plan** shapes that design into
-`work/<slug>/PLAN.md`, the lane's own file; **work-run** executes it
-step-by-step (default at L, available at M — a runner without
-subagents runs the same steps inline); **work-verify** stamps the PASS
-evidence; **work-handoff** closes or pauses. **fan-out** is work-run's
-parallel sibling: it splits XL work across lanes and every worker runs
-that same inner cycle in its own lane. **ae-init** installs the
-standard, **ae-audit** measures it, **loop-setup** turns recurring
-work into standing automation. Suite planners and executors are
-superseded in writing ([`reference/skills.md`](reference/skills.md),
+How they chain on one unit of work: **shaping** turns a raw ask with no
+settled design into an approved one through dialogue, then hands it
+straight to work-plan — no thinking suite borrowed for the job anymore
+(ADR-006); **work-plan** shapes that design into `work/<slug>/PLAN.md`,
+the lane's own file; **work-run** executes it step-by-step (default at
+L, available at M — a runner without subagents runs the same steps
+inline); **work-verify** stamps the PASS evidence; **work-handoff**
+closes or pauses. **fan-out** is work-run's parallel sibling: it splits
+XL work across lanes and every worker runs that same inner cycle in its
+own lane. **ae-init** installs the standard, **ae-audit** measures it,
+**loop-setup** turns recurring work into standing automation. Suite
+planners, executors, and `brainstorming` are superseded in writing
+([`reference/skills.md`](reference/skills.md),
 [ADR-004](docs/adrs/ADR-004-relay.md),
-[ADR-005](docs/adrs/ADR-005-artifact-phases.md)).
+[ADR-005](docs/adrs/ADR-005-artifact-phases.md),
+[ADR-006](docs/adrs/ADR-006-design-dialogue.md)).
 
 ```mermaid
 flowchart LR
-    TH["thinking suite<br/>brainstorm · design"] --> WP["work-plan<br/>shapes PLAN.md"]
+    SH["shaping<br/>raw ask → design"] --> WP["work-plan<br/>shapes PLAN.md"]
     WP --> PL["work/&lt;slug&gt;/<br/>PLAN.md"]
     PL --> RE["work-run<br/>step-by-step"]
     RE --> WV["work-verify<br/>PASS evidence"]
