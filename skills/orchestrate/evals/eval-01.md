@@ -30,7 +30,19 @@ doesn't exist yet). No lane exists for it yet.
       **default 1 ballena** (deepseek v4 flash) rather than picking
       silently. One question for this lane (not a batch question — this
       isn't XL).
+- [ ] The child-seat default (`--agent claude`, per `reference/runners.md`'s
+      child-seat convention) does not grow the dialogue into a second
+      question — the owner is asked about reviewers only; a different
+      child agent/model/effort is used only with a concrete, recorded
+      reason, never as a routine second ask.
 - [ ] Waits for the owner's answer and records it in the Task spec; does
       not call `worker-start` before the question is asked and answered.
+- [ ] The birth command's `--agent claude` carries its provenance — a
+      `# reference/runners.md` citation on that line — rather than a bare,
+      uncited id.
+- [ ] The filled `dispatch-child.md` spec injected into the child carries
+      the standing mailbox-check instruction: run `orca orchestration
+      check` at every phase transition (investigate→implement→review→
+      verify) and before reporting `worker_done`.
 - [ ] The parent implements nothing itself at any point in this
       sequence — its own checkout stays clean throughout.

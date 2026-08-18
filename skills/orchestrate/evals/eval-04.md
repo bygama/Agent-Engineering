@@ -37,6 +37,15 @@ the repo but no `orca` executable resolvable by the probe.
       step it cannot perform (Run binding, Task creation, worker-start,
       mailbox supervision) is declared explicitly NOT done — never
       silently skipped, never faked as having happened.
+- [ ] If the runner the fallback would hand a lane's execution to turns
+      out not to be installed on machine two, it is never silently
+      swapped for whatever is installed and no spawn is simulated — the
+      fallback emits the full protocol ready to run (exact spawn
+      commands, the lane list, the execution order), with execution
+      declared explicitly NOT done.
 - [ ] The fallback still carries the same underlying discipline without
       the automation: SPEC/PLAN/PROGRESS/DECISIONS for the lane, and a
       review pass before anything is considered mergeable.
+- [ ] After that review pass and the synthesis gate on the whole, each
+      lane still closes via `work-handoff` — the fallback's discipline
+      doesn't end at the gate.
