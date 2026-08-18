@@ -72,6 +72,7 @@ PR is open, report `worker_done` yourself — this is how the parent
 learns you're done; it is not watching your terminal:
 
   orca orchestration send --type worker_done --outcome succeeded \
+    --subject "Lane complete" \
     --files-modified "<csv of changed files>" \
     --report-path [LANE_PATH]PROGRESS.md \
     --body "PR: <pr-url>"
@@ -84,8 +85,11 @@ rather than staying silent.
 ```
 
 **Placeholders:**
-- `[LANE_PATH]` — REQUIRED: the lane folder the parent named, e.g.
-  `work/whk-77-webhook-module/`
+- `[LANE_PATH]` — REQUIRED: the lane folder the parent named, always
+  with a trailing slash, e.g. `work/whk-77-webhook-module/` — the
+  reporting command above concatenates it directly onto `PROGRESS.md`
+  with no separator, so a fill missing the trailing slash breaks the
+  path silently
 - `[TASK_BRIEF]` — REQUIRED: the shaped design from the dispatch
   dialogue, verbatim — not a pointer to a conversation the child can't
   read
