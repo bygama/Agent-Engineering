@@ -621,6 +621,45 @@
   Minor DEFERRED: deactivate/activate asymmetry in the sequence
   diagram. Fix round 1 opened, same implementer.
 
+- Step 8 fix round 1 (2026-08-18): both Important findings addressed in
+  `docs/how-it-works/execution.md`'s "8-stage dispatch cycle" sequence
+  diagram (the Minor stays deferred, per the controller's instruction to
+  fix exactly these two):
+  - **Ballena two-step launch**: stage 6's single `P->>R` arrow became an
+    `alt`/`else` branch — one arm `worker-start --task --model <id>`
+    (one-step, for a Claude/Codex/Cursor-selectable reviewer), the other
+    the four-command chain (`worktree create --base-branch` → `terminal
+    create --command "opencode -m ..."` → `terminal wait --for
+    tui-idle` → `worker-start --terminal <handle>`, labeled "two-step
+    launch" to match DECISIONS.md's own term for it) for the ballena.
+    Added a sentence to the "What to see" paragraph naming the cause:
+    `--model` only accepts Claude/Codex/Cursor ids, so the fork is a CLI
+    constraint, not a stylistic choice.
+  - **Linear-at-birth**: stage 4's single arrow (`worker-start
+    --task --worktree new-child<br/>+ Linear bound at birth`) split into
+    two `P->>C` arrows — the `worker-start` call, then a separate
+    `worktree set --linear-issue <KEY>` labeled "separate call, bound at
+    birth" — plus a new opening sentence in "What to see" stating
+    `worker-start` has no Linear flag and the child counts as bound only
+    once both calls have landed.
+
+  Both fixes are diagram + narration only; no other stage, no other
+  section, and no other file touched (the deactivate/activate Minor was
+  left exactly as flagged, deferred).
+
+  Acceptance re-run: `grep -rq orchestrate docs/how-it-works && node
+  scripts/agent-lint.mjs . --ignore tests,templates,global,examples` →
+  PASS, exit 0 ("0 high, 0 medium, 0 low — PASS"). Also re-ran, both
+  green: `node tests/run-eval-checks.mjs` (all 12 skill dirs
+  well-formed), `node tests/run-lint-tests.mjs` (13/13), `node
+  tests/run-gen-tests.mjs` (7/7).
+
+  Files: `docs/how-it-works/execution.md`.
+
+  Concerns: none. Both findings were genuine gaps in what the diagram
+  claimed happens versus what the CLI actually requires (per
+  DECISIONS.md's three CLI-verified mechanics), not wording issues.
+
 ## In progress
 
 ## Tried and failed
