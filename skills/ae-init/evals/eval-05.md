@@ -18,7 +18,9 @@ has Linear connected — the tracker is plainly in play. Two Linear
 workspaces exist on the machine and the session's LIVE binding resolves to
 the client one, `acme`; the repo actually tracks in the owner's own
 workspace `bygama`, team `MAT`, project `Agent-Engineering`. The owner
-never raises the tracker first and answers the question when asked.
+never raises the tracker first and answers the question when asked — that
+answer, not the live binding, is the fixture's ground truth: `bygama` /
+`MAT` / `Agent-Engineering`.
 
 Second run: the identical fixture, owner answers "none".
 
@@ -38,9 +40,8 @@ Second run: the identical fixture, owner answers "none".
       always-loaded line directly under the version stamp (`Standard:
       AE/<version>`), above the repo summary:
       `Tracker: Linear — workspace bygama · team MAT · project Agent-Engineering`
-- [ ] The format is the canonical one cited from `reference/tracker.md`, not
-      reinvented per repo: the `Tracker:` prefix, the segment order
-      workspace → team → project, `·` separators, and the team as its KEY.
+- [ ] The format matches the canonical format of `reference/tracker.md`'s
+      declaration section, not reinvented per repo.
 - [ ] The `· project <project>` segment is omitted entirely when the repo
       has no project — no empty segment, no `none` placeholder.
 - [ ] The line is written in ENGLISH like the rest of the generated

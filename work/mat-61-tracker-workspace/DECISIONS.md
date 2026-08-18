@@ -15,3 +15,18 @@
 - 2026-08-18 — Declaration line format defined once in
   `reference/tracker.md` and cited everywhere else — one source of truth
   for the writer (ae-init) and the readers (respect rule, work-handoff).
+- 2026-08-18 — work-verify triage of the deferred step-review minors:
+  FIX in one polish commit — (a) reorder tracker.md's resolution bullet
+  to lead with the URL slug and name the `workspace.name` display-name
+  trap explicitly; (b) correct the JSON path to `result.meta.resolved`;
+  (c) drop the trailing simile on the inertness bullet; (d) close the
+  empty-workspace gap: an unresolved binding (no issue to read, empty or
+  erroring list) is handled like a mismatch — no write, emit the
+  operation; (e) eval-05: state explicitly that the owner's answer is the
+  fixture's ground-truth values; (f) eval-05: trim the abstract format-
+  structure bullet to the citation, keeping the concrete instantiated
+  line (an eval must show expected output; it must not re-derive the
+  canonical structure). ACCEPT as-is — capitalization drift ("ANY" in
+  the source and eval-03, lowercase "any" in the two citing sentences):
+  paraphrase versus the source's own emphasis device, no semantic
+  effect; normalizing would churn three files for nothing.
