@@ -279,12 +279,17 @@ The standard separates two planes so there is never a double truth:
 - **The repo owns verification state** — `not_started / active / blocked /
   passing`, plus the evidence. A tracker cannot run commands; the repo can.
 
-They meet at two rules. The **gate rule**: an issue may move to Done only
+They meet at three rules. The **gate rule**: an issue may move to Done only
 when the repo side says `passing`. The **direction rules**: intent and
 priority flow tracker → repo (triage reads the tracker to pick work);
 execution truth flows repo → tracker (status changes and comments happen
-only after verification passes). Nobody hand-edits both planes for the same
-fact.
+only after verification passes). The **respect rule** (1.3.1,
+`reference/tracker.md`): before any tracker write, the agent compares its
+live binding — which workspace its MCP or API key actually sees — against
+the repo's one-line `Tracker:` declaration in AGENTS.md; a mismatch or an
+unresolved binding means NO write, the operation is emitted for the
+operator instead. Nobody hand-edits both planes for the same fact, and
+nothing lands in a workspace the repo never declared.
 
 The coupling is optional by construction: the `issue:` frontmatter field and
 the key-in-slug convention are affordances. A repo with no tracker runs the
