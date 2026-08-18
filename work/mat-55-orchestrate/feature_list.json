@@ -1,0 +1,44 @@
+[
+  {
+    "id": "F01",
+    "behavior": "skills/orchestrate exists with >=4 evals written before skill content (evals commit precedes SKILL.md commit in git history) and the eval-structure suite passes",
+    "verification": "test $(ls skills/orchestrate/evals/eval-*.md | wc -l) -ge 4 && node tests/run-eval-checks.mjs",
+    "state": "not_started",
+    "evidence": null
+  },
+  {
+    "id": "F02",
+    "behavior": "orchestrate SKILL.md covers the parent role end to end (Run binding, lane->Task with --deps, dispatch dialogue with 1-ballena default, worker-start-only children, mailbox supervision, review wave, fix cap 5 -> gate, parent merges rebase-only, worker release, multi-parent guidance) plus the manual no-Orca fallback",
+    "verification": "grep -q run-create skills/orchestrate/SKILL.md && grep -q ballena skills/orchestrate/SKILL.md && grep -q worker-start skills/orchestrate/SKILL.md && grep -qi fallback skills/orchestrate/SKILL.md",
+    "state": "not_started",
+    "evidence": null
+  },
+  {
+    "id": "F03",
+    "behavior": "dispatch-child.md and reviewer.md templates exist under skills/orchestrate/references/ (child: work-cycle inside, open PR never merge, worker_done contract, blocking ask; reviewer: read-only, refute-the-PASS, verdict via worker_done)",
+    "verification": "test -s skills/orchestrate/references/dispatch-child.md -a -s skills/orchestrate/references/reviewer.md",
+    "state": "not_started",
+    "evidence": null
+  },
+  {
+    "id": "F04",
+    "behavior": "fan-out is absorbed: skills/fan-out is gone and no living surface names it as current (using-ae map, reference/skills.md, README, tier docs); records keep the name",
+    "verification": "test ! -d skills/fan-out && ! grep -q fan-out skills/using-ae/SKILL.md && ! grep -q fan-out README.md",
+    "state": "not_started",
+    "evidence": null
+  },
+  {
+    "id": "F05",
+    "behavior": "using-ae carries the orchestrate map row and the parent/child role rule within the 80-line always-loaded cap, with its evals updated before the content",
+    "verification": "test $(wc -l < skills/using-ae/SKILL.md) -le 80 && grep -q orchestrate skills/using-ae/SKILL.md",
+    "state": "not_started",
+    "evidence": null
+  },
+  {
+    "id": "F06",
+    "behavior": "ADR-008, the how-it-works orchestration chapter, and the ae-init 1.3.0 migration note exist, and all four gates pass on the final tree",
+    "verification": "test -s docs/adrs/ADR-008-orchestration.md && grep -rq orchestrate docs/how-it-works && grep -qF \"**1.3.0** (2026-08\" skills/ae-init/references/migration.md && node scripts/agent-lint.mjs . --ignore tests,templates,global,examples && node tests/run-lint-tests.mjs && node tests/run-gen-tests.mjs && node tests/run-eval-checks.mjs",
+    "state": "not_started",
+    "evidence": null
+  }
+]
