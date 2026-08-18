@@ -138,13 +138,16 @@ next migration.
 ## Versioning rules
 
 - Stamp format: `Standard: AE/MAJOR.MINOR.PATCH` — one line, greppable,
-  in the installed `AGENTS.md` (SemVer 2.0.0 since ADR-003; two-part
+  in the installed `AGENTS.md` (SemVer-shaped since ADR-003; two-part
   stamps from the 0.x era stay valid shapes and read as behind, not
   malformed).
-- Semantics (the SemVer criterion, spelled out in the CHANGELOG header):
-  breaking shape changes bump MAJOR, new backward-compatible capability
-  bumps MINOR, fixes/errata bump PATCH. Template or check changes always
-  bump; docs-only refreshes never do, because `reference/` files carry
+- Semantics (the criterion, spelled out in the CHANGELOG header;
+  milestone-weighted since ADR-007): breaking shape changes bump MAJOR;
+  MINOR is an owner-designated milestone package; everything else
+  backward compatible — fixes, errata, and incremental capability —
+  bumps PATCH. Template or check changes always land in a bump (related
+  sets may accumulate unreleased and ship together, owner-paced);
+  docs-only refreshes never bump, because `reference/` files carry
   their own source+date headers.
 - The line's history: 0.1.0 was the predecessor generation (canonical
   CLAUDE.md, no stamps — the retired Context-Engineering repo); the

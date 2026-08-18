@@ -1,7 +1,7 @@
 # ADR-003: Semantic versioning and the renumbered line
 
 Date: 2026-08-17
-Status: Accepted
+Status: Accepted <!-- MINOR/PATCH split re-weighted by ADR-007 (milestone versioning, 2026-08-18); MAJOR boundary and the renumbered line unchanged -->
 
 ## Context
 

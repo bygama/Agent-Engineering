@@ -21,9 +21,12 @@ earlier the same day. Born from the aborted fourth same-day bump
       ritual never bumps past that question.
 - [ ] A second bump in the same day requires the owner's explicit
       confirmation — the ritual asks, never assumes.
-- [ ] Never re-sizes to please pacing: new capability stays MINOR
-      (PATCH = fixes/errata only). Fewer, bigger MINORs are the pacing
-      lever — never a smaller number for the same change.
+- [ ] Sizes by the ADR-007 criterion: MAJOR = breaking; MINOR only for
+      an owner-DESIGNATED milestone package; PATCH = everything else
+      backward compatible, incremental capability included. When the
+      owner has not named the set a milestone, the bump is PATCH — and
+      when unsure whether a set is a milestone, the ritual ASKS the
+      owner rather than assuming either way.
 - [ ] When the package release cuts, ONE version covers the accumulated
       set with one CHANGELOG entry and one migration note; UNRELATED
       changes still never batch (the existing rule survives).
