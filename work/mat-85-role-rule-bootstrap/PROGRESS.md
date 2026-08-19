@@ -4,11 +4,22 @@
 
 - 2026-08-19 — Lane opened. SPEC.md written from the parent's shaped brief
   (design-first). Detection signal chosen and verified on this machine
-  (DECISIONS ruling 1).
+  (DECISIONS ruling 1). Parent approved the SPEC and extended scope to
+  orchestrate's frontmatter description (ruling 2); PLAN.md shaped, 6 steps.
+- 2026-08-19 — Step 1 DONE (evals first, using-ae). Added
+  `skills/using-ae/evals/eval-05.md` grading the exact reported failure —
+  main-worktree seat + M+ ask + `run-current` null ⇒ bind
+  (`run-current`/`run-use`/`run-create`) then `orchestrate`, with
+  inline-in-the-main-checkout and blocking-on-the-owner both named
+  failures. Updated `eval-01.md`: fixture pinned to a non-main worktree
+  with no dispatch preamble (it previously said only "no Run bound", which
+  the seat rule makes ambiguous), plus a check that the absent Run is not
+  the reason in either direction. Acceptance: `node
+  tests/run-eval-checks.mjs` → exit 0, `ok   using-ae: 5 evals well-formed`.
 
 ## In progress
 
-- Awaiting parent approval of SPEC.md before PLAN.md is shaped.
+- Step 2 — `skills/using-ae/SKILL.md` Role rule + red-flags row.
 
 ## Tried and failed
 

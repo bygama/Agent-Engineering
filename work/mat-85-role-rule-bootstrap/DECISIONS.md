@@ -35,3 +35,13 @@
   `mat-83-84-scale-polish` in flight), so the row is left alone and
   reported to the parent in `worker_done` for routing — never silently
   edited across a lane boundary.
+- 2026-08-19 — Ruling 4: work-run executes this lane under its documented
+  inline fallback ("work-run is never mandatory — the standard is
+  runtime-neutral"), not by dispatching implementer subagents: this
+  session's harness forbids the Agent tool unless explicitly requested, so
+  the subagent seat is unavailable to it. Ceremony is unchanged — PLAN
+  steps in order, one commit per step, the step's acceptance command run
+  and its output recorded in PROGRESS.md before the next step opens. No
+  dispatch is simulated. The lane-level fresh-context review still runs
+  (work-verify), and the adversarial review is the parent's after
+  `worker_done`, per the dispatch config.
