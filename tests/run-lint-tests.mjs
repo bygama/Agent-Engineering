@@ -71,6 +71,28 @@ const cases = [
     expect: ["pointer-shape"],
   },
   {
+    // Red until cmd-drift stops judging an escaping path as a
+    // repo-relative claim (MAT-89). `fail: false` plus the code being
+    // present can only be satisfied by a `low` — that pair IS the
+    // severity assertion; the present in-repo command proves the
+    // downgrade did not turn the whole branch off.
+    name: "cross-repo sibling path reports low, does not fail the lint",
+    path: fx("cmd-escaping"),
+    fail: false,
+    expect: ["cmd-drift"],
+    expectMatch: ["escapes the repo", "sibling checkout"],
+  },
+  {
+    // Regression guard, green from birth: the drift cmd-drift was born
+    // for (AE/2.3's lesson — a false-positive fix must not buy quiet by
+    // weakening real detection). No fixture covered this branch before.
+    name: "in-repo path that no longer exists still fails the lint",
+    path: fx("cmd-inrepo-drift"),
+    fail: true,
+    expect: ["cmd-drift"],
+    expectMatch: ["file not found: scripts/missing.mjs"],
+  },
+  {
     name: "malformed lanes fail",
     path: fx("lanes-bad"),
     fail: true,
@@ -148,6 +170,9 @@ for (const c of cases) {
   if (out.fail !== c.fail) problems.push(`expected fail=${c.fail}, got ${out.fail}`);
   for (const e of c.expect) if (!codes.has(e)) problems.push(`missing expected finding "${e}"`);
   for (const e of c.forbid ?? []) if (codes.has(e)) problems.push(`unexpected finding "${e}"`);
+  for (const pat of c.expectMatch ?? [])
+    if (!out.findings.some((f) => f.message.includes(pat)))
+      problems.push(`no finding message matched expected "${pat}"`);
   for (const pat of c.forbidMatch ?? [])
     for (const f of out.findings)
       if (f.message.includes(pat)) problems.push(`forbidden message matched "${pat}": ${f.message}`);
