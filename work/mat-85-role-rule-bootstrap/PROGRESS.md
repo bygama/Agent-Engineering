@@ -36,11 +36,20 @@
   bug was the inference "no Run ⇒ not a parent", not the term. Acceptance:
   `node tests/run-eval-checks.mjs` → exit 0, `ok   orchestrate: 4 evals
   well-formed`.
+- 2026-08-19 — Step 4 DONE. `skills/orchestrate/SKILL.md`: step 0's three
+  commands untouched; its prose gained the clause that binding is step 0's
+  own work and never a precondition for reaching it, citing the seat rule.
+  Frontmatter `description` aligned per DECISIONS ruling 2 — "Use in a
+  Run-bound parent session" became the main-worktree seat, so a fresh
+  unbound session can still discover the skill. Acceptance: `git diff main
+  -- skills/orchestrate/SKILL.md | grep -E '^[-+].*orca orchestration
+  run-(current|create|use)'` → exit 1 (no command line added or removed);
+  `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  → exit 0, PASS.
 
 ## In progress
 
-- Step 4 — `skills/orchestrate/SKILL.md` step 0 clause + frontmatter
-  description.
+- Step 5 — `docs/how-it-works/execution.md` role-rule narration.
 
 ## Tried and failed
 
