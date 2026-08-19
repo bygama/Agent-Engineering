@@ -45,6 +45,20 @@ Always, and nothing more:
 - **`docs/`** — decision records and rich-reference specs, indexed by a
   one-line-per-area README.
 
+Deeper in the tree, the same pair repeats — but only where it is earned. A
+directory gets its own `AGENTS.md` (≤30 lines) plus its own ≤3-line
+`CLAUDE.md` pointer when it holds **non-inferable local knowledge**: commands
+that differ from the root's, gotchas that bite only inside that subtree.
+Never for symmetry — a sibling directory having one earns nothing here, and a
+nested file that restates the root spends attention on every session that
+touches the directory. Nesting has no privileged level: `apps/*` is the common
+case, not the rule, and `packages/ui/core/` qualifies on the same test. When a
+nested file and its ancestors disagree, precedence is nearest-wins — user
+prompt, then the nearest `AGENTS.md`, then its ancestors — which is what the
+agents.md standard specifies and what Claude Code's walk-up produces. The rule
+lives in `reference/context.md`; `agent-lint` applies both budgets at any
+depth, so no extra check is needed to hold it.
+
 Per task — never as permanent furniture — a lane folder `work/<slug>/` with
 the four files, and for the largest tier a `feature_list.json`. Those belong
 to the [work lifecycle](work-lifecycle.md).
