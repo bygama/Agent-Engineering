@@ -232,14 +232,70 @@
   demonstrably not an idea-only rewrite; the notice is additive and
   costless, so the asymmetry favors attributing.
 
+- Step 4 review (fresh in-session reviewer, capable tier, verdict
+  verbatim): "### Spec compliance / ✅ Compliant [...] **Step quality:**
+  Approved — Every load-bearing evidence claim in DECISIONS.md verifies
+  verbatim against the superpowers 6.3.0 cache, both acceptance gates
+  pass on re-run, and both classifications follow correctly from the
+  owner ruling's expression-vs-idea test — including the shaping call,
+  where the implementer's own 'borderline' hedge understates how
+  clearly a word-for-word table cell inside upstream's own structural
+  device lands on the expression side." On the flagged concern: "the
+  shaping call is correct, and less borderline than the implementer
+  thinks. The owner ruling's test is expression vs idea, not
+  proportion... The 'de minimis' framing... is the weaker reading here,
+  not an equal one." Minors deferred to work-verify triage:
+  (1) shaping notice over-attributes ("the Red flags rows" reads as all
+  three; row 3 is house-original) and should say "Two of the Red flags
+  rows and the HARD-GATE block"; (2) skill-authoring notice omits the
+  Core principle from its adapted-sections list; (3) no step-4
+  evals-first ruling bullet in DECISIONS.md (exemption plainly holds —
+  a licensing notice grades nothing — but the lane's convention is to
+  write it down); (4) aggregate n-gram counts not reproducible from the
+  repo (decisive quoted runs ARE verified; note only); (5) n-gram
+  method blind to paraphrase (one reinforcing example noted; changes
+  nothing here).
+
+- Step 5: stance rule in `reference/skills.md`, ≤ 120 lines. Placed the
+  rule as the closing sentence of "Superseded, and by what"'s final
+  paragraph ("Supersession redirects a chain, never deletes the
+  thinking...") — no new heading, no new blank-line paragraph break,
+  since it's the natural coda to the table that already lists the two
+  ported skills (`skills/shaping` from `brainstorming`,
+  `skills/skill-authoring` from `writing-skills`) whose classifications
+  step 4 just did. Added: "On every port, diff against upstream:
+  substantial expression gets a per-file upstream MIT notice; idea-only
+  rewrites log their classification in the lane." — covers the three
+  named clauses (diff against upstream; substantial → per-file MIT
+  notice; idea-only → classification recorded in the lane) in 2 lines.
+  Trim (named in DECISIONS.md): cut the trailing clause "and two
+  protocols over the same information is permanent friction" from the
+  ADR-004 paragraph in "Composing with process-skill suites" — it
+  restates, in substance, the "One artifact set, never two." sentence
+  two paragraphs above; the paragraph's load-bearing content (which
+  house skill owns which artifact-producing phase; the suite's own
+  tooling isn't used) is untouched. Net: 119 → 120 lines (`wc -l`),
+  landing exactly at budget.
+  Acceptance: `wc -l < reference/skills.md` = 120 (≤ 120 required);
+  `grep -c 'diff against upstream' reference/skills.md` = 1 (≥ 1
+  required); `node scripts/agent-lint.mjs . --ignore
+  tests,templates,global,examples` → "0 high, 0 medium, 0 low — PASS",
+  exit 0. Also run (not required by this step, cheap, and step 6 needs
+  them): `node tests/run-lint-tests.mjs` → all 20 cases passed; `node
+  tests/run-gen-tests.mjs` → all gen cases passed; `node
+  tests/run-eval-checks.mjs` → all eval checks passed (13 skills).
+  Files changed: `reference/skills.md`,
+  `work/mat-104-94-single-shot-attrib/DECISIONS.md`.
+
 ## In progress
 
 ## Tried and failed
 
 ## Next
 
-- work-run the PLAN, step 5 (stance rule in `reference/skills.md`, ≤ 120
-  lines, naming the trim in DECISIONS.md).
+- work-run the PLAN, step 6 (full gate suite + lane bookkeeping;
+  already re-confirmed green during step 5, so this is mostly
+  bookkeeping and PLAN checkbox ticking).
 
 ## Verification
 

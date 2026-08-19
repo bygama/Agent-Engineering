@@ -98,8 +98,7 @@ design into `work/<slug>/PLAN.md`; from the moment that plan lands,
 `work-run` executes it step-by-step, `work-verify` gates it,
 `work-handoff` ends it. A suite's own planners, executors and finishers
 are not used — their artifact machinery (standalone plan document,
-workspace, ledger) collides 1:1 with the lane's files, and two protocols
-over the same information is permanent friction.
+workspace, ledger) collides 1:1 with the lane's files.
 
 ### Superseded, and by what
 
@@ -117,3 +116,5 @@ superpowers stays installed, and the superseded skill is the explicit
 fallback where no AE standard is present. `bygama/skills` rows are
 junctioned globally — they apply wherever that library is, AE or not.
 `fan-out` is the exception: AE's own, removed, no fallback anywhere.
+On every port, diff against upstream: substantial expression gets a per-file
+upstream MIT notice; idea-only rewrites log their classification in the lane.
