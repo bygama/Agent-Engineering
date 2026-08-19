@@ -88,6 +88,48 @@ the ones that grade an ABSENCE (no absolute "never spawn anything
 yourself" phrasing in `dispatch-child.md`; no empty optional section
 surviving a fill).
 
+### Step 1 — review verdict (in-session step reviewer, 2026-08-19)
+
+Recorded verbatim per SPEC §3 — the clause this lane writes: an in-session
+reviewer's verdict lives only in the session, so the lane is its only
+evidence. The reviewer's own words:
+
+> ### Spec compliance
+> ✅ **Compliant** — all three eval changes land, in one commit, before
+> any skill content, and the acceptance criterion holds.
+>
+> […]
+>
+> **Step quality:** Approved
+>
+> **Reasoning:** Every requirement of the step is implemented, the
+> acceptance command and all three other lane gates were re-run here and
+> exit 0, and the evals are genuine failing tests — the fixtures carry
+> controls and negative conditions that let a wrong answer actually fail,
+> rather than restating the SPEC in checkbox form. The five Minor items
+> are wording and coverage polish that no future content step is blocked
+> by.
+
+Critical: none. Important: none. **Five Minor findings, deferred to
+work-verify triage** (work-run: minors never enter the fix loop):
+
+1. `eval-05.md:60-68` — one check bundles the parent-lane-committed
+   expectation into the ledger check, but no moment in the query elicits
+   close-out; split it or scope it to close-out.
+2. `eval-05.md:84-88` — the two-step sketch omits the worktree beat: a
+   new lane needs a worktree before a terminal can be created in it,
+   which is *why* `worker.effects` shows `reused`.
+3. `eval-01.md:73` — the absence-check quotes "never spawn anything
+   yourself" while the live string is "never spawn**ing** anything
+   yourself"; a literal-minded grader could pass it vacuously.
+4. `eval-04.md:8-22` — the fixture should say the child executed the lane
+   directly rather than under work-run, or the "attempted no subagent
+   call" premise reads as a contradiction to anyone assuming work-run at
+   M tier.
+5. SPEC §16's `[REPO_CONSTRAINTS]` slot is graded only obliquely
+   (its consequences, not the slot's shape); worth a check when step 3
+   lands.
+
 ## Evidence — Orca CLI verification (2026-08-19, this machine)
 
 Every CLI claim this lane adds to the standard was produced by running
