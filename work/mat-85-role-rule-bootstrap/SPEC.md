@@ -59,9 +59,10 @@ Evals change before content (repo hard constraint). The section becomes:
 - **Non-main worktree, not dispatch-bound** — not a parent: map as written.
   (This is what line 37 was reaching for; it stays, correctly scoped.)
 
-Budget: `using-ae` is injected at SessionStart and capped at ≤80 lines
-(`reference/skills.md`, CHANGELOG 1.2.0). The file is 60 lines today; the
-line count is verified before the commit.
+Budget: `using-ae` is injected at SessionStart (`reference/skills.md`
+names it the always-loaded entry point) and capped at ≤80 lines
+(`CHANGELOG.md`, the 1.2.0 entry that shipped it). The file is 60 lines
+today; the line count is verified by command before the commit.
 
 ### 3. `skills/using-ae/SKILL.md` — red-flags table names the bug
 

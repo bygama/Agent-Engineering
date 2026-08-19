@@ -29,21 +29,23 @@ defer it.
 
 ## Role rule
 
-Parenthood comes from the **seat**, not from a bound Run. Three seats:
+Parenthood comes from the **seat**, not from a bound Run. Three seats,
+read in order — the first that matches wins:
 
 - **Dispatch-bound** — this session opened with a `worker-start`
-  preamble: it is the child `orchestrate` births. The map above applies
-  as written, tier by tier; it dispatches nothing itself.
-- **Main worktree** — `git rev-parse --path-format=absolute --git-dir
-  --git-common-dir` prints the same path twice. This session IS the
-  parent orchestrator, bound or not: at M+ its first orchestration
-  action is to bind — `orca orchestration run-current`, else `run-use`
-  the repo's live Run, else `run-create` — and only then route to
-  `orchestrate`, which births a child rather than the parent shaping or
-  implementing inline. A fresh terminal arrives unbound; that is the
-  normal starting state, never a demotion.
-- **Non-main worktree**, no dispatch preamble — not a parent: the map
-  above applies as written.
+  preamble: it is the child `orchestrate` births, whatever its checkout
+  looks like. The map above applies as written, tier by tier; it
+  dispatches nothing itself.
+- **Main worktree** — no such preamble, and `git rev-parse
+  --path-format=absolute --git-dir --git-common-dir` prints the same
+  path twice. This session IS the parent orchestrator, bound or not: at
+  M+ its first orchestration action is to bind — `orca orchestration
+  run-current`, else `run-use` the repo's live Run, else `run-create` —
+  and it routes to `orchestrate`, which births a child rather than the
+  parent shaping or implementing inline. A fresh terminal arrives
+  unbound; that is the normal starting state, never a demotion.
+- **Anything else** — a linked worktree, or no repo to read — not a
+  parent: the map above applies as written.
 
 ## Precedence (ADR-005)
 

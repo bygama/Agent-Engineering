@@ -64,6 +64,21 @@
   `skills/orchestrate/evals/eval-01.md`, `skills/using-ae/SKILL.md`,
   `skills/using-ae/evals/eval-01.md`, `skills/using-ae/evals/eval-05.md`,
   plus this lane's four files.
+- 2026-08-19 — Fix round 1 (fresh-context review findings). Verdict was
+  PASS with two Important findings; both accepted and fixed rather than
+  deferred (DECISIONS ruling 5), plus minors 3-7 (ruling 6). Role rule
+  seats are now ordered with the main-worktree seat qualified by "no such
+  preamble" and seat 3 as the catch-all; `using-ae`'s eval-04 pinned to the
+  seat instead of the binding, with eval-01's cross-reference corrected;
+  ADR-008 gained a Status-line amendment pointer; SPEC's cap citation
+  fixed; ruling 3 widened to both README spots. `skills/using-ae/SKILL.md`
+  is 72 lines, still under the 80-line cap.
+- 2026-08-19 — Acceptance-command defect found and fixed (DECISIONS ruling
+  7): the PLAN's diff guards used the two-dot `git diff main` form, which
+  broke the moment main advanced (sibling lane landed, main 1ee598e →
+  119f8bc) and reported nine untouched files. Steps 4, 5 and 6 now use the
+  three-dot merge-base form `main...HEAD`; re-run clean, and the sibling's
+  file set is disjoint from this lane's.
 
 ## In progress
 
@@ -78,13 +93,16 @@
 
 ## Next
 
-- work-verify (M DoD) → work-handoff → push + PR (`Closes MAT-85`), never
-  merge; then `worker_done` to the parent.
-- For the parent, not this lane: `README.md`'s skill-table gloss for
-  orchestrate still reads "a Run-bound parent session takes M+ work", the
-  same stale reading fixed everywhere else here. README is on this lane's
-  do-not-touch list (sibling lane `mat-83-84-scale-polish` in flight), so it
-  is reported rather than edited — DECISIONS ruling 3.
+- work-handoff → push + PR (`Closes MAT-85`), never merge; then
+  `worker_done` to the parent.
+- For the parent: main advanced to 119f8bc while this lane ran. The rebase
+  is not done here (it is the parent's call, per the dispatch brief) and is
+  expected to be clean — the sibling's files and this lane's are disjoint.
+- For the parent, not this lane: `README.md` carries the superseded reading
+  in TWO places — the skill-table gloss at line 119 and the prose at line
+  134 — the same reading fixed everywhere else here. README is on this
+  lane's do-not-touch list (sibling lane `mat-83-84-scale-polish` in
+  flight), so both are reported rather than edited — DECISIONS ruling 3.
 
 ## Verification
 
