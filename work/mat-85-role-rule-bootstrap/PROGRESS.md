@@ -16,10 +16,19 @@
   the seat rule makes ambiguous), plus a check that the absent Run is not
   the reason in either direction. Acceptance: `node
   tests/run-eval-checks.mjs` → exit 0, `ok   using-ae: 5 evals well-formed`.
+- 2026-08-19 — Step 2 DONE. `skills/using-ae/SKILL.md` Role rule rewritten
+  around three seats (dispatch-bound / main worktree / non-main worktree),
+  naming the detection command once; the circular line "No bound Run ⇒ not
+  a parent ⇒ the map applies as written too" is gone. Red-flags table gained
+  the row whose Thought is the reported reasoning ("`run-current` returned
+  null — not a parent, I'll run it here"). Acceptance: `test "$(wc -l <
+  skills/using-ae/SKILL.md)" -le 80` → exit 0 (70 lines, cap 80); `node
+  scripts/agent-lint.mjs . --ignore tests,templates,global,examples` →
+  exit 0, PASS.
 
 ## In progress
 
-- Step 2 — `skills/using-ae/SKILL.md` Role rule + red-flags row.
+- Step 3 — `skills/orchestrate/evals/eval-01.md` unbound-arrival coverage.
 
 ## Tried and failed
 

@@ -29,12 +29,21 @@ defer it.
 
 ## Role rule
 
-A **Run-bound session** (`orca orchestration run-current` returns a live
-Run) is a parent orchestrator: M+ routes to `orchestrate`, which births a
-child rather than the parent shaping or implementing inline. A
-**dispatch-bound session** (spawned via `worker-start` — the child
-orchestrate births) uses the map above exactly as written, tier by tier.
-No bound Run ⇒ not a parent ⇒ the map applies as written too.
+Parenthood comes from the **seat**, not from a bound Run. Three seats:
+
+- **Dispatch-bound** — this session opened with a `worker-start`
+  preamble: it is the child `orchestrate` births. The map above applies
+  as written, tier by tier; it dispatches nothing itself.
+- **Main worktree** — `git rev-parse --path-format=absolute --git-dir
+  --git-common-dir` prints the same path twice. This session IS the
+  parent orchestrator, bound or not: at M+ its first orchestration
+  action is to bind — `orca orchestration run-current`, else `run-use`
+  the repo's live Run, else `run-create` — and only then route to
+  `orchestrate`, which births a child rather than the parent shaping or
+  implementing inline. A fresh terminal arrives unbound; that is the
+  normal starting state, never a demotion.
+- **Non-main worktree**, no dispatch preamble — not a parent: the map
+  above applies as written.
 
 ## Precedence (ADR-005)
 
@@ -58,3 +67,4 @@ the no-AE-setup fallback.
 | "I'll just execute this inline" | M+ never inline: parent routes to orchestrate, work-run executes within a lane. |
 | "The suite's next step says use its planner" | ADR-005: redirect to the AE counterpart, cite it. |
 | "I'll answer, then check the tier" | Triage and invoke first — before acting or clarifying. |
+| "`run-current` returned null — not a parent, I'll run it here" | The seat decides, not the binding: in the repo's main worktree, M+ binds first, then orchestrates — never inline in the owner's checkout. |
