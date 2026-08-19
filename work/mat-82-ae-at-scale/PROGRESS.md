@@ -384,6 +384,19 @@
   side only; harmless, but a future pass may want the root template to carry
   the same kind of marker.
 
+- **Step 5 review — Approved** (fresh reviewer, spec ✅ compliant, no
+  Critical/Important; eval-05/eval-06 checked item by item with each item
+  traced to specific SKILL.md prose; accept command re-run, 0; SKILL.md
+  154 lines). Rulings 5-7 verified encoded in strict form. Minors DEFERRED
+  to work-verify triage: (m23) "On approval" should say "of that
+  recommendation" — three-word scoping so small-repo installs can't read
+  provisioning into their path; (m24) ambiguous pronoun in "a domain
+  without one" — suggest "a domain the approved structure gives no project
+  inherits the root declaration whole"; (m25) reuse step names no read —
+  add "list what exists first"; (m26) standard-lifecycle wrapping artifact;
+  (m27) template marker deletion leaves a double blank line — comment
+  could say "delete the marker and its blank line".
+
 ## In progress
 
 ## Tried and failed
