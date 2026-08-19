@@ -193,8 +193,11 @@ flowchart TB
 What to see: every arrow into a worktree is a `worker-start`, never the
 raw `worktree create --agent --prompt` form — that full-handoff path is
 for an unsupervised transfer, not a dispatched child (the Orca mapping
-above). Reviewers sit one hop off the *child*, not off the parent: their
-worktree is cut from the lane's own branch, read-only, and their verdict
+above) — and the custom-argv exception at stage 4 below does not break
+that claim, because it too ends at a `worker-start`; that last call is
+the whole difference between a child and a handoff. Reviewers sit one hop
+off the *child*, not off the parent: their worktree is cut from the lane's
+own branch, read-only, and their verdict
 — the `worker_done` **body**, never `--outcome` — reports back to the
 parent, never straight to the child; a child only ever sees a reviewer's
 findings as something the parent relays. And only one arrow ever lands
@@ -233,6 +236,9 @@ sequenceDiagram
     C->>C: work-plan -> work-run -> work-verify -> work-handoff
     C-->>P: 5. question (check --wait)
     P-->>C: reply - ruling lands in the child's own DECISIONS
+    opt goes idle - cadence stopped AND transcript flat across two reads
+        P->>C: 5. task-create + worker-start --terminal &lt;handle&gt;<br/>a Task resumes a finished turn; mail cannot
+    end
     C->>M: opens PR, never merges
     C-->>P: 5. worker_done
     deactivate C
@@ -281,6 +287,91 @@ after — a PASS earned against a stale `main` is not a PASS against the
 housekeeping: the reviewer's own dispatch and worktree are decommissioned
 right alongside the child's — a retained ballena idles exactly as
 expensively as a retained child.
+
+Stage 4's dispatch arrow is drawn at its default shape, not its only one.
+The default is a **stock runner** — `--agent claude`, or `--model` /
+`--effort` when the seat wants a different one — and it is the default
+because the one-step dispatch is what records the child's provenance. A
+child that genuinely needs argv those three flags cannot express (a
+wrapper binary, custom flags) borrows the ballena's launch from stage 6:
+`worktree create` → `terminal create --command` → `terminal wait` →
+`worker-start --terminal`. That is legitimate for children too — but it
+is a named exception, not a second default, and the reason is visible in
+the dispatch record rather than a matter of taste. Measured on this
+repo's own Run, one dispatch each way: the worktree comes back `reused`
+instead of `created_child`, `setup` reads `not_applicable` (so
+`--setup run` has to move onto the `worktree create`),
+`resource.ownershipState` flips from `user_owned` to `external` — which
+makes teardown at stage 8 the parent's manual job — and `--model` /
+`--effort` are rejected outright alongside `--terminal`, so the model
+choice leaves the record and lives in argv nothing reads back. Read
+together, those four say one thing: the two-step moves the child's birth,
+its setup, its teardown and its runner out of the ledger and into the
+parent's memory. Hence the three conditions on taking it — the argv
+reason recorded at dispatch, the fallback shell closed as a required
+step, and the cost known rather than traded away silently. None of that
+is stage 4's *own* pair of calls above — `worker-start` plus the Linear
+binding is on every dispatch, stock runner or not.
+
+Stage 5 loops back a second way, and it is the one the diagram would
+otherwise let you miss. The rolling wait's rule — a timeout is a
+checkpoint, silence is neither progress nor trouble — is true of a child
+that never established a cadence and wrong about one that did. Telling
+them apart needs both halves of a signature: a heartbeat cadence the
+child established and then **stopped**, *and* a `worker-read` transcript
+that has not advanced between two reads minutes apart. Either half alone
+is still ordinary waiting; together they are a turn that ended without
+reporting — no PR, no `worker_done`, the terminal still `running`. The
+remedy is the fix loop's own mechanism pointed at the lane that already
+exists: `task-create` with what is missing, then `worker-start --task
+<id> --terminal <handle>` on the child's **existing** terminal. It cannot
+be a message, for a structural reason and not a stylistic one — **an idle
+agent does not read its mailbox**, so `send --to dispatch:<id>` lands in
+a session whose turn is over and simply sits there. A dispatched Task is
+the one call that resumes a finished turn. It is equally not a raw
+`terminal send`, which types at a child instead of dispatching to it and
+leaves nothing in the record, and never a fresh child for a lane that has
+one. This is the mirror of the release rule at stage 8: that one lets go
+of agents which finished, this one restarts an agent that stopped without
+finishing.
+
+**Orca is the ledger** — and it is the cycle that makes that a rule
+rather than a preference. Every stage past 2 consumes an id an earlier
+stage produced (Task ids, `ctx_` dispatch ids, worktree selectors,
+terminal handles) while the shell holding them does not persist between
+calls, so the tempting move is a file of ids beside the plan. Refuse it:
+`task-list --brief --json`, `worker-list --json` and `worker-show
+--dispatch <ctx_id> --json` return the *current* state, where a file
+returns whatever was true when it was written — the difference that
+decides a wave in which a terminal was replaced or a dispatch released
+mid-flight. `reference/orca.md` carries the field names for a reason
+worth naming: a guessed field comes back `undefined`, `undefined` is
+indistinguishable from an empty ledger, and one wrong guess — `title`,
+where the field is `task_title` — is enough to make Orca look like it is
+not holding state it is in fact holding. `ctx_` dispatch ids are valid
+input to `worker-show`, `worker-retain` and `worker-release`, so that
+chain needs no second id written down anywhere. The one human-readable
+copy the standard does prescribe is the **worker table in the parent
+PLAN** — and the parent's lane is committed like any other lane, because
+when a wave ends the briefs are in Orca and the work is in the children's
+merged branches, leaving the parent's PLAN, PROGRESS and DECISIONS as the
+only artifacts nothing else can rebuild.
+
+The other thing that stops being free at scale is stage 4's *verbatim*
+fill. One child is a paste; seven is around 105K characters of
+near-duplicate brief (~15K each), and hand-pasting that is precisely how
+a `[LANE_PATH]` — or an optional section left empty instead of deleted
+whole — survives into a child's brief: the verbatim rule broken by the
+labour of obeying it. So at wave scale the fill is *expected* to be
+mechanical, and the expectation is written down rather than left to
+conscience: one per-repo common block, generated specs, and a generation
+that **fails on any surviving placeholder** instead of dispatching it.
+That rule sits with the XL section below rather than with stage 4,
+because it is scale and not dispatch that makes it necessary. What the
+generator feeds is `--spec "$(cat <file>)"`: `task-create` takes `--spec
+<text>` only — there is no `--spec-file`, and `task-update` changes
+state, not spec. Generating is a house convention; the skill ships no
+generator.
 
 ### Several children at once (XL)
 
