@@ -12,7 +12,7 @@ Constraints (every step):
 
 <!-- Steps with executable acceptance. Not "improve X" — "command Y exits 0". -->
 
-- [ ] 1. `judgment` — Trim `reference/tracker.md` to ≤120 lines: compress
+- [x] 1. `judgment` — Trim `reference/tracker.md` to ≤120 lines: compress
       "The GitHub plane" (the verified-live detail stays in
       `docs/how-it-works/integrations.md`; the reference keeps normative
       rules + pointer, section header stays), tighten prose elsewhere as

@@ -109,14 +109,37 @@ Concerns:
   prompt-template reminder, evals 05/06's declaration section,
   `skills/work-handoff` respect rule, execution.md's "GitHub plane").
 
+### Step 1 review closed — Approved (fix round 1: ADDRESSED)
+
+Fresh reviewer: spec ✅ compliant, quality Approved; every dropped fact
+checked against its claimed home (integrations.md, ae-audit SKILL,
+CONTRIBUTING, issue-triage loop) — none orphaned. One Important finding
+(a verified JSON path compressed onto the wrong object) fixed in round 1
+(`c163d62`), re-review: ADDRESSED, no new Critical/Important breakage.
+
+Minor findings deferred to the lane gate (work-verify triage):
+
+- tracker.md:32-33 — "all take `--json`" now shares a sentence with
+  `orca worktree create --linear-issue` (not an `orca linear` command);
+  scope the claim explicitly.
+- tracker.md:100-105 — branch-autolink vs `Closes <KEY>`-marks-for-close
+  merged into one clause; the original kept the "(autolink)" precision.
+- tracker.md:53-55 vs 64-65 — `Tracker:` keeps its fenced block,
+  `Tracker-project:` became inline backticks; asymmetric presentation of
+  the two canonical forms (fence costs 2 lines the budget lacks).
+- tracker.md:76-90 — pre-write rule now one dense 15-line paragraph;
+  least scannable passage, and the file sits at 120/120 with zero
+  headroom.
+- tracker.md:86 — re-wrap dropped "contract" from "same contract when"
+  (re-review round 1, Minor).
+
 ## In progress
 
 ## Tried and failed
 
 ## Next
 
-- Execute PLAN steps 2-8 via work-run (step 1 implemented, awaiting its
-  review).
+- Execute PLAN steps 2-8 via work-run (step 1 closed Approved).
 
 ## Verification
 
