@@ -1,6 +1,6 @@
 ---
 name: orchestrate
-description: Runs the parent orchestrator role — binds an Orca Run, turns each lane into a Task with dependency queuing, asks the owner's dispatch dialogue (reviewers, count, model), births one child worktree per lane, supervises by mailbox, runs the review wave and a capped fix loop, then merges the lanes itself rebase-only. Use in a Run-bound parent session when an M+ task must go to a child, when two or more independent lanes run at once (XL), or when someone says "dispatch this", "split this across agents", or "supervise the workers". Carries the manual fallback for machines without Orca.
+description: Runs the parent orchestrator role — binds an Orca Run, turns each lane into a Task with dependency queuing, asks the owner's dispatch dialogue (reviewers, count, model), births one child worktree per lane, supervises by mailbox, runs the review wave and a capped fix loop, then merges the lanes itself rebase-only. Use from the repo's main-worktree session — the parent seat, bound or not, since binding the Run is this skill's own step 0 rather than a precondition — when an M+ task must go to a child, when two or more independent lanes run at once (XL), or when someone says "dispatch this", "split this across agents", or "supervise the workers". Carries the manual fallback for machines without Orca.
 ---
 
 # orchestrate
@@ -33,8 +33,10 @@ Orchestrate progress:
 ```
 
 **0. Probe and bind.** Probe once (`reference/orca.md`; the session hook's
-`ORCA:` line counts). Then one live Run per parent — never a second
-registration alongside it:
+`ORCA:` line counts). Binding is this step's own work, never a precondition
+for reaching it: the seat makes the parent (`skills/using-ae` role rule), so
+a fresh main-worktree terminal arrives here unbound and binds here. Then one
+live Run per parent — never a second registration alongside it:
 
 ```bash
 orca orchestration run-current --json                       # already bound?
