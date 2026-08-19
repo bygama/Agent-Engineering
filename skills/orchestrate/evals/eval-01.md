@@ -57,6 +57,34 @@ modules, needs a file that doesn't exist yet). No lane exists for it yet.
       valid only alongside a live `ask` — a spec that leaves the child
       free to invent phase words (a novel `waiting`, ambiguous from the
       parent's seat) fails this check.
+- [ ] The same clause carries the CADENCE, not only the vocabulary: a
+      beat at every phase transition AND at least every ~10 minutes
+      while one phase runs long — with a repeated phase (`implementing`
+      twice in a row) named as a valid signal rather than noise. A spec
+      that beats only at transitions lets a healthy lane go dark for an
+      hour inside one phase.
+- [ ] The same filled spec names BOTH sides of the no-grandchildren
+      fence: orchestration workers are forbidden — `worker-start`,
+      Tasks, Dispatches, anything carrying `worker_done` authority; a
+      child never births a child — while the child's own in-session
+      subagents are REQUIRED at their tiers: work-run's per-step
+      reviewer and work-verify's step-4 fresh-context review, run
+      sequentially in the child's own worktree.
+- [ ] That section carries no absolute "never spawn anything yourself"
+      phrasing: a closing clause a child can read as a total ban fails
+      this check even when the paragraph above it named both sides
+      correctly.
+- [ ] The parent's post-`worker_done` adversarial reviewer is described
+      as an ADDITIONAL cross-model seat, never as a substitute — a spec
+      that offers it as the reason the child may skip its own step 4
+      fails.
+- [ ] The same filled spec requires the in-session reviewer's verdict
+      TEXT recorded verbatim — the actual PASS/FAIL line and its
+      findings — in the lane's PROGRESS.md or DECISIONS.md, not a claim
+      about it. In-session verdicts live only in the child's session, so
+      the lane is their only evidence: "the re-review returned
+      CONFIRMED" with no verdict text anywhere in the lane is the
+      failure being graded.
 - [ ] The same filled spec carries the standing browser rule: browser
       needs go through Orca's embedded browser (`orca
       goto/snapshot/click/wait --json`) — never Playwright,
