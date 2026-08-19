@@ -23,3 +23,8 @@ Rules that hold at every tier:
   close commits final state, then removes the folder.
 - On an Orca machine the card mirrors the lane: opens → in-progress,
   handoff → in-review, terminal → completed.
+
+This ceremony belongs to the AE standard, source at
+[github.com/bygama/Agent-Engineering](https://github.com/bygama/Agent-Engineering)
+— skills (`work-run`, `orchestrate`) plus the README's adoption guide.
+Without those skills installed, run it by hand.

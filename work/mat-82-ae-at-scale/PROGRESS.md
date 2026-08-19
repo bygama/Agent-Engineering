@@ -438,6 +438,33 @@
   spec's own"; reviewer also re-flagged m4's README:252 "per-app ≤30" as
   now sitting close to the new any-depth wording (already tracked).
 
+- **Step 7 — Feature E, `templates/repo/docs/tiers.md` points home.** One
+  closing paragraph (4 lines) added after the last "Rules that hold at
+  every tier" bullet: the ceremony the file describes belongs to the AE
+  standard, source at `github.com/bygama/Agent-Engineering` (skills —
+  `work-run`, `orchestrate` — plus the README's adoption guide), and
+  without those skills installed the ceremony runs by hand.
+  First draft said `"AE" above names the standard…`, but "AE" never
+  actually occurs earlier in this file (the acronym only surfaces once
+  the file is instantiated, inside the consumer's `AGENTS.md` header via
+  `templates/repo/AGENTS.md.template:5`, `Standard: AE/{{VERSION}}` — this
+  file is what that header's tier line points to). Reworded to introduce
+  the term rather than falsely backreference it: "This ceremony belongs
+  to the AE standard, source at …". `reference/task-tiers.md` untouched
+  — this step's only surface is the template.
+  Acceptance: `grep -q "bygama/Agent-Engineering"
+  templates/repo/docs/tiers.md && git diff --quiet HEAD --
+  reference/task-tiers.md` → `EXIT=0`. All four gates also re-run green:
+  self-lint `0 high, 0 medium, 0 low — PASS` (exit 0),
+  `run-lint-tests.mjs` → all 13 cases passed (0), `run-gen-tests.mjs` →
+  all gen cases passed (0), `run-eval-checks.mjs` → all eval checks
+  passed (0). Files changed: `templates/repo/docs/tiers.md` (+ this
+  entry) — `git status --porcelain` showed only that file modified before
+  the PROGRESS write. No CHANGELOG, no restamp, no version bump. PLAN.md's
+  step-7 checkbox left unflipped, matching steps 3-6's existing state in
+  this lane (checkbox-flipping is not part of the individual-step
+  convention here — only steps 1-2 carry `[x]`). No concerns.
+
 ## In progress
 
 ## Tried and failed
