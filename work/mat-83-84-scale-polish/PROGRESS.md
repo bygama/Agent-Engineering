@@ -627,6 +627,95 @@ comments; ae-init step numbering checked. Minors only, deferred:
 - eval-07 preamble could preempt the machine-policy-vs-repo-property
   challenge explicitly (implicit today: the trigger is a repo property).
 
+### Step 6 DONE — the browser gotcha reaches ae-init and its chapter
+
+The content eval-07 already grades, in ONE commit with the chapter that
+narrates it: `skills/ae-init/SKILL.md` step 6 now writes the browser bullet
+beside the `DESIGN.md.template` offer, and
+`docs/how-it-works/standard-lifecycle.md` §Install tells adopters what that
+line is and why it is worded the way it is.
+
+**`skills/ae-init/SKILL.md`** — the "UI stack detected in step 1" sentence
+gains the instruction, written so each of eval-07's graded items has a
+clause that produces it:
+
+- **Same trigger, no second pass** — "The SAME detection also writes ONE
+  browser bullet into the root Gotchas" (eval-07 items 1 and 6: one bullet,
+  one place, on step 1's UI detection alone).
+- **Written, not asked, not offered** — "not asked, not offered, and
+  independent of how the DESIGN.md offer was answered — inferred and
+  written, like step 3's language split" (items 2 and 5: no interview
+  question, and the two Run-A sub-runs agree because they share a trigger,
+  not an answer). The step 3 analogy is the skill's own existing precedent
+  for a gotcha that is inferred rather than interviewed.
+- **The three clauses** — prefer the runner's own embedded or app-managed
+  browser; a driven-browser MCP only for a capability that browser lacks
+  (performance traces, heap snapshots, a11y audits, device emulation),
+  "never convenience or 'it is already installed'"; never from a supervised
+  child session (item 3, including the criterion's own
+  not-a-lacked-capability qualifier).
+- **Runtime-neutral, per the DECISIONS interface ruling** — "no runner,
+  product or command in the generated text (Playwright and chrome-devtools
+  are examples for you, never text in the file) — it must read true for an
+  agent on another runner", and the citation is marked "your source, cited
+  nowhere in the line" so `reference/orca.md` reaches the skill reader and
+  never the adopter's file (item 4, and the eval-07:72-74 minor the step-5
+  reviewer flagged: the generated bullet cites no AE file and names no
+  product).
+- **Machine untouched + budget** — "Context, not a command: nothing on the
+  machine is installed, probed or configured, and the line counts against
+  the budget like any other" (items 7 and 8; the budget phrasing matches
+  the Judgment note that already says a declaration line counts like any
+  other).
+- **Run B** — "No rendering surface: no bullet, no question." (items 9 and
+  10, both negatives in one sentence).
+
+The paragraph's tail (`Do NOT create work/ lanes …`) was re-wrapped to the
+file's house width because the insertion left a ragged short line; no words
+changed there.
+
+**`docs/how-it-works/standard-lifecycle.md` §Install** — a new paragraph
+before the "Templates are instantiated" close, in the chapter's explanatory
+register (what happens, and why it is that way): the UI signal that offers
+`DESIGN.md.template` also writes one Gotchas line; the three clauses in
+prose, with the reason the child-session clause exists (the child owns the
+long-lived process, stalls while it runs, and takes it down on the way
+out); the criterion named as `reference/orca.md`'s; the runtime-neutral
+constraint with its rationale (the file outlives the runner that installed
+it and has to read true on the next one); and the no-UI case, tied back to
+why one detection gates both this and the DESIGN.md offer.
+
+Acceptance:
+
+```
+$ grep -qi "browser" skills/ae-init/SKILL.md && grep -qi "browser" docs/how-it-works/standard-lifecycle.md && node scripts/agent-lint.mjs . --ignore tests,templates,global,examples
+agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-83-84-scale-polish
+0 high, 0 medium, 0 low — PASS
+EXIT=0
+```
+
+Other three gates re-run as insurance: `node tests/run-lint-tests.mjs` →
+"all 16 cases passed"; `node tests/run-gen-tests.mjs` → "all gen cases
+passed"; `node tests/run-eval-checks.mjs` → "all eval checks passed"
+(ae-init: 7 evals well-formed). Combined exit 0.
+
+Files changed: `skills/ae-init/SKILL.md` (+24 / −5, 154 → 168 lines; the
+skills budget is <500), `docs/how-it-works/standard-lifecycle.md` (+15, no
+budget — `docs/how-it-works/` is exempt by AGENTS.md). No line either file
+gained exceeds 80 cols (the two pre-existing over-width lines,
+SKILL.md:3 frontmatter and standard-lifecycle.md:18/168, are untouched).
+
+Concerns:
+
+- The instruction is prose, so eval-07 is graded by reading, not by a
+  command — the gates prove lint/shape only. That is the same limitation
+  every step in this lane has carried.
+- The illustrative product names (Playwright, chrome-devtools) sit in the
+  skill text as the DECISIONS ruling permits, fenced by "examples for you,
+  never text in the file". It is the one place where a careless reader
+  could leak a product name into the generated bullet; the neutrality
+  clause is stated in the same sentence to make that hard.
+
 ## In progress
 
 ## Tried and failed

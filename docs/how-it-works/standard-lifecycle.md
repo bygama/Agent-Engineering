@@ -120,6 +120,21 @@ lines land in the files regardless — the repo saying where work belongs does
 not wait on the projects existing. Below three domains the question is the
 single one it has always been.
 
+One line the install writes without asking at all is the browser gotcha, and
+only where the repo earns it. When step 1 finds a UI stack — the same signal
+that makes the install offer `DESIGN.md.template` — the root `AGENTS.md`
+gains a single Gotchas line: prefer the runner's own embedded or app-managed
+browser, reach for a driven-browser MCP only for a capability that browser
+lacks (performance traces, heap snapshots, a11y audits, device emulation),
+and never drive one from a supervised child session, which owns that
+long-lived process, stalls while it runs, and takes it down on the way out.
+The rule is `reference/orca.md`'s browser criterion; what lands in the repo is
+runtime-neutral — no runner, no product, no command — because the file
+outlives the runner that installed it and has to read true on the next one.
+A repo with no rendering surface gets neither the line nor a question about
+it: advice nobody in that repo can act on is noise, which is why one
+detection gates both this and the DESIGN.md offer.
+
 Templates are instantiated, never copied verbatim: `{{PLACEHOLDER}}` markers
 are filled from what the exploration found and what the human confirmed.
 
