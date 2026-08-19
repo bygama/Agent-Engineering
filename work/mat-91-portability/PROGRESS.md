@@ -71,6 +71,61 @@ hits.
    naturally with MAT-92 (the ≤80 cap check) as the same "make the law
    executable" family.
 
+## Verification
+
+### 2026-08-19 — M DoD — PASS on the executable layers; review rung OWED
+
+- **L1 static:** `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  → exit 0 (`0 high, 0 medium, 0 low — PASS`)
+- **L2 behavioral:** `node tests/run-lint-tests.mjs` → exit 0 (`all 16 cases
+  passed`); `node tests/run-gen-tests.mjs` → exit 0 (`all gen cases
+  passed`); `node tests/run-eval-checks.mjs` → exit 0 (`all eval checks
+  passed`). The repo's executables run: the lint and all three suites
+  start and complete.
+- **L3 end-to-end:** RUN, not n/a — this change crosses files by
+  construction. Three skills now cite a section that must exist in a
+  fourth, and two loops must match a template this lane cannot edit:
+  - the cited section resolves: `grep -n "^## Reference paths"
+    skills/using-ae/SKILL.md` → `17:## Reference paths`, exit 0. No
+    dangling citation.
+  - all three citations are ONE string, not three variants: piping them
+    through `sort -u | wc -l` yields `1`.
+  - the loop token matches the fenced template byte-for-byte: both
+    `loops/*.md` and `templates/repo/loops/issue-triage.example.md` yield
+    the identical `--repo path:<repo>`.
+  - **the rule itself was executed on this machine**, which is what the
+    three skills now delegate to. Resolving the junction the way a runner
+    would:
+
+    ```
+    link : C:/Users/mateo/.claude/skills/ae-init
+    real : <AE clone>/skills/ae-init
+    root : <AE clone>
+    root/reference exists  : true
+    root/templates/repo    : true
+    naive ../../ from link : C:/Users/mateo/.claude/reference  exists: false
+    ```
+
+    The rule's walk lands on the directory ae-init needs; the naive walk
+    the red-flags row warns about lands nowhere. Both halves reproduced,
+    not asserted.
+- **DoD sweep:** `grep -rn "C:/Briar" --include="*.md" .` filtered past
+  `work/` and `docs/plans/` → exit 1. Zero machine-absolute paths left on
+  shipped surfaces.
+- **Fence:** no do-not-touch path in `git diff --name-only main` → exit 1
+  (no match). 14 files changed, every one owned by this lane.
+- **Fresh-context review (step 4) and adversarial review (step 5): NOT
+  RUN — OWED, and owned by the parent.** A stated gap, not a silent skip.
+  work-verify at M requires a reviewer with no shared context, and this
+  session cannot supply one: the dispatch forbids grandchildren, and the
+  parent's dispatch config assigns the wave — "adversarial review = 1
+  ballena, dispatched by the PARENT after worker_done; the child runs its
+  own work-verify only". The verdict below is scoped to match.
+
+**Verdict: PASS on every command the DoD names.** The maker has not been
+checked by anyone but itself, so no unqualified M PASS is claimed here —
+`worker_done` reports it the same way.
+
 ## Evidence log
 
 **Step 1** — `skills/using-ae/evals/eval-07.md` (`ec806d0`).
