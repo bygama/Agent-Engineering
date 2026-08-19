@@ -76,8 +76,8 @@ standard moves upstream into AE.
 
 ## Composing with process-skill suites
 
-`using-ae` is the always-loaded entry point (SessionStart), hard-capped at
-80 lines: it carries the precedence rule below (ADR-005) so no chain drifts.
+`using-ae` is the always-loaded entry point (SessionStart), capped at 80 lines:
+it carries the precedence rule below (ADR-005), so no chain is caught mid-drift.
 
 Process suites supply the *how* of thinking; this standard supplies the
 artifacts and gates. One rule joins them: **the standard owns locations
