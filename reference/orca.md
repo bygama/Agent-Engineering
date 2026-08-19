@@ -105,8 +105,8 @@ capabilities.
 - One lane ⇔ one worktree: per-lane `work/<slug>/` folders exist so
   parallel worktrees never collide on shared root files.
 - Prefer agent-first create for agent workers: `--agent` owns the first
-  terminal; bare `worktree create` plus a later `terminal create
-  --command <agent>` is the anti-pattern — it leaves a fallback shell.
+  terminal; bare `worktree create` plus a later `terminal create --command
+  <agent>` is the anti-pattern — it can leave an unused fallback shell.
 - Never run a dev server as a background shell inside an agent session —
   it blocks the session's idle transition and dies with it. Terminal tabs
   (`orca terminal create`) outlive the session; that is the point.
@@ -115,5 +115,6 @@ capabilities.
   it forces that two-step, close the confirmed-unused fallback shell.
 - Spawn briefs are short and point at artifacts (the issue, the lane) —
   `terminal send` truncates long inline briefs.
-- Decommission once the branch merged and the card is completed: close
-  the terminals, `orca worktree rm` the worktree. Idle agents are debris.
+- Decommission the worker once its branch merged and the card is
+  completed: close its terminals and `orca worktree rm` its child
+  worktree — an agent idling there is debris.

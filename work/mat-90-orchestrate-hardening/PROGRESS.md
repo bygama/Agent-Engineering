@@ -566,7 +566,7 @@ Evidence section below exactly):
 - `worker-retain --help` / `worker-release --help` → both
   `Usage: … --dispatch <dispatch_id> [--retry-request <id>] [--json]`.
 
-**The trim — 14 lines added, 5 freed, all from duplication** (DECISIONS
+**The trim — 14 lines added, 4 freed, all from duplication** (DECISIONS
 ruling 6). The fallback-shell rule spans *two* bullets in "Worktree and
 terminal notes", so both were tightened; the decommission bullet is the
 third. No command, flag, field name or rule was dropped:
@@ -610,6 +610,83 @@ the read path only; the *rules* built on it — Orca is the ledger, never
 keep a parallel id file, the stateless shell — are SPEC §13, i.e. step
 6's `SKILL.md` passage, which will cite this section rather than repeat
 the table.
+
+### Step 4 — fix round 1 (reviewer findings, 2026-08-19)
+
+One Important, two Minors, all in the lines this step touched. Both
+content fixes are in `reference/orca.md`; the third is a correction to
+this lane's own record. **`reference/orca.md` is now 120 of 120** — the
+entry above says 119 with one line of slack, and that is superseded: the
+Important fix costs the slack line.
+
+**1. Important — the decommission bullet lost its subject, its referent
+and its scope.** All three are restored, and the third one mattered
+beyond wording. The bullet now reads:
+
+    - Decommission the worker once its branch merged and the card is
+      completed: close its terminals and `orca worktree rm` its child
+      worktree — an agent idling there is debris.
+
+- **Scope, the blocking half.** "Idle agents are debris" was unqualified,
+  and this same lane's MAT-95 work (SPEC §§6-7, landing in step 6) teaches
+  the opposite reflex for a *different* idle agent: a child whose
+  established cadence stopped with an unadvanced `worker-read` transcript
+  is resumed with a dispatched Task, not torn down. The two rules would
+  have collided in the same PR. "An agent idling **there**" re-binds the
+  claim to the sentence's own condition — a worker whose branch merged
+  and whose card is completed — which is also how `SKILL.md:204-205`
+  states it while citing this file ("an idle agent on a merged lane is
+  debris (`reference/orca.md`)"). The cited authority is no longer
+  broader than the text citing it.
+- **Referent.** `orca worktree rm` **the** worktree had no antecedent in
+  the bullet; it is `its child worktree` again. A destructive command's
+  object should not be inferred.
+- **Subject.** "close the terminals" → "Decommission **the worker** …
+  close **its** terminals".
+
+**2. Minor — a hedge became a certainty.** `:108-109` read "it leaves a
+fallback shell"; the two-step *can* leave one, and `SKILL.md:144` — which
+points at this file — still says "can leave an unused fallback startup
+shell". Both words are back: "it **can** leave an **unused** fallback
+shell". The bullet is still 3 lines; the fill was redistributed (the
+`terminal create --command <agent>` code span now breaks after
+`--command` instead of before it) so no line exceeds 74.
+
+**3. Minor — the trim arithmetic in this lane's record was off by one.**
+The step-4 entry above said "14 lines added, 5 freed"; its own table sums
+to 4 (4→3, 5→3, 3→2), the hunk header was `-90,20 +104,16`, and
+109 + 14 − 4 = 119, the count that was actually measured. Corrected to
+"4 freed" in place. The earlier commit's message carries the same
+off-by-one and was deliberately NOT amended — the record is corrected
+going forward, per the controller's instruction.
+
+**Deferred, not touched** (work-verify triage, per the controller): the
+"Rows at" column header; the two sub-keys attested in SPEC/PROGRESS but
+not in the raw-output block; and the step's guard passing even if the
+`title` note were deleted.
+
+Commands re-run after the fix, all here:
+
+- acceptance, verbatim —
+  `node -e "const fs=require('fs');const s=fs.readFileSync('reference/orca.md','utf8');const a=s.split('\n');const n=a.at(-1)===''?a.length-1:a.length;process.exit(/task_title/.test(s)&&/agentTerminalHandle/.test(s)&&/ctx_/.test(s)&&n<=120?0:1)"`
+  → **exit 0** (120 lines, at budget)
+- `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  → `0 high, 0 medium, 0 low — PASS`, exit 0
+- `node tests/run-lint-tests.mjs` → exit 0
+- `node tests/run-gen-tests.mjs` → exit 0
+- `node tests/run-eval-checks.mjs` → exit 0, `all eval checks passed`
+- `awk '!/^\|/ && length($0) > 74' reference/orca.md` → no output
+
+Files changed: `reference/orca.md` (M),
+`work/mat-90-orchestrate-hardening/PROGRESS.md` (M). No do-not-touch path
+in the diff.
+
+Concerns: the file now sits at exactly 120 of 120, so the next fact added
+to `reference/orca.md` must free a line first. The cheapest honest
+candidate remains the dev-server bullet, whose `orca terminal create`
+reference duplicates the mapping table's "Long-lived process" row (~1
+line) — still outside the duplication DECISIONS ruling 6 pre-identified,
+so still not taken here.
 
 ## Evidence — Orca CLI verification (2026-08-19, this machine)
 
