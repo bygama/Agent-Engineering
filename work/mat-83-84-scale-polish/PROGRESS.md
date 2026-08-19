@@ -716,6 +716,24 @@ Concerns:
   could leak a product name into the generated bullet; the neutrality
   clause is stated in the same sentence to make that hard.
 
+### Step 6 review closed — Approved, no fix loop
+
+Fresh reviewer: spec ✅ compliant, quality Approved, no Critical or
+Important findings; every eval-07 graded item mapped to a producing
+clause in the instruction, DECISIONS interface ruling honored with
+explicit fences, chapter narration same-commit, gates re-run exit 0.
+
+Minor findings deferred to the lane gate (work-verify triage):
+
+- SKILL.md:147-148 — Run B contract could add "nothing in the report"
+  to cover eval-07 item 10 end-to-end (satisfied by construction today).
+- SKILL.md:134-135 — a "(Gotchas, never Hard constraints)" parenthetical
+  would exclude the one plausible mis-placement eval-07 item 6 names.
+- No length cue on the emitted bullet ("one bullet, one sentence");
+  self-correcting via budgets + lint today.
+- ⚠️ carried to the lane gate: prose instruction — only a graded read of
+  eval-07 against a real install proves the emitted text, not the gates.
+
 ## In progress
 
 ## Tried and failed
