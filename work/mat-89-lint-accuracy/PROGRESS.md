@@ -94,9 +94,29 @@
 
   `wc -l reference/skills.md` → 119.
 
+- **Step 4 DONE — GREEN for MAT-92.** `scripts/agent-lint.mjs` gained
+  `ENTRY_SKILL` / `ENTRY_SKILL_CAP` beside the existing skill loop, with a
+  pointer comment citing the `reference/skills.md` statement step 3 wrote —
+  the shape the file already uses for the AGENTS.md budgets. Fires
+  `medium` / `entry-skill-cap` when that exact path exceeds the cap; repos
+  that do not vendor the entry skill are unaffected. Acceptance:
+
+  ```
+  ok   entry skill exactly at the always-loaded cap passes
+  ok   entry skill one line over the always-loaded cap fails
+  all 20 cases passed                                    (exit 0)
+
+  agent-lint …\mat-89-lint-accuracy
+  0 high, 0 medium, 0 low — PASS                         (exit 0)
+  ```
+
+  The live entry skill measures 78 lines and stays silent; the constant is
+  a single shared string, so the fixtures grade the path itself — a typo
+  would turn both entry-skill cases red rather than dying silently.
+
 ## In progress
 
-- Step 4 — GREEN for MAT-92 (the entry-skill-cap check).
+- Step 5 — docs/how-it-works/standard-lifecycle.md.
 
 ## Tried and failed
 

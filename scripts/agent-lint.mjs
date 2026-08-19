@@ -203,8 +203,16 @@ for (const f of files) {
 }
 
 // ---------- skills ----------
+// The entry skill is injected at SessionStart into every conversation, so
+// it carries the tightest budget in the standard. Path and cap mirror
+// reference/skills.md ("always-loaded entry point … hard-capped at 80
+// lines") — change both together. Repos that do not vendor it are unaffected.
+const ENTRY_SKILL = "skills/using-ae/SKILL.md";
+const ENTRY_SKILL_CAP = 80;
 for (const f of files.filter((f) => basename(f) === "SKILL.md")) {
   const n = rawCount(f);
+  if (f === ENTRY_SKILL && n > ENTRY_SKILL_CAP)
+    add("medium", "entry-skill-cap", f, `${n} lines — the always-loaded entry skill must stay ≤${ENTRY_SKILL_CAP}`);
   if (n >= 500) add("medium", "skill-size", f, `${n} lines — SKILL.md must stay <500`);
   if (!/^---[\s\S]{0,400}?\bdescription:/.test(read(f)))
     add("medium", "skill-frontmatter", f, "missing frontmatter description (what + when)");
