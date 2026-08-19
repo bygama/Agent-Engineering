@@ -49,6 +49,11 @@ parent's seat (worker `ready`, terminal `running`, transcript EMPTY,
 `reviewer.md` forbids commit/push/merge and any file edit; the same flag
 on a WRITING seat is a different decision — not this one.
 
+The reviewer's `worker_done` report is single-shot per dispatch, too —
+see `skills/orchestrate/references/reviewer.md`'s fenced brief
+("Reporting your verdict") for the send-once discipline; this file only
+launches the seat, it does not restate that rule.
+
 "Verify on install" is a hard rule: no spawn command enters a worker table
 until it ran on the target machine (`--help` at minimum). Install gotcha:
 with npm `ignore-scripts=true`, opencode's platform binary never arrives —
