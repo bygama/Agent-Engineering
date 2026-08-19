@@ -67,32 +67,34 @@ request.
 Two different things live under this heading, and the fence covers only
 the first.
 
-**Forbidden — orchestration workers.** No `worker-start`, no Tasks, no
-Dispatches, nothing carrying `worker_done` authority: a child never
-births a child. Work that looks like it wants to split off stays a step
-inside this lane; if it is genuinely a separate unit, ask the parent
-(below) for a sibling Task.
+**Forbidden — orchestration workers.** No `worker-start`, no Orca Tasks
+(`task-create`), no Dispatches, nothing carrying `worker_done`
+authority: a child never births a child. Work that looks like it wants
+to split off stays a step inside this lane; if it is genuinely a
+separate unit, ask the parent (below) for a sibling Orca Task.
 
 **Required at their tiers — your own in-session subagents.** work-run's
-per-step reviewer and work-verify's step-4 fresh-context review are rungs
-of the standard, not grandchildren: they run in this worktree, in your
-own session, sequentially, and Orca never sees them. Run them. The
+per-step reviewer and work-verify's step-4 fresh-context review are
+rungs of the standard, not grandchildren: they run in this worktree, in
+your own session, sequentially, and Orca never sees them. Run them. The
 parent's adversarial reviewer after `worker_done` is an ADDITIONAL
 cross-model seat, never a substitute for your step 4 — "the parent
 reviews it anyway" is not a reason to skip that rung.
 
-**A fence is not a refusal.** A fence is a rule you READ (this text, a
-skill, a policy), and this one does not cover in-session subagents. A
-runtime refusal is something you OBSERVED after actually attempting the
-call. Until you have attempted it you hold a fence, not a refusal, and
-"my runtime will not let me" is not available to you.
+**Attempt first, then classify.** Before you conclude you cannot run a
+subagent, make the call. A rule you READ — this fence, a skill, a
+standing session-level instruction, any rule you hold from any source —
+is not a refusal. A refusal is what you OBSERVED the runtime do once you
+actually dispatched: the tool absent, the call declined. No rule you
+merely hold licenses "I cannot", because a capability is not disproved
+until it is tested — so "my runtime will not let me" is not available to
+you until you have tried.
 
-If you do attempt it and the runtime genuinely refuses: record step 4 as
-**NOT RUN** in PROGRESS.md with the runtime's exact refusal text quoted,
-report that to the parent, and let its cross-model reviewer close the
-rung visibly.
-Never self-certify the gate, and never report PASS with the rung silently
-missing.
+If you do try and the runtime genuinely refuses: record step 4 as **NOT
+RUN** in PROGRESS.md with the runtime's exact refusal text quoted,
+report it in your `worker_done` body, and let the parent's cross-model
+reviewer close the rung visibly. Never self-certify the gate, and never
+report PASS with the rung silently missing.
 
 **Record the verdict, not a claim about it.** An in-session reviewer's
 verdict lives only in your session, so the lane is its only evidence:
