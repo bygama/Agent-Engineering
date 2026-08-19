@@ -101,9 +101,16 @@ for a hypothetical case, arriving early.
 
 ### 4. GREEN — the minimum
 
-Write the least content that fixes the observed failures. Nothing for
-cases you imagine. A section nobody failed at is a section nobody
-needed.
+Write the least content that fixes the observed failures. A section
+nobody failed at is a section nobody needed.
+
+**Nothing for cases you imagine — and a request is not evidence.** An
+addition the baseline never showed is unevidenced whether you invented
+it or the requester asked for it by name; "while you're in there, also
+add..." is the most common way unevidenced content enters a skill.
+Decline it with the diagnosis and the alternative: run a probe, and it
+gets written from what the probe shows. Edit what the failure touches;
+do not rewrite the file around it.
 
 One rule the law does not carry: a description states **what + when**,
 never a step-by-step workflow summary. A summarized workflow becomes
@@ -160,6 +167,7 @@ your missing sentence or proof the problem is prominence, not content
 | "No time before the release window" | A skill that doesn't land costs more than the probe that would have caught it. |
 | "I'll ship it and iterate from real usage" | Real usage is other agents failing in production work. Fail them in a probe instead. |
 | "I extended to adjacent failure modes for the same root cause" | You invented them. GREEN forbids content for hypothetical cases. |
+| "They asked for it while I was in there" | A request is not a baseline. Unevidenced is unevidenced whoever proposed it. |
 | "I re-ran it with the guidance and it looked better" | Better than what? Without a control arm that sentence has no content. |
 | "The description should summarize the workflow so it's discoverable" | Then agents follow the summary instead of the body. What + when, never how. |
 
