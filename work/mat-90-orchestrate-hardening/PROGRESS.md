@@ -213,6 +213,91 @@ with no TOC — the same pre-existing drift DECISIONS 5 fixed here, on a
 file this lane does not own; worth a follow-up ticket rather than a
 silent fix inside this PR.
 
+### Step 2 — fix round 1 (reviewer finding + parent ruling 1b, 2026-08-19)
+
+Two inputs: the reviewer's one Important (blocking) finding, and the
+parent's attempt-then-classify ruling that landed mid-review (DECISIONS
+1b), for which SPEC §§1-2 were amended. Both are in
+`skills/orchestrate/references/dispatch-child.md`, inside the fence; no
+other file touched. 179 → 181 lines.
+
+**1. The `Task` name collision (Important).** The forbidden list read
+"No `worker-start`, no **Tasks**, no Dispatches…", and in the child's own
+harness the subagent-dispatch tool is literally named `Task` — the exact
+call the required reviewers need. A child skimming the forbidden list
+could read the ban as covering its own step-4 reviewer, which is the
+failure MAT-90 is urgent about. Now: **No `worker-start`, no Orca Tasks
+(`task-create`), no Dispatches, nothing carrying `worker_done`
+authority**. The escape hatch at the end of the same paragraph was
+qualified for the same reason — "ask the parent for a sibling **Orca**
+Task". `grep -nE "\bTasks?\b"` over the file now returns three hits, all
+Orca-qualified: the two above and the wrapper-prose line 5, which sits
+outside the fence and names `orca orchestration task-create` in the same
+sentence. "Dispatches" was left as is — no tool-name twin.
+
+**2. Attempt-then-classify (parent ruling, SPEC §2 as amended).** The
+paragraph was retitled from "A fence is not a refusal" to **"Attempt
+first, then classify"** and rewritten so the order is an instruction, not
+a description: *before you conclude you cannot run a subagent, make the
+call.* Two things changed in substance beyond the ordering:
+- The rule now covers **any rule the child holds, from any source** —
+  "this fence, a skill, a standing session-level instruction, any rule
+  you hold from any source" — because the fourth occurrence
+  (`mat-89-lint-accuracy`, DECISIONS 1b) cited a *session-level*
+  no-Agent-tool rule, not this template's fence. A paragraph that only
+  disclaimed its own fence would have missed that child.
+- The principle is stated explicitly: "No rule you merely hold licenses
+  'I cannot', because a capability is not disproved until it is tested".
+The READ/OBSERVED contrast eval-04 grades is intact ("A rule you READ …
+is not a refusal. A refusal is what you OBSERVED the runtime do once you
+actually dispatched: the tool absent, the call declined"), and the
+closure is kept verbatim in force: "my runtime will not let me" is not
+available to you until you have tried.
+
+**3. The two Minors in the same paragraphs.** The genuine-refusal branch
+now names its channel — report it **in your `worker_done` body** (SPEC §2
+as amended) — instead of the channel-less "report that to the parent";
+and both rewritten paragraphs were reflowed. `awk 'length($0) > 72'` over
+the whole file returns nothing, matching main's own 72-column fill (main
+max: 72). The reviewer's other Minors (the `:67` forward reference, the
+per-step-reviewer gap, the PLAN regex note) were left for work-verify
+triage, as instructed.
+
+**On the acceptance regex (informational).** The reviewer is right that
+PLAN step 2's `!/never spawning anything yourself/` is vacuous — the
+string actually deleted was "instead of spawning anything yourself", so
+that guard would pass on an unedited file. It is still run because it is
+the step's stated acceptance, but the absence is evidenced by grep
+instead: `grep -niE "spawn|anything yourself|anything itself"
+skills/orchestrate/references/dispatch-child.md` returns exactly one
+line —
+
+    3:**When to use:** orchestrate's child spawn — once the dispatch dialogue
+
+— wrapper prose describing when a parent uses the template, outside the
+fence. No spawn-prohibition phrasing survives anywhere in the dispatched
+text.
+
+Commands re-run after the fix, all here:
+
+- `node -e "…!/never spawning anything yourself/… ? 0 : 1"` → exit 0
+  (kept, with the caveat above)
+- `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  → `0 high, 0 medium, 0 low — PASS`, exit 0
+- `node tests/run-eval-checks.mjs` → exit 0, `all eval checks passed`
+- `node tests/run-lint-tests.mjs` → exit 0
+- `node tests/run-gen-tests.mjs` → exit 0
+- `awk 'length($0) > 72 {print NR}'` on the file → no output
+- `grep -nE "\bTasks?\b"` → 3 hits, all Orca-qualified (listed above)
+
+Files changed: `skills/orchestrate/references/dispatch-child.md` (M).
+No do-not-touch path in the diff.
+
+Concerns: none. The section is now 38 lines of the fenced text; if a
+later reviewer needs it shorter, the compressible paragraph is still the
+attempt-then-classify one, but it is now the most-evidenced clause in the
+lane (four occurrences across two waves) and should be the last cut.
+
 ## Evidence — Orca CLI verification (2026-08-19, this machine)
 
 Every CLI claim this lane adds to the standard was produced by running
