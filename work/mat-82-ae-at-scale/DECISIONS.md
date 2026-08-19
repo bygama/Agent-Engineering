@@ -54,3 +54,12 @@
   following work-verify lane gate re-runs every one of the same
   commands fresh. — A reviewer seat there would duplicate the gate at
   full cost with nothing left to judge; no other step skipped review.
+- 2026-08-18 — Ruling 10 (controller, on the lane reviewer's one
+  Important): `skills/ae-audit/references/checklist.md:59` (monorepo row
+  still grading "per-app AGENTS.md per app") is NOT fixed in-lane — it
+  sits outside the SPEC's declared surfaces AND the ticket names
+  ae-audit's checklist as contested with the queued companion lane
+  MAT-68 ("both may touch ae-audit's checklist"), so touching it here
+  invites a cross-lane collision the parent sequenced away. Surfaced to
+  the parent in worker_done for a filed follow-up; the reviewer's own
+  triage agrees (follow-up ticket, not a lane re-open).

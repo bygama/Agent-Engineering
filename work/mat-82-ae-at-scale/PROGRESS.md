@@ -522,5 +522,14 @@
 
 ## Verification
 
+### 2026-08-18 — L DoD — PASS
+- L1 static: `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` → exit 0 (`0 high, 0 medium, 0 low — PASS`)
+- L2 behavioral: `node tests/run-lint-tests.mjs` → exit 0 (`all 13 cases passed`); `node tests/run-gen-tests.mjs` → exit 0 (`all gen cases passed`); `node tests/run-eval-checks.mjs` → exit 0 (`ok ae-init: 6 evals well-formed` / `all eval checks passed`)
+- L2 feature rows: F1-F5 verification commands each → exit 0 (controller run + reviewer's independent run, this session)
+- L3 end-to-end: n/a — documentation standard, no runtime flow; the four gates + F-rows are the executable surface (recorded as a decision, not a silent skip)
+- Hard constraints: CHANGELOG untouched (git diff --quiet base..HEAD exit 0); AGENTS.md diff empty (no restamp); `wc -l global/CLAUDE.md` = 40; dispatch-child.md / examples/ / task-tiers.md / templates/community/ / scripts/ untouched base-relative (exit 0)
+- Fresh-context review: **PASS** — reviewer ran every gate, every F-row, and every spot check itself and quoted exits; re-verified rulings 1 and 7 against primary sources; one Important finding (ae-audit checklist.md:59 grades by the retired per-app rule) ruled out-of-lane (DECISIONS ruling 10: outside SPEC surfaces + MAT-68 contention) → surfaced to the parent as a follow-up to file; new minors recorded: eval-06 preamble's "strict" phrasing vs tracker.md's careful citation; F2/F5's HEAD-relative git-diff clauses prove little on a clean tree (base-relative proof recorded in evidence instead); tracker.md 178/120 with the trim deferred (m22)
+- Adversarial review: n/a here — dispatch config assigns the adversarial wave (1 reviewer) to the PARENT after worker_done; the child runs work-verify only
+
 <!-- PASS evidence only, written by work-verify (newest on top); the close
      handoff refuses to close a lane without a current PASS block here. -->
