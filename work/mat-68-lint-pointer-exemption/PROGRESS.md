@@ -11,6 +11,49 @@ SPEC approved by the parent with one scope extension (DECISIONS ruling 2).
 - [x] 4. standard-lifecycle.md + reference/context.md one-clause notes
 - [x] 5. Gate sweep with evidence
 
+## Verification
+
+### 2026-08-19 — M DoD — PASS
+
+- L1 static: `node --check scripts/agent-lint.mjs` → exit 0; `node --check
+  tests/run-lint-tests.mjs` → exit 0; `node scripts/agent-lint.mjs .
+  --ignore tests,templates,global,examples` → exit 0 (`0 high, 0 medium,
+  0 low — PASS`)
+- L2 behavioral: `node tests/run-lint-tests.mjs` → exit 0 (`all 16 cases
+  passed`); `node tests/run-gen-tests.mjs` → exit 0 (`all gen cases
+  passed`); `node tests/run-eval-checks.mjs` → exit 0 (`all eval checks
+  passed`)
+- L3 end-to-end (CLI flow, real invocations): `node scripts/agent-lint.mjs
+  tests/fixtures/pointer-fenced --json` → exit 0, `"findings": []`;
+  `…pointer-unclosed --json` → exit 1, one `pointer-shape` high;
+  `…pointer-unfenced --json` → exit 1, one `pointer-shape` high with the
+  `outside tool-managed blocks` qualifier
+- Fresh-context review (capable tier, no shared context): **PASS** — the
+  reviewer re-ran every DoD command itself (same exits/outputs), verified
+  fixture-first ordering in history (`98f15d8` before `0edcdbe`),
+  CHANGELOG untouched, no restamp (all `AE/1.3.2` diff hits are additions
+  inside new fixtures/lane narrative), and probed 11 shapes beyond the
+  fixtures (multiple blocks, name mismatch, non-kebab, `@AGENTS.md`
+  only-inside-block, orphan BEGIN + later pair, indented markers,
+  whole-file block, CRLF, 3/4-line boundary, global-layer no-strip,
+  `read-order` fires on block interior) — no divergence from SPEC §1;
+  nothing above Minor.
+- Adversarial review: n/a — M tier; per dispatch config the parent
+  dispatches the adversarial reviewer (1 ballena) after worker_done; the
+  child runs work-verify only.
+
+**Minor triage (deferred, recorded — no action in this lane):** the two
+failing pointer cases carry no broad `forbid` list; `const of` naming and
+the cosmetic `rawCount(f)` re-read in the pointer check; "line budget"
+wording proximity to the global row under both tables (label mitigates;
+code provably never strips globals); `per-app` residue in agent-lint
+messages, README, ae-init migration notes and ae-audit SKILL.md is
+pre-existing repo-wide drift for docs-sweep (DECISIONS ruling 1 scoped
+this lane to checklist.md); founding spec carries no amendment pointer —
+matches house practice (periodic sweeps). Reviewer also recorded, as
+settled by SPEC §1: any kebab-named pair qualifies, hand-authored
+included — ae-audit's judgment rows are the backstop.
+
 ## Evidence
 
 ### Step 5 — Gate sweep (2026-08-19)
