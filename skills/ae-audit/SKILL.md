@@ -24,7 +24,7 @@ Audit progress:
 ```
 
 **1. Inventory.** Find the surface: root AGENTS.md (+ stamp line), CLAUDE.md,
-per-tool adapters, per-app AGENTS.md/CLAUDE.md, `work/` lanes,
+per-tool adapters, nested AGENTS.md/CLAUDE.md, `work/` lanes,
 `feature_list.json`, `.claude/skills/` and `skills/`, `docs/` tree, DESIGN.md
 files. Note line counts and the stamp version.
 
