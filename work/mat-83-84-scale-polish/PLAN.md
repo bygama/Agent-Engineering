@@ -39,7 +39,7 @@ Constraints (every step):
       `.claude/skills/docs-sweep/references/patterns.md` naming these
       real instances (ratchet rule, same commit). — accept:
       `! grep -n "per-app" README.md skills/ae-audit/SKILL.md docs/how-it-works/architecture.md scripts/agent-lint.mjs && grep -q "per-app" .claude/skills/docs-sweep/references/patterns.md && node tests/run-lint-tests.mjs`
-- [ ] 4. `judgment` — Split the README interop over-bundle (§Installing
+- [x] 4. `judgment` — Split the README interop over-bundle (§Installing
       in any repo, ~lines 242-244): AE's nesting rule is ALIGNED with
       the agents.md spec's combine-walking-up / nearest-wins behavior,
       not identical to it — AE adds its own earning test and budgets

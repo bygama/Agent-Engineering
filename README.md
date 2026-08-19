@@ -239,9 +239,13 @@ That file is no AE-private format: `AGENTS.md` **is** the
 [agents.md](https://agents.md) open standard, stewarded by the Agentic AI
 Foundation (Linux Foundation) — so a repo AE installs or migrates is read
 as-is by Codex, Gemini CLI, Cursor, and any other standard-following
-agent, with no adapters and no second copy. AE's nesting rule is the
-spec's own: nest at any depth, nearest-wins
-([reference/context.md](reference/context.md)).
+agent, with no adapters and no second copy. AE's nesting rule is *aligned*
+with that standard, not identical to it: files nest at any depth and the
+nearest one wins — the spec's own precedence, which Claude Code's walk-up
+reproduces by combining ancestors root-first. What AE adds is its own:
+the earning test (a directory gets a file only for non-inferable local
+knowledge, never for symmetry) and the line budgets that keep every file
+small ([reference/context.md](reference/context.md)).
 
 ### Customizing
 
