@@ -20,7 +20,7 @@
 
 ## Steps
 
-- [ ] 1. [judgment] Feature A — nesting criterion: rework
+- [x] 1. [judgment] Feature A — nesting criterion: rework
   `reference/context.md` (budget-table row "Per-app AGENTS.md
   (monorepo)" → nested AGENTS.md at any depth; a directory EARNS its
   file only via non-inferable local knowledge, never symmetry; nested

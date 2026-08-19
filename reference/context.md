@@ -1,15 +1,21 @@
 # Context layer: entry files
 
 Sources: [The new rules of context engineering](https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models)
-(2026-07-24); `principles.md` in this directory. Retrieved 2026-08-16.
+(2026-07-24); [Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
+— the smallest high-signal token set; [AGENTS.md](https://agents.md), the open
+standard stewarded by the Agentic AI Foundation (Linux Foundation) — nearest
+file wins, and OpenAI's main repo carries 88 nested files;
+[Claude Code memory](https://code.claude.com/docs/en/memory) — the CLAUDE.md
+walk-up; `principles.md` in this directory. Retrieved 2026-08-16; the two
+nesting sources 2026-08-18.
 
 ## Budgets
 
 | File | Target | Hard cap |
 |---|---|---|
 | Root AGENTS.md (canonical) | ≤60 lines | 100 |
-| Per-app AGENTS.md (monorepo) | ≤30 lines | 60 |
-| CLAUDE.md (pointer, root or per-app) | ≤3 lines | 3 |
+| Nested AGENTS.md (any depth) | ≤30 lines | 60 |
+| CLAUDE.md (pointer, root or nested) | ≤3 lines | 3 |
 | Global ~/.claude/CLAUDE.md | ≤40 lines | 40 |
 
 ## The canonical file: AGENTS.md
@@ -40,12 +46,35 @@ the pointer, Codex/opencode/grok/dsh natively). Fixed structure:
 One line. Claude Code auto-loads CLAUDE.md and the `@` import pulls the
 canonical file in; every other runner reads AGENTS.md directly. This keeps a
 single source of truth with zero duplicated contracts — the per-tool adapter
-ban stands. Monorepos repeat the pattern per app: `apps/x/AGENTS.md` (≤30
-lines, that app's commands and gotchas only) + `apps/x/CLAUDE.md` pointer.
+ban stands.
 
 The global layer is the one exception: `~/.claude/CLAUDE.md` (H1
 `# Global instructions`, ≤40 lines) is its own canon — user identity, safety,
 working style — and is not a pointer.
+
+## Nesting: a directory earns its own file
+
+AGENTS.md files nest at any depth — `apps/web/`, `packages/ui/core/`,
+`services/billing/api/` — not one privileged `apps/*` level. A directory earns
+its own file only when it holds **non-inferable local knowledge**: commands
+that differ from the root's, gotchas that bite only inside that subtree.
+Symmetry is never the reason. A sibling having one earns nothing here, and a
+nested file that restates the root spends attention in every session that
+touches the directory.
+
+Each nested file is ≤30 lines — that subtree's commands and gotchas only, the
+root still covers everything shared — and carries its own ≤3-line CLAUDE.md
+pointer beside it. `agent-lint` applies both budgets to every non-root
+AGENTS.md and every non-global CLAUDE.md, at any depth.
+
+Precedence when two files disagree: **user prompt > nearest AGENTS.md >
+ancestors** — nearest-wins. The agents.md standard defines it that way ("agents
+automatically read the nearest file in the directory tree, so the closest one
+takes precedence"); Claude Code lands on the same result mechanically, walking
+up from the working directory and concatenating root-first so the nearest file
+lands last in context, plus subtree files pulled in on demand once it opens
+files there. So a nested file may contradict the root — deliberately, as the
+more specific fact, never by accident.
 
 ## What never goes in entry files
 

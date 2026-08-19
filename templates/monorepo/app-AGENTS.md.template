@@ -1,5 +1,10 @@
-<!-- Per-app context, ≤30 lines. Only THIS app's commands and gotchas.
-     The root AGENTS.md covers everything shared. -->
+<!-- Nested context, ≤30 lines. AGENTS.md nests at ANY depth, not only
+     apps/*: this directory earns its own file only because it holds
+     non-inferable local knowledge — its own commands, its own gotchas —
+     never for symmetry with a sibling. Only THIS directory's facts; the
+     root AGENTS.md covers everything shared and stays authoritative
+     except where this file is deliberately more specific (nearest-wins).
+     Ships with its own ≤3-line CLAUDE.md pointer beside it. -->
 # {{APP_NAME}}
 
 {{APP_SUMMARY}}
