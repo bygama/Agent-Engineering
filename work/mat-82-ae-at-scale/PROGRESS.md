@@ -465,6 +465,14 @@
   this lane (checkbox-flipping is not part of the individual-step
   convention here — only steps 1-2 carry `[x]`). No concerns.
 
+- **Step 7 review — Approved** (fresh reviewer, spec ✅ compliant, no
+  Critical/Important; absolute-URL-from-a-consumer-repo requirement
+  correctly reasoned and satisfied). Minor DEFERRED: (m29) "the README's
+  adoption guide" is a paraphrase — README's actual headings are
+  "Installing in any repo" / "Adopting AE on your own machine".
+- **Ruling 8 recorded** — step 8 runs gates + evidence only; the
+  feature_list flip belongs to work-verify (work-run never flips a row).
+
 ## In progress
 
 ## Tried and failed
