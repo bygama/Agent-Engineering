@@ -147,6 +147,9 @@ always-loaded entry skill's own cap among them — stamp present and
 parseable, pointer shape, broken links, command drift, lane coherence,
 feature-list schema and gating sanity); the audit judges (is the entry file
 honest? do the hard constraints deserve to be hard? has knowledge decayed?).
+The output is a score with concrete fixes, and fixes are applied only when
+asked — an audit that silently rewrites your repo is an audit nobody runs
+twice.
 
 Command drift carries two exemptions, and both exist for the same reason:
 a mechanical check that fails a repo which is *right* teaches everyone to
@@ -170,9 +173,6 @@ tightest attention budget in the standard, stated at 80 lines in
 budgets mirror `reference/context.md`: the law is written once, and the
 check points at it rather than inventing a second one. Repos that do not
 vendor the entry skill never see the check.
-The output is a score with concrete fixes, and fixes are applied only when
-asked — an audit that silently rewrites your repo is an audit nobody runs
-twice.
 
 Run against this repo itself (the dogfooding gate), the audit additionally
 checks that `docs/how-it-works/` covers every top-level directory and every

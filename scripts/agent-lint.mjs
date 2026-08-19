@@ -21,10 +21,11 @@
 //
 // cmd-drift exemption: a cited `node <path>` whose path resolves OUTSIDE the
 // repo root (`../<sibling>/…`, or absolute) is not a claim about this repo's
-// contents — it is correct wherever the sibling checkout exists (the owner's
-// tree, CI) and absent elsewhere (a worktree). Missing, it is reported `low`
-// naming that context-dependence instead of failing the lint; present,
-// nothing is reported. In-repo paths keep their MEDIUM `file not found`.
+// contents — it is correct wherever that path exists outside the repo (the
+// owner's sibling checkout, CI) and absent elsewhere (a worktree). Missing,
+// it is reported `low` naming that context-dependence instead of failing the
+// lint; present, nothing is reported. In-repo paths — including a directory
+// whose NAME begins with two dots — keep their MEDIUM `file not found`.
 //
 // Usage: node scripts/agent-lint.mjs [path] [options]
 //   --budget N     root AGENTS.md target lines (default 60)
@@ -205,8 +206,8 @@ for (const f of files) {
 // ---------- skills ----------
 // The entry skill is injected at SessionStart into every conversation, so
 // it carries the tightest budget in the standard. Path and cap mirror
-// reference/skills.md ("always-loaded entry point … hard-capped at 80
-// lines") — change both together. Repos that do not vendor it are unaffected.
+// reference/skills.md ("always-loaded entry point (SessionStart), capped
+// at 80 lines") — change both together. Repos that do not vendor it are unaffected.
 const ENTRY_SKILL = "skills/using-ae/SKILL.md";
 const ENTRY_SKILL_CAP = 80;
 for (const f of files.filter((f) => basename(f) === "SKILL.md")) {
@@ -347,8 +348,10 @@ if (files.includes("AGENTS.md")) {
           const abs = resolve(root, mm[1]);
           if (!existsSync(abs)) {
             const rel = relative(root, abs);
-            if (rel.startsWith("..") || isAbsolute(rel))
-              add("low", "cmd-drift", at, `${mm[1]} escapes the repo — context-dependent, resolves only where the sibling checkout exists`);
+            // Segment compare, not a prefix test: an in-repo directory
+            // NAMED `..config` starts with two dots and escapes nothing.
+            if (rel.split(/[\\/]/)[0] === ".." || isAbsolute(rel))
+              add("low", "cmd-drift", at, `${mm[1]} escapes the repo — context-dependent, true only where that path exists outside it (a sibling checkout, CI)`);
             else add("medium", "cmd-drift", at, `file not found: ${mm[1]}`);
           }
         } else if (/^docker compose\b/.test(cmd)) {
