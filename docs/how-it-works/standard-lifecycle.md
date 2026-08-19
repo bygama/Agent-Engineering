@@ -41,7 +41,9 @@ Always, and nothing more:
   model, any runtime — reads this file; nothing tool-specific forks it.
 - **`CLAUDE.md`** — a pointer, ≤3 lines (`@AGENTS.md`), so Claude Code
   ingests the canonical file through its import mechanism. One canonical
-  file plus one pointer; per-tool adapter files stay banned.
+  file plus one pointer; per-tool adapter files stay banned. A fenced
+  tool-managed block does not count against the line budget — the lint's
+  `pointer-shape` check settles what qualifies as one.
 - **`docs/`** — decision records and rich-reference specs, indexed by a
   one-line-per-area README.
 
