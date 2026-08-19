@@ -113,6 +113,21 @@
   -- skills/orchestrate/references/dispatch-child.md` → exit 0 (still
   untouched). Only `global/CLAUDE.md` changed by this fix.
 
+- **Step 2 review — Approved after fix round 1.** Fresh reviewer: spec ✅
+  compliant, one Important (global bullet's compression dropped the "never a
+  supervised child" negative — the widest-blast-radius copy of the rule).
+  Fix round 1 (`a50af33`): bullet's last line now carries both gates AND
+  "not a child", file still exactly 40/40; scoped re-review verdicts
+  ADDRESSED, no new breakage. Minors DEFERRED to work-verify triage: (m6)
+  execution.md bullet names two tools where the other surfaces name three
+  (claude-in-chrome missing); (m7) orca.md "long-lived process of their own"
+  reason falsifiable for claude-in-chrome (attaches to the owner's Chrome) —
+  suggested "each pull in a browser outside the card's lifecycle"; (m8)
+  capability-examples list triplicated (orca.md / execution.md / global
+  shape) — same citation-vs-restatement decision as step 1's m3, triage
+  once; (m9) global/CLAUDE.md at exactly 40/40, zero headroom — flag in
+  handoff for future editors.
+
 ## In progress
 
 ## Tried and failed
