@@ -40,6 +40,12 @@ existing context files and their shape:
 Also: `docs/`, repo skills, `work/` lanes, README — including the language the
 repo's human docs are written in (README, site copy, SEO metadata).
 
+Count the repo's **domains** while mapping the layout: every `apps/*` entry
+plus every top-level directory that carries a manifest of its own. A directory
+without one (`scripts/`, `docs/`) is not a domain, however many files it holds.
+The count decides the shape of step 3's tracker question — 3 or more opens the
+monorepo path.
+
 **2. Detect profile.** personal / public OSS / team. Infer from the query and
 repo signals (remote, contributors, license) when possible; otherwise ask
 ONCE. Community files follow `templates/community/MATRIX.md` exactly — public
@@ -66,7 +72,33 @@ ask it once, settled for the repo, but only when a tracker is in play — step
 this repo track in Linear, and if so: workspace, team key, project? Accept
 "none"; the tracker stays optional. Never infer the answer from this
 session's live binding — the binding is exactly what can be wrong, which is
-the reason the question exists (`reference/tracker.md`).
+the reason the question exists (`reference/tracker.md`). Under 3 domains that
+is the whole question: one turn, no proposal, nothing new to answer.
+
+At 3 or more (step 1's count), the same single question carries a PRE-BUILT
+recommendation instead of interviewing the structure domain by domain: an
+initiative named after the repo at the root, one project per domain named
+from its folder — title-cased, `apps/api` → `Api`, never a description of
+what the folder does — and no project on the root line. That is the shape
+`reference/tracker.md` ("Which workspace — the repo declares, tools obey")
+defines for a deep monorepo; cite it, never restate it. Workspace and team
+key stay the owner's to supply in that same answer: no layout yields them,
+and the live binding never stands in for them. One answer settles the whole
+thing — approved as offered, approved with edits (drop a domain, rename a
+project), or "none". Edits are taken verbatim with no second approval round;
+"none" declares nothing and creates nothing. Walking the owner through one
+question per domain is the friction this replaces.
+
+On approval, create only what is MISSING — the initiative and each project
+that does not exist yet, reusing every one that does — and nothing else: no
+issues, no status moves, nothing outside the approved structure. Writes go
+through `orca linear` or a Linear MCP the session already carries. Without an
+Orca session there is no tracker write whatever connector is present, and the
+same holds when the live binding cannot be resolved against the declaration
+(`reference/tracker.md`, respect rule and Without Orca): create nothing, say
+plainly that the tracker was NOT written, and emit the exact operation
+(command + payload) per missing object for the operator to run from a
+correctly bound session. Step 6 writes the declaration lines either way.
 
 **4. Verify commands.** Run each build/test/run/lint command before writing
 it into AGENTS.md. Skip destructive or long-running ones — mark them
@@ -86,10 +118,18 @@ produced; delete optional sections that have no content (e.g. Map). Always:
 in the Agent-Engineering repo — tier one-liner, 4 blocks; when step 3 named a
 tracker workspace, its declaration line lands directly under that stamp, in
 the canonical format defined in `reference/tracker.md` — cite it, never
-restate it; answer "none" writes no line) + pointer `CLAUDE.md` +
-`docs/README.md` + `docs/tiers.md` + `adrs/` + `specs/`.
-Monorepo: one
-`app-AGENTS.md` (≤30 lines) + pointer per app. Keep existing README/LICENSE.
+restate it; an approved monorepo structure names its initiative there and
+leaves the projects to the domains below; answer "none" writes no line) +
+pointer `CLAUDE.md` + `docs/README.md` + `docs/tiers.md` + `adrs/` +
+`specs/`.
+Monorepo: one `app-AGENTS.md` (≤30 lines) + pointer per directory that earns
+one (`reference/context.md`), each carrying its domain's `Tracker-project:`
+line directly under the title when step 3 settled a monorepo structure —
+workspace and team inherited from the root, never repeated. No directory gets
+a file just to hold the line; a domain without one inherits the root
+declaration whole. Every declaration line is written even when the tracker
+objects were only emitted for the operator: the repo does not wait on them
+existing. Keep existing README/LICENSE.
 UI stack detected in step 1: offer `DESIGN.md.template` per app — opt-in, per
 `reference/design-md.md`. Do NOT create `work/` lanes, `feature_list.json`,
 or `loops/` speculatively — lanes and feature lists are per-effort
@@ -106,7 +146,8 @@ docs/tiers.md.` (`reference/tracker.md`, operator setup).
 ## Judgment notes
 
 - Degrees of freedom: templates are defaults, not law — adapt structure to
-  the repo, never violate budgets (AGENTS.md ≤60/100, per-app ≤30, pointer ≤3).
+  the repo, never violate budgets (AGENTS.md ≤60/100, nested ≤30, pointer ≤3)
+  — a declaration line counts against them like any other.
 - No speculative skills: propose repo skills only for workflows evidenced in
   the repo (procedural docs, CI scripts) and let the user opt in.
 - When the repo already complies at the current version, say so and change

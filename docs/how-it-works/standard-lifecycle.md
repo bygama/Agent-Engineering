@@ -101,6 +101,23 @@ Two arrival states get special handling:
   the skill writes a migration plan and shows it before touching anything.
   Migration is a proposal, never an ambush.
 
+One question in the interview scales with the repo. When a tracker is in
+play, the install asks once where the repo tracks — and a repo of three or
+more domains (`apps/*` plus top-level directories with manifests of their
+own) gets that question with the answer already drafted: an initiative named
+after the repo, one project per domain named from its folder — the structure
+`reference/tracker.md` ("Which workspace — the repo declares, tools obey")
+defines for a deep monorepo. The owner still supplies workspace and team
+key, and still answers once —
+approve, edit in the same breath, or "none". The alternative is a question
+per domain, which is exactly the friction that gets answered "skip", after
+which the repo declares nothing at all. On approval the install creates only
+the Linear objects that are missing; where no Orca session can write them it
+says so and emits the exact operations for the operator, and the declaration
+lines land in the files regardless — the repo saying where work belongs does
+not wait on the projects existing. Below three domains the question is the
+single one it has always been.
+
 Templates are instantiated, never copied verbatim: `{{PLACEHOLDER}}` markers
 are filled from what the exploration found and what the human confirmed.
 
