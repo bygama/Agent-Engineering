@@ -50,8 +50,27 @@ and continues with what remains. Never silently skipped, never faked.
 | Long-lived process | `orca terminal create --worktree <sel> --command "<cmd>" --title "<name>"`; read with `orca terminal read` (cursor reads for long output) |
 | Loop / schedule | `orca automations create --name <n> --trigger <preset\|cron\|RRULE> --prompt "follow loops/<name>.md" --provider <agent> [--precheck <cmd>] [--repo <sel>] [--workspace-mode new-per-run] --disabled` — enable only on explicit go |
 | Tracker | `orca linear …` (see `reference/tracker.md`) |
-| E2E surface (web) | built-in browser: `orca goto/snapshot/click/wait --json` — the named L3 tool for web-facing work on an Orca machine |
+| E2E surface (web) | built-in browser: `orca goto/snapshot/click/wait --json` — the named L3 tool for web-facing work on an Orca machine (criterion below) |
 | Report publishing | `orca artifacts share <file>` — gated by a human-granted device capability; on `artifact_sharing_disabled` deliver the file locally, do not retry |
+
+## The browser criterion
+
+Default: Orca's embedded browser (`orca goto/snapshot/click/wait --json`).
+It lives in the app, so it outlives the agent session and never blocks a
+card's working→idle transition — whatever else is installed, everything it
+already does (navigate, snapshot, click, wait) goes through it.
+
+Playwright, chrome-devtools and claude-in-chrome each drive a long-lived
+process of their own. One of them is justified only when BOTH hold:
+
+- the need is a capability Orca's browser lacks — performance traces, heap
+  snapshots, a11y audits, device emulation; and
+- the session is an owner terminal that can afford a long-lived process —
+  never a supervised child, whose browser discipline stays absolute
+  (`skills/orchestrate/references/dispatch-child.md`).
+
+Convenience, habit, and "it is already installed" are not lacked
+capabilities.
 
 ## Automation notes (verified flags)
 

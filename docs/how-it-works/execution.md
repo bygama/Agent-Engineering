@@ -104,6 +104,12 @@ verified CLI syntax lives in `reference/orca.md`; the shape of it:
 - **long-lived process** → terminal tab that outlives the agent session
   (`orca terminal create`). Never a background shell inside an agent
   session.
+- **browser / web E2E** → Orca's embedded browser (`orca
+  goto/snapshot/click/wait --json`) by default — it lives in the app, so
+  it is not a long-lived process the session owns. Playwright or
+  chrome-devtools only for a capability it lacks (performance traces, heap
+  snapshots, a11y audits, device emulation) *and* only from an owner
+  terminal, never a supervised child.
 - **DAG + gates** → `orca orchestration` runs/tasks/dispatch/inbox.
 - **loop** → `orca automations`, created `--disabled`.
 
