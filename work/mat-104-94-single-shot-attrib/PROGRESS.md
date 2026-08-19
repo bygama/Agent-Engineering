@@ -115,6 +115,19 @@
   "0 high, 0 medium, 0 low — PASS". Files changed:
   `skills/orchestrate/SKILL.md`, `docs/how-it-works/execution.md`.
 
+- Step 3 review (fresh in-session reviewer, verdict verbatim):
+  "### Spec compliance / ✅ Compliant [...] **Step quality:** Approved
+  — All four required acceptance checks pass by direct execution, the
+  added text lands in the exact specified location in both files,
+  accurately cross-references step 5's real idle signature, and stays
+  faithful to eval-03's already-graded behavior — no missing, extra, or
+  misunderstood content found." Minors (deferred, reviewer says not
+  worth touching now): two consecutive execution.md paragraphs open
+  with a "Stage 6 ... the diagram can't/doesn't draw" parallel; the
+  step's `worker-read ≥ 2` acceptance bar was already satisfiable
+  pre-diff (acceptance-design weakness, not an implementation defect —
+  the new paragraph adds real worker-read usage on top).
+
 ## In progress
 
 ## Tried and failed

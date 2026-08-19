@@ -47,6 +47,23 @@
   `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
   exits 0
 
+- [ ] 2b. [judgment] Seat reads in place (parent directive
+  msg_58ffdcfc9878, see DECISIONS.md) —
+  `skills/orchestrate/references/reviewer.md`'s fenced brief: the
+  seat's worktree is ALREADY checked out on the lane branch at launch;
+  reading and command-running happen IN PLACE; `git fetch` only if the
+  branch moved since launch; creating checkouts or worktrees of its own
+  is forbidden — a raw `git worktree add` lands outside the parent's
+  ledger and becomes debris no decommission sweeps. Adjust the current
+  "Check out or fetch [BRANCH]" wording so it can no longer be read as
+  an instruction to create one. No eval-03 change (ruling in
+  DECISIONS.md: grades parent behavior, not seat-brief content). —
+  accept: `grep -c 'worktree add' skills/orchestrate/references/reviewer.md`
+  ≥ 1 AND `grep -c 'Check out or fetch' skills/orchestrate/references/reviewer.md`
+  is 0 AND
+  `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  exits 0
+
 - [ ] 3. [judgment] Parent-side guidance + docs chapter, same commit
   (house rule: behavior change updates the affected chapter) —
   `skills/orchestrate/SKILL.md` step 6 gains: a degenerate worker_done
