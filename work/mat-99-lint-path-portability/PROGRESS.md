@@ -333,3 +333,15 @@ Deferred-minors triage (all on record, none a gate):
   before NUL bail, `/mnt/c` without trailing slash (deliberate per SPEC
   literal), UTF-16 skip — recorded at step 2; step-1 fenced-surface pin
   closed empirically by the lane reviewer.
+
+## Handoff (2026-08-19)
+
+- Done: all 3 PLAN steps, per-step reviews Approved, M DoD PASS (above).
+- PR: https://github.com/bygama/Agent-Engineering/pull/78 (`Closes MAT-99`)
+  — OPEN by design; the parent orchestrator reviews, requests any rebase,
+  and merges. This lane never merges.
+- Next (parent's side): review wave → merge → terminal close of lane
+  records → ships in 1.4.2 via the release ritual.
+- Debris: none — `git status --porcelain` empty, `git clean -nd` empty;
+  step-2 scratch fixture was deleted in-step; diff packages live in
+  session scratchpad, outside the repo.
