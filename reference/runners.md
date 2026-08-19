@@ -79,6 +79,32 @@ at dispatch (a runner-specific brief, a cost or speed call), never a
 silent swap. The default needs no owner input; it does not grow the
 dispatch dialogue past its one question (reviewers).
 
+Stock is the default, not a requirement. A child that genuinely needs
+argv those three flags cannot express — a wrapper binary, custom flags —
+takes the reviewer seat's two-step launch instead, in the runner's TUI
+form, with the argv reason recorded in the Task spec like any other
+override. Worktree first: a terminal is created *in* one.
+
+```bash
+orca worktree create --name <slug> --base-branch <base> \
+  --parent-worktree active --setup run --linear-issue <KEY> --json
+orca terminal create --worktree id:<new_worktree_id> \
+  --command "<runner argv>" --json
+orca terminal wait --terminal <handle> --for tui-idle --timeout-ms 60000 --json
+orca orchestration worker-start --task <task_id> --terminal <handle> --json
+```
+
+`--setup run` belongs on the create because the dispatch will not run
+setup; that, and the rest of what this path trades away, is the cost list
+in `skills/orchestrate/SKILL.md` step 4 — read it before choosing it.
+
+Closing the fallback shell is a **required step here**, not advice: the
+bare create opens a startup shell of its own and the runner lives in a
+second terminal (`orca terminal list --worktree <sel> --json` shows
+both). Confirm that shell is actually unused before closing it (`orca
+terminal close --terminal <handle>`) — never close it blindly, never
+leave it running as debris.
+
 ## Orchestrating across runners
 
 The coordinator does not care which runner holds a lane: the reducer
