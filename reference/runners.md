@@ -30,12 +30,22 @@ opencode has two invocation forms, not one. The table's headless spawn is
 `opencode run -m <provider/model> "<prompt>"` — it runs one prompt to
 completion and exits, the shape a child dispatch or a fan-out worker
 needs. Orchestrate's reviewer seat needs an interactive session instead,
-so it launches the bare TUI form — `opencode -m <provider/model>`, no
-`run`, no prompt argument — waits for it (`terminal wait --for
-tui-idle`), then attaches the Task to the already-running terminal
+so it launches the bare TUI form — `opencode -m opencode-go/deepseek-v4-flash
+--auto`, no-auth fallback `opencode -m opencode/deepseek-v4-flash-free
+--auto` — no `run`, no prompt argument — waits for it (`terminal wait
+--for tui-idle`), then attaches the Task to the already-running terminal
 (`worker-start --terminal`). Same binary, two launches, two jobs — using
 the headless form where the TUI form belongs leaves nothing to attach to,
 and vice versa.
+
+`--auto` is required on both forms, not a tip. Verified on this machine
+2026-08-19: `--auto` auto-approves permissions not explicitly denied;
+without it the reviewer hangs at a permission prompt nobody watches — a
+78-minute live stall on the MAT-91 review, undiagnosable from the
+parent's seat (worker `ready`, terminal `running`, transcript EMPTY,
+`latestCursor: 0`). It is safe for THIS seat only because the filled
+`reviewer.md` forbids commit/push/merge and any file edit; the same flag
+on a WRITING seat is a different decision — not this one.
 
 "Verify on install" is a hard rule: no spawn command enters a worker table
 until it ran on the target machine (`--help` at minimum). Install gotcha:
