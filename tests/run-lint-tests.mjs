@@ -187,6 +187,32 @@ const cases = [
     // marker (ae-init step 4) — flagging it is a lint bug.
     forbidMatch: ['npm script "migrate"'],
   },
+  {
+    // Red until the machine-path check lands (MAT-99 / PLAN step 2). All
+    // three classes are planted on shipped surfaces (skills/, reference/,
+    // templates/), one per file, alongside benign lookalikes on those same
+    // surfaces that must never be mistaken for a finding.
+    name: "machine-anchored paths on shipped surfaces fail (all three classes)",
+    path: fx("machine-path-shipped"),
+    fail: true,
+    expect: ["machine-path"],
+    expectMatch: [
+      // Drive-rooted, in skills/toolkit/SKILL.md.
+      "C:/Users/someone/tools",
+      // POSIX user-home, in reference/toolkit.md.
+      "/home/anna",
+      // WSL drive mount, in templates/toolkit.md.
+      "/mnt/c/",
+    ],
+    forbidMatch: ["/opt/", "/api/", "~/.claude"],
+  },
+  {
+    name: "machine-anchored paths in dated records + a fenced block pass",
+    path: fx("machine-path-clean"),
+    fail: false,
+    expect: [],
+    forbid: ["machine-path"],
+  },
 ];
 
 let failed = 0;
