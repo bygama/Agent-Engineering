@@ -898,6 +898,141 @@ that `orca terminal close --terminal <handle>` and `orca terminal list
 5. `runners.md:82-83` garden-paths: "needs argv **that** those three
    flags cannot express" costs one word.
 
+### Step 6 — `skills/orchestrate/SKILL.md`, the four parent-side clauses (2026-08-19)
+
+One file: `skills/orchestrate/SKILL.md`, 289 → **352** lines (cap <500,
+lint rule `skill-size`). Four clauses plus the two red-flag rows, one
+commit.
+
+- **(a) Step 4 — the child-runner stance and the FOUR MEASURED COSTS**
+  (SPEC §§8-10, DECISIONS ruling 1: "a cost a parent can see is a cost a
+  parent can accept deliberately"). Placed **in step 4**, exactly where
+  `reference/runners.md` cites it ("the cost list in
+  `skills/orchestrate/SKILL.md` step 4") — that citation is NOT stale,
+  no move needed. The stance is (b) default + (a) named exception with
+  the three conditions in one sentence (reason recorded at dispatch,
+  fallback-shell close a required step, provenance cost known), citing
+  `reference/runners.md` for the launch recipe rather than repeating it.
+  Then the four costs as four bullets, unchanged in substance from SPEC
+  §9 / DECISIONS ruling 2, neither re-derived nor softened:
+  `worker.effects` worktree `reused` never `created_child`; `setup`
+  `not_applicable` so `--setup run` moves onto the `worktree create`;
+  `resource.ownershipState` `external` / `retainedReason`
+  `external_terminal` instead of `user_owned` / `user_requested`, so
+  teardown is the parent's manual job; `--model`/`--effort` rejected
+  with `--terminal`, so the model choice leaves the dispatch record for
+  the argv.
+- **(b) Step 5 — the idle diagnosis and the Task-to-terminal remedy**
+  (SPEC §§6-7). A paragraph after the existing bullets: an established
+  cadence that STOPPED **plus** a non-advancing `worker-read` transcript
+  across two reads is an idle child; **both** signals required, so the
+  existing "silence is neither progress nor trouble" bullet keeps its
+  scope instead of being contradicted. The remedy names the fix loop's
+  own mechanism inline (`task-create`, then `worker-start --task <id>
+  --terminal <handle> --worktree <selector>` on the **existing**
+  terminal), never a raw `terminal send`, never a fresh child. The
+  structural reason is stated: an idle agent does not read its mailbox,
+  so `send --to dispatch:<id>` cannot reach a session whose turn has
+  ended; a dispatched Task is the one call that resumes a finished turn.
+  Deliberately **no second code block** — step 6 already carries that
+  exact three-command block a few lines below, and a duplicate would be
+  two places to drift.
+- **(c) New `## Orca is the ledger` section** (SPEC §13), placed between
+  the XL section and the No-Orca fallback so the contrast reads in
+  order. Carries the stateless-shell line (ids are chained by rereading,
+  not by writing them to disk), the three read commands cited to
+  `reference/orca.md` for the field names rather than restating the
+  table, the `ctx_`-ids-are-valid line, the `task_title`-never-`title`
+  miss named as the reason to read rather than guess, the worker table
+  in the parent PLAN as the one prescribed on-disk copy, and the parent
+  lane committed like any other lane (its PLAN/PROGRESS/DECISIONS are
+  the only artifacts nothing else can rebuild).
+- **(d) The mechanical fill** (SPEC §§14-15) as a bullet in "Several
+  children at once (XL)" — the section whose subject is wave scale.
+  ~15K chars per filled spec, ~105K for seven, hand-pasting is what
+  breaks the verbatim rule step 4 demands; one per-repo common block,
+  generate from it, and the generation **must fail on any surviving
+  placeholder** (a `[LANE_PATH]` or an empty optional section reaching
+  `task-create`). `--spec "$(cat <file>)"` is the documented shape, with
+  the honest CLI statement: `task-create` takes `--spec <text>` only,
+  there is no `--spec-file`, `task-update` changes state not spec.
+  Generation named as a house convention, not a tool this skill ships.
+- **The two red-flag rows** (SPEC §§4, 13): "The child says
+  no-grandchildren blocks its step-4 reviewer" → it misread the fence
+  (the fence is orchestration workers; in-session subagents are REQUIRED
+  at their tiers); "I'll keep a file of the wave's ids next to the PLAN"
+  → Orca is the ledger, reread it, the one on-disk copy is the worker
+  table. The existing "This half deserves its own child" row is
+  unchanged, as SPEC §4 requires.
+
+**Open question from step 5's review (finding 2), decided: ruling 1
+covers BOTH seats.** The reviewer-seat paragraph now reads "where it
+does, closing it is a **required step**, not advice" — the same wording
+`reference/runners.md` carries for the child seat. Reasoning: the
+parent's ruling was "make the fallback-shell close REQUIRED wording, not
+advice — an external operator left two of those open last night", and
+the two left open in production were **reviewer** seats (that operator
+was running a review wave). Leaving the reviewer seat at advice — the
+seat where the two-step is the *normal* path rather than a named
+exception — would put required wording only on the seat where the
+failure has never been observed. The confirm-before-closing half
+survives intact and is now more actionable: the vague
+(`reference/orca.md`) pointer is replaced by the read command that makes
+confirmation possible, `orca terminal list --worktree <sel> --json`,
+mirroring the recipe in `reference/runners.md`. "Can leave … where it
+does" is kept rather than asserting the shell always appears — `orca.md`
+says "can leave", and required-to-close does not require
+always-produced.
+
+**One coherence fix in text this step touches.** The red-flag row
+"Nothing for 20 minutes — it's stuck" said only "A timeout is a
+checkpoint. Keep the rolling wait" — after (b) that row is the same
+teaching SPEC §6 calls wrong for a child that HAD a cadence, so it gains
+the exception clause "unless an established cadence stopped AND the
+transcript is flat across two reads (step 5)". Without it a parent
+reading the table alone reaches the opposite conclusion from step 5.
+
+Acceptance (PLAN step 6), both commands run here verbatim:
+
+```
+node -e "const fs=require('fs');const s=fs.readFileSync('skills/orchestrate/SKILL.md','utf8');const a=s.split('\n');const n=a.at(-1)===''?a.length-1:a.length;process.exit(/ledger/i.test(s)&&/idle/i.test(s)&&/ownershipState/.test(s)&&/spec-file|--spec \"\$\(cat/.test(s)&&/placeholder/i.test(s)&&n<500?0:1)"
+```
+
+→ **exit 0** (352 lines).
+
+```
+node scripts/agent-lint.mjs . --ignore tests,templates,global,examples
+```
+
+→ `0 high, 0 medium, 0 low — PASS`, **exit 0**.
+
+The other lane gates re-run after the edit: `node
+tests/run-lint-tests.mjs` → exit 0; `node tests/run-gen-tests.mjs` →
+exit 0; `node tests/run-eval-checks.mjs` → exit 0.
+
+Width check: `awk 'NR>4 && !/^\|/ && length($0) > 78'` returns only six
+pre-existing code-block lines; no line this step added exceeds 78.
+
+Files changed: `skills/orchestrate/SKILL.md` (M). `git status
+--porcelain` shows that file alone; `git diff --name-only main...HEAD`
+(three-dot, DECISIONS ruling 7) lists no do-not-touch path.
+
+Concerns: two, neither blocking.
+
+1. **The acceptance guard is partly vacuous** — the fifth such finding
+   in this lane. `/idle/i` already matched before this step (step 8's
+   "an idle agent on a merged lane is debris") and `/placeholder/i`
+   matched via step 3's `[REPO_CONSTRAINTS]` sentence. Only `/ledger/i`,
+   `/ownershipState/` and the `--spec "$(cat` alternative are
+   load-bearing; the whole idle-diagnosis paragraph could be deleted and
+   the guard would still pass. The clauses are present and the diff
+   shows them, but the guard is not what proves it.
+2. **Step 7 (`docs/how-it-works/execution.md`) inherits three anchors**
+   this step fixed in place: the cost list is in **step 4**, the idle
+   diagnosis in **step 5**, and the fill clause lives in the XL section
+   rather than in a dispatch stage — the stage 4/5 narration should
+   follow those homes.
+
 ## Evidence — Orca CLI verification (2026-08-19, this machine)
 
 Every CLI claim this lane adds to the standard was produced by running
