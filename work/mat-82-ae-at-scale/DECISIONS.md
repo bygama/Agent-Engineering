@@ -49,3 +49,8 @@
   — work-run's own contract ("work-run never flips a row") outranks the
   PLAN wording the controller wrote before re-reading it; `passing` is
   irreversible, so it lands only with the lane gate's evidence.
+- 2026-08-18 — Ruling 9 (controller): step 8 gets no separate step
+  reviewer — its diff is PROGRESS-only evidence, and the immediately
+  following work-verify lane gate re-runs every one of the same
+  commands fresh. — A reviewer seat there would duplicate the gate at
+  full cost with nothing left to judge; no other step skipped review.
