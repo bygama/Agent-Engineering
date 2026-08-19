@@ -607,6 +607,26 @@ Concerns:
   claim is what will bite first — that is the intended pressure, not a
   defect of the eval.
 
+### Step 5 review closed — Approved, no fix loop
+
+Fresh reviewer: spec ✅ compliant, quality Approved, no Critical or
+Important findings; source fidelity verified clause-by-clause against
+reference/orca.md's browser criterion and the AGENTS.md template
+comments; ae-init step numbering checked. Minors only, deferred:
+
+- eval-07:72-74 — the "cited, not restated" parenthetical could be
+  misread as requiring the GENERATED bullet to cite reference/orca.md
+  (a dead, runner-naming pointer in an adopter repo). Interface reading
+  fixed by DECISIONS ruling (below) instead of a fix round.
+- eval-07:80-81 — "no product named" is stricter than the SPEC's
+  illustrative "(Playwright, devtools)"; same ruling settles which text
+  is generated vs skill-side.
+- PROGRESS step-5 entry says "twelve graded items"; the file has 11.
+- eval-07:101 phrasing lacks the MAT-68 fenced-block carve-out (matches
+  eval-06's phrasing; consistency-only).
+- eval-07 preamble could preempt the machine-policy-vs-repo-property
+  challenge explicitly (implicit today: the trigger is a repo property).
+
 ## In progress
 
 ## Tried and failed
