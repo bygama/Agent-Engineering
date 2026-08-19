@@ -191,6 +191,23 @@
   (minor): eval-05's line 54 is 81 columns — pre-existing, it is the literal
   declaration line and cannot wrap; every line I added is ≤76.
 
+- **Step 3 review — Approved** (fresh reviewer, spec ✅ compliant, no
+  Critical/Important; reviewer re-ran the acceptance and self-lint himself,
+  both 0). Two interpretive deltas resolved as controller rulings against
+  the SPEC — DECISIONS rulings 5 (initiative creation included as coherent
+  completion) and 6 (workspace/team stay owner-supplied; recommendation
+  covers what the layout derives). Minors DEFERRED to work-verify triage:
+  (m10) eval-06 live-binding clause ungradable in its own fixture (binding
+  = correct answer) — cite eval-05 or bind to acme; (m11) Feature A×C
+  interaction stated but not exercised — a domain earning a project but no
+  AGENTS.md would pin it; (m12) name-derivation rule implied (title-case
+  unstated); (m13) FLAG FOR STEP 4: tracker.md "Without Orca: tracker
+  writes are Orca-only" must reconcile with the SPEC's "orca linear or the
+  Linear MCP" connector set that eval-06 grades; (m14) eval-06:105 uses the
+  retired flat per-app framing — suggest "pair per earning directory";
+  (m15) exactly-3-domains threshold ungraded (must-not-fire side pinned
+  at 2).
+
 ## In progress
 
 ## Tried and failed
