@@ -42,3 +42,10 @@
   untouched and non-contradictory. Binds step 5: ae-init emits the
   operations for the operator whenever the probe says no Orca, MCP present
   or not (eval-06 Run D passes under the stricter reading).
+- 2026-08-18 — Ruling 8 (controller): PLAN step 8's "flip
+  feature_list.json rows" clause is superseded — step 8 runs the four
+  gates plus each row's verification command and records the outputs;
+  the flip to `passing` happens only in work-verify, on its evidence.
+  — work-run's own contract ("work-run never flips a row") outranks the
+  PLAN wording the controller wrote before re-reading it; `passing` is
+  irreversible, so it lands only with the lane gate's evidence.
