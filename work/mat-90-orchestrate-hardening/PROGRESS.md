@@ -1102,6 +1102,140 @@ Critical: none. Important: none.
 and `/placeholder/i` before this step ran; only `/ledger/i`,
 `/ownershipState/` and the `--spec "$(cat` alternative are load-bearing.
 
+### Step 7 — `docs/how-it-works/execution.md`, the chapter follows the behavior (2026-08-19)
+
+One file: `docs/how-it-works/execution.md`, 371 → **462** lines (length
+budgets do not apply to `docs/how-it-works/`, AGENTS.md). Narration, not
+a second copy of the skill: every addition is a "what to see" passage
+about why a mechanism has the shape it has, and each one is written where
+its anchor actually lives in `SKILL.md` rather than being relocated.
+
+- **Stage 4 — the child-runner stance and why the two-step costs
+  provenance** (SPEC §§8-10). A paragraph after the existing "What to
+  see": the dispatch arrow in the diagram is the *default* shape, the
+  default is a stock runner because the one-step dispatch is what records
+  provenance, and a child needing argv the three flags cannot express
+  borrows the ballena's launch from stage 6. The four measured costs are
+  narrated rather than re-listed — `reused` not `created_child`, `setup`
+  `not_applicable` (so `--setup run` moves onto the `worktree create`),
+  `ownershipState` `external` not `user_owned` (teardown becomes stage
+  8's manual job), `--model`/`--effort` rejected with `--terminal` — and
+  then read together for what they MEAN: the two-step moves the child's
+  birth, setup, teardown and runner out of the ledger and into the
+  parent's memory, which is why the exception carries three conditions.
+  Closes with the disambiguation the wording invites: this is not stage
+  4's *own* pair of calls (`worker-start` + the Linear binding), which
+  every dispatch makes. Two different "two"s in one stage, so the
+  paragraph says so explicitly.
+- **Stage 5 — the idle diagnosis and its remedy** (SPEC §§6-7). Framed as
+  the cycle's second loop-back at stage 5: the rolling wait's rule is
+  true of a child that never established a cadence and wrong about one
+  that did; **both** halves of the signature are required (cadence
+  established then stopped, AND a `worker-read` transcript flat across
+  two reads minutes apart), so the existing rule keeps its scope. The
+  remedy is the fix loop's mechanism on the child's existing terminal,
+  with the structural reason spelled out — an idle agent does not read
+  its mailbox, so `send --to dispatch:<id>` lands in a session whose turn
+  is over; a dispatched Task is the one call that resumes a finished
+  turn — plus the two negatives (never a raw `terminal send`, never a
+  fresh child for a lane that has one) and the mirror to stage 8's
+  release rule.
+- **"Orca is the ledger"** (SPEC §13), narrated as a property of the
+  *cycle*: every stage past 2 consumes an id an earlier stage produced
+  while the shell does not persist, so the id file is the tempting move
+  and the reason to refuse it is that a reread returns current state
+  where a file returns what was true when written. The `title` /
+  `task_title` miss is narrated for its consequence — `undefined` is
+  indistinguishable from an empty ledger, which is how one guess makes
+  Orca look like it is not holding state it is holding. Carries the
+  `ctx_` line, the worker table as the one prescribed on-disk copy, and
+  the parent lane committed like any other lane.
+- **The mechanical fill** (SPEC §§14-15). Placed in this section per PLAN
+  step 7's wording ("the section gains the ledger + mechanical-fill
+  narration") but explicitly scoped to wave scale and pointed at its real
+  home: "that rule sits with the XL section below rather than with stage
+  4, because it is scale and not dispatch that makes it necessary."
+  `SKILL.md` keeps it as an XL bullet; nothing was relocated. Names the
+  optional-section-left-empty case as a surviving placeholder too (step
+  3's interface) and states the CLI shape honestly (`--spec "$(cat
+  <file>)"`; `task-create` takes `--spec <text>` only).
+
+**Diagrams (PLAN note 3 — a diagram that contradicts the prose is worse
+than one that omits it).** Both were checked against the new prose:
+
+- The **sequenceDiagram** did contradict it: it showed the child always
+  reaching `worker_done`, so the idle case had no shape on the page.
+  Added one `opt` at stage 5 — `goes idle - cadence stopped AND
+  transcript flat across two reads` → `task-create + worker-start
+  --terminal <handle>`, with "a Task resumes a finished turn; mail
+  cannot" as the second line. Placed inside the child's `activate` block,
+  matching the existing `alt`/`else` style and the diagram's shorthand
+  (stage 6's two-step line also omits `--task`).
+- The **stage-4 arrow was left alone**: the two-step exception is drawn
+  once already, in stage 6's `alt`, and a second copy would double the
+  diagram's largest branch to say "same shape as above". The prose
+  carries it instead, opening with "drawn at its default shape, not its
+  only one" so the diagram is not read as exhaustive.
+- The **topology flowchart** was left alone but its "What to see" gained
+  one clause: its claim is that every arrow into a worktree is a
+  `worker-start`, and the new exception could look like a
+  counterexample. It is not — the two-step *ends* at `worker-start`, and
+  that last call is the whole difference between a child and a handoff.
+  Stating it keeps the flowchart's claim true instead of quietly weakened.
+
+**Not touched:** `docs/how-it-works/standard-lifecycle.md` (lane B owns
+it), `reference/orca.md`, `CHANGELOG.md`, the AGENTS.md stamp,
+`scripts/`, `tests/`, `templates/`, `global/`, `examples/`, `loops/`,
+and every skill on the lane's do-not-touch list. `architecture.md`'s
+chapter-index row for `execution.md` was read and still describes the
+chapter accurately ("orchestration (the parent/child dispatch cycle,
+review wave, XL)"), so it needed no edit.
+
+**Acceptance — all three clauses, run after the commit:**
+
+```
+$ grep -qi "idle" docs/how-it-works/execution.md          # exit 0
+$ grep -qi "ledger" docs/how-it-works/execution.md        # exit 0
+$ git diff --name-only main...HEAD -- docs/how-it-works/ | grep -q standard-lifecycle
+                                                          # exit 1
+```
+
+Output: `idle exit: 0` · `ledger exit: 0` · `exit (expect 1): 1`. The
+three-dot form is load-bearing (DECISIONS ruling 7) and
+`git diff --name-only main...HEAD -- docs/how-it-works/` lists exactly
+`docs/how-it-works/execution.md`.
+
+**Gates re-run after the edit** (not required by this step's acceptance,
+run anyway because the chapter is a linted surface):
+
+```
+$ node scripts/agent-lint.mjs . --ignore tests,templates,global,examples
+agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-90-orchestrate-hardening
+0 high, 0 medium, 0 low — PASS
+$ node tests/run-lint-tests.mjs   → all 16 cases passed
+$ node tests/run-gen-tests.mjs    → all gen cases passed
+$ node tests/run-eval-checks.mjs  → all eval checks passed
+```
+
+Commit: `46da62a docs(how-it-works): the dispatch cycle narrates the
+ledger and the idle child`.
+
+**Concerns.**
+
+1. **PLAN step 7 and this step's note 1 point in slightly different
+   directions on the mechanical fill.** PLAN says "the section" (§The
+   8-stage dispatch cycle) "gains the ledger + mechanical-fill
+   narration"; note 1 says the fill's real home is `SKILL.md`'s XL
+   section, not a dispatch stage. Resolved by writing it in the named
+   section but scoping it to wave scale and naming the XL home in the
+   text itself. If a reviewer prefers the narration physically inside
+   `### Several children at once (XL)`, it is a paragraph move with no
+   rewording.
+2. The mermaid `opt` was not rendered — this repo has no mermaid
+   renderer in its gates. Syntax follows the block's existing
+   `alt`/`else`/`end` and `&lt;`-escaping conventions exactly, and the
+   label avoids a colon so the parser cannot mistake it for a message.
+
 ## Evidence — Orca CLI verification (2026-08-19, this machine)
 
 Every CLI claim this lane adds to the standard was produced by running
