@@ -87,3 +87,14 @@
   this lane's 4 files. The sibling's set and this lane's are disjoint
   (`git diff --name-only 1ee598e..main | grep -E 'using-ae|orchestrate|execution\.md'`
   → exit 1), so the pending rebase onto fresh main is expected to be clean.
+- 2026-08-19 — Ruling 8: fix round 1 claimed finding 2 closed but only
+  half-closed it. The eval-01 half of the edit was written as an unasserted
+  string replacement whose anchor did not match the file (the line begins
+  "map behaving as written here", not "as written here"), so it silently
+  no-op'd while the surrounding round reported success. The scoped
+  re-reviewer caught it by reading the fix diff and finding eval-01 absent
+  from it entirely. Round 2 applies the edit with an assertion on both the
+  anchor and its removal, and a repo-wide grep confirms no surface still
+  says "bound Run redirects" or "Because the session is Run-bound"
+  (exit 1). Standing consequence for this lane: every scripted edit asserts
+  its anchor — an edit that cannot fail loudly is not evidence.
