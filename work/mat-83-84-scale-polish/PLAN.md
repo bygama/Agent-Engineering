@@ -62,7 +62,7 @@ Constraints (every step):
       `docs/how-it-works/standard-lifecycle.md` §Install narrates it in
       the SAME commit. — accept:
       `grep -qi "browser" skills/ae-init/SKILL.md && grep -qi "browser" docs/how-it-works/standard-lifecycle.md && node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
-- [ ] 7. `mechanical` — README adoption section (§Adopting AE on your
+- [x] 7. `mechanical` — README adoption section (§Adopting AE on your
       own machine): name `global/CLAUDE.md` as an adaptable
       machine-policy SEED — copy-and-edit, owner-specific lines (chat
       language) stripped, never applied verbatim. — accept:
