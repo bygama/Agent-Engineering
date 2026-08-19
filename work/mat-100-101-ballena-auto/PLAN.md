@@ -13,7 +13,7 @@
 
 ## Steps
 
-- [ ] 1. [judgment] Evals first — `skills/orchestrate/evals/eval-03.md`
+- [x] 1. [judgment] Evals first — `skills/orchestrate/evals/eval-03.md`
   gains three assertions, before ANY content edit: (a) the ballena
   two-step launch carries `--auto` on BOTH forms — the Go default
   `opencode -m opencode-go/deepseek-v4-flash --auto` and the no-auth
@@ -29,7 +29,7 @@
   `node tests/run-eval-checks.mjs` exits 0 AND
   `grep -c -e '--auto' skills/orchestrate/evals/eval-03.md` ≥ 1
 
-- [ ] 2. [judgment] MAT-100 in `reference/runners.md` — the
+- [x] 2. [judgment] MAT-100 in `reference/runners.md` — the
   reviewer-seat prose (the TUI form, "opencode has two invocation
   forms" paragraph) shows both ballena launch commands with `--auto`,
   the one-line reason (verified on this machine 2026-08-19: `--auto`
@@ -45,7 +45,7 @@
   `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
   exits 0
 
-- [ ] 3. [judgment] MAT-100 in `skills/orchestrate/SKILL.md` step 6 +
+- [x] 3. [judgment] MAT-100 in `skills/orchestrate/SKILL.md` step 6 +
   `docs/how-it-works/execution.md`, same commit (house rule: behavior
   change updates the affected chapter): the two-step snippet's
   `terminal create --command` line carries `--auto`; the free-fallback
@@ -59,7 +59,7 @@
   accept: `node tests/run-eval-checks.mjs` exits 0 AND
   `grep -c -e '--auto' skills/orchestrate/SKILL.md` ≥ 2
 
-- [ ] 4. [mechanical] MAT-101 — `reference/runners.md` fallback-shell
+- [x] 4. [mechanical] MAT-101 — `reference/runners.md` fallback-shell
   paragraph drops the categorical claim ("the bare create opens a
   startup shell of its own" → the two-step CAN leave one; observed
   both ways on this repo's own Run, 2026-08-19: present on some
@@ -73,7 +73,7 @@
   accept: `grep -c 'opens a startup shell' reference/runners.md`
   is 0 AND `grep -c 'terminal close --terminal' skills/orchestrate/SKILL.md` ≥ 1
 
-- [ ] 5. [mechanical] Full gate suite + lane bookkeeping current
+- [x] 5. [mechanical] Full gate suite + lane bookkeeping current
   (PROGRESS.md truthful, DECISIONS.md carries every ruling). — accept:
   all four commands exit 0:
   `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` ·

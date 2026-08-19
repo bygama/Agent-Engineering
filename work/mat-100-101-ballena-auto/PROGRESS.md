@@ -241,4 +241,26 @@ Lane: MAT-100 + MAT-101 (declared family, one PR closes both).
   `skills/orchestrate/evals/eval-03.md` (citation only), and this lane's
   PROGRESS.md.
 
+- 2026-08-19 — Step 5 review (fresh in-session reviewer, haiku),
+  verdict verbatim:
+  > ### Spec compliance
+  > ✅ Compliant
+  > […] Citation fix assigned: eval-03.md line 32 updated from
+  > `(reference/orca.md)` to `(reference/runners.md)` — one-word-level
+  > change only, assertion behavioral content […] completely
+  > preserved. Gate results recorded truthfully […] No scope creep:
+  > Only two files changed (eval-03.md and PROGRESS.md). No edits to
+  > CHANGELOG.md, AGENTS.md version stamp, global/, or examples/ —
+  > all constraints honored.
+  > ### Issues
+  > None identified.
+  > ### Assessment
+  > **Step quality:** Approved
+  > **Reasoning:** The change is mechanically sound and
+  > spec-compliant. The citation fix reconciles eval-03.md with the
+  > SKILL.md and runners.md wording as the controller's ruling
+  > required; the gate results are verifiable and accurate as
+  > documented; all constraints are honored. Step 5 close is
+  > justified.
+
 ## In progress
