@@ -26,7 +26,7 @@ procedural docs, ADRs. Dirty git tree at first (one unstaged file).
       non-inferable facts → Gotchas; taste/common sense → deleted with a
       one-line reason in the plan.
 - [ ] Read orders deleted; genuinely non-obvious locations land in Map.
-- [ ] Per-app: AGENTS.md ≤30 lines + pointer CLAUDE.md per app.
+- [ ] Nested: AGENTS.md ≤30 lines + pointer CLAUDE.md at any earned depth.
 - [ ] CODE-STYLE prose: deleted if a linter enforces it, else one line in
       Hard constraints or a proposed skill — never copied wholesale.
 - [ ] Procedural docs proposed as repo skills (proposals only; none created
