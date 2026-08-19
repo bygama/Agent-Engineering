@@ -142,11 +142,13 @@ the same change. §"Runners: any file-reading agent can hold a lane" is the
 passage that narrates a runner being handed a skill file to follow as a
 procedure ("runners without SKILL.md support are told to read the skill
 file and follow it as a procedure"). That is exactly the reader who then
-hits a `reference/…` citation with no repo-relative anchor. It gains one
-sentence: the paths those skill files cite resolve against the standard's
+hits a `reference/…` citation with no repo-relative anchor. It gains a short
+passage: the paths those skill files cite resolve against the standard's
 repo root by using-ae's ordered lookup — real (link-resolved) skill
-location first — and an unreachable reference layer is reported, never
-guessed.
+location first, with the junction trap named — and an unreachable reference
+layer is reported, never guessed. Chapters carry no length budget
+(`AGENTS.md`), so the passage is sized for the mechanism, not for a
+sentence count.
 
 `docs/how-it-works/architecture.md` is the other affected narrator — its
 `grounds` arrow (line 19) and §`reference/` (line 39) carry the

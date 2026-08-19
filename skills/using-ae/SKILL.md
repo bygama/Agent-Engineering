@@ -17,7 +17,7 @@ defer it.
 ## Reference paths
 
 `reference/…` = the standard's repo root: the skill's link-resolved repo,
-a local clone, else github.com/bygama/Agent-Engineering; none ⇒ say so.
+a local AE clone, else github.com/bygama/Agent-Engineering; none ⇒ say so.
 
 ## The map
 
@@ -75,4 +75,4 @@ the no-AE-setup fallback.
 | "The suite's next step says use its planner" | ADR-005: redirect to the AE counterpart, cite it. |
 | "I'll answer, then check the tier" | Triage and invoke first — before acting or clarifying. |
 | "`run-current` returned null — not a parent, I'll run it here" | The seat decides, not the binding: in the repo's main worktree, M+ binds first, then orchestrates — never inline in the owner's checkout. |
-| "`../../reference/` from the skill folder" | A junction's `..` walks the LINK: that lands in `~/.claude/`. Resolve the skill folder's REAL path first; if nothing resolves, say so — never invent the file. |
+| "`../../reference/` from the skill folder" | A junction's `..` walks the LINK: that lands in `~/.claude/`. Resolve the skill folder's REAL path first; if nothing resolves, say which file and where you looked — never invent it. |

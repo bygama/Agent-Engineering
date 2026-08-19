@@ -58,3 +58,35 @@
   commit, PROGRESS updated per step, nothing downgraded. No dispatch was
   simulated, and no step was reported DONE without its acceptance command
   exiting 0.
+- 2026-08-19 — **Ruling 4 (parent): work-verify's fresh-context reviewer IS
+  run in-session; "no grandchildren" never covered it** — this lane read the
+  dispatch fence as forbidding the step-4 reviewer and asked rather than
+  guessing. The parent's ruling: "no grandchildren" forbids spawning
+  ORCHESTRATION workers (worker-start preamble, Tasks, Dispatches,
+  worker_done authority); work-verify step 4's reviewer is an in-session
+  subagent inside this worktree — sequential, invisible to Orca — and is
+  how the MAT-82/83/85 children ran theirs in this same wave. The parent's
+  ballena is a SECOND, cross-model seat dispatched AFTER worker_done:
+  additive, never a substitute for step 4, which is why work-verify holds
+  the PASS without a step-4 verdict. This lane is the third to hit the
+  ambiguity; the parent filed the template fix as **MAT-90**. The only
+  escape hatch is an actually-observed runtime refusal to spawn, recorded
+  verbatim — not a fence read off the brief.
+- 2026-08-19 — **Three of the reviewer's five Minor findings were applied,
+  not deferred** — work-verify lets minors be recorded as deferred, but two
+  of these were truth defects rather than taste: `execution.md` stated the
+  naive walk lands in the runner's skills directory when it lands one level
+  up in the config root (a false, checkable claim in the chapter whose job
+  is narrating that mechanism), and the SPEC's §5 estimate no longer matched
+  the shipped passage. The third ("a local clone" → "a local AE clone", and
+  the red-flags row naming the file and the sources tried) cost one column
+  and no lines, and sharpens the always-loaded normative surface. The fixes
+  landed AFTER the PASS verdict, so all four gates plus every per-step
+  acceptance command were re-run green and the sequence is recorded in
+  PROGRESS rather than folded silently into the verdict.
+- 2026-08-19 — **The fifth finding is reported, not fixed: the ≤80-line cap
+  on `using-ae` has no mechanical check** — confirmed against
+  `scripts/agent-lint.mjs` (no line-budget rule; the cap lives in
+  `CHANGELOG.md:268`). Adding one would touch the lint script, its fixtures
+  and the changelog — outside this lane's scope and fence — so it goes to
+  the parent as a candidate follow-up instead.

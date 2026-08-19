@@ -74,6 +74,15 @@
   saying how a skill running outside this repo reaches it. One sentence
   pointing at using-ae's `Reference paths` rule would close it. NOT edited
   here — the parent's brief fences the file.
+- **The ≤80-line cap on `using-ae` is convention, not a check** — surfaced
+  by the fresh-context reviewer and confirmed: `grep -n "80"
+  scripts/agent-lint.mjs` finds no line-budget rule (its only skill check is
+  `skill-size` at <500 lines), and the cap lives in `CHANGELOG.md:268`
+  alone. So ruling 1's ≤78 headroom for MAT-44 is protected by this lane's
+  PLAN acceptance command and nothing else; the next lane can cross 80 with
+  every gate green. A lint check plus a fixture is a candidate follow-up
+  ticket — NOT opened here (it would touch `scripts/agent-lint.mjs`, its
+  fixtures and `CHANGELOG.md`, which is outside this lane's scope and fence).
 - **`README.md` adoption line — DEFERRED by the parent's brief.** The
   ticket floats it as optional: the "Adopting AE on your own machine"
   section offers copy-installing the skill folders (option 2), which leaves
@@ -84,6 +93,63 @@
 
 <!-- PASS evidence only, written by work-verify (newest on top); the close
      handoff refuses to close a lane without a current PASS block here. -->
+
+### 2026-08-19 — M DoD — PASS
+
+- L1 static: `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  → exit 0 (`0 high, 0 medium, 0 low — PASS`)
+- L2 behavioral: `node tests/run-lint-tests.mjs` → exit 0 (`all 16 cases
+  passed`) · `node tests/run-gen-tests.mjs` → exit 0 (`all gen cases
+  passed`) · `node tests/run-eval-checks.mjs` → exit 0 (`ok   using-ae: 6
+  evals well-formed`); starts: the SessionStart hook run over this lane's
+  edited `SKILL.md` → exit 0, emitted body byte-identical to source
+- L3 end-to-end: the rule's ordered lookup executed from a foreign non-AE
+  cwd → source 1 resolves through the junction to
+  `...\Agent-Engineering\reference\task-tiers.md` (`# Task tiers`, exit 0);
+  copy-install falls through to source 2 (exit 0); with neither reachable
+  the probe reports the unreachable file instead of answering (exit 2)
+- Per-step acceptance: `wc -l < skills/using-ae/SKILL.md` → **78** (`-le 78`
+  exit 0) · map-untouched grep → exit 1 · `grep -q "Reference paths"
+  docs/how-it-works/execution.md` → exit 0 · architecture-untouched grep →
+  exit 1 · fence grep → exit 1
+- Fresh-context review (in-session subagent, capable tier — parent's ruling
+  4): **PASS**, no Critical, no Important, 5 Minor. It re-ran every gate
+  itself and went past them: hashed the `## The map` section on both sides
+  (`f056cc1519a3420d28d64f2f03742d44` on main and HEAD) rather than trusting
+  the grep proxy; falsified the naive walk at four independent levels (.NET
+  `[IO.File]::Exists`, `Test-Path`, `cmd /c if exist`, `bash ls`) plus
+  `Set-Location` + `cd ..` landing in `~\.claude\skills`; and confirmed
+  source 3 actually serves the layer — `gh api .../contents/reference` lists
+  13 files including `task-tiers.md`. It also found the property trap in the
+  opposite direction: on a *copied* folder `.ResolvedTarget` returns the
+  copy's own path while `.Target` is empty, so a probe reading only
+  `.ResolvedTarget` would believe source 1 resolved — the rule still lands
+  right, but by the bogus root having no `reference/`.
+- Adversarial review: n/a here — the parent dispatches 1 ballena after
+  `worker_done` (dispatch config; ruling 4 records that this is additive to
+  the fresh-context seat, not a substitute for it).
+
+**Minors applied after the verdict** (gates re-run green above; the ballena
+sees the final tree):
+
+1. `docs/how-it-works/execution.md` — "lands in the runner's own skills
+   directory" was off by one level; the naive walk normalizes to
+   `~/.claude/reference/`, the config root. Corrected. The normative line in
+   `SKILL.md` was already right (`that lands in ~/.claude/`).
+2. `skills/using-ae/SKILL.md` — "a local clone" → "a local **AE** clone".
+   The always-loaded line is the one an agent acts on; "AE" is already this
+   file's vocabulary and the fix costs one column (74, vs the file's prior
+   73 max), no line.
+3. `skills/using-ae/SKILL.md` — the red-flags row now says "say which file
+   and where you looked", closing the gap the reviewer found between the
+   rule's terse "say so" and what eval-06 grades. Zero line cost: table rows
+   carry no width budget.
+4. `SPEC.md` §5 said the chapter "gains one sentence"; the shipped passage
+   is longer. The SPEC's own estimate was corrected rather than the passage
+   trimmed — chapters carry no length budget.
+
+**Minor left open, reported to the parent** (see below): the ≤80-line cap on
+`using-ae` is convention, not a check.
 
 ### Finding evidence — both failure modes, verified 2026-08-19
 
@@ -114,6 +180,27 @@ Failure mode 2 is structural: README's adoption option 2 copies
 `skills/<name>/` into the runner's skills directory, which has no
 `reference/` sibling on any path, link-resolved or not.
 
+### Side finding — the trap bit the verification tooling itself
+
+While building the L3 probe, the first version of it read only
+`(Get-Item $link).ResolvedTarget` to find the skill's real path. That
+property is **PowerShell 7+ only**; under Windows PowerShell 5.1 it is
+empty, so the probe fell back to the link path and reported:
+
+```
+source 1 real  : C:\Users\mateo\.claude\skills\using-ae
+source 1 root  : C:\Users\mateo\.claude
+source 1 -> reference/task-tiers.md : False
+NONE REACHABLE
+```
+
+— failure mode 1, reproduced by accident, inside the instrument written to
+check for failure mode 1. Nothing in the deliverable changes (the rule is
+prose an agent follows, not a script), but it is the strongest available
+argument for shipping the rule: the trap catches tooling written by someone
+who already knows about it. The corrected probe reads `.Target` as well and
+resolves through source 1.
+
 Gate sweep after step 3 (all four exit 0):
 
 ```
@@ -129,6 +216,28 @@ git diff --name-only main | grep -E '^(README|CHANGELOG)\.md|^reference/skills\.
 Files changed vs main: `docs/how-it-works/execution.md`,
 `skills/using-ae/SKILL.md`, `skills/using-ae/evals/eval-06.md`, and the
 four lane files.
+
+L2 "it starts" — the always-loaded skill still injects. `global/hooks/
+using-ae.ps1` and this lane's edited `SKILL.md` were copied into a scratch
+layout mirroring the installed one, and the hook run there:
+
+```
+hook exit=0
+header: --- using-ae: AE entry skill (SessionStart) ---
+"## Reference paths" present: 1 · "walks the LINK" present: 1
+emitted body diffed against skills/using-ae/SKILL.md -> VERBATIM OK
+```
+
+L3 end-to-end — the rule's ordered lookup executed, not reasoned about,
+from a foreign (non-AE) working directory in three scenarios:
+
+```
+(a) junctioned skill:      source 1 real  C:\Briar\repos\mine\Agent-Engineering\skills\using-ae
+                           RESOLVED by source 1 -> ...\reference\task-tiers.md ("# Task tiers")   exit 0
+(b) copy-install + clone:  source 1 -> False; RESOLVED by source 2 (local clone)                  exit 0
+(c) copy-install, no clone: source 1 -> False; source 2 -> False;
+                           "NONE REACHABLE -> say so, never invent. Unreachable: reference/task-tiers.md"  exit 2
+```
 
 Baseline gates on the lane's base commit (96da7ca, tag v1.4.0), all exit 0:
 
