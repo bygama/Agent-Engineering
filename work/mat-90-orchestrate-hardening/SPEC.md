@@ -27,19 +27,34 @@ produced the failure.
    recorded operating model). The parent's post-`worker_done` adversarial
    reviewer is an **ADDITIONAL cross-model seat, never a substitute** for
    step 4. The absolute closing clause "never spawning anything yourself"
-   is dropped — it is the exact string three of four children in the wave
-   read as a total ban (MAT-47's and MAT-87's children asked the parent at
-   the gate; MAT-46's child only escaped because pre-emptive guidance had
-   already been sent).
+   is dropped — it is the exact string children read as a total ban.
+   **Four occurrences across two waves** (DECISIONS 1b): MAT-47's and
+   MAT-87's children asked the parent at the gate; MAT-46's child only
+   escaped because pre-emptive guidance had already been sent; and on
+   2026-08-19 a fourth, the `mat-89-lint-accuracy` sibling of this very
+   lane, hit the same rung while this fix was being written. All four
+   stopped rather than self-certifying — the correct instinct against the
+   wrong constraint — and all four cost a mailbox round-trip.
 
-2. **Fence vs. runtime refusal.** The same section teaches the
-   distinction: a **fence** is a rule the child *read* (this text, a
-   skill, a policy) — this one does not cover in-session subagents; a
+   The forbidden list must not name a bare "Tasks": in the child's own
+   harness the subagent-dispatch tool is literally called `Task`, so the
+   forbidden side has to say `task-create` / Orca Tasks explicitly. A
+   child skimming "no Tasks" reads it as "do not call the Task tool" —
+   which is the exact failure this ticket is urgent about.
+
+2. **Attempt, then classify** — the order is imperative, not descriptive
+   (parent ruling, DECISIONS 1b). The section instructs the child to
+   **attempt the dispatch first** and only then classify what it
+   observes: a **fence** is a rule the child *read* — **any** rule, from
+   any source, not only this template's (the fourth child cited a
+   session-level "no Agent tool" rule it had never tested) — and a
    **runtime refusal** is something the child *observed* after actually
-   attempting the call. Not having attempted it means the child has a
-   fence, not a refusal. Genuine-refusal case: record step 4 as **NOT
-   RUN** with the runtime's exact refusal text quoted, report it, and let
-   the parent's cross-model reviewer close that rung visibly — never
+   making the call. No rule a child merely holds licenses "I cannot"; a
+   capability is not disproved until it is tested. Genuine-refusal case:
+   record step 4 as **NOT RUN** with the runtime's exact refusal text
+   quoted, report it **in the `worker_done` body** (the branch names its
+   channel, as every other duty in the template does), and let the
+   parent's cross-model reviewer close that rung visibly — never
    self-certify the gate, and never report PASS with the rung silently
    missing.
 

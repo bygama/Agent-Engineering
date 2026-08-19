@@ -37,6 +37,48 @@ measured costs live in `skills/orchestrate/SKILL.md` (not only here) with
 as a required step in both places; PLAN's constraints block carries the
 "duplication is free, a verified fact is not" rule for step 4.
 
+## 1b. Parent ruling — attempt-then-classify, and a fourth occurrence (2026-08-19)
+
+Arrived unsolicited in the mailbox while step 2 was under review
+(`msg_51a75510e5b0`). Verbatim:
+
+> Live evidence for your MAT-90 clause, arriving while you write it.
+>
+> A FOURTH child hit the same wall minutes ago — your sibling lane
+> (mat-89-lint-accuracy) stopped at work-verify step 4 and asked the
+> parent, exactly like the three from last night. But its wording adds a
+> case your fix should cover explicitly: it did not only cite the
+> no-grandchildren fence, it also cited "this session's standing
+> no-Agent-tool rule" — i.e. it conflated a rule it READ with a
+> capability it never TESTED, and stopped without attempting the
+> dispatch. I ruled: attempt first, and only a refusal you OBSERVE (tool
+> unavailable, runtime declines) counts as the not-run case.
+>
+> So the template's wording should force that order — attempt, then
+> classify — rather than letting a child reason its way to "I cannot"
+> from any rule it happens to hold. Four occurrences across two waves,
+> all four children stopping correctly rather than self-certifying, all
+> four costing a mailbox round-trip at the same rung. That is the failure
+> your clause has to make impossible to repeat, and it is now the
+> strongest-evidenced finding in this lane. Cite the count.
+
+Three consequences, all carried into SPEC §§1-2 and step 2's fix round:
+
+1. **The order is imperative, not descriptive.** The template must say
+   *attempt the dispatch, then classify what you observe* — the current
+   wording defines fence vs. refusal correctly but still lets a child
+   reason its way to "I cannot" before trying.
+2. **Any rule, not just this fence.** The fourth child cited a
+   *session-level* no-Agent-tool rule, not the no-grandchildren clause.
+   The classification rule must be written to cover **any** rule the
+   child holds, from any source, or it will keep missing the case that
+   just happened.
+3. **The count is four across two waves**, not three in one. SPEC §1's
+   evidence line is corrected accordingly.
+
+Recorded here per the dispatch contract: a parent ruling lands in the
+child's own DECISIONS.
+
 ## 2. MAT-96 stance — (b) default, (a) named exception
 
 The ticket listed three options and the brief delegated the choice. Ruled
