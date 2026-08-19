@@ -29,6 +29,64 @@ and keep their former name for traceability; repos still stamped with an
 old name are "behind, not broken" — `agent-audit` flags them,
 `agent-init` migrates them.
 
+## [1.4.0] — 2026-08-19
+
+**AE at scale** — the owner-designated milestone (ADR-007): the
+standard learns to serve deep monorepos, third-party adopters, and the
+tools that share its files. Every lane in this release ran through
+orchestrate (production cycles 5-8: supervised children, cross-model
+ballena reviews, parent merges).
+
+### Added
+
+- **Deep-nesting criterion** (`reference/context.md`, monorepo
+  template): AGENTS.md nest at ANY depth — a directory EARNS its file
+  only when it holds non-inferable local knowledge, never by symmetry;
+  nested canonical ≤30 + pointer CLAUDE.md; precedence stated: user
+  prompt > nearest AGENTS.md > ancestors, matching the agents.md open
+  standard and Claude Code's walk-up behavior.
+- **Hierarchical tracker** (`reference/tracker.md`, ae-init, monorepo
+  template): the root declaration may carry `· initiative <name>`
+  (Linear's own noun); a nested AGENTS.md may carry
+  `Tracker-project: <Name>`, inheriting workspace/team from the
+  nearest full declaration; the respect rule compares against the
+  NEAREST declaration. ae-init detects ≥3 domains and ships a
+  pre-built recommendation (team · initiative · one project per
+  domain), provisioning missing Linear projects on approval.
+- **Browser capability criterion** (`reference/orca.md`,
+  global/CLAUDE.md): Orca's embedded browser by default; heavy browser
+  MCPs (Playwright, devtools) only for capabilities it lacks and only
+  from owner terminals — never a supervised child. ae-init installs a
+  runtime-neutral one-line browser gotcha in UI repos at init.
+- **agents.md interop** (README): AE's AGENTS.md files are the
+  agents.md open-standard format — migrated repos are readable by any
+  standard-following agent; consumer `docs/tiers.md` now points home
+  to this repo and its adoption guide.
+- **Lint: fenced tool-managed blocks** (`scripts/agent-lint.mjs` + 3
+  fixtures, tests first): the pointer check strips
+  `<!-- BEGIN:<name> -->`…`<!-- END:<name> -->` blocks before counting
+  (the Next.js agent-rules case); an unclosed fence is no exemption.
+
+### Changed
+
+- **using-ae role rule — the seat decides**: a session in the repo's
+  MAIN worktree facing M+ work IS the parent; binding the Run is
+  orchestrate step 0's own first action (`run-current` → `run-use` →
+  `run-create`), no longer a precondition. Fixes the bootstrap
+  circularity that sent fresh owner terminals to inline execution;
+  orchestrate's discovery description aligned. Detection signal:
+  `git rev-parse --path-format=absolute --git-dir --git-common-dir`.
+- `reference/tracker.md` trimmed to its 120-line target; the ADR-001
+  two-connectors note (Linear MCP is a second connector, never a
+  no-Orca rung) kept where it binds.
+
+### Fixed
+
+- ae-init eval-06 Run D widened; retired "per-app" vocabulary swept
+  from living surfaces (docs-sweep battery row added); the
+  Linear-model paraphrase tightened to the cited Concepts page; the
+  README interop claim split (aligned-with, not identical-to).
+
 ## [1.3.2] — 2026-08-18
 
 Telemetry-vocabulary patch (PATCH per ADR-007 — a fix set, no
