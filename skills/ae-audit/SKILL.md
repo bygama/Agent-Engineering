@@ -29,8 +29,8 @@ per-tool adapters, nested AGENTS.md/CLAUDE.md, `work/` lanes,
 files. Note line counts and the stamp version.
 
 **2. Lint.** Run `node scripts/agent-lint.mjs <repo-path>` from the
-Agent-Engineering repo clone (on this machine
-`C:/Briar/repos/mine/Agent-Engineering` — or locate/ask). It settles the
+Agent-Engineering repo (resolved by `skills/using-ae` §Reference paths;
+`<repo-path>` is the repo being audited). It settles the
 mechanical checks (budgets, pointer shape, stamp, adapters, read orders,
 links, lanes, feature-list schema/regression, DESIGN drift, command drift) so
 the audit spends judgment on the rest. Fold its findings into the report.

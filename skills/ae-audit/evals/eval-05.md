@@ -1,9 +1,9 @@
 # Eval 05: audit from a foreign machine — reaching the lint without a machine path
 
-Origin failure: step 2 told the agent to run the lint "from the
-Agent-Engineering repo clone (on this machine
-`C:/Briar/repos/mine/Agent-Engineering` — or locate/ask)" (MAT-91). On any
-other workstation that path is dead, and the lint is the step that settles
+Origin failure: step 2 told the agent to run the lint from the
+Agent-Engineering repo clone, naming an absolute path on the author's own
+workstation with a "or locate/ask" escape (MAT-91). On any other
+workstation that path is dead, and the lint is the step that settles
 every mechanical check in the report — so an agent that cannot reach it is
 one step away from reporting judgment as if it were measurement. The rule
 that finds the repo is `skills/using-ae` §Reference paths.

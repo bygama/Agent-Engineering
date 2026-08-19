@@ -10,8 +10,8 @@ adapted to the target repo. Ask only what cannot be inferred; verify before
 writing; never touch a v1 or legacy repo without an approved migration plan.
 
 Templates live in the Agent-Engineering repo: `templates/repo/`,
-`templates/monorepo/`, `templates/community/` (locate your local clone — on
-this machine `C:/Briar/repos/mine/Agent-Engineering` — or ask).
+`templates/monorepo/`, `templates/community/` — resolve that repo by
+`skills/using-ae` §Reference paths.
 
 ## Workflow
 

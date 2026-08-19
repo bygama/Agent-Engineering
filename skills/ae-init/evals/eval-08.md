@@ -1,9 +1,9 @@
 # Eval 08: install from a foreign machine — reaching `templates/` without a machine path
 
 Origin failure: this skill told the agent where the templates live by
-naming the author's disk — "locate your local clone — on this machine
-`C:/Briar/repos/mine/Agent-Engineering` — or ask" (MAT-91). On any other
-workstation that path does not exist, and the escape hatch it offered
+naming an absolute path on the author's own workstation and telling the
+reader to locate the clone "on this machine … — or ask" (MAT-91). On any
+other workstation that path does not exist, and the escape hatch it offered
 ("or ask") pushes a question at the owner that the standard can answer
 itself. The rule that answers it is `skills/using-ae` §Reference paths,
 and this eval grades ae-init against it.
