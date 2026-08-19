@@ -103,9 +103,12 @@
 
 - work-handoff → push + PR (`Closes MAT-85`), never merge; then
   `worker_done` to the parent.
-- For the parent: main advanced to 119f8bc while this lane ran. The rebase
-  is not done here (it is the parent's call, per the dispatch brief) and is
-  expected to be clean — the sibling's files and this lane's are disjoint.
+- Rebased onto fresh `origin/main` (119f8bc) at the parent's request:
+  clean, no conflicts, all 10 commits replayed. All four gates re-run on the
+  rebased tip and exit 0; `skills/using-ae/SKILL.md` still 72 lines, the
+  do-not-touch guard still exits 1, and the branch's file set is unchanged
+  at the same 12 files. Branch force-pushed with `--force-with-lease`; PR
+  #66 still open and unmerged — the parent merges.
 - For the parent, not this lane: `README.md` carries the superseded reading
   in TWO places — the skill-table gloss at line 119 and the prose at line
   134 — the same reading fixed everywhere else here. README is on this
