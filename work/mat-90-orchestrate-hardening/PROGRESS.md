@@ -754,6 +754,101 @@ PLAN step 4's guard would still exit 0 if the "there is no `title`" note
 or the retain/release sentence were deleted (third vacuous-guard finding
 in this lane).
 
+### Step 5 — `reference/runners.md` § The child seat (2026-08-19)
+
+SPEC §§8, 10. One file: `reference/runners.md`, 89 → **115** lines
+(budget 120, five lines of slack left). `reference/orca.md` is at
+120/120 and was NOT touched, per the standing fact recorded at step 4.
+
+The section's existing paragraph — the `--agent claude` convention and
+the recorded-reason rule for `--agent`/`--model`/`--effort` overrides —
+is unchanged. Four beats were added after it:
+
+- **The stance (SPEC §8), stated as (b) default + (a) named exception.**
+  "Stock is the default, not a requirement. A child that genuinely needs
+  argv those three flags cannot express — a wrapper binary, custom flags
+  — takes the reviewer seat's two-step launch instead, in the runner's
+  TUI form, with the argv reason recorded in the Task spec like any
+  other override." Two conditions of the three land in that sentence
+  (reason recorded at dispatch; the exception is named rather than
+  silent); the third — provenance cost known — is the paragraph below
+  the recipe. "In the runner's TUI form" is a three-word pointer at the
+  trap this file already explains at `:29-38` (the headless `run` form
+  leaves nothing to attach to), not a second copy of it.
+- **The launch recipe**, mirroring the adversarial seat's in
+  `skills/orchestrate/SKILL.md:133-138`, with the worktree beat made
+  explicit ("Worktree first: a terminal is created *in* one") — the beat
+  the step-1 reviewer flagged as missing from eval-05's sketch, and the
+  structural reason the two-step's worktree shows as `reused`. Four
+  commands: `worktree create --setup run --linear-issue <KEY>`,
+  `terminal create --command "<runner argv>"`, `terminal wait --for
+  tui-idle`, `worker-start --task <id> --terminal <handle>`. Binding the
+  tracker at create time keeps SKILL.md step 4's "bound at birth" rule
+  on this path without a second `worktree set` line.
+- **The cost citation, not a copy** (SPEC §10): "`--setup run` belongs
+  on the create because the dispatch will not run setup; that, and the
+  rest of what this path trades away, is the cost list in
+  `skills/orchestrate/SKILL.md` step 4 — read it before choosing it."
+  The four measured costs are NOT enumerated here. The one that is named
+  is named because the recipe has to say where `--setup run` goes; the
+  other three are left to the parent's own decision point. Forward
+  reference: step 6 writes that passage.
+- **The fallback-shell close as REQUIRED wording** (DECISIONS 1, the
+  parent's explicit ruling — two were left open in production):
+  "Closing the fallback shell is a **required step here**, not advice".
+  The confirm-before-closing half survives intact, with the read command
+  that makes confirmation possible: "`orca terminal list --worktree
+  <sel> --json` shows both. Confirm that shell is actually unused before
+  closing it (`orca terminal close --terminal <handle>`) — never close
+  it blindly, never leave it running as debris." No hedge ("consider",
+  "remember to") anywhere in the paragraph.
+
+**Two new CLI claims, both run on this machine before they were written**
+(lane constraint: nothing about Orca's CLI enters a file unverified):
+
+- `orca terminal --help` → subcommands include `list`, `close`.
+- `orca terminal close --help` → `Usage: orca terminal close [--terminal
+  <handle>] [--tab] [--json]`.
+- `orca terminal list --help` → `Usage: orca terminal list [--worktree
+  <selector>] [--limit <n>] [--include-visual-layouts] [--json]`.
+- `orca worktree create --help` → `--name`, `--base-branch`,
+  `--parent-worktree`, `--setup run|skip|inherit`, `--linear-issue`,
+  `--json` all present as written.
+
+The other three commands in the recipe (`terminal create --command`,
+`terminal wait --for tui-idle`, `worker-start --terminal`) are copied
+verbatim from `skills/orchestrate/SKILL.md:133-138`, already verified in
+this repo, and `worker-start --help` was re-verified at lane start (see
+Evidence below).
+
+Acceptance (PLAN step 5), run here verbatim:
+
+```
+node -e "const fs=require('fs');const s=fs.readFileSync('reference/runners.md','utf8');const a=s.split('\n');const n=a.at(-1)===''?a.length-1:a.length;process.exit(/--terminal/.test(s)&&/fallback shell/i.test(s)&&n<=120?0:1)"
+```
+
+→ **exit 0** (115 lines).
+
+All four lane gates re-run after the edit:
+`node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+→ `0 high, 0 medium, 0 low — PASS`, exit 0;
+`node tests/run-lint-tests.mjs` → exit 0;
+`node tests/run-gen-tests.mjs` → exit 0;
+`node tests/run-eval-checks.mjs` → exit 0, `all eval checks passed`.
+
+Fill check: `awk '!/^\|/ && length($0) > 78'` over the file returns only
+the three pre-existing source-URL lines (`:5`, `:6`, `:8`) and the
+`terminal wait` code line at 79, which is byte-identical to SKILL.md's.
+
+Files changed: `reference/runners.md` (M). `git status --porcelain` shows
+that file alone; `git diff --name-only main...HEAD` (three-dot,
+DECISIONS ruling 7) lists no do-not-touch path.
+
+Concerns: none blocking. One note for step 6 — this section now cites
+"the cost list in `skills/orchestrate/SKILL.md` step 4" by name. If step
+6 puts the four measured costs anywhere other than step 4 of the skill,
+this citation goes stale and must move with it.
+
 ## Evidence — Orca CLI verification (2026-08-19, this machine)
 
 Every CLI claim this lane adds to the standard was produced by running
