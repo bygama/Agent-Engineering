@@ -28,12 +28,14 @@ Read SPEC.md, PLAN.md, DECISIONS.md, and PROGRESS.md from the lane path
 yourself — including its own work-verify PASS block. Treat that PASS as
 a claim to test, not a fact.
 
-## Read-only, on the lane branch
+## Read-only, in place
 
-Check out or fetch [BRANCH] to read it and to run the DoD's own
-verification commands, so you see their real output. Do not commit, do
-not push, do not merge, do not edit any file — your only output is your
-report.
+Your worktree is already checked out on [BRANCH] at launch — read it and
+run the DoD's own verification commands in place. `git fetch` only if
+the branch moved since launch. Never create a checkout or worktree of
+your own: a raw `git worktree add` lands outside the parent's ledger and
+becomes debris no decommission sweeps. Do not commit, do not push, do
+not merge, do not edit any file — your only output is your report.
 
 ## Refute-the-PASS brief
 
@@ -83,7 +85,8 @@ and --from value — use them verbatim.
 
 **Placeholders:**
 - `[LANE_PATH]` — REQUIRED: the child's lane folder
-- `[BRANCH]` — REQUIRED: the lane's branch, to check out or fetch
+- `[BRANCH]` — REQUIRED: the lane's branch, already checked out in the
+  seat's worktree at launch (fetch only if it moved since)
 - `[PR_URL]` — REQUIRED: the PR from the child's worker_done report
 
 **Reviewer reports via `worker_done`:** a completed-review outcome
