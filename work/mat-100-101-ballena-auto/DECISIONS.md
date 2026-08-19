@@ -1,5 +1,18 @@
 # Decisions — mat-100-101-ballena-auto
 
+## 2026-08-19 — Close: the lane folder survives this PR
+
+work-handoff's default close removes the lane folder in a closing
+commit. In the orchestrated flow this collides with the review wave:
+the parent's reviewer template consumes `[LANE_PATH]` from the lane
+branch, and this worker's `worker_done` carries `--report-path
+work/mat-100-101-ballena-auto/PROGRESS.md`. Repo precedent resolves
+it: finalize commits land first and the terminal close (lane removal)
+is a separate later act (`da951f1 chore(lane): finalize mat-90 — L DoD
+PASS on record before close`, then `d0ac9e3 chore(lanes): terminal
+close — MAT-89/92 and MAT-91/88 lane records`). So: lane finalized and
+committed here; removal is the parent's post-merge act.
+
 ## 2026-08-19 — SPEC approved by the parent (design-first gate)
 
 Parent ruling, verbatim, via `orca orchestration ask`:
