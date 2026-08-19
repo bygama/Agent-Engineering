@@ -17,6 +17,77 @@ five. Tier L. Dispatched as a supervised child of Run
 - [ ] work-verify
 - [ ] work-handoff
 
+## Done
+
+### Step 1 — evals first, all three, one commit (2026-08-19)
+
+Evals only; no skill content touched, so the eval commit precedes every
+content commit in history as the lane's constraint requires.
+
+- `skills/orchestrate/evals/eval-01.md` — five checklist lines added to
+  the existing filled-spec block (SPEC §17): the cadence line (phase
+  transitions AND ~10 minutes inside a long phase, a repeated phase a
+  valid signal) sits next to the heartbeat-vocabulary line it extends;
+  then both sides of the fence named (orchestration workers forbidden
+  vs. work-run's per-step reviewer and work-verify's step-4 review
+  REQUIRED), the explicit no-absolute-phrasing check (a closing "never
+  spawn anything yourself" fails even when the paragraph above is
+  correct), the parent's adversarial reviewer as ADDITIONAL and never a
+  substitute, and the verdict TEXT recorded verbatim in
+  PROGRESS/DECISIONS with MAT-46's uncorroborated "returned CONFIRMED"
+  as the named failure.
+- `skills/orchestrate/evals/eval-04.md` — the CONTRAST on case (3)
+  (SPEC §18). The query now carries the second half of the same
+  moment ("no grandchildren, so I take it the step-4 fresh-context
+  review is off too?"), the fixture states the lane is M tier (so step 4
+  applies) and that the child has attempted no subagent call, and four
+  checks follow the existing refusal check: the contrast itself (reading
+  the fence as blocking that rung is the graded failure), the parent's
+  reviewer as additional rather than a replacement, fence-READ vs
+  refusal-OBSERVED, and the genuine-runtime-refusal branch (step 4 NOT
+  RUN, refusal text quoted, reported) as the ONLY alternative to running
+  it.
+- `skills/orchestrate/evals/eval-05.md` — new, parent side at wave scale
+  (SPEC §19). Query: a seven-lane wave with four moments — dispatch,
+  a quiet child, "let me keep a `wave-ids.json`", and a lane needing a
+  non-stock runner. The fixture carries the discriminating detail (one
+  child with a stopped cadence and two identical `worker-read`
+  transcripts, a second child still beating and growing, the stateless
+  shell, and the on-machine `--help` output for `worker-start` and
+  `task-create`). Fifteen checks across the four themes: idle diagnosis
+  (both signals required, not silence alone) and the Task-to-terminal
+  remedy with its structural reason (an idle agent does not read its
+  mailbox); Orca as the ledger with the read commands and real field
+  names (`task_title`, `dispatchId`/`agentTerminalHandle`,
+  `worker.agent_terminal_handle`), `ctx_` ids used directly, the worker
+  table as the one on-disk copy, and the parent lane committed like any
+  other; the mechanical fill with MUST-FAIL-on-surviving-placeholder and
+  `--spec "$(cat <file>)"` because `task-create` has no `--spec-file`;
+  and the child-runner stance (stock by default, two-step as the named
+  exception, the three conditions, and the four measured costs stated
+  concretely).
+
+Acceptance (SPEC/PLAN step 1): `node tests/run-eval-checks.mjs` → exit 0,
+output includes `ok   orchestrate: 5 evals well-formed` and ends with
+`all eval checks passed`.
+
+Other gates re-run at this step, all exit 0 (none of them is step 1's
+acceptance, but the lane requires they stay green):
+`node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+→ `0 high, 0 medium, 0 low — PASS`; `node tests/run-lint-tests.mjs`;
+`node tests/run-gen-tests.mjs`.
+
+Files changed: `skills/orchestrate/evals/eval-01.md` (M),
+`skills/orchestrate/evals/eval-04.md` (M),
+`skills/orchestrate/evals/eval-05.md` (A). No do-not-touch path in the
+diff.
+
+Concerns: none blocking. Note for steps 2, 3 and 6 — these checks are
+now the acceptance criteria those steps must satisfy in text, including
+the ones that grade an ABSENCE (no absolute "never spawn anything
+yourself" phrasing in `dispatch-child.md`; no empty optional section
+surviving a fill).
+
 ## Evidence — Orca CLI verification (2026-08-19, this machine)
 
 Every CLI claim this lane adds to the standard was produced by running
