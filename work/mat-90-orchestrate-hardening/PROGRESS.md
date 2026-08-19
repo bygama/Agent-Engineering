@@ -459,6 +459,48 @@ heading would have been. Kept because a child receiving the block still
 needs to be told the rules are binding across the whole lane, and what
 to do when one collides with the brief.
 
+### Step 3 — review verdict (in-session, recorded verbatim, 2026-08-19)
+
+> ### Spec compliance
+> ✅ Compliant — `dispatch-child.md:59-66` adds a `## Repo constraints`
+> section **inside** the fence (fence opens at line 33, closes at 177)
+> carrying a bare `[REPO_CONSTRAINTS]` marker, and `:188-194` declares it
+> in the **Placeholders:** list as `OPTIONAL` with the omit-the-whole-
+> section rule spelled out. […]
+> […]
+> **Step quality:** Approved
+>
+> **Reasoning:** The slot is inside the fence, declared, and its
+> omit-entirely semantics are stated in terms that match the graded
+> failure in eval-05 with no third state left open; both acceptance
+> commands are green here, the fence-boundary risk that would have made
+> the omit path dirty does not exist, and the single out-of-file edit is
+> the interface change's own consequence with no other caller left stale.
+
+Critical: none. Important: none. The reviewer specifically cleared the
+one-line `SKILL.md` edit as "a necessary consistency fix, correctly
+scoped — not creep", having grepped for other stale slot lists and found
+none.
+
+**Three Minor, deferred to work-verify triage:**
+
+1. `dispatch-child.md:63-66` — a fill that deletes only the
+   `[REPO_CONSTRAINTS]` line leaves the heading and its closing paragraph
+   naming no rules. That artifact contains no bracket text, so the
+   fail-on-placeholder check SPEC §14 requires would PASS it. Suggested
+   one-edit fix: phrase the omit rule as an executable boundary —
+   "delete from `## Repo constraints` through the blank line before
+   `## Push and PR`". **Triage this one first: it is a hole in MAT-98's
+   own requirement, not cosmetics.**
+2. `dispatch-child.md:66` — "ask (below)" is looser than the file's own
+   cross-reference convention; name the section.
+3. PLAN step 3's acceptance guard is weaker than the requirement it
+   certifies: `/OPTIONAL/.test(s)` runs against the whole file, unbound
+   to the new slot, so it would still exit 0 if the declaration named the
+   wrong placeholder. The text is right on inspection; the gate is not
+   what proves it. (Second vacuous-guard finding in this lane — see the
+   step 2 correction above.)
+
 ## Evidence — Orca CLI verification (2026-08-19, this machine)
 
 Every CLI claim this lane adds to the standard was produced by running
