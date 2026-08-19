@@ -9,11 +9,81 @@ SPEC approved by the parent with one scope extension (DECISIONS ruling 2).
 - [x] 2. `stripToolManagedBlocks` in the pointer check (all green)
 - [x] 3. Checklist rows: exemption clause + nesting-law rewording
 - [x] 4. standard-lifecycle.md + reference/context.md one-clause notes
-- [ ] 5. Gate sweep with evidence
+- [x] 5. Gate sweep with evidence
 
 ## Evidence
 
-(recorded at step 5 / work-verify)
+### Step 5 — Gate sweep (2026-08-19)
+
+All four gates exit 0:
+
+**Gate 1: `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`**
+
+```
+agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-68-lint-pointer-exemption
+0 high, 0 medium, 0 low — PASS
+```
+
+Exit code: 0
+
+**Gate 2: `node tests/run-lint-tests.mjs`**
+
+```
+ok   v2-clean repo passes
+ok   bloated canonical AGENTS.md fails
+ok   per-tool adapters fail
+ok   read order + broken link fail
+ok   v1-style repo drifts (pointer + stamp)
+ok   pointer-fenced repo passes (fenced tool-managed block exempted)
+ok   pointer-unfenced repo still fails (unfenced extra content over budget)
+ok   pointer-unclosed repo still fails (unmatched BEGIN is not an exemption)
+ok   malformed lanes fail
+ok   invalid feature list fails
+ok   global-layer CLAUDE.md passes its own canon
+ok   clean DESIGN.md passes
+ok   drifted/undated DESIGN.md fails
+ok   dangling-ref/ungenerated DESIGN.md fails
+ok   DESIGN.md with mode groups passes
+ok   kitchen-sink composite fires the planted set
+all 16 cases passed
+```
+
+Exit code: 0
+
+**Gate 3: `node tests/run-gen-tests.mjs`**
+
+```
+ok   fixture parses without errors
+ok   tailwind4 output matches design.tokens.css
+ok   cssvars output matches expected-cssvars.css
+ok   dangling reference is reported
+ok   modes fixture parses without errors
+ok   modes tailwind4 output matches design.tokens.css
+ok   modes cssvars output matches expected-cssvars.css
+all gen cases passed
+```
+
+Exit code: 0
+
+**Gate 4: `node tests/run-eval-checks.mjs`**
+
+```
+ok   ae-audit: 4 evals well-formed
+ok   ae-init: 6 evals well-formed
+ok   loop-setup: 5 evals well-formed
+ok   orchestrate: 4 evals well-formed
+ok   shaping: 4 evals well-formed
+ok   using-ae: 4 evals well-formed
+ok   work-handoff: 6 evals well-formed
+ok   work-plan: 5 evals well-formed
+ok   work-run: 4 evals well-formed
+ok   work-verify: 6 evals well-formed
+ok   .claude/docs-sweep: 3 evals well-formed
+ok   .claude/release: 4 evals well-formed
+all eval checks passed
+```
+
+Exit code: 0
 
 ## Done
 
@@ -390,6 +460,19 @@ review: ✅ spec-compliant on both files — one-clause discipline verbatim
 across all three prose surfaces, `standard-lifecycle.md` placement
 called exemplary; the sole Important finding was the context.md
 placement, fixed above).
+
+### Step 5 — Gate sweep with evidence (2026-08-19)
+
+All four acceptance gates exit 0 (evidence recorded in Evidence section above):
+
+- `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` → 0 high, 0 medium, 0 low — PASS
+- `node tests/run-lint-tests.mjs` → all 16 cases passed
+- `node tests/run-gen-tests.mjs` → all gen cases passed
+- `node tests/run-eval-checks.mjs` → all eval checks passed
+
+**Files changed:** `work/mat-68-lint-pointer-exemption/PROGRESS.md` (Evidence section populated, step 5 marked complete).
+
+**Concerns:** none. All gates pass green as required by SPEC definition of done. The lane is ready for submission.
 
 ## Notes
 
