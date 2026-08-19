@@ -71,3 +71,18 @@
   fragments (the same pattern the existing `cmd-drift` cases use) rather
   than guessing the check's prose, to leave step 2 free to word the
   message however it likes as long as the offending path appears in it.
+
+## Reviews
+
+- 2026-08-19 — Step 1 review (fresh reviewer, sonnet). Verdict verbatim:
+  "### Spec compliance / ✅ Compliant" · "**Step quality:** Approved" ·
+  "**Reasoning:** The fixtures and test cases precisely encode the PLAN's
+  step-1 interface, the acceptance command reproduces exactly as documented
+  (verified independently, not just trusted), and both fixtures are
+  confirmed lint-clean standalone — a solid, honest RED baseline for step 2
+  to turn green." Issues: none Critical/Important. Minor (deferred to
+  work-verify triage): "tests/fixtures/machine-path-clean/ only exercises
+  the fenced-block exemption on skills/ — it has no reference/ or
+  templates/ files at all, so step 2's fenced-block skip logic is proven on
+  one surface only." Reviewer independently re-ran the suite (1/22 red,
+  exit 1) and both fixtures standalone (zero findings each).
