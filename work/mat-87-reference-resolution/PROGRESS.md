@@ -8,10 +8,18 @@
 - SPEC.md written from the parent's shaped design (design-first mode) and
   APPROVED by the parent with one change — ruling 1, ≤78 lines.
 - PLAN.md shaped: 4 steps, constraints block, evals before content.
+- **Step 1 DONE** — `skills/using-ae/evals/eval-06.md` added: foreign-repo
+  fixture (non-AE checkout, using-ae loaded through a junction), plus the
+  copy-installed fall-through scenario. Grades the real-path-first walk,
+  the ordered fall-through, and the say-so contract; names both failures
+  (the `../../reference/` path, and inventing the cited content including
+  its softer form). The existing five evals were not edited.
+  Acceptance: `node tests/run-eval-checks.mjs` → exit 0,
+  output `ok   using-ae: 6 evals well-formed`.
 
 ## In progress
 
-- Step 1: `skills/using-ae/evals/eval-06.md`.
+- Step 2: the `## Reference paths` rule in `skills/using-ae/SKILL.md`.
 
 ## Tried and failed
 
