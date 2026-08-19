@@ -473,6 +473,45 @@
 - **Ruling 8 recorded** — step 8 runs gates + evidence only; the
   feature_list flip belongs to work-verify (work-run never flips a row).
 
+- **Step 8 — Full gate sweep + evidence** (per DECISIONS ruling 8: this
+  step runs gates and records evidence only — it does NOT flip
+  `feature_list.json` rows; that is work-verify's, later, and
+  `feature_list.json` was not edited).
+  Four-gate chain run in sequence, Git Bash semantics:
+  `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples
+  && node tests/run-lint-tests.mjs && node tests/run-gen-tests.mjs &&
+  node tests/run-eval-checks.mjs` → `EXIT_CHAIN=0`.
+  - `agent-lint` → `0 high, 0 medium, 0 low — PASS`
+  - `run-lint-tests.mjs` → `all 13 cases passed`
+  - `run-gen-tests.mjs` → `all gen cases passed`
+  - `run-eval-checks.mjs` → `all eval checks passed` (10 skills + 2
+    repo-local skills, incl. `ok   ae-init: 6 evals well-formed`)
+
+  Each feature row's verification command from
+  `work/mat-82-ae-at-scale/feature_list.json` (F1-F5), run individually:
+  - **F1** — `grep -q 'nearest-wins' reference/context.md && grep -qi
+    'non-inferable' templates/monorepo/app-AGENTS.md.template && grep -qi
+    'nearest' docs/how-it-works/standard-lifecycle.md` → `F1_EXIT=0`
+  - **F2** — `grep -q 'owner terminal' reference/orca.md && git diff
+    --quiet HEAD -- skills/orchestrate/references/dispatch-child.md &&
+    [ $(wc -l < global/CLAUDE.md) -le 40 ] && grep -qi 'browser'
+    docs/how-it-works/execution.md` → `F2_EXIT=0`
+  - **F3** — `grep -q 'Tracker-project:' reference/tracker.md && grep -qi
+    'initiative' reference/tracker.md && grep -qi 'nearest'
+    docs/how-it-works/work-lifecycle.md && test -f
+    skills/ae-init/evals/eval-06.md && node tests/run-eval-checks.mjs` →
+    `F3_EXIT=0` (eval-checks output identical to the chain run above)
+  - **F4** — `grep -qi 'nearest-wins' README.md && grep -qi 'Gemini CLI'
+    README.md` → `F4_EXIT=0`
+  - **F5** — `grep -q 'bygama/Agent-Engineering'
+    templates/repo/docs/tiers.md && git diff --quiet HEAD --
+    reference/task-tiers.md` → `F5_EXIT=0`
+
+  Accept: four-gate chain exits 0 AND every F-row command exits 0 — both
+  hold. `feature_list.json` untouched by this step (verified: only
+  `PROGRESS.md` modified for step 8). No CHANGELOG, no restamp, no
+  version bump. No concerns.
+
 ## In progress
 
 ## Tried and failed
