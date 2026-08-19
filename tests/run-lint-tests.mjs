@@ -82,6 +82,10 @@ const cases = [
     expect: ["cmd-drift"],
     expectMatch: [
       "escapes the repo",
+      // The concept, not the phrasing: a rewrite may reword the clause,
+      // but a finding that stops naming its context-dependence is the
+      // silent regression this pin exists to catch.
+      "context-dependent",
       "sibling checkout",
       // An absolute path escapes too — same branch, and the message has
       // to fit it as well as the `../<sibling>/…` shape.
