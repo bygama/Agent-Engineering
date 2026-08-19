@@ -79,6 +79,14 @@
   119f8bc) and reported nine untouched files. Steps 4, 5 and 6 now use the
   three-dot merge-base form `main...HEAD`; re-run clean, and the sibling's
   file set is disjoint from this lane's.
+- 2026-08-19 — Fix round 2 (scoped re-review of round 1). Re-reviewer
+  verdict: finding 1 and minors 3-7 ADDRESSED, no new breakage; finding 2
+  NOT ADDRESSED — the eval-01 half of round 1 had silently no-op'd on a
+  bad anchor (DECISIONS ruling 8). Applied for real, with assertions:
+  eval-01's cross-reference now says eval-04 and eval-05 both route from
+  the main-worktree seat, Run bound in the first and unbound in the second.
+  `grep -rn "bound Run redirects\|Because the session is Run-bound"
+  skills/` → exit 1, no surface left on the superseded inference.
 
 ## In progress
 

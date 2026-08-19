@@ -36,9 +36,10 @@ makes this a parent orchestrator session.
 - [ ] Invokes `work-plan` directly rather than `orchestrate` — this
       session sits in a non-main worktree and carries no dispatch
       preamble, so no seat makes it a parent and the role rule leaves the
-      map behaving as written here; contrast eval-04, where a bound Run
-      redirects the same M ask to `orchestrate`, and eval-05, where the
-      main-worktree seat does so with no Run bound at all.
+      map behaving as written here; contrast eval-04 and eval-05, where
+      the same M ask routes to `orchestrate` from the main-worktree seat —
+      Run bound in the first, unbound in the second, the seat the reason
+      in both.
 - [ ] Does not read the absent Run as the reason in either direction: a
       missing binding neither confers parenthood nor withholds it — the
       seat does (MAT-85). An answer that says "no Run, therefore not a
