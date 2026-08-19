@@ -3,35 +3,35 @@
     "id": "F01",
     "behavior": "MAT-90: dispatch-child.md names both sides of the fence — orchestration workers forbidden, in-session subagents (work-run per-step reviewers, work-verify step 4) required, the parent's adversarial reviewer additional and never a substitute — drops the absolute 'never spawning anything yourself', teaches fence vs runtime refusal with the NOT-RUN branch, and requires the in-session reviewer's verdict text recorded verbatim",
     "verification": "node -e \"const s=require('fs').readFileSync('skills/orchestrate/references/dispatch-child.md','utf8').replace(/\\s+/g,' ');const ok=!/spawning anything (yourself|itself)/i.test(s)&&/in-session/i.test(s)&&/work-verify/.test(s)&&/never a substitute/i.test(s)&&/refusal/i.test(s)&&/OBSERVED/.test(s)&&/NOT RUN/.test(s)&&/verbatim/i.test(s);process.exit(ok?0:1)\"",
-    "state": "not_started",
-    "evidence": null
+    "state": "passing",
+    "evidence": "node -e (dispatch-child fence clauses) -> exit 0 on bash and cmd.exe; exit 1 against pre-lane 9fc4bda (2026-08-19)"
   },
   {
     "id": "F02",
     "behavior": "MAT-95: dispatch-child.md carries the heartbeat cadence rule (every phase transition AND at least every ~10 minutes while a phase runs long, a repeated phase being a valid signal), and SKILL.md step 5 carries the parent-side idle diagnosis (stopped cadence plus a non-advancing worker-read transcript across two reads) with the Task-to-terminal remedy, never a raw terminal send",
     "verification": "node -e \"const fs=require('fs');const t=fs.readFileSync('skills/orchestrate/references/dispatch-child.md','utf8');const k=fs.readFileSync('skills/orchestrate/SKILL.md','utf8');const ok=/10 minutes/.test(t)&&/phase transition/i.test(t)&&/idle/i.test(k)&&/worker-read/.test(k)&&/terminal send/.test(k)&&/worker-start --task/.test(k);process.exit(ok?0:1)\"",
-    "state": "not_started",
-    "evidence": null
+    "state": "passing",
+    "evidence": "node -e (cadence + idle diagnosis + Task-to-terminal remedy) -> exit 0 on bash and cmd.exe (2026-08-19)"
   },
   {
     "id": "F03",
     "behavior": "MAT-96: the non-stock child runner has one encoded stance — stock runner by default, two-step legitimate for children when argv demands it — with the four measured provenance costs stated in SKILL.md where the parent decides, and reference/runners.md's child-seat section saying how such a runner is launched with the fallback-shell close as a required step",
     "verification": "node -e \"const fs=require('fs');const k=fs.readFileSync('skills/orchestrate/SKILL.md','utf8');const r=fs.readFileSync('reference/runners.md','utf8');const ok=/ownershipState/.test(k)&&/external/.test(k)&&/not_applicable/.test(k)&&/created_child/.test(k)&&/--terminal/.test(r)&&/fallback shell/i.test(r)&&/REQUIRED|required/.test(r);process.exit(ok?0:1)\"",
-    "state": "not_started",
-    "evidence": null
+    "state": "passing",
+    "evidence": "node -e (four measured costs in SKILL.md + runners.md child seat, required close) -> exit 0 on bash and cmd.exe (2026-08-19)"
   },
   {
     "id": "F04",
     "behavior": "MAT-97: reference/orca.md carries the verified field-name table for task-list/worker-list/worktree list/worker-show including that the task row field is task_title and not title, states ctx_ ids are valid for show/retain/release, and holds its 120-line budget; SKILL.md names Orca as the ledger with the stateless-shell line, the parallel-id-file red flag, and the parent lane getting committed",
     "verification": "node -e \"const fs=require('fs');const o=fs.readFileSync('reference/orca.md','utf8');const a=o.split('\\n');const n=a.at(-1)===''?a.length-1:a.length;const k=fs.readFileSync('skills/orchestrate/SKILL.md','utf8');const ok=/task_title/.test(o)&&/agentTerminalHandle/.test(o)&&/worker-show/.test(o)&&/ctx_/.test(o)&&n<=120&&/ledger/i.test(k)&&/parallel/i.test(k)&&/worker table/i.test(k);process.exit(ok?0:1)\"",
-    "state": "not_started",
-    "evidence": null
+    "state": "passing",
+    "evidence": "node -e (orca.md field table, task_title, ctx_, <=120 lines + SKILL.md ledger) -> exit 0 on bash and cmd.exe; orca.md at 120/120 (2026-08-19)"
   },
   {
     "id": "F05",
     "behavior": "MAT-98: SKILL.md blesses the mechanical fill at wave scale with generation failing on any surviving placeholder and documents the --spec \"$(cat file)\" shape as the honest CLI form, and dispatch-child.md carries an optional [REPO_CONSTRAINTS] slot declared in its placeholder list while staying a fillable template",
     "verification": "node -e \"const fs=require('fs');const k=fs.readFileSync('skills/orchestrate/SKILL.md','utf8');const t=fs.readFileSync('skills/orchestrate/references/dispatch-child.md','utf8');const ok=/placeholder/i.test(k)&&/cat /.test(k)&&/spec-file/.test(k)&&/\\[REPO_CONSTRAINTS\\]/.test(t)&&/OPTIONAL/.test(t)&&/\\[LANE_PATH\\]/.test(t)&&/\\[TASK_BRIEF\\]/.test(t);process.exit(ok?0:1)\"",
-    "state": "not_started",
-    "evidence": null
+    "state": "passing",
+    "evidence": "node -e (mechanical fill + [REPO_CONSTRAINTS] slot, template still fillable) -> exit 0 on bash and cmd.exe (2026-08-19)"
   }
 ]
