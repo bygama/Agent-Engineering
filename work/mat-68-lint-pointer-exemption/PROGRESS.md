@@ -3,6 +3,23 @@
 Lane opened 2026-08-19 on fresh main (acdcec0, contains MAT-82).
 SPEC approved by the parent with one scope extension (DECISIONS ruling 2).
 
+## Handoff (to parent, 2026-08-19)
+
+All five PLAN steps done and reviewed; work-verify PASS on record below.
+Debris sweep clean: production diff is exactly the 11 intended files, no
+debug markers, no scratch committed; all four gates re-run green at the
+final HEAD. Lane folder deliberately survives in the PR — the parent's
+adversarial reviewer reads it, and lane closure after merge is the
+parent's call (MAT-82 precedent in this run).
+
+**Next (parent's remainder):** adversarial review wave (1 ballena, per
+dispatch config) → any fix loop → rebase-on-main request if needed →
+merge (child never merges). Downstream, not this lane: consumer-repo
+remediation (Kiosco-Diagonal, ecotronk) — note the `read-order` caveat
+under Notes before declaring their highs remediable; repo-wide `per-app`
+wording residue (agent-lint messages, README, ae-init migration,
+ae-audit SKILL.md) is a docs-sweep item.
+
 ## Steps
 
 - [x] 1. Fixtures + self-test cases (red on `pointer-fenced`)
