@@ -13,9 +13,24 @@ five. Tier L. Dispatched as a supervised child of Run
 - [x] SPEC.md written, design-first gate raised to the parent
 - [x] Parent approval received — DECISIONS ruling 1
 - [x] PLAN.md, DECISIONS.md, feature_list.json written
-- [x] work-run: steps 1-8
-- [ ] work-verify
-- [ ] work-handoff
+- [x] work-run: steps 1-8 — all eight closed, none past fix round 1 of a
+      cap of 5; every step's reviewer verdict recorded verbatim below
+- [x] work-verify — L DoD **PASS** (see `## Verification`); the four
+      Important findings from the fresh-context review landed before
+      handoff and were re-verified
+- [x] work-handoff — closed; PR opened, never merged
+
+## Outcome
+
+One PR closing MAT-90, MAT-95, MAT-96, MAT-97 and MAT-98. Thirteen files:
+`skills/orchestrate/SKILL.md`, its two references, its five evals,
+`reference/orca.md`, `reference/runners.md`,
+`docs/how-it-works/execution.md`, and this lane.
+
+What the parent still owns: its own adversarial (ballena) reviewer after
+`worker_done`, a rebase onto fresh main at its request, and the merge.
+The deferred minors listed at the end of `## Verification` are the
+triage set for that review — none blocks.
 
 ## Done
 
