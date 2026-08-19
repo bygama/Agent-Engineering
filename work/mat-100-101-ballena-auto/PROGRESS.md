@@ -2,6 +2,50 @@
 
 Lane: MAT-100 + MAT-101 (declared family, one PR closes both).
 
+## Verification
+
+### 2026-08-19 — M DoD — PASS
+- L1 static: `node scripts/agent-lint.mjs . --ignore
+  tests,templates,global,examples` → exit 0 (`0 high, 0 medium, 0 low —
+  PASS`)
+- L2 behavioral: `node tests/run-lint-tests.mjs` → exit 0 (`all 20
+  cases passed`); `node tests/run-gen-tests.mjs` → exit 0 (`all gen
+  cases passed`); `node tests/run-eval-checks.mjs` → exit 0 (`all eval
+  checks passed`, `ok orchestrate: 5 evals well-formed`). All re-run
+  after the review fix `7c098ce`, in this session.
+- L3 end-to-end: n/a — prose/skill/eval change, no executable
+  cross-component flow; the cross-file consistency the SPEC demands
+  (three-file "can" agreement, eval↔content wording) is verified by
+  the acceptance greps (runners --auto: 5, SKILL --auto: 2, eval-03
+  --auto: 3, categorical: 0, close cmd: 1 — re-run post-fix) and by
+  the fresh-context reviewer reading each file.
+- Fresh-context review (opus subagent, no shared context, ran the DoD
+  itself): **PASS** — "all four gates exit 0 […], all five grep
+  acceptances hit their thresholds from my own run (3/4/2/0/1), the
+  SPEC's substance is present in every named location with the
+  three-file 'can' agreement confirmed by reading each file, and the
+  forbidden-path diff is empty." It additionally verified the CLI
+  claims against the installed tooling: `opencode --help` → `--auto
+  auto-approve permissions that are not explicitly denied
+  (dangerous!)`; `worker-stop`, `task-update --status ready`, and
+  `orca terminal close --terminal <handle>` all real on this machine.
+  One Important finding (runners.md:41 "both forms" ambiguity) +
+  minor paragraph-break — fixed in `7c098ce` exactly as dictated;
+  scoped re-review verdict verbatim: "**Fix round:** All findings
+  addressed, no new Critical/Important breakage." (both findings
+  ADDRESSED with file:line evidence; New breakage: None).
+- Adversarial review: n/a — M tier, not requested at dispatch; the
+  parent runs its own cross-model reviewer after `worker_done` as an
+  ADDITIONAL seat (per dispatch brief), not a substitute for the
+  fresh-context rung above.
+
+Deferred minors (recorded, non-blocking): (1) runners.md:33 em-dash
+density (style); (2) "never/not a slow review" connector-word
+alignment between SKILL.md/execution.md and eval-03 (cosmetic); (3)
+pre-existing "closing the fallback shell is a required step" phrasing
+at SKILL.md:103 / execution.md:322 mildly presupposes the shell exists
+— outside this lane's SPEC scope, flagged for a future docs-sweep.
+
 ## Done
 
 - 2026-08-19 — Lane opened. Tickets read (`orca linear issue MAT-100`,
