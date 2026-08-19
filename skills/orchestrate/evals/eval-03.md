@@ -29,7 +29,7 @@ at worker_done, each already past their own review wave and marked PASS.
       flag on a WRITING seat would be a different decision, not this one.
 - [ ] If that two-step create left an unused fallback startup shell,
       confirms it's actually unused before closing it with `orca
-      terminal close --terminal <handle>` (`reference/orca.md`) — never
+      terminal close --terminal <handle>` (`reference/runners.md`) — never
       closed blindly, never left running as debris.
 - [ ] A ballena reviewer cannot heartbeat, so step 5's cadence rule
       cannot reach it — it is watched against a threshold instead:

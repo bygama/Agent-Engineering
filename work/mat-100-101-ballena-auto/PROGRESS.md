@@ -194,4 +194,51 @@ Lane: MAT-100 + MAT-101 (declared family, one PR closes both).
   → 1 (closing command present). Also ran `node scripts/agent-lint.mjs . --ignore
   tests,templates,global,examples` → `0 high, 0 medium, 0 low — PASS`.
 
+- 2026-08-19 — Step 4 review (fresh in-session reviewer, sonnet),
+  verdict verbatim:
+  > ### Spec compliance
+  > ✅ Compliant — both SPEC items 5 and 6 are implemented as
+  > specified. […] I verified the three-file agreement myself:
+  > `reference/runners.md:116`, `skills/orchestrate/SKILL.md:177`, and
+  > `reference/orca.md:109` all use "can leave"; a repo-wide grep for
+  > `startup shell|fallback shell` turned up no other categorical
+  > claim […] Both accept commands pass: `grep -c 'opens a startup
+  > shell' reference/runners.md` → 0, `grep -c 'terminal close
+  > --terminal' skills/orchestrate/SKILL.md` → 1.
+  > ### Issues
+  > Critical: None. Important: None.
+  > Minor: (1) `skills/orchestrate/evals/eval-03.md:30-33` still cites
+  > `(reference/orca.md)` next to the closing-command assertion, but
+  > SKILL.md's new wording cites `reference/runners.md` for the full
+  > recipe instead. […] Worth reconciling — update eval-03's
+  > parenthetical to `reference/runners.md` — before the lane closes
+  > (step 5's bookkeeping pass is a natural place). (2)
+  > `reference/runners.md:116-118` semicolon + em-dash stacking —
+  > cosmetic, matches the file's voice, no action needed.
+  > ### Assessment
+  > **Step quality:** Approved
+  > **Reasoning:** Both required edits are present, correctly scoped,
+  > and preserve the required-close/confirm-before-close discipline
+  > exactly as the SPEC demands; the three named files agree on the
+  > "can" form with no categorical claim left anywhere in the repo,
+  > and both acceptance commands pass.
+
+  Controller ruling on Minor (1): spec-conformance fix, assigned to
+  step 5's bookkeeping pass (see DECISIONS.md). Minor (2) deferred —
+  style only.
+
+- 2026-08-19 — Step 5 DONE. `skills/orchestrate/evals/eval-03.md` line 32:
+  the closing-command assertion's parenthetical citation changed from
+  `(reference/orca.md)` to `(reference/runners.md)`, per DECISIONS' ruling
+  that the single definition of the full recipe is `reference/runners.md`
+  (SPEC item 6). One-word-level change; the assertion itself and all other
+  eval content untouched. All four gate commands exit 0: `node
+  scripts/agent-lint.mjs . --ignore tests,templates,global,examples` → 0
+  high, 0 medium, 0 low, PASS; `node tests/run-lint-tests.mjs` → all 20
+  cases passed; `node tests/run-gen-tests.mjs` → all gen cases passed;
+  `node tests/run-eval-checks.mjs` → all eval checks passed, `ok
+  orchestrate: 5 evals well-formed`. Files changed:
+  `skills/orchestrate/evals/eval-03.md` (citation only), and this lane's
+  PROGRESS.md.
+
 ## In progress
