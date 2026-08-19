@@ -160,16 +160,86 @@
   "0 high, 0 medium, 0 low — PASS", exit 0. Files changed:
   `skills/orchestrate/references/reviewer.md` only.
 
+- Step 2b review (fresh in-session reviewer, verdict verbatim):
+  "### Spec compliance / ✅ Compliant [...] ### Issues / No Critical,
+  Important, or Minor issues found. / **Step quality:** Approved — The
+  rewording precisely closes the loophole the parent's directive
+  identified (an instruction-shaped 'check out or fetch' read literally
+  by a seat as license to `git worktree add`), all three acceptance
+  commands pass exactly as claimed, and the change stays tightly scoped
+  to the fenced brief and its placeholder description with no
+  incidental edits."
+
+- Step 4: MAT-94 classification, evidence first. The superpowers 6.3.0
+  cache IS present (dated 2026-08-12), so both classifications rest on a
+  real diff, not on port records. Method: case- and
+  punctuation-insensitive word-n-gram overlap at n=4 and n=6, overlapping
+  hits merged into maximal runs, then every run read by hand in both
+  files to separate ported expression from shared terms of art (throwaway
+  script, scratchpad only — nothing added to the repo).
+  Results: `skills/shaping/SKILL.md` vs `brainstorming` — 55 shared
+  4-grams / 35 shared 6-grams, 14 maximal runs (4 survive at n=6), and
+  the three protectable ones cluster in exactly two sections: Red flags
+  rows 1 and 2 (a 25-word Reality cell copied word for word, a 14-word
+  one) and the `<HARD-GATE>` block's closing aphorism ("what scales with
+  simplicity is the artifact, never the approval", 10 words verbatim,
+  inside a tag that is also upstream's device). The rest is shared
+  vocabulary ("2-3 approaches with trade-offs", "purpose, constraints,
+  success criteria"). Classification: **ported expression, localized →
+  notice**. The dispatch prior ("designed fresh") holds for the skeleton
+  — Workflow checklist, tier-consumption rule, feasibility probe,
+  work-plan handoff are all house-original and upstream's three-path
+  ladder / digraph / spec sections / visual companion are absent — but
+  verbatim sentences are present, so it is not an idea-only rewrite; the
+  file's own header already said "Adapted from superpowers'
+  `brainstorming`".
+  `skills/skill-authoring/SKILL.md` vs `writing-skills` — 184 shared
+  4-grams / 134 shared 6-grams, 31 maximal runs (17 at n=6), roughly 5x
+  shaping's density on a file 1.5x its size, and the overlap is whole
+  passages rather than aphorisms: a 41-word verbatim run (the "express a
+  real exception ... exemption clauses don't scope ..." pair), a 21-word
+  and a 17-word run each carrying two full table cells, plus 16-word runs
+  for the recipe and variance findings. Section by section, house §2 is
+  upstream's "Match the Form to the Failure" with all four rows in the
+  same order and the same why-prohibitions-backfire paragraph; §5's
+  bullets are upstream's micro-test items 2 and 5. Classification:
+  **substantial ported expression and structure → notice**. Prior ("stole
+  the METHOD") understates it: method vocabulary alone would not cross
+  into expression, but these are upstream's sentences, and the file
+  already cited them in-line.
+  Both files gained a 4-line `## Attribution` section at the end naming
+  the upstream project (superpowers), the upstream skill, MIT (c) 2025
+  Jesse Vincent, and which sections are adapted — plus the additive
+  restatement that the file stays MIT (c) 2026 Mateo García per
+  `LICENSE`. No LICENSE edit, no repo-wide notice. Budget checked: the
+  only lint budget on `skills/**/SKILL.md` is `skill-size` (<500) and the
+  80-line cap on the `using-ae` entry skill; shaping 110 → 117,
+  skill-authoring 186 → 193, neither is the entry skill.
+  Acceptance: `grep -c 'classification'
+  work/mat-104-94-single-shot-attrib/DECISIONS.md` = 5 (≥ 2 required);
+  `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  → "0 high, 0 medium, 0 low — PASS", exit 0. Also run (not required
+  here, cheap, and step 6 needs them): `node tests/run-lint-tests.mjs`
+  exit 0, `node tests/run-gen-tests.mjs` exit 0,
+  `node tests/run-eval-checks.mjs` exit 0. Files changed:
+  `skills/shaping/SKILL.md`, `skills/skill-authoring/SKILL.md`,
+  `work/mat-104-94-single-shot-attrib/DECISIONS.md`.
+  Concern for review: shaping is the borderline call. 55 of 990 words
+  overlap (5.6%) and the borrowed text is three short sentences, so a
+  "de minimis, no notice" reading is defensible. Classified toward the
+  notice because the binary the SPEC sets is "substantial ported
+  expression → notice / idea-only rewrite → no notice", and shaping is
+  demonstrably not an idea-only rewrite; the notice is additive and
+  costless, so the asymmetry favors attributing.
+
 ## In progress
 
 ## Tried and failed
 
 ## Next
 
-- work-run the PLAN, step 4 (MAT-94 classification: diff
-  `skills/shaping/SKILL.md` against upstream `brainstorming` and
-  `skills/skill-authoring/SKILL.md` against upstream `writing-skills`;
-  classify with evidence in DECISIONS.md).
+- work-run the PLAN, step 5 (stance rule in `reference/skills.md`, ≤ 120
+  lines, naming the trim in DECISIONS.md).
 
 ## Verification
 
