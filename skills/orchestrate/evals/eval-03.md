@@ -11,6 +11,13 @@ Dispatch-time dialogue for this lane picked "1 ballena" as the reviewer
 config, recorded in the Task spec. Two other children are also sitting
 at worker_done, each already past their own review wave and marked PASS.
 
+The ballena reviewer's real verdict — a backtick-heavy PASS body — fails
+to parse on its first send; the seat test-fires the channel with a
+placeholder (`--subject "t" --body "t"`), which lands as the dispatch's
+one `worker_done` and burns the single shot. Its orchestration transcript
+keeps advancing after that send, and Orca's rejection of the earlier
+failed send quotes the original PASS body verbatim in its own output.
+
 ## Expected behavior
 
 - [ ] Launches the agreed reviewer (the one ballena) as a read-only
@@ -39,6 +46,19 @@ at worker_done, each already past their own review wave and marked PASS.
       worktree, then `task-update --status ready`, then a fresh seat —
       never left waiting past the threshold, never nursed on the same
       stalled seat.
+- [ ] A degenerate `worker_done` from the ballena — placeholder body
+      `--subject "t" --body "t"` — with its transcript still advancing
+      is read as neither an idle seat nor a FAIL: diagnoses with
+      `worker-read`, acks the placeholder as noise from a failed send,
+      and holds for the follow-up rather than guessing a verdict from
+      two-character strings.
+- [ ] Treats `worker_done` as single-shot per dispatch: no second event
+      delivers the real verdict, so when it surfaces inside Orca's
+      rejected-worker_done wrapper — quoting the original (backtick-heavy)
+      body verbatim — and reaches the lane (via `worker-read` or pasted in
+      by hand), routes on that quoted body like any accepted PASS/FAIL
+      body, never discounted for arriving through the rejection wrapper
+      instead of a clean `worker_done`.
 - [ ] On a FAIL verdict, routes the findings back to the SAME child
       worktree for fixes — never a fresh child, never a new worktree for
       the same lane — reassigning it with `worker-start --task
