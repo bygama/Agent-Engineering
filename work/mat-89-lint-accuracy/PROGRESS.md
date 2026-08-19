@@ -55,9 +55,26 @@
     no finding message matched expected "file not found: scripts/missing.mjs"
   ```
 
+- **Step 2 DONE — GREEN for MAT-89.** `scripts/agent-lint.mjs` resolves the
+  cited `node <path>` against the root once and classifies before judging:
+  escaping (`relative()` starts with `..`, or absolute) and missing → `low`
+  naming the context-dependence; escaping and present → nothing; in-repo and
+  missing → the unchanged MEDIUM. Header comment documents the exemption
+  beside the pointer one. Acceptance — `node tests/run-lint-tests.mjs`
+  exits 0, `all 18 cases passed`, including both step-1 cases.
+
+  Real-world re-run of the §Problem 1 repro, same scratch repo:
+
+  ```
+  MEDIUM AGENTS.md:8  file not found: scripts/missing.mjs  [cmd-drift]
+  LOW    AGENTS.md:7  ../Agent-Engineering/scripts/agent-lint.mjs escapes the repo
+                      — context-dependent, resolves only where the sibling
+                      checkout exists  [cmd-drift]
+  ```
+
 ## In progress
 
-- Step 2 — GREEN for MAT-89 (escaping-path classification in the lint).
+- Step 3 — RED for MAT-92 (law in reference/skills.md, then its fixtures).
 
 ## Tried and failed
 

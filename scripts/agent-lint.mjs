@@ -19,6 +19,13 @@
 // stripToolManagedBlocks). Only the pointer check strips; every other check
 // reads the file as written.
 //
+// cmd-drift exemption: a cited `node <path>` whose path resolves OUTSIDE the
+// repo root (`../<sibling>/…`, or absolute) is not a claim about this repo's
+// contents — it is correct wherever the sibling checkout exists (the owner's
+// tree, CI) and absent elsewhere (a worktree). Missing, it is reported `low`
+// naming that context-dependence instead of failing the lint; present,
+// nothing is reported. In-repo paths keep their MEDIUM `file not found`.
+//
 // Usage: node scripts/agent-lint.mjs [path] [options]
 //   --budget N     root AGENTS.md target lines (default 60)
 //   --cap N        root AGENTS.md hard cap (default 100)
@@ -32,7 +39,7 @@
 
 import { spawnSync } from "node:child_process";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
-import { basename, dirname, join, relative, resolve } from "node:path";
+import { basename, dirname, isAbsolute, join, relative, resolve } from "node:path";
 import { generate, parseDesignMd } from "./design-md-gen.mjs";
 
 // ---------- args ----------
@@ -329,7 +336,13 @@ if (files.includes("AGENTS.md")) {
           if (pkg && !deps[mm[1]] && !Object.keys(deps).some((d) => d.endsWith(`/${mm[1]}`)))
             add("medium", "cmd-drift", at, `npx package "${mm[1]}" not in dependencies`);
         } else if ((mm = cmd.match(/^node (\S+)/))) {
-          if (!existsSync(join(root, mm[1]))) add("medium", "cmd-drift", at, `file not found: ${mm[1]}`);
+          const abs = resolve(root, mm[1]);
+          if (!existsSync(abs)) {
+            const rel = relative(root, abs);
+            if (rel.startsWith("..") || isAbsolute(rel))
+              add("low", "cmd-drift", at, `${mm[1]} escapes the repo — context-dependent, resolves only where the sibling checkout exists`);
+            else add("medium", "cmd-drift", at, `file not found: ${mm[1]}`);
+          }
         } else if (/^docker compose\b/.test(cmd)) {
           if (!COMPOSE.some((c) => files.includes(c)))
             add("medium", "cmd-drift", at, "no compose file in repo root");
