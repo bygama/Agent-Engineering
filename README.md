@@ -323,15 +323,22 @@ files, so any model or runtime can pick up any lane.
 
 **All phases (P0-P5) shipped; the repo is in maintenance.**
 Versions bump when templates or checks change
-([CHANGELOG.md](CHANGELOG.md)). Since the ladder closed, five decisions
-extended the standard: Orca-first execution
+([CHANGELOG.md](CHANGELOG.md)). Since the ladder closed, the decision
+records in [docs/adrs/](docs/adrs/) have extended the standard:
+Orca-first execution
 ([ADR-001](docs/adrs/ADR-001-orca-is-the-executor.md)), tier XL
 ([ADR-002](docs/adrs/ADR-002-tier-xl.md)), semantic versioning with
 the 1.0.0 stable line
 ([ADR-003](docs/adrs/ADR-003-semantic-versioning.md)), work-run, the
-lane executor ([ADR-004](docs/adrs/ADR-004-relay.md)), and artifact
+lane executor ([ADR-004](docs/adrs/ADR-004-relay.md)), artifact
 phases as AE's, generalizing work-run to planning and beyond
-([ADR-005](docs/adrs/ADR-005-artifact-phases.md)). The full flow is proven live:
+([ADR-005](docs/adrs/ADR-005-artifact-phases.md)), the design dialogue
+as a house phase — shaping supersedes brainstorming
+([ADR-006](docs/adrs/ADR-006-design-dialogue.md)), milestone
+versioning — MINOR is an owner-designated milestone
+([ADR-007](docs/adrs/ADR-007-milestone-versioning.md)), and supervised
+orchestration absorbing fan-out
+([ADR-008](docs/adrs/ADR-008-orchestration.md)). The full flow is proven live:
 Linear intake → triaged tier → Orca worker on a linked worktree → PR →
 rebase merge → issue auto-moved to Done by the workspace GitHub app. The
 ladder, every fixed decision, and acceptance criteria live in

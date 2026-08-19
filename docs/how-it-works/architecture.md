@@ -72,8 +72,8 @@ owner); `work-plan`, `using-ae` (1.2.0 —
 [ADR-005](../adrs/ADR-005-artifact-phases.md) generalized ADR-004 to
 every artifact-producing phase); `shaping` (1.2.2 —
 [ADR-006](../adrs/ADR-006-design-dialogue.md) gave the design dialogue
-a house owner); `skill-authoring` ([ADR-005](../adrs/ADR-005-artifact-phases.md)
-again — a skill and its evals are artifacts, so authoring is an
+a house owner); `skill-authoring` (1.4.1 —
+[ADR-005](../adrs/ADR-005-artifact-phases.md) again — a skill and its evals are artifacts, so authoring is an
 artifact-producing phase like the rest).
 
 The actors. `using-ae` is the always-loaded entry point: it triages an
