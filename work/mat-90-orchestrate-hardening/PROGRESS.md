@@ -13,7 +13,7 @@ five. Tier L. Dispatched as a supervised child of Run
 - [x] SPEC.md written, design-first gate raised to the parent
 - [x] Parent approval received — DECISIONS ruling 1
 - [x] PLAN.md, DECISIONS.md, feature_list.json written
-- [ ] work-run: steps 1-8
+- [x] work-run: steps 1-8
 - [ ] work-verify
 - [ ] work-handoff
 
@@ -1373,6 +1373,159 @@ old `:198-201`; the narrated remedy at `:326-337` dropping `--worktree
 costs reproduced at nearly the skill's own granularity; a `;`→`,`
 precaution in the mermaid line (no known break); and the implicit subject
 in the `opt` label.
+
+### Step 8 — gate sweep and fence check (2026-08-19)
+
+Verification step only; nothing fixed, nothing else touched. Working
+tree was clean before and after (`git status --short` empty both
+times).
+
+**Gate 1 — `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`**
+
+```
+agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-90-orchestrate-hardening
+0 high, 0 medium, 0 low — PASS
+```
+
+Exit 0.
+
+**Gate 2 — `node tests/run-lint-tests.mjs`**
+
+```
+ok   v2-clean repo passes
+ok   bloated canonical AGENTS.md fails
+ok   per-tool adapters fail
+ok   read order + broken link fail
+ok   v1-style repo drifts (pointer + stamp)
+ok   pointer-fenced repo passes (fenced tool-managed block exempted)
+ok   pointer-unfenced repo still fails (unfenced extra content over budget)
+ok   pointer-unclosed repo still fails (unmatched BEGIN is not an exemption)
+ok   malformed lanes fail
+ok   invalid feature list fails
+ok   global-layer CLAUDE.md passes its own canon
+ok   clean DESIGN.md passes
+ok   drifted/undated DESIGN.md fails
+ok   dangling-ref/ungenerated DESIGN.md fails
+ok   DESIGN.md with mode groups passes
+ok   kitchen-sink composite fires the planted set
+all 16 cases passed
+```
+
+Exit 0.
+
+**Gate 3 — `node tests/run-gen-tests.mjs`**
+
+```
+ok   fixture parses without errors
+ok   tailwind4 output matches design.tokens.css
+ok   cssvars output matches expected-cssvars.css
+ok   dangling reference is reported
+ok   modes fixture parses without errors
+ok   modes tailwind4 output matches design.tokens.css
+ok   modes cssvars output matches expected-cssvars.css
+all gen cases passed
+```
+
+Exit 0.
+
+**Gate 4 — `node tests/run-eval-checks.mjs`**
+
+```
+ok   ae-audit: 4 evals well-formed
+ok   ae-init: 7 evals well-formed
+ok   loop-setup: 5 evals well-formed
+ok   orchestrate: 5 evals well-formed
+ok   shaping: 4 evals well-formed
+ok   skill-authoring: 5 evals well-formed
+ok   using-ae: 6 evals well-formed
+ok   work-handoff: 6 evals well-formed
+ok   work-plan: 5 evals well-formed
+ok   work-run: 4 evals well-formed
+ok   work-verify: 6 evals well-formed
+ok   .claude/docs-sweep: 3 evals well-formed
+ok   .claude/release: 4 evals well-formed
+all eval checks passed
+```
+
+Exit 0.
+
+**Fence check — three-dot diff (DECISIONS ruling 7)**
+
+`git merge-base main HEAD` → `9fc4bda` (unchanged branch point; local
+`main` has since moved further, to `af9e157`, as more sibling lanes
+merged — exactly the drift ruling 7 predicted, confirming the two-dot
+form would have blamed those lanes' files on this one).
+
+Command: `git diff --name-only main...HEAD | grep -E
+'^(scripts/agent-lint\.mjs|tests/|skills/(ae-init|ae-audit|loop-setup|using-ae)/|loops/|docs/how-it-works/standard-lifecycle\.md|CHANGELOG\.md|global/|templates/|examples/)'`
+
+Output: (empty — no match)
+Exit 1.
+
+Full file list from `git diff --name-only main...HEAD` (13 files, this
+lane's entire surface):
+
+```
+docs/how-it-works/execution.md
+reference/orca.md
+reference/runners.md
+skills/orchestrate/SKILL.md
+skills/orchestrate/evals/eval-01.md
+skills/orchestrate/evals/eval-04.md
+skills/orchestrate/evals/eval-05.md
+skills/orchestrate/references/dispatch-child.md
+work/mat-90-orchestrate-hardening/DECISIONS.md
+work/mat-90-orchestrate-hardening/PLAN.md
+work/mat-90-orchestrate-hardening/PROGRESS.md
+work/mat-90-orchestrate-hardening/SPEC.md
+work/mat-90-orchestrate-hardening/feature_list.json
+```
+
+No do-not-touch path appears. All ten of this lane's owned non-lane
+surfaces (`docs/how-it-works/execution.md`, `reference/orca.md`,
+`reference/runners.md`, `skills/orchestrate/SKILL.md`, the three eval
+files, `dispatch-child.md`) are accounted for, plus the four lane
+files (`DECISIONS.md`, `PLAN.md`, `PROGRESS.md`, `feature_list.json`)
+that every step's own commits update.
+
+**Budgeted file line counts** (`wc -l`):
+
+```
+  120 reference/orca.md
+  115 reference/runners.md
+  352 skills/orchestrate/SKILL.md
+  199 skills/orchestrate/references/dispatch-child.md
+```
+
+- `reference/orca.md` — 120/120 cap. At the cap, as PROGRESS's step 4
+  entries expected.
+- `reference/runners.md` — 115/120 cap. Under cap.
+- `skills/orchestrate/SKILL.md` — 352/500 cap. Under cap.
+- `skills/orchestrate/references/dispatch-child.md` — 199 lines.
+  DECISIONS ruling 5 records it was already at 125 lines pre-lane with
+  no numeric cap set for `skills/*/references/` files (unlike the three
+  `reference/*.md` and `SKILL.md` caps above); this lane added the
+  `[REPO_CONSTRAINTS]` slot (step 3) and a table of contents (ruling 5),
+  growing it to 199. No cap violation to report — the file carries no
+  stated ceiling in SPEC/PLAN/DECISIONS.
+
+**Eval-before-content constraint.** Held: every eval commit in this
+lane landed before the content commit it grades. Verified via `git log
+$(git merge-base main HEAD)..HEAD --reverse --oneline` (two-dot from
+the branch point, not the log form of three-dot, which pulls in
+sibling-lane commits reachable from `main` too and would misorder this
+check). The single evals commit touching `skills/orchestrate/evals/`,
+`d5b454c test(orchestrate): evals first — the fence has two sides, and
+the wave has a parent`, is the second commit in the lane's history and
+precedes all seven commits that touch `SKILL.md`,
+`dispatch-child.md`, `reference/orca.md`, or `reference/runners.md`
+(`3fc0ede`, `2f089a0`, `7fae08b`, `75ec2dd`, `dc301e7`, `74c2a96`,
+`90f7785`), confirmed by `git log <MB>..HEAD --oneline -- <path>` on
+each side.
+
+Nothing to fix; nothing found to repair. All four gates exit 0, the
+fence check exits 1 (no fenced path in the diff), and the two budgeted
+caps with numeric ceilings are both respected.
 
 ## Evidence — Orca CLI verification (2026-08-19, this machine)
 
