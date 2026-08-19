@@ -16,7 +16,7 @@ carries the cycle; this file carries the probe formats.
 ## What a probe looks like
 
 A probe is one fresh-context agent, given a realistic task, with no
-skill present. Three properties separate a probe from a quiz:
+skill present. Four properties separate a probe from a quiz:
 
 1. **It asks for work, not for an opinion.** "What does the rule say?"
    makes the agent recite. "Ship this, here is the deadline" makes it
@@ -28,6 +28,12 @@ skill present. Three properties separate a probe from a quiz:
    against the full skill or template the guidance will sit inside, not
    the guidance in isolation — a rule that works alone and dies next to
    a competing instruction has not been tested.
+4. **It cannot read the answer key.** Put the skill's own `evals/`
+   directory out of reach for the probe, and vary the scenario away
+   from the eval's literal query. An agent scored against a checklist
+   it has read produces compliance, not evidence — and it will often
+   tell you it matched, which is the only reason the contamination is
+   ever caught.
 
 Weak probe: *"You need to implement a feature. What does the skill
 say?"*
