@@ -291,7 +291,9 @@ an empty orchestration transcript and `latestCursor: 0` is a stall, never
 a slow review. Recovery is `worker-stop`, then removing the review
 worktree, then `task-update --status ready`, then a fresh seat — the same
 fix-loop mechanism stage 5 points at an idle child, pointed here at a
-reviewer instead. Stage 7's ordering is easy to miss: the
+reviewer instead.
+
+Stage 7's ordering is easy to miss: the
 rebase and re-gate happen *before* the merge, inside the child, not
 after — a PASS earned against a stale `main` is not a PASS against the
 `main` the PR is about to land on. And stage 8 is not optional

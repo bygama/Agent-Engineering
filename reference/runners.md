@@ -38,7 +38,9 @@ so it launches the bare TUI form — `opencode -m opencode-go/deepseek-v4-flash
 the headless form where the TUI form belongs leaves nothing to attach to,
 and vice versa.
 
-`--auto` is required on both forms, not a tip. Verified on this machine
+`--auto` is required on both ballena launch commands — the Go default
+and the free fallback — not a tip; the headless `run` form above takes
+no `--auto`. Verified on this machine
 2026-08-19: `--auto` auto-approves permissions not explicitly denied;
 without it the reviewer hangs at a permission prompt nobody watches — a
 78-minute live stall on the MAT-91 review, undiagnosable from the
