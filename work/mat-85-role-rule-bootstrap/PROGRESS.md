@@ -25,10 +25,22 @@
   skills/using-ae/SKILL.md)" -le 80` → exit 0 (70 lines, cap 80); `node
   scripts/agent-lint.mjs . --ignore tests,templates,global,examples` →
   exit 0, PASS.
+- 2026-08-19 — Step 3 DONE (evals first, orchestrate).
+  `skills/orchestrate/evals/eval-01.md` fixture is now the UNBOUND arrival
+  (main-worktree seat, no `worker-start` preamble, `run-current` null), and
+  the expected behavior grades that binding is step 0's own work and that
+  arriving unbound is the normal fresh-parent case — not a reason to bounce
+  the session to work-plan, to the owner, or to a blocked report.
+  `eval-04.md` line 5 was left alone on purpose: "in the Run-bound parent"
+  there describes a parent that has already bound, which stays true; the
+  bug was the inference "no Run ⇒ not a parent", not the term. Acceptance:
+  `node tests/run-eval-checks.mjs` → exit 0, `ok   orchestrate: 4 evals
+  well-formed`.
 
 ## In progress
 
-- Step 3 — `skills/orchestrate/evals/eval-01.md` unbound-arrival coverage.
+- Step 4 — `skills/orchestrate/SKILL.md` step 0 clause + frontmatter
+  description.
 
 ## Tried and failed
 
