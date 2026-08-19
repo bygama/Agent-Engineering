@@ -42,3 +42,8 @@ modes it had invented.
 - [ ] Captures what the baseline agents did verbatim (their wording,
       their stated reasons), not a paraphrase like "the agent was
       wrong".
+- [ ] The probe agent is not given access to the eval checklists it
+      will be scored against — an agent that can read the answer key
+      produces compliance, not evidence. (Observed in this repo: a
+      re-test agent read the eval whose query it had been handed and
+      reported the match itself.)
