@@ -688,6 +688,72 @@ reference duplicates the mapping table's "Long-lived process" row (~1
 line) — still outside the duplication DECISIONS ruling 6 pre-identified,
 so still not taken here.
 
+### Step 4 — review verdicts (in-session, recorded verbatim, 2026-08-19)
+
+**Round 0 — step reviewer.** Verdict text:
+
+> ### Spec compliance
+> ✅ Compliant — all four requested elements are present and correct.
+> […]
+> **Field-name cross-check against PROGRESS.md "## Evidence — Orca CLI
+> verification" (the named risk): 4/4 clean.** Every one of the 13
+> task-list fields, 8 worker-list fields, 12 worktree fields and 5
+> `result` keys appears verbatim in the raw evidence, no typos, no
+> invented names […]
+>
+> **Deletion audit (the other named risk): no command, flag, field name
+> or rule disappeared.** […]
+>
+> **Step quality:** Approved
+>
+> **Reasoning:** The load-bearing half — the field table — is exact
+> against the on-machine evidence, honestly scoped by its column header,
+> and placed where a mid-wave operator will actually hit it; the
+> compression preserved every command, flag, field name and rule […] The
+> one real cost is in the decommission bullet, where "on a completed
+> card", "child" and "workers" went with the line, leaving a destructive
+> command without a referent and a rule that now reads more broadly than
+> the idle-child remedy this same lane is adding.
+
+One Important finding (the decommission bullet's lost scope, colliding
+with this lane's own MAT-95 rule), no Critical.
+
+**Round 1 — re-reviewer.** Verdict text:
+
+> **1. `reference/orca.md` decommission bullet lost three scoping
+> words** — ADDRESSED. […] Subject restored (`the worker` / `its
+> terminals`), referent restored (`its child worktree`), scope restored
+> (`there` binds the claim to "branch merged and card completed" […]).
+> Cross-checked `skills/orchestrate/SKILL.md:204` directly […] the
+> restored bullet is no longer broader than the citing text, and no
+> longer collides with the MAT-95 different-idle-agent case.
+> **2. hedge became certainty** — ADDRESSED. […] Both hedge words
+> (`can`, `unused`) are back.
+> **3. PROGRESS.md said "5 freed", real number is 4** — ADDRESSED. […]
+>
+> ### New breakage in the fix diff
+> None. […]
+>
+> ### Verdict
+> **Fix round:** All findings addressed, no new Critical/Important
+> breakage. `reference/orca.md` is confirmed at exactly 120/120 lines —
+> zero slack remains […] any later step touching this file must free a
+> line before adding one.
+
+Step 4 closed at round 1 of a cap of 5.
+
+**⚠️ Standing fact for the rest of the lane:** `reference/orca.md` is at
+**120/120**. No later step may add a line to it without freeing one.
+Steps 5-7 do not touch this file.
+
+**Three Minor, deferred to work-verify triage:** the table's "Rows at"
+column header promises rows while `worker-show` returns one object;
+`worker.worktree_id` / `worker.agent_terminal_handle` are attested in
+SPEC §11 and the step-4 entry but not inside the raw-output block; and
+PLAN step 4's guard would still exit 0 if the "there is no `title`" note
+or the retain/release sentence were deleted (third vacuous-guard finding
+in this lane).
+
 ## Evidence — Orca CLI verification (2026-08-19, this machine)
 
 Every CLI claim this lane adds to the standard was produced by running
