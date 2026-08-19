@@ -94,6 +94,24 @@
   content only — the workstation installer applies it to `~/.claude`, so
   the live machine keeps the old absolute "never Playwright or Chrome MCPs"
   wording until the installer is re-run; out of this lane's scope.
+  **Fix (review round 1, Important finding 1).** global/CLAUDE.md's last
+  bullet line now reads `MCPs only for lacked capabilities, from an owner
+  terminal, not a child.` — the reviewer's point stands: global still
+  applies in non-AE repos where `reference/orca.md` does not exist, and a
+  non-orchestrate subagent (a work-run step subagent) could have read
+  "owner terminal" as "the terminal the owner started this session in",
+  reopening a path the old absolute rule closed. The explicit negative
+  restores it without a pointer the file cannot make. Still 5 lines, 73
+  columns on that line (house max 74), file still exactly 40 (`wc -l
+  global/CLAUDE.md` → `40`, run BEFORE committing, DECISIONS ruling 2);
+  ruling 2 outcome A therefore still holds — no revert.
+  Acceptance re-run: `grep -q "owner terminal" reference/orca.md && [ $(wc
+  -l < global/CLAUDE.md) -le 40 ] && node scripts/agent-lint.mjs . --ignore
+  tests,templates,global,examples` → `0 high, 0 medium, 0 low — PASS`,
+  `EXIT=0`; other three gates re-run green (`run-lint-tests.mjs`=0,
+  `run-gen-tests.mjs`=0, `run-eval-checks.mjs`=0); `git diff --quiet HEAD
+  -- skills/orchestrate/references/dispatch-child.md` → exit 0 (still
+  untouched). Only `global/CLAUDE.md` changed by this fix.
 
 ## In progress
 

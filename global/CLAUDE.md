@@ -37,4 +37,4 @@
   — blocks working→idle, dies with the session. Dev servers: own Orca
   terminal tab (`orca terminal create --command "npm run dev"`); browsers:
   Orca's embedded one (`orca goto/snapshot/click`) — Playwright/Chrome
-  MCPs only for capabilities it lacks, from an owner terminal.
+  MCPs only for lacked capabilities, from an owner terminal, not a child.
