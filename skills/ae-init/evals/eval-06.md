@@ -38,8 +38,13 @@ answer comes from.
 - **Run B** — the owner answers "none".
 - **Run C** — the owner approves with edits, in that same one answer: drop
   `infra`, rename the `admin` project to `Back-office`.
-- **Run D** — Run A's answer on a machine with no Orca CLI and no Linear
-  MCP (identical contract when the binding cannot be resolved at all).
+- **Run D** — Run A's answer on a machine with no Orca CLI, run twice: once
+  bare (no Linear MCP either — the identical contract when the binding
+  cannot be resolved at all), once with a Linear MCP present, connected and
+  bound to `bygama`. Both runs grade the same contract, because the rule is
+  connector-independent: without an Orca session there is no tracker write,
+  whatever connector the session carries (`reference/tracker.md`, "Without
+  Orca" — ADR-001).
 
 ## Expected behavior
 
@@ -94,13 +99,22 @@ answer comes from.
       `Api`, `Back-office`; `infra/` gets no `Tracker-project:` line and
       inherits the root declaration. No re-argument for the dropped domain,
       no second approval round.
-- [ ] Run D (no Orca, no MCP — or an unresolvable binding) — nothing is
-      claimed as created: ae-init states plainly that the tracker was NOT
-      written and emits the EXACT operations (command + payload for the
-      initiative and for each missing project) for the operator to run from
-      a correctly bound session. The repo side still lands in full — every
-      declaration line is written exactly as in Run A, since declaring
-      where work belongs does not wait on the projects existing.
+- [ ] Run D, both runs (no Orca — bare, and with an MCP present — or an
+      unresolvable binding) — nothing is claimed as created: ae-init states
+      plainly that the tracker was NOT written and emits the EXACT
+      operations (command + payload for the initiative and for each missing
+      project) for the operator to run from a correctly bound session. The
+      repo side still lands in full — every declaration line is written
+      exactly as in Run A, since declaring where work belongs does not wait
+      on the projects existing.
+- [ ] Run D with the MCP present — the connector changes NOTHING about the
+      outcome: it is a second connector under the same declaration check,
+      never a no-Orca fallback rung. Creating the initiative or any project
+      through the MCP because Orca is missing — or reporting the tracker as
+      updated on the strength of it — is the failure this run exists to
+      catch. Downgrading the refusal into a question ("shall I use the MCP
+      instead?") fails too: the answer is fixed by ADR-001, so there is
+      nothing to ask.
 - [ ] Rest of the fresh-install contract unchanged: explores before asking,
       profile asked once, commands verified by running them, monorepo pair
       (`AGENTS.md` + pointer) per app, no `work/` lane and no feature list,

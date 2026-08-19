@@ -133,13 +133,85 @@ Minor findings deferred to the lane gate (work-verify triage):
 - tracker.md:86 — re-wrap dropped "contract" from "same contract when"
   (re-review round 1, Minor).
 
+### Step 2 DONE — eval-06 Run D widened to the two-connectors law
+
+Run D no longer grades a bare machine only: it now runs twice — bare, and
+with a Linear MCP present — because the rule it exists to protect is
+connector-independent (`reference/tracker.md` "Without Orca", ADR-001).
+
+What changed (`skills/ae-init/evals/eval-06.md`):
+
+- **Fixture preamble** (Run D bullet) — was "on a machine with no Orca CLI
+  and no Linear MCP (identical contract when the binding cannot be resolved
+  at all)". Now: no Orca CLI, run twice — once bare (no MCP either, the
+  identical contract when the binding cannot be resolved), once with a
+  Linear MCP present, connected and bound to `bygama` — plus the reason the
+  two runs share one contract: without an Orca session there is no tracker
+  write, whatever connector the session carries.
+- **Graded item, widened** — the existing Run D expectation (nothing claimed
+  as created; the refusal stated plainly; the EXACT operations emitted;
+  every declaration line still written as in Run A) now reads "Run D, both
+  runs (no Orca — bare, and with an MCP present — or an unresolvable
+  binding)", so the MCP-present case is graded against the same three
+  obligations. No obligation was reworded or dropped.
+- **New graded item for the MCP-present failure mode** — the connector
+  changes NOTHING: it is a second connector under the same declaration
+  check, never a no-Orca fallback rung. Creating the initiative or a project
+  through the MCP because Orca is missing, or reporting the tracker as
+  updated on the strength of it, fails; so does downgrading the refusal into
+  a question ("shall I use the MCP instead?"), since ADR-001 fixes the
+  answer and leaves nothing to ask.
+
+Run A is untouched and stays consistent: with an Orca session present, its
+writes may go through `orca linear` OR the Linear MCP — that asymmetry
+(same connector, opposite outcome depending on the Orca session) is exactly
+what Run D now pins down.
+
+Acceptance:
+
+```
+$ grep -qi "MCP present" skills/ae-init/evals/eval-06.md && node tests/run-eval-checks.mjs
+ok   ae-audit: 4 evals well-formed
+ok   ae-init: 6 evals well-formed
+ok   loop-setup: 5 evals well-formed
+ok   orchestrate: 4 evals well-formed
+ok   shaping: 4 evals well-formed
+ok   using-ae: 4 evals well-formed
+ok   work-handoff: 6 evals well-formed
+ok   work-plan: 5 evals well-formed
+ok   work-run: 4 evals well-formed
+ok   work-verify: 6 evals well-formed
+ok   .claude/docs-sweep: 3 evals well-formed
+ok   .claude/release: 4 evals well-formed
+all eval checks passed
+EXIT=0
+```
+
+Other three gates re-run as insurance (none reads evals, but the lane
+constraint wants them green): `node scripts/agent-lint.mjs . --ignore
+tests,templates,global,examples` → "0 high, 0 medium, 0 low — PASS" (exit
+0); `node tests/run-lint-tests.mjs` → "all 16 cases passed"; `node
+tests/run-gen-tests.mjs` → "all gen cases passed".
+
+No `docs/how-it-works/` chapter needed updating: no behavior changed — the
+two-connectors law already landed with MAT-82 (d352399) and is stated in
+`reference/tracker.md` and ADR-001; this step only makes it testable. No
+other file cites eval-06's runs (only eval-05 cites the eval by name, for
+its ≥3-domain path).
+
+Files changed: `skills/ae-init/evals/eval-06.md` (+21 / −9).
+
+Concerns: none. Wrapping kept at the file's 78-col house width (no line
+exceeds 80).
+
 ## In progress
 
 ## Tried and failed
 
 ## Next
 
-- Execute PLAN steps 2-8 via work-run (step 1 closed Approved).
+- Execute PLAN steps 3-8 via work-run (steps 1-2 done; step 2 awaits its
+  fresh-context review).
 
 ## Verification
 
