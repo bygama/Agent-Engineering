@@ -42,6 +42,12 @@ modes it had invented.
 - [ ] Captures what the baseline agents did verbatim (their wording,
       their stated reasons), not a paraphrase like "the agent was
       wrong".
+- [ ] The baseline batch is sized to what can actually be collected
+      before reporting — a probe whose result never comes back is a
+      probe that was not run, and the cycle is still at RED. (Observed
+      twice in this repo: 4 probes dispatched and 0 collected, then 3
+      dispatched and 0 collected; both runs correctly refused to
+      fabricate, and both ended with no baseline at all.)
 - [ ] The probe agent is not given access to the eval checklists it
       will be scored against — an agent that can read the answer key
       produces compliance, not evidence. (Observed in this repo: a

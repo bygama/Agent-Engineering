@@ -52,6 +52,10 @@ skip it.
   will live in — the full template or skill, not the guidance alone.
 - Capture what the agent did **verbatim**: its wording, its stated
   reasons. "The agent was wrong" tells you nothing to write against.
+- **Collect what you dispatch.** Size the batch to what you can read
+  back in this same turn — two probes collected beat six left running.
+  A probe you never collect is a probe you did not run, and the cycle
+  is still at RED.
 - No failure in the baseline → there is nothing to author. Stop.
 
 Pressure scenarios, pressure types and the probe formats:
