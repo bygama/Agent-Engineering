@@ -128,6 +128,38 @@
   pre-diff (acceptance-design weakness, not an implementation defect —
   the new paragraph adds real worker-read usage on top).
 
+- Step 2b: seat reads in place (parent directive msg_58ffdcfc9878, see
+  DECISIONS.md). `skills/orchestrate/references/reviewer.md`'s fenced
+  brief, section "Read-only, on the lane branch" renamed to "Read-only,
+  in place": replaced "Check out or fetch [BRANCH] to read it and to run
+  the DoD's own verification commands, so you see their real output."
+  with "Your worktree is already checked out on [BRANCH] at launch —
+  read it and run the DoD's own verification commands in place. `git
+  fetch` only if the branch moved since launch. Never create a checkout
+  or worktree of your own: a raw `git worktree add` lands outside the
+  parent's ledger and becomes debris no decommission sweeps." — the
+  "Do not commit, do not push, do not merge, do not edit any file" tail
+  is unchanged. Also updated the unfenced "Placeholders" list's
+  `[BRANCH]` line, which carried the same instruction-shaped phrasing:
+  "the lane's branch, to check out or fetch" → "the lane's branch,
+  already checked out in the seat's worktree at launch (fetch only if
+  it moved since)".
+  Left untouched: line ~80's "`--outcome failed` only if you could not
+  complete the review itself (e.g. the branch would not check out)" —
+  this is an --outcome-failure example, not an instruction to the seat
+  about how to obtain a checkout, and it doesn't match the grep patterns
+  in the acceptance gate; out of this step's scope per DECISIONS.md
+  (which scopes the fix to the "Check out or fetch" wording and its
+  worktree-creation reading).
+  No eval-03 change, per the DECISIONS.md ruling recorded for this step
+  (grades parent behavior, not seat-brief content).
+  Acceptance: `grep -c 'worktree add' skills/orchestrate/references/
+  reviewer.md` = 1 (≥ 1 required); `grep -c 'Check out or fetch'
+  skills/orchestrate/references/reviewer.md` = 0; `node
+  scripts/agent-lint.mjs . --ignore tests,templates,global,examples` →
+  "0 high, 0 medium, 0 low — PASS", exit 0. Files changed:
+  `skills/orchestrate/references/reviewer.md` only.
+
 ## In progress
 
 ## Tried and failed
