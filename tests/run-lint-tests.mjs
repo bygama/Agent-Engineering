@@ -49,6 +49,28 @@ const cases = [
     forbid: ["adapter", "read-order"],
   },
   {
+    // Red until the pointer check strips fenced tool-managed blocks
+    // (SPEC §1 / PLAN step 2). The remainder after stripping is a
+    // 1-line pointer containing @AGENTS.md.
+    name: "pointer-fenced repo passes (fenced tool-managed block exempted)",
+    path: fx("pointer-fenced"),
+    fail: false,
+    expect: [],
+    forbid: ["pointer-shape"],
+  },
+  {
+    name: "pointer-unfenced repo still fails (unfenced extra content over budget)",
+    path: fx("pointer-unfenced"),
+    fail: true,
+    expect: ["pointer-shape"],
+  },
+  {
+    name: "pointer-unclosed repo still fails (unmatched BEGIN is not an exemption)",
+    path: fx("pointer-unclosed"),
+    fail: true,
+    expect: ["pointer-shape"],
+  },
+  {
     name: "malformed lanes fail",
     path: fx("lanes-bad"),
     fail: true,
