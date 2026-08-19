@@ -61,8 +61,8 @@ Loop setup:
 ```
 
 **4.** Instantiate from `templates/repo/loops/LOOP.md.template` (in the
-Agent-Engineering repo clone — on this machine
-`C:/Briar/repos/mine/Agent-Engineering`, or locate/ask). Fill every
+Agent-Engineering repo, resolved by `skills/using-ae` §Reference paths).
+Fill every
 placeholder; a surviving `{{...}}` means the loop is not scaffolded. Write
 the state file with its initial JSON — **gitignored** (`loops/*.state.json`)
 and self-initializing when missing: tracked state dirties the tree on

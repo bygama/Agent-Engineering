@@ -1,13 +1,13 @@
 # Eval 06: scaffold from a foreign machine — reach the template, ship an unfilled `<repo>`
 
 Origin failure: two of them, both MAT-91. Step 4 told the agent the loop
-template lives "in the Agent-Engineering repo clone — on this machine
-`C:/Briar/repos/mine/Agent-Engineering`, or locate/ask" — dead on any other
-workstation. And the loops this repo itself scaffolded carried
-`--repo path:C:/Briar/…` **inside** the registration command they hand the
-operator to paste. That second one is the worse defect: a copied command
-does not fail loudly on another box, it registers an automation against a
-path that is not there.
+template lives in the Agent-Engineering repo clone, naming an absolute path
+on the author's own workstation — dead on any other workstation. And the
+loops this repo itself scaffolded carried that same absolute path **inside**
+the `--repo` argument of the registration command they hand the operator to
+paste. That second one is the worse defect: a copied command does not fail
+loudly on another box — it registers an automation against a path that is
+not there.
 
 ## Query
 

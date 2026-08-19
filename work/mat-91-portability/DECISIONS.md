@@ -43,6 +43,33 @@ repo by using-ae's §Reference paths rule **and says so when it cannot**:
 skill content. The say-so half is a PLAN constraint, not left to each
 eval's author.
 
+## Ruling 3 — an eval may not quote the machine path it grades (child)
+
+**Where it surfaced.** Step 3's acceptance (`grep -rn "C:/Briar" skills/`
+exits 1) failed on files this lane had just written: the three step-2 evals
+quoted the old text verbatim in their "Origin failure" preamble, as
+evidence of the defect they grade.
+
+**Two ways out.** Relax the acceptance — an eval is a test fixture
+describing history, not an instruction an agent follows to find a repo, so
+arguably it is the same category as the `docs/plans/` hit. Or hold the
+acceptance and describe the defect without reproducing it.
+
+**Ruling: hold the acceptance.** The deciding argument is this lane's own
+reported follow-up — a lint check banning machine-absolute paths on shipped
+surfaces (PROGRESS, reported item 4). Shipping files that my own
+recommended check would flag on the day it lands is incoherent, and
+`skills/**` is squarely a shipped surface in a way `docs/plans/**` is not.
+
+The three evals now name the defect by shape — "an absolute path on the
+author's own workstation" — instead of reproducing the string. Nothing is
+lost: each eval already carries a **named failure** forbidding *any*
+machine path from being reintroduced, which is a more durable rule than one
+tied to a single literal that a future rename would invalidate.
+
+**Effect.** `grep -rn "C:/Briar"` now returns hits in `docs/plans/` only —
+one dated record, deliberately preserved (see below).
+
 ## Local call — the ≤80 trim clause was evaluated and did not fire
 
 MAT-88 authorizes trimming "a genuinely redundant line" if the
