@@ -1,0 +1,37 @@
+[
+  {
+    "id": "F1",
+    "behavior": "Deep-nesting criterion: reference/context.md states AGENTS.md nest at any depth, earned only by non-inferable local knowledge (never symmetry), nested <=30 + own <=3-line pointer, explicit nearest-wins precedence (user prompt > nearest AGENTS.md > ancestors); templates/monorepo/ restates the earned criterion; standard-lifecycle chapter updated same-change.",
+    "verification": "grep -q 'nearest-wins' reference/context.md && grep -qi 'non-inferable' templates/monorepo/app-AGENTS.md.template && grep -qi 'nearest' docs/how-it-works/standard-lifecycle.md",
+    "state": "not_started",
+    "evidence": null
+  },
+  {
+    "id": "F2",
+    "behavior": "Browser criterion: reference/orca.md declares the embedded Orca browser as default and gates Playwright/chrome-devtools on a missing capability (perf traces, heap snapshots, a11y audits, device emulation) AND an owner terminal, never a supervised child; dispatch-child.md untouched; global/CLAUDE.md cites it only within its 40-line cap; execution chapter updated same-change.",
+    "verification": "grep -q 'owner terminal' reference/orca.md && git diff --quiet HEAD -- skills/orchestrate/references/dispatch-child.md && [ $(wc -l < global/CLAUDE.md) -le 40 ] && grep -qi 'browser' docs/how-it-works/execution.md",
+    "state": "not_started",
+    "evidence": null
+  },
+  {
+    "id": "F3",
+    "behavior": "Hierarchical tracker: reference/tracker.md defines the root declaration with optional project and initiative segments, the nested Tracker-project: line with workspace/team inheritance from the nearest full declaration, and the respect rule comparing against the NEAREST declaration; ae-init ships the >=3-domain pre-built recommendation (evals extended/added BEFORE content: eval-05 small-repo no-new-friction, eval-06 monorepo recommendation + project creation + no-Orca fallback); work-lifecycle, integrations and standard-lifecycle chapters updated same-change.",
+    "verification": "grep -q 'Tracker-project:' reference/tracker.md && grep -qi 'initiative' reference/tracker.md && grep -qi 'nearest' docs/how-it-works/work-lifecycle.md && test -f skills/ae-init/evals/eval-06.md && node tests/run-eval-checks.mjs",
+    "state": "not_started",
+    "evidence": null
+  },
+  {
+    "id": "F4",
+    "behavior": "Interop statement: README states AE's AGENTS.md files ARE the agents.md open-standard format (Agentic AI Foundation), readable by Codex, Gemini CLI, Cursor and other standard-following agents, with nesting aligned to the spec's nearest-wins.",
+    "verification": "grep -qi 'nearest-wins' README.md && grep -qi 'Gemini CLI' README.md",
+    "state": "not_started",
+    "evidence": null
+  },
+  {
+    "id": "F5",
+    "behavior": "Consumer repos point home (MAT-81): templates/repo/docs/tiers.md closes with one line naming github.com/bygama/Agent-Engineering (skills + the README's adoption guide) and that without the skills installed the ceremony runs by hand; reference/task-tiers.md untouched.",
+    "verification": "grep -q 'bygama/Agent-Engineering' templates/repo/docs/tiers.md && git diff --quiet HEAD -- reference/task-tiers.md",
+    "state": "not_started",
+    "evidence": null
+  }
+]
