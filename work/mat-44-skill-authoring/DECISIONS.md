@@ -34,3 +34,11 @@
   repo, and is sourced from the ruling rather than an observed
   directory — if the sibling PR ships a different slug, this row is the
   thing to correct.
+- 2026-08-19 — Finding, recorded not fixed: `tests/run-eval-checks.mjs`
+  skips any skill directory without a `SKILL.md`, so evals written
+  first are invisible to the gate until the content they precede
+  lands. The evals-first contract is therefore unenforced at exactly
+  the moment it binds. S1's acceptance was corrected to match reality
+  rather than claim a line the runner cannot print yet. Changing the
+  runner is out of this lane's scope (it would touch `tests/`); flagged
+  to the parent as a candidate follow-up.
