@@ -17,9 +17,22 @@
   Acceptance: `node tests/run-eval-checks.mjs` → exit 0,
   output `ok   using-ae: 6 evals well-formed`.
 
+- **Step 2 DONE** — `skills/using-ae/SKILL.md` gains the `## Reference
+  paths` section (2 prose lines: what `reference/…` means, the three-source
+  ordered lookup, the say-so contract) placed right after `## Entry rule`,
+  whose first move is the `reference/task-tiers.md` citation; plus one
+  red-flags row carrying the junction trap, the resolve-real-path-first
+  correction and the never-invent clause. Exactly 6 added lines.
+  Wording note: "link-resolved" replaced a first draft's "REAL-path" — same
+  budget (73/71 columns, the file's existing 73 max), and it matches the
+  vocabulary the SPEC and eval-06 already use.
+  Acceptance: `wc -l` → **78** (`-le 78` exit 0) · lint exit 0 ·
+  `git diff main -- skills/using-ae/SKILL.md | grep -E '^[-+]- \*\*'`
+  → exit 1, `## The map` byte-identical for sibling lane MAT-44.
+
 ## In progress
 
-- Step 2: the `## Reference paths` rule in `skills/using-ae/SKILL.md`.
+- Step 3: the required chapter sentence in `docs/how-it-works/execution.md`.
 
 ## Tried and failed
 
