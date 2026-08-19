@@ -62,12 +62,11 @@ Loop setup:
 
 **4.** Instantiate from `templates/repo/loops/LOOP.md.template` (in the
 Agent-Engineering repo, resolved by `skills/using-ae` §Reference paths).
-Fill every
-placeholder; a surviving `{{...}}` means the loop is not scaffolded. Write
-the state file with its initial JSON — **gitignored** (`loops/*.state.json`)
-and self-initializing when missing: tracked state dirties the tree on
-every run, which self-blocks any cleanliness precheck (check that
-interaction explicitly). The worked example
+Fill every placeholder; a surviving `{{...}}` means the loop is not
+scaffolded. Write the state file with its initial JSON — **gitignored**
+(`loops/*.state.json`) and self-initializing when missing: tracked state
+dirties the tree on every run, which self-blocks any cleanliness precheck
+(check that interaction explicitly). The worked example
 `templates/repo/loops/issue-triage.example.md` shows a complete artifact.
 
 **5.** Register the trigger (`--disabled`) only with the user's explicit
