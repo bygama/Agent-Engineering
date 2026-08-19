@@ -46,10 +46,20 @@
   run-(current|create|use)'` → exit 1 (no command line added or removed);
   `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
   → exit 0, PASS.
+- 2026-08-19 — Step 5 DONE. `docs/how-it-works/execution.md`, §"The 8-stage
+  dispatch cycle": the "Binding the Run … happens once per parent session"
+  passage now states the seat rule — the parent is the session whose
+  checkout is the repo's main worktree, the binding is its first action,
+  arriving unbound is normal — and names the circularity and the inline-in-
+  the-owner's-checkout failure it produced. Satisfies the repo's
+  same-change docs constraint. Acceptance: `grep -q "main worktree"
+  docs/how-it-works/execution.md` → exit 0; `git diff --name-only main --
+  docs/how-it-works/ | grep -q standard-lifecycle` → exit 1 (only
+  execution.md touched in that tree).
 
 ## In progress
 
-- Step 5 — `docs/how-it-works/execution.md` role-rule narration.
+- Step 6 — gate sweep + evidence.
 
 ## Tried and failed
 
