@@ -287,3 +287,49 @@
   Reviewer reproduced the placeholder-safety probe standalone: `X:\…`
   FIRES, `<drive>:\…` and angle-bracket forms CLEAN — implementer's
   divergence from the step-2 reviewer's literal suggestion was correct.
+
+## Verification
+
+### 2026-08-19 — M DoD — PASS
+- L1 static: `node --check scripts/agent-lint.mjs` → exit 0; self-lint
+  `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  → exit 0 (`0 high, 0 medium, 0 low — PASS`)
+- L2 behavioral: `node tests/run-lint-tests.mjs` → exit 0
+  (`all 22 cases passed`); `node tests/run-gen-tests.mjs` → exit 0
+  (`all gen cases passed`); `node tests/run-eval-checks.mjs` → exit 0
+  (`all eval checks passed`)
+- L3 end-to-end: lint executed over both fixtures —
+  `node scripts/agent-lint.mjs tests/fixtures/machine-path-shipped` →
+  exit 1, exactly 3 MEDIUM `machine-path` findings, one per class, at
+  true file:line; `.../machine-path-clean` → exit 0, zero findings.
+  Live case byte-identical (reviewer proved blob hash `e1f850dc…` equal
+  at base and HEAD); never-touch list untouched
+  (`git diff main --name-only` over the forbidden set → empty)
+- Fresh-context review (opus, no shared context): **PASS** — verdict
+  verbatim: "PASS — all eight DoD layers reproduce from a clean tree in
+  my own hands: the four gates exit 0 (`all 22 cases passed`, `0 high,
+  0 medium, 0 low — PASS`), the fire fixture exits 1 with exactly three
+  MEDIUM machine-path findings at line numbers I verified true against
+  the files, the clean fixture exits 0 on non-vacuous exempt content,
+  and the forbidden-path set is untouched with the live case proven
+  byte-identical by blob hash e1f850dc…. The remaining issues are all
+  Minor, and the RED baseline replayed against the pre-check script
+  (0 high, 0 medium, 0 low — PASS, exit 0) confirms the test-first claim
+  rather than leaving it self-reported." Reviewer additionally proved:
+  all five surfaces live (global/, loops/ fire); chapter's `<drive>:\…`
+  advice empirically safe while `X:\…` fires; no FPs across the probe set
+  (URLs, ~/, /opt, /usr, /dev/null, /api, %USERPROFILE%, \server\share,
+  /root/, 12:30); fenced-block skip works on a second surface (closes the
+  step-1 minor); no lastIndex leakage; nesting collapse correct.
+- Adversarial review: n/a — M tier, not requested (the parent
+  orchestrator runs its own cross-model reviewer after worker_done).
+
+Deferred-minors triage (all on record, none a gate):
+- architecture.md's abbreviated lint list omits the new check — matches
+  that list's existing precedent (omits DESIGN.md drift, adapters, read
+  orders too); standard-lifecycle.md is the affected chapter under the
+  hard constraint and was updated. Future docs-sweep material.
+- Space-truncated quote (`C:\Program`), sed-idiom FP, whole-file read
+  before NUL bail, `/mnt/c` without trailing slash (deliberate per SPEC
+  literal), UTF-16 skip — recorded at step 2; step-1 fenced-surface pin
+  closed empirically by the lane reviewer.
