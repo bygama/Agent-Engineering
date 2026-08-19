@@ -67,5 +67,5 @@ Constraints (every step):
       machine-policy SEED — copy-and-edit, owner-specific lines (chat
       language) stripped, never applied verbatim. — accept:
       `grep -qi "seed" README.md && node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
-- [ ] 8. `mechanical` — Gate sweep, all four exit 0. — accept:
+- [x] 8. `mechanical` — Gate sweep, all four exit 0. — accept:
       `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples && node tests/run-lint-tests.mjs && node tests/run-gen-tests.mjs && node tests/run-eval-checks.mjs`
