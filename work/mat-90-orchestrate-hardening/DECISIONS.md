@@ -140,6 +140,30 @@ is one of this lane's owned surfaces. The TOC sits in the wrapper prose,
 above the fence: it does not enter the text a child is dispatched with,
 so the verbatim fill is unchanged.
 
+## 7. The fence check needs three-dot diff, not two-dot
+
+Found by step 3's implementer and verified by the controller before
+acting on it. PLAN steps 7 and 8 originally read `git diff --name-only
+main …`. Two sibling lanes are in flight in this wave and their branches
+merge into local `main` while this lane runs, so the two-dot form —
+"diff my worktree against wherever main is NOW" — lists THEIR files as
+this branch's. Measured here:
+
+- `git diff --name-only main` → 20+ paths including
+  `scripts/agent-lint.mjs`, `tests/**` and
+  `docs/how-it-works/standard-lifecycle.md`, all three on this lane's
+  do-not-touch list, none of them touched by this lane.
+- `git diff --name-only main...HEAD` → exactly the ten files this lane
+  owns.
+- `git merge-base main HEAD` → `9fc4bda`, the branch point; local `main`
+  is at `f8c340e` (the mat-89 lane's close).
+
+So the two-dot form would have failed the fence check on a clean lane —
+a false positive that reads exactly like a real violation. Both steps
+now use `main...HEAD`. This matters beyond this lane: any lane in a
+multi-lane wave that fences itself with a two-dot diff against a moving
+`main` inherits the same false positive.
+
 ## 6. `reference/orca.md` trim — what was tightened
 
 Budget was 109 of 120 lines before §11's field table. Only duplicated

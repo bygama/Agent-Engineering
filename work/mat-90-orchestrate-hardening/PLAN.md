@@ -124,7 +124,9 @@ DECISIONS ruling 1). One step = one commit = one dispatch.
    narration. `standard-lifecycle.md` is NOT touched (lane B owns it).
    Acceptance: `grep -qi "idle" docs/how-it-works/execution.md` exits 0
    AND `grep -qi "ledger" docs/how-it-works/execution.md` exits 0
-   AND `git diff --name-only main -- docs/how-it-works/ | grep -q standard-lifecycle` exits 1.
+   AND `git diff --name-only main...HEAD -- docs/how-it-works/ | grep -q standard-lifecycle` exits 1.
+   (Three-dot: local `main` moves as sibling lanes merge, so the two-dot
+   form attributes their files to this branch — DECISIONS ruling 7.)
 
 8. [mechanical] **Gate sweep and fence check.** Run all four gates,
    confirm no do-not-touch path appears in the diff, and record the
@@ -132,5 +134,8 @@ DECISIONS ruling 1). One step = one commit = one dispatch.
    Acceptance: `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` ·
    `node tests/run-lint-tests.mjs` · `node tests/run-gen-tests.mjs` ·
    `node tests/run-eval-checks.mjs` all exit 0, AND
-   `git diff --name-only main | grep -E '^(scripts/agent-lint\.mjs|tests/|skills/(ae-init|ae-audit|loop-setup|using-ae)/|loops/|docs/how-it-works/standard-lifecycle\.md|CHANGELOG\.md|global/|templates/|examples/)'`
+   `git diff --name-only main...HEAD | grep -E '^(scripts/agent-lint\.mjs|tests/|skills/(ae-init|ae-audit|loop-setup|using-ae)/|loops/|docs/how-it-works/standard-lifecycle\.md|CHANGELOG\.md|global/|templates/|examples/)'`
    exits 1.
+   **Three-dot is load-bearing** (DECISIONS ruling 7): local `main` moves
+   as sibling lanes merge, so the two-dot form lists THEIR files as this
+   branch's and the fence check fails on work this lane never touched.
