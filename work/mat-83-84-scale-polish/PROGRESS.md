@@ -317,6 +317,91 @@ Files changed: `README.md`, `skills/ae-audit/SKILL.md`,
 
 Concerns: none.
 
+### Step 3 fix — eval-03's unswept graded line (review round 1)
+
+Review finding (Important) accepted, SWEEP direction taken per the
+standing DECISIONS ruling (live graded text falls inside the sweep,
+same as eval-06.md:120): `skills/ae-init/evals/eval-03.md:29` sits under
+`## Expected behavior`, not `## Fixture` — it is a graded expectation
+about the migration's *result state*, structurally identical to the
+eval-06 case the step-2 reviewer already routed in, not the fixture's
+found-state description at line 11 (which correctly stayed untouched).
+The battery row's own exclusion clause ("eval fixtures describing a
+legacy repo's found state") read file-wide rather than section-scoped,
+so a future sweeper applying it literally would have skipped line 29
+forever — the review's third ask (narrow the wording) closes that hole
+for good, not just for this one instance.
+
+All three parts done, one commit (`7eeecfc`):
+
+1. **Swept the line** — `skills/ae-init/evals/eval-03.md:29`:
+   `- [ ] Per-app: AGENTS.md ≤30 lines + pointer CLAUDE.md per app.` →
+   `- [ ] Nested: AGENTS.md ≤30 lines + pointer CLAUDE.md at any earned
+   depth.` — same graded obligations (root cap, pointer requirement),
+   vocabulary only. Line 11 (`## Fixture`, "per-app AGENTS.md in three
+   app dirs") is genuine found-state and was left as-is.
+2. **Battery row instance column** — `skills/ae-init/evals/eval-03.md:29`
+   added beside the eval-06 entry.
+3. **Exclusion wording narrowed** — "eval fixtures describing a legacy
+   repo's found state" → "`## Fixture` SECTIONS describing a legacy
+   repo's found state", with an explicit parenthetical that a
+   `## Expected behavior` graded line in the same eval file is NOT
+   covered by that exclusion.
+
+Acceptance re-run (the step's own gate):
+
+```
+$ ! grep -n "per-app" README.md skills/ae-audit/SKILL.md docs/how-it-works/architecture.md scripts/agent-lint.mjs && grep -q "per-app" .claude/skills/docs-sweep/references/patterns.md && node tests/run-lint-tests.mjs
+ok   v2-clean repo passes
+ok   bloated canonical AGENTS.md fails
+ok   per-tool adapters fail
+ok   read order + broken link fail
+ok   v1-style repo drifts (pointer + stamp)
+ok   pointer-fenced repo passes (fenced tool-managed block exempted)
+ok   pointer-unfenced repo still fails (unfenced extra content over budget)
+ok   pointer-unclosed repo still fails (unmatched BEGIN is not an exemption)
+ok   malformed lanes fail
+ok   invalid feature list fails
+ok   global-layer CLAUDE.md passes its own canon
+ok   clean DESIGN.md passes
+ok   drifted/undated DESIGN.md fails
+ok   dangling-ref/ungenerated DESIGN.md fails
+ok   DESIGN.md with mode groups passes
+ok   kitchen-sink composite fires the planted set
+all 16 cases passed
+EXIT=0
+```
+
+`node tests/run-eval-checks.mjs` (requested explicitly — eval-03.md's
+edit is outside the step's grep legs, proving the file still parses):
+
+```
+ok   ae-audit: 4 evals well-formed
+ok   ae-init: 6 evals well-formed
+ok   loop-setup: 5 evals well-formed
+ok   orchestrate: 4 evals well-formed
+ok   shaping: 4 evals well-formed
+ok   using-ae: 4 evals well-formed
+ok   work-handoff: 6 evals well-formed
+ok   work-plan: 5 evals well-formed
+ok   work-run: 4 evals well-formed
+ok   work-verify: 6 evals well-formed
+ok   .claude/docs-sweep: 3 evals well-formed
+ok   .claude/release: 4 evals well-formed
+all eval checks passed
+EXIT=0
+```
+
+Other two gates re-run as insurance: `node scripts/agent-lint.mjs .
+--ignore tests,templates,global,examples` → "0 high, 0 medium, 0 low —
+PASS" (exit 0); `node tests/run-gen-tests.mjs` → "all gen cases passed".
+
+Files changed: `skills/ae-init/evals/eval-03.md`,
+`.claude/skills/docs-sweep/references/patterns.md` (2 files, +2/−2).
+
+Minor findings from the review stay deferred to the lane gate (none
+were surfaced for step 3 beyond this Important finding).
+
 ## In progress
 
 ## Tried and failed
