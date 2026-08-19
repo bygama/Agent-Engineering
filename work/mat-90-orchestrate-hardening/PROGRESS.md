@@ -849,6 +849,55 @@ Concerns: none blocking. One note for step 6 — this section now cites
 6 puts the four measured costs anywhere other than step 4 of the skill,
 this citation goes stale and must move with it.
 
+### Step 5 — review verdict (in-session, recorded verbatim, 2026-08-19)
+
+> ### Spec compliance
+> ✅ Compliant — every element the step names is present, and the
+> acceptance guard exits 0 (re-run here: `lines 115`, `guard exit: 0`).
+> […]
+> **Recipe coherence** — followable end to end. `worktree create --json`
+> → id feeds `terminal create --worktree id:…`; `terminal create --json`
+> → handle feeds both `terminal wait --terminal` and `worker-start
+> --terminal`; the `tui-idle` wait sits between launch and attach […]
+> […]
+> **Step quality:** Approved
+>
+> **Reasoning:** The ruling is encoded as decided — (b) default with (a)
+> as a named, condition-bearing exception, all three conditions present,
+> the fallback-shell close in REQUIRED wording with the confirm half
+> intact, and the cost list cited to a location that exists and matches
+> PLAN step 6's target. The recipe is executable in order, and the only
+> defects are cross-file wording tension with `reference/orca.md` and a
+> weak PLAN-authored guard, neither of which changes what an operator
+> does.
+
+Critical: none. Important: none. Controller also verified independently
+that `orca terminal close --terminal <handle>` and `orca terminal list
+--worktree <selector> --json` are real flag shapes on this machine.
+
+**Five Minor, deferred to work-verify triage:**
+
+1. **PRIORITY — cross-file contradiction.** `reference/orca.md:107-109`
+   still calls this exact four-command sequence "the anti-pattern" while
+   `runners.md:82-86` now prescribes it as a legitimate named exception.
+   An operator reading both gets no reconciliation. orca.md is at 120/120
+   and out of budget; runners.md has five lines of slack, so the fix
+   belongs there — a half-clause such as "…the two-step
+   `reference/orca.md` warns against, taken deliberately here."
+2. **Carried into step 6's dispatch, not deferred.**
+   `skills/orchestrate/SKILL.md:143-146` still says the reviewer-seat
+   two-step "**can** leave an unused fallback startup shell" and is not
+   marked required, while DECISIONS ruling 1 said REQUIRED wording. Does
+   "both places" mean both seats?
+3. PLAN step 5's guard is half-vacuous: `--terminal` already existed in
+   the file before this change, so only the bare substring
+   `/fallback shell/i` is load-bearing — the whole stance paragraph could
+   be deleted and it would still pass. **Fourth vacuous-guard finding in
+   this lane.**
+4. `runners.md:94`'s `<task_id>` is never sourced in the snippet.
+5. `runners.md:82-83` garden-paths: "needs argv **that** those three
+   flags cannot express" costs one word.
+
 ## Evidence — Orca CLI verification (2026-08-19, this machine)
 
 Every CLI claim this lane adds to the standard was produced by running
