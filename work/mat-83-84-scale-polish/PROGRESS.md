@@ -477,6 +477,19 @@ Concerns: none. The paragraph grew by three lines; README carries no line
 budget (budgets bind entry files, not the README), and the lint confirms
 it.
 
+### Step 4 review closed — Approved, no fix loop
+
+Fresh reviewer: spec ✅ compliant, quality Approved, no Critical or
+Important findings; attribution verified line-for-line against
+reference/context.md and standard-lifecycle.md (README moved toward the
+chapter, no chapter update owed). Acceptance re-run exit 0.
+
+Minor finding deferred to the lane gate (work-verify triage):
+
+- README.md:244-245 — "combining ancestors root-first" dropped the
+  consequence clause ("so the nearest file lands last"); standing alone
+  it can read as root-takes-priority. Cheap same-length fix available.
+
 ## In progress
 
 ## Tried and failed
