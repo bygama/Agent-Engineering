@@ -1674,6 +1674,78 @@ exit 0.
 
 ## Verification
 
-_(work-verify fills this section; the four gates are the lane's DoD and
-their evidence lands here rather than as a feature_list row — DECISIONS
-ruling 4.)_
+### 2026-08-19 — L DoD — PASS
+
+- **L1 static:** `node scripts/agent-lint.mjs . --ignore
+  tests,templates,global,examples` → exit 0 (`0 high, 0 medium, 0 low —
+  PASS`)
+- **L2 behavioral:** `node tests/run-lint-tests.mjs` → exit 0 (`all 16
+  cases passed`); `node tests/run-gen-tests.mjs` → exit 0 (`all gen cases
+  passed`); `node tests/run-eval-checks.mjs` → exit 0 (`ok   orchestrate:
+  5 evals well-formed`, `all eval checks passed`)
+- **L2 feature rows (the L-tier DoD):** all five `verification` commands
+  → exit 0, run twice — once under bash, once through `cmd.exe` from
+  PowerShell — after the portability fix. F01 additionally exits **1**
+  against the pre-lane file (`git show
+  9fc4bda:skills/orchestrate/references/dispatch-child.md`) on both
+  shells: red before the change, green after.
+- **L3 end-to-end:** n/a — this lane ships markdown (skill text, two
+  fillable templates, two reference docs, one how-it-works chapter). It
+  has no runtime and crosses no component boundary; the executable
+  surface is the evals and the gates, both run above. Recorded as a
+  decision rather than silently omitted.
+- **Fence check:** `git diff --name-only 9fc4bda..HEAD | grep -E
+  '<do-not-touch>'` → exit 1, no output. Thirteen files in the lane, none
+  fenced. `git diff --name-only 9fc4bda..HEAD -- AGENTS.md` → empty (the
+  version stamp is untouched).
+- **Evals before content:** HELD. The only commit touching
+  `skills/orchestrate/evals/` is `d5b454c`, the 2nd of the lane's
+  commits; every content commit lands after it.
+- **Fresh-context review:** **PASS** — dispatched with no shared
+  conversation, ran every gate and every feature row itself, and
+  independently re-ran the lane's Orca claims against this machine rather
+  than trusting PROGRESS. Its own words:
+
+  > **PASS** — all four gates exit 0 (`0 high, 0 medium, 0 low — PASS`,
+  > `all 16 cases passed`, `all gen cases passed`, `all eval checks
+  > passed`), the fence check exits 1 with no output, and all five
+  > feature rows exit 0 as written under POSIX sh; F01's cmd.exe failure
+  > is a one-character escaping defect in the check, not in the content
+  > […] DECISIONS ruling 8 is a legitimate correction and I confirmed its
+  > proof myself — the replacement command exits 1 against `9fc4bda`'s
+  > file and 0 against the current one, while the clause it replaced was
+  > demonstrably vacuous. The four Important findings are all one-to-two
+  > line edits that no gate depends on; I would land them before handoff,
+  > starting with F01's escaping and the `orca.md`/`runners.md`
+  > contradiction.
+
+  Its verification of the standard's own claims, quoted because it is the
+  evidence MAT-97 turns on:
+
+  > `task-list --brief --json --run run_fafc4f70d4ac` → `has title? false
+  > | has task_title? true`; row keys match `reference/orca.md`'s table
+  > exactly. […] `worker-show --dispatch ctx_2b7ad61143ae --json` →
+  > `ok: true` […] `ctx_` ids are valid; the doc's rehabilitation is
+  > correct. […] Every number in SKILL.md's cost list reproduces.
+
+  **All four Important findings landed before handoff** (`e6951af`), then
+  re-verified above: F01's shell portability, the
+  `orca.md`/`runners.md` contradiction over the two-step, the
+  `[REPO_CONSTRAINTS]` omit boundary a generator can execute, and the
+  missing eval guard on SPEC §1's bare-"Tasks" clause. The MUST-CLOSE
+  minor (SPEC §15's upstream-ask framing) landed with them.
+
+- **Adversarial review:** n/a in this session — the parent runs the
+  ballena itself after `worker_done` (dispatch config: 1 ballena,
+  parent-dispatched). This lane's own cross-model rung is therefore the
+  parent's to close, not skipped.
+
+**Deferred minors carried into handoff** — each recorded under its step's
+verdict above, none blocking: the three-way confidence divergence on
+whether the two-step "can leave" or "leaves" a fallback shell; SKILL.md's
+required close naming no closing command (one hop away in
+`runners.md`); the narrated remedy in `execution.md` dropping
+`--worktree <selector>`; PROGRESS's own verbatim records using `[…]`
+elision where the clause this lane writes asks for findings too; and
+`reference/orca.md` sitting at exactly 120/120 with no lint rule to catch
+the next line added.
