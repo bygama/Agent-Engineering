@@ -273,3 +273,17 @@
   Step-1 minor (fenced-block skip pinned on one surface) answered
   empirically by the reviewer's probe on reference/ — committed-fixture
   pin still deferred to work-verify triage.
+
+- 2026-08-19 — Step 3 review (fresh reviewer, sonnet). Verdict verbatim:
+  "### Spec compliance / ✅ Compliant" · "**Step quality:** Approved" ·
+  "**Reasoning:** Every narrated fact — the three classes, the exemptions,
+  the severity contrast, and the carry-in placeholder-safety claim —
+  checks out against the actual regexes and code comments in
+  scripts/agent-lint.mjs, independently re-verified rather than trusted
+  from PROGRESS.md's self-report. All four gates and the acceptance
+  command pass. No scope creep, no factual drift, house voice preserved."
+  Issues: none Critical/Important; one Minor (paragraph length vs
+  neighbors; optional split of the authoring-advice sentences — deferred).
+  Reviewer reproduced the placeholder-safety probe standalone: `X:\…`
+  FIRES, `<drive>:\…` and angle-bracket forms CLEAN — implementer's
+  divergence from the step-2 reviewer's literal suggestion was correct.
