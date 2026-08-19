@@ -110,3 +110,15 @@
   adjacent table explicitly refused. Three REFACTOR holes surfaced and
   closed from those runs (answer-key access, uncollected probes,
   "a request is not evidence").
+- 2026-08-19 — Review finding #9 resolved by evidence, not by assertion:
+  the RED probe for eval-04 came back GREEN. A fresh agent, with
+  `skills/skill-authoring/` fenced off so only `reference/skills.md` was
+  visible, refused its own stated plan to follow superpowers'
+  `writing-skills`, cited ADR-005 and the supersession table, and
+  additionally caught the Placement rule (a commit-message skill belongs
+  in `bygama/skills`, not AE). No failure reproduced. Rather than dress
+  it up as failure-derived, eval-04 now says in its own fixture that it
+  is a REGRESSION GUARD on the supersession law and the one eval here
+  not derived from an observed failure. The redirect demonstrably works
+  because the LAW carries it — which is the argument for keeping the
+  method out of `reference/skills.md` and the law out of the skill.

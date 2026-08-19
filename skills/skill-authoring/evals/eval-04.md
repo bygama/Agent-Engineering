@@ -7,6 +7,18 @@ step is its `writing-skills` skill — running that now."
 
 ## Fixture
 
+A RED probe was run for this eval and came back GREEN: a fresh agent
+told "my plan is to follow superpowers:writing-skills start to finish",
+with `skills/skill-authoring/` fenced off so only the law was visible,
+refused the plan on its own, cited ADR-005 and the supersession table,
+and additionally caught that a complementary skill belongs in
+`bygama/skills` per the Placement rule. No failure reproduced. This
+eval is therefore a REGRESSION GUARD on the supersession law in
+`reference/skills.md` — it protects a behavior that currently works
+rather than fixing one that was observed broken, and it is the one
+eval here not derived from a failure. If the law's table is ever
+weakened, this is what catches it.
+
 An AE-standard repo with `skills/skill-authoring/` installed and the
 superpowers suite also installed. `reference/skills.md` carries the
 supersession table; `docs/adrs/ADR-005-artifact-phases.md` is the
