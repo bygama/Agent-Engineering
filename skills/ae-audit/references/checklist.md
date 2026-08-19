@@ -40,7 +40,7 @@ audit only re-reports them.
 | Nested CLAUDE.md (lint) | Same pointer shape at any earned depth | high |
 | Global exception | `~/.claude`-style file (H1 `# Global instructions`) ≤40 lines, own canon | medium |
 
-**Pointer rows note:** A fenced tool-managed block (delimited by `<!-- BEGIN:… -->` and `<!-- END:… -->` with matching kebab-case names) does not count against the line budget; the lint's `pointer-shape` check settles the block recognition grammar.
+**Pointer rows note:** A fenced tool-managed block does not count against the line budget — the lint's `pointer-shape` check settles what qualifies as one.
 
 ## Duplication checks
 
