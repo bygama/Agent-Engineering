@@ -53,6 +53,20 @@ and continues with what remains. Never silently skipped, never faked.
 | E2E surface (web) | built-in browser: `orca goto/snapshot/click/wait --json` — the named L3 tool for web-facing work on an Orca machine (criterion below) |
 | Report publishing | `orca artifacts share <file>` — gated by a human-granted device capability; on `artifact_sharing_disabled` deliver the file locally, do not retry |
 
+## The ledger read path (verified 2026-08-19)
+
+| Read | Rows at | Fields a parent reads |
+|---|---|---|
+| `orca orchestration task-list --brief --json --run <run_id>` | `result.tasks[]` | `id`, `run_id`, `parent_id`, `created_by_terminal_handle`, `task_title`, `display_name`, `spec`, `status`, `deps`, `result`, `created_at`, `completed_at`, `spec_truncated` — **there is no `title` field; the name is `task_title`** |
+| `orca orchestration worker-list --json --run <run_id>` | `result.workers[]` | `dispatchId`, `taskId`, `runId`, `workerState`, `dispatchStatus`, `agentTerminalHandle`, `terminalState`, `resource` |
+| `orca worktree list --json` | `result.worktrees[]` | `id`, `path`, `head`, `branch`, `displayName`, `comment`, `linkedLinearIssue`, `workspaceStatus`, `parentWorktreeId`, `childWorktreeIds`, `lineage`, `git` |
+| `orca orchestration worker-show --dispatch <ctx_id> --json` | `result` | `dispatch`, `worker`, `terminal`, `observation`, `terminalResource`; `worker.worktree_id`, `worker.agent_terminal_handle` and `worker.effects` close the dispatch→worktree→terminal chain |
+
+Orca is the ledger — chain ids by rereading it. `ctx_` dispatch ids are
+valid input to `worker-show`, `worker-retain` and `worker-release` (all
+`--dispatch <dispatch_id>`): `worker-show --dispatch ctx_2b7ad61143ae
+--json` returned `ok: true` here; a contrary 2026-08-14 note is stale.
+
 ## The browser criterion
 
 Default: Orca's embedded browser (`orca goto/snapshot/click/wait --json`).
@@ -90,20 +104,16 @@ capabilities.
 
 - One lane ⇔ one worktree: per-lane `work/<slug>/` folders exist so
   parallel worktrees never collide on shared root files.
-- Prefer agent-first create for agent workers: bare `worktree create`
-  plus a later `terminal create --command <agent>` is the anti-pattern —
-  it can leave an unused fallback shell. `--agent` owns the first
-  terminal.
+- Prefer agent-first create for agent workers: `--agent` owns the first
+  terminal; bare `worktree create` plus a later `terminal create
+  --command <agent>` is the anti-pattern — it leaves a fallback shell.
 - Never run a dev server as a background shell inside an agent session —
   it blocks the session's idle transition and dies with it. Terminal tabs
   (`orca terminal create`) outlive the session; that is the point.
-- Spawn-command inheritance is machine policy (which account/CLI a child
-  agent uses); it lives in the global layer (`~/.claude/CLAUDE.md`), not
-  in repos. When that policy forces the two-step spawn (bare create +
-  `terminal create --command`), a fallback shell may appear — close it
-  after confirming it is unused.
+- Spawn-command inheritance (which account/CLI a child uses) is machine
+  policy in the global layer (`~/.claude/CLAUDE.md`), never a repo; when
+  it forces that two-step, close the confirmed-unused fallback shell.
 - Spawn briefs are short and point at artifacts (the issue, the lane) —
   `terminal send` truncates long inline briefs.
-- Decommission workers after the merge: close their terminals and
-  `orca worktree rm` the child worktree once its branch merged and the
-  card is completed — an idle agent on a completed card is debris.
+- Decommission once the branch merged and the card is completed: close
+  the terminals, `orca worktree rm` the worktree. Idle agents are debris.

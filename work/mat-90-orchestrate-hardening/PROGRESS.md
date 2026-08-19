@@ -501,6 +501,116 @@ none.
    what proves it. (Second vacuous-guard finding in this lane — see the
    step 2 correction above.)
 
+### Step 4 — `reference/orca.md`, the ledger read path (2026-08-19)
+
+SPEC §§11-12. One file: `reference/orca.md`, 109 → **119** lines (budget
+120, one line of slack left).
+
+**New section `## The ledger read path (verified 2026-08-19)`**, placed
+between the mapping table and the browser criterion — the mapping table
+says which command does what, the read path says what comes back, so the
+two sit together above the topic sections. A four-row table (`Read` /
+`Rows at` / `Fields a parent reads`) carrying, verbatim from the
+on-machine runs:
+
+- `orca orchestration task-list --brief --json --run <run_id>` →
+  `result.tasks[]`: `id`, `run_id`, `parent_id`,
+  `created_by_terminal_handle`, `task_title`, `display_name`, `spec`,
+  `status`, `deps`, `result`, `created_at`, `completed_at`,
+  `spec_truncated` — closing with the bolded note **there is no `title`
+  field; the name is `task_title`**, in the same cell as the field list
+  so it lands where someone looking the name up will read it.
+- `orca orchestration worker-list --json --run <run_id>` →
+  `result.workers[]`: `dispatchId`, `taskId`, `runId`, `workerState`,
+  `dispatchStatus`, `agentTerminalHandle`, `terminalState`, `resource`.
+- `orca worktree list --json` → `result.worktrees[]`: `id`, `path`,
+  `head`, `branch`, `displayName`, `comment`, `linkedLinearIssue`,
+  `workspaceStatus`, `parentWorktreeId`, `childWorktreeIds`, `lineage`,
+  `git`.
+- `orca orchestration worker-show --dispatch <ctx_id> --json` →
+  `result`: `dispatch`, `worker`, `terminal`, `observation`,
+  `terminalResource`, with `worker.worktree_id`,
+  `worker.agent_terminal_handle` and `worker.effects` closing the
+  dispatch→worktree→terminal chain.
+
+The column header is **"Fields a parent reads"** rather than "all
+fields", deliberately: the live task row carries 16 keys and the live
+worktree row 36, so listing the useful subset under a header that says
+"all" would have been a new false claim in a doc whose whole point is
+that guessed names cost trust. The worker-list and worker-show lists are
+complete.
+
+**The `ctx_` rehabilitation**, four lines below the table: "Orca is the
+ledger — chain ids by rereading it. `ctx_` dispatch ids are valid input
+to `worker-show`, `worker-retain` and `worker-release` (all `--dispatch
+<dispatch_id>`): `worker-show --dispatch ctx_2b7ad61143ae --json`
+returned `ok: true` here; a contrary 2026-08-14 note is stale." The
+section heading carries the verification date for everything in it,
+including that run, which is why the sentence says "here" rather than
+repeating 2026-08-19 a second time inside the budget.
+
+**Every field name was re-run on this machine before it was written**,
+not copied on trust (the step permits re-running; the names matched the
+Evidence section below exactly):
+
+- `task-list --brief --json --run run_fafc4f70d4ac` → `ok: true`, row
+  keys as listed, and `('title' in row)` → **false**.
+- `worker-list --json --run run_fafc4f70d4ac` → `ok: true`, row keys as
+  listed.
+- `worktree list --json` → `ok: true`; 36 row keys, the twelve above
+  among them.
+- `worker-show --dispatch ctx_2b7ad61143ae --json` → `ok: true`,
+  `result` keys `dispatch, worker, terminal, observation,
+  terminalResource`; `worker` keys include `worktree_id`,
+  `agent_terminal_handle`, `effects`.
+- `worker-retain --help` / `worker-release --help` → both
+  `Usage: … --dispatch <dispatch_id> [--retry-request <id>] [--json]`.
+
+**The trim — 14 lines added, 5 freed, all from duplication** (DECISIONS
+ruling 6). The fallback-shell rule spans *two* bullets in "Worktree and
+terminal notes", so both were tightened; the decommission bullet is the
+third. No command, flag, field name or rule was dropped:
+
+| Bullet | Before | After | What moved |
+|---|---|---|---|
+| Prefer agent-first create | 4 lines | 3 | reordered so `--agent` owns the first terminal leads; "it can leave an unused fallback shell" → "it leaves a fallback shell" (the *close it* rule lives in the third bullet, and normatively in `skills/orchestrate/SKILL.md:145`) |
+| Spawn-command inheritance | 5 lines | 3 | same four facts — machine policy, global layer `~/.claude/CLAUDE.md`, never a repo, close the shell after confirming it unused ("the confirmed-unused fallback shell"); the two-step's definition now back-references the bullet above instead of restating it |
+| Decommission | 3 lines | 2 | same four facts — branch merged, card completed, close terminals, `orca worktree rm`, idle agents are debris (`SKILL.md:200-205` states it normatively) |
+
+Nothing outside those three bullets was touched, and the 72/74-column
+fill of the file is preserved (`awk '!/^\|/ && length($0) > 74'` over the
+file returns nothing; table rows were already long).
+
+Acceptance (PLAN step 4), run here verbatim:
+
+```
+node -e "const fs=require('fs');const s=fs.readFileSync('reference/orca.md','utf8');const a=s.split('\n');const n=a.at(-1)===''?a.length-1:a.length;process.exit(/task_title/.test(s)&&/agentTerminalHandle/.test(s)&&/ctx_/.test(s)&&n<=120?0:1)"
+```
+
+→ **exit 0** (119 lines).
+
+All four lane gates re-run after the edit:
+`node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+→ `0 high, 0 medium, 0 low — PASS`, exit 0;
+`node tests/run-lint-tests.mjs` → exit 0;
+`node tests/run-gen-tests.mjs` → exit 0;
+`node tests/run-eval-checks.mjs` → exit 0, `all eval checks passed`.
+
+Files changed: `reference/orca.md` (M). `git status --porcelain` shows
+that file alone; `git diff --name-only main...HEAD` (three-dot,
+DECISIONS ruling 7) lists no do-not-touch path.
+
+Concerns: none blocking. Two notes — (a) the file is at 119 of 120, so
+the next fact added to `orca.md` needs its own trim; the remaining
+compressible material is the dev-server bullet, whose `orca terminal
+create` reference duplicates the mapping table's "Long-lived process"
+row, worth ~1 line. It was left untouched because it is outside the
+duplication DECISIONS ruling 6 pre-identified. (b) The section states
+the read path only; the *rules* built on it — Orca is the ledger, never
+keep a parallel id file, the stateless shell — are SPEC §13, i.e. step
+6's `SKILL.md` passage, which will cite this section rather than repeat
+the table.
+
 ## Evidence — Orca CLI verification (2026-08-19, this machine)
 
 Every CLI claim this lane adds to the standard was produced by running
