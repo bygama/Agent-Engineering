@@ -288,6 +288,27 @@
   `· project <name>`; placeholder wording only, no contract difference,
   eval-05 is step 3's surface.
 
+- **Step 4 review — Approved** (fresh reviewer, spec ✅ compliant, no
+  Critical/Important; acceptance + self-lint re-run independently, 0).
+  Both DONE_WITH_CONCERNS items judged acceptable: (concern 1) the 178/120
+  overrun is pre-existing (149 before), unenforced by any gate, new prose
+  tight, trim correctly deferred; (concern 2) ruling 7 verified internally
+  consistent and actually implemented — no contradiction with orca.md,
+  execution.md, ADR-001, or eval-06 Run D. Minors DEFERRED to work-verify
+  triage: (m16) Sources header's "issue sits in at most one project" may
+  not be on the cited Concepts page — re-check, drop or re-cite; (m17)
+  walk-up sentence under-specifies the flat case — add "and, absent a
+  nested line, the project"; (m18) "compare the live binding against THAT
+  declaration" over-promises — say "the binding's workspace against THAT
+  declaration's workspace"; (m19) root-only vs nearest-full stated three
+  ways — pick one reading in tracker.md; (m20) work-lifecycle wording
+  reads project/initiative as exclusive while the grammar says
+  independent; (m21) FOR PARENT: eval-06 Run D doesn't grade ruling 7's
+  stricter case (no Orca, MCP present ⇒ still emit) — consider widening;
+  (m22) FOR PARENT: GitHub-plane trim of tracker.md (31 lines) + the
+  ADR-001 two-connectors tension deserve a filed follow-up so they survive
+  lane close.
+
 ## In progress
 
 ## Tried and failed
