@@ -101,8 +101,10 @@ gates exit 0.
 
 1. **The review wave** — fresh-context and adversarial rungs, NOT run here
    (see `## Verification`). 1 ballena per the dispatch config.
-2. **The merge** — this lane never merges, and has not rebased onto fresh
-   main; say the word and it rebases.
+2. **The merge** — this lane never merges. It HAS now been rebased onto
+   fresh main (`f8c340e`) at the parent's request, re-verified there, and
+   force-pushed with `--force-with-lease`; see the rebase block under
+   `## Verification`.
 3. **Terminal lane close** — removing `work/mat-91-portability/` after the
    merge, as with MAT-44 and MAT-87.
 4. **Four reported findings** — see `## Reported to the parent` above; the
@@ -115,6 +117,59 @@ three local calls, including why the `<repo>` token differs from the
 brief's literal and why the `docs/plans/` hit was left alone.
 
 ## Verification
+
+### 2026-08-19 — rebase onto fresh main — RE-VERIFIED
+
+Rebased `9fc4bda` → **`f8c340e`** (`origin/main`, sibling lint lane
+MAT-89/MAT-92 merged). Clean: 10 commits replayed, no conflict, no file
+overlap — the sibling touched `scripts/agent-lint.mjs`, `tests/**`,
+`reference/skills.md`, `docs/how-it-works/standard-lifecycle.md` and its own
+lane, none of which this lane owns. Rebased head **`4e51196`**.
+
+Four gates on the rebased tip, all exit 0:
+
+```
+node scripts/agent-lint.mjs . --ignore tests,templates,global,examples
+  → 0 high, 0 medium, 0 low — PASS                       exit 0
+node tests/run-lint-tests.mjs   → all 20 cases passed    exit 0
+node tests/run-gen-tests.mjs    → all gen cases passed   exit 0
+node tests/run-eval-checks.mjs  → all eval checks passed exit 0
+```
+
+**What changed vs the pre-rebase run, and what did not.** `run-lint-tests`
+reports **20 cases, not 16** — the sibling lane added four fixtures
+(`entry-skill-ok`, `entry-skill-bloat`, `cmd-escaping`, `cmd-inrepo-drift`).
+The blocks below this one say 16 and were correct for base 9fc4bda; they are
+left as written rather than back-edited. `agent-lint`'s own output is
+**unchanged** (`0 high, 0 medium, 0 low — PASS`) — the sibling's cmd-drift
+rework did not alter this tree's findings.
+
+**Invariant 1 — using-ae still 79.** `wc -l` → 79, `skill-authoring` row
+present. It is now enforced by a real check rather than by discipline:
+`scripts/agent-lint.mjs:211-216` defines `ENTRY_SKILL_CAP = 80` and emits
+`entry-skill-cap` at MEDIUM.
+
+That the check *fires on this file* was proven, not assumed — pushing the
+real file to 82 lines and re-running:
+
+```
+MEDIUM skills/using-ae/SKILL.md  82 lines — the always-loaded entry skill
+  must stay ≤80  [entry-skill-cap]
+0 high, 1 medium, 0 low — FAIL
+```
+
+Reverted immediately (`git checkout --`); tree byte-identical to the commit
+afterwards. So 79 passes because it is under the cap, not because the check
+is silent or blind to this path.
+
+**Invariant 2 — the fence, expressed three-dot.**
+`git diff --name-only origin/main...HEAD` lists **exactly the 14 files this
+lane owns** and nothing else. Post-rebase the two-dot form now agrees (also
+14), because the rebase makes `origin/main` a true ancestor of HEAD — the
+divergence the reviewer flagged was an artifact of the stale base, and
+rebasing is what resolved it rather than a change to the command's claim.
+Three-dot remains the correct form to state it in, since it is the one that
+stays honest if the branch goes stale again.
 
 ### 2026-08-19 — M DoD — PASS on the executable layers; review rung OWED
 
