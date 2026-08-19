@@ -63,3 +63,9 @@
   invites a cross-lane collision the parent sequenced away. Surfaced to
   the parent in worker_done for a filed follow-up; the reviewer's own
   triage agrees (follow-up ticket, not a lane re-open).
+- 2026-08-18 — Ruling 11 (controller, handoff mode): the lane folder
+  SURVIVES this handoff — no closing-removal commit. — This is a
+  supervised child handing to its parent, not a terminal close: the
+  worker_done report-path points at this lane's PROGRESS.md, and the
+  parent's adversarial wave + capped fix loop may still land findings
+  here. Terminal close (lane removal) is the parent's, at merge.

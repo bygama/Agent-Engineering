@@ -518,7 +518,14 @@
 
 ## Next
 
-- Execute PLAN steps 1-8 via work-run (fresh subagent per step).
+(Child side complete: 8/8 steps done+reviewed, work-verify PASS, F1-F5
+passing. What remains is the PARENT's: adversarial wave on the open PR,
+any fix-loop findings back to this lane, rebase onto fresh main on the
+parent's request, merge, terminal lane close. Follow-ups surfaced for
+the parent to file: ae-audit checklist.md:59 monorepo row (ruling 10),
+tracker.md GitHub-plane trim + ADR-001 two-connectors note (m22),
+eval-06 Run D widening (m21), retired per-app vocabulary sweep (m4),
+workstation installer re-run to propagate global/CLAUDE.md.)
 
 ## Verification
 
