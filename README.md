@@ -289,6 +289,14 @@ task needs it; the hook only saves that first lookup. The canonical
 wiring snippet — the hook script plus the settings entry that calls it —
 lives at `global/hooks/README.md`.
 
+`global/CLAUDE.md` is a **seed**, not a drop-in file: this repo's own
+copy carries the owner's real machine policy (working style, safety
+rules, Orca spawn rules) — useful because it is lived-in, not generic.
+Copy it, strip the owner-specific lines (chat language is the clearest
+one), and edit the rest into your own policy before applying it to your
+runner's global config. Never point a runner straight at this repo's
+`global/CLAUDE.md`, and never apply it verbatim.
+
 None of this depends on any other repo.
 [bygama/workstation](https://github.com/bygama/workstation) is the
 owner's own reference implementation of this machine layer — a real

@@ -734,6 +734,62 @@ Minor findings deferred to the lane gate (work-verify triage):
 - ⚠️ carried to the lane gate: prose instruction — only a graded read of
   eval-07 against a real install proves the emitted text, not the gates.
 
+### Step 7 DONE — README names global/CLAUDE.md as a copy-and-edit seed
+
+`README.md` §Adopting AE on your own machine gains one new paragraph
+between the SessionStart-injection paragraph and the closing
+"None of this depends on any other repo" line. Until this step the
+section described how to get the *skills* onto a runner and never
+mentioned `global/CLAUDE.md` (the machine-policy file) at all.
+
+New paragraph:
+
+> `global/CLAUDE.md` is a **seed**, not a drop-in file: this repo's own
+> copy carries the owner's real machine policy (working style, safety
+> rules, Orca spawn rules) — useful because it is lived-in, not generic.
+> Copy it, strip the owner-specific lines (chat language is the clearest
+> one), and edit the rest into your own policy before applying it to your
+> runner's global config. Never point a runner straight at this repo's
+> `global/CLAUDE.md`, and never apply it verbatim.
+
+Checked before writing rather than assumed: `global/CLAUDE.md` itself
+(the file's actual content — Language/Safety/Working
+style/Placement/Orca agent spawns) confirms "Chat in rioplatense
+Spanish" is the clearest owner-specific line (matches the SPEC
+parenthetical verbatim), while Safety/Working style/Placement read as
+generic practice any adopter could keep. `docs/how-it-works/architecture.md:123-130`
+("`global/` — what belongs in the global layer?") and its map note
+(`:31-33`, "a separate machine-setup mechanism applies its content
+straight to `~/.claude`") already describe the owner's own installer
+mechanism and are not contradicted by this paragraph — the new text
+addresses a different audience (a third-party adopter with no such
+installer), so no chapter update is owed.
+
+Acceptance:
+
+```
+$ grep -qi "seed" README.md && node scripts/agent-lint.mjs . --ignore tests,templates,global,examples
+agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-83-84-scale-polish
+0 high, 0 medium, 0 low — PASS
+EXIT=0
+```
+
+Other three gates re-run as insurance (none reads README, but the lane
+constraint wants them green): `node tests/run-lint-tests.mjs` → "all 16
+cases passed"; `node tests/run-gen-tests.mjs` → "all gen cases passed";
+`node tests/run-eval-checks.mjs` → "all eval checks passed" (ae-init: 7
+evals well-formed). Combined exit 0.
+
+No `docs/how-it-works/` chapter needed updating: pure README prose
+addition, no structural or behavioral change — `architecture.md`'s
+existing global/ description already covers the owner's installer
+mechanism and stays accurate.
+
+Files changed: `README.md` (+7 lines, one new paragraph);
+`work/mat-83-84-scale-polish/PLAN.md` (step 7 ticked).
+
+Concerns: none.
+
 ## In progress
 
 ## Tried and failed
