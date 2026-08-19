@@ -98,6 +98,14 @@ exits 0 (`0 high, 0 medium, 0 low — PASS`) — the new fixtures live under
 12→5, 6→6) is worked out above for step 2's implementer to check against;
 step 2 itself is out of scope here.
 
+**Step 1 review (fresh reviewer, 2026-08-19):** ✅ spec-compliant ·
+Approved. Reviewer independently re-ran the acceptance command (same
+output, exit 1, one FAIL) and per-fixture `--json` lints (each fixture:
+exactly one `pointer-shape` finding; raw counts 7/12/6 confirmed). One
+Minor deferred to work-verify triage: `pointer-unfenced` /
+`pointer-unclosed` cases carry no broad `forbid` list (weaker regression
+trap than `v2-clean`/`v1-style` convention; not required by SPEC §2).
+
 ## Notes
 
 - docs/how-it-works survey (brief item 4): `standard-lifecycle.md` is the
