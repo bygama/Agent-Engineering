@@ -56,10 +56,18 @@
   docs/how-it-works/execution.md` → exit 0; `git diff --name-only main --
   docs/how-it-works/ | grep -q standard-lifecycle` → exit 1 (only
   execution.md touched in that tree).
+- 2026-08-19 — Step 6 DONE. Four-gate sweep, all exit 0 (evidence in
+  `## Verification`), plus the do-not-touch guard: `git diff --name-only
+  main | grep -E '^(README\.md|reference/tracker\.md|CHANGELOG\.md|skills/ae-init/|docs/how-it-works/standard-lifecycle\.md|\.claude/skills/docs-sweep/)'`
+  → exit 1, no forbidden file in the diff. Files changed vs main:
+  `docs/how-it-works/execution.md`, `skills/orchestrate/SKILL.md`,
+  `skills/orchestrate/evals/eval-01.md`, `skills/using-ae/SKILL.md`,
+  `skills/using-ae/evals/eval-01.md`, `skills/using-ae/evals/eval-05.md`,
+  plus this lane's four files.
 
 ## In progress
 
-- Step 6 — gate sweep + evidence.
+- Nothing. All 6 PLAN steps done; work-verify next, then push + PR.
 
 ## Tried and failed
 
@@ -70,8 +78,13 @@
 
 ## Next
 
-- Parent approves SPEC → shape PLAN.md → work-run → work-verify →
-  work-handoff → push + PR (`Closes MAT-85`), never merge.
+- work-verify (M DoD) → work-handoff → push + PR (`Closes MAT-85`), never
+  merge; then `worker_done` to the parent.
+- For the parent, not this lane: `README.md`'s skill-table gloss for
+  orchestrate still reads "a Run-bound parent session takes M+ work", the
+  same stale reading fixed everywhere else here. README is on this lane's
+  do-not-touch list (sibling lane `mat-83-84-scale-polish` in flight), so it
+  is reported rather than edited — DECISIONS ruling 3.
 
 ## Verification
 
