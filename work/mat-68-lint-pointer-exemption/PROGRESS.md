@@ -201,9 +201,30 @@ decision; (b) the finding message can read "has 1 lines" — pre-existing
 phrasing shared with every other `${n} lines` message in the script, left
 alone to keep this diff to the step.
 
+**Step 2 review (fresh reviewer, capable tier, 2026-08-19):** ✅
+spec-compliant · Approved. Reviewer re-ran both acceptance commands
+(exit 0, pristine output) and probed the helper verbatim against 22
+inputs — matched-pair semantics, first-END-wins, unmatched BEGIN,
+blank-run padding, multiple blocks, CRLF, degenerate empty file, and
+`@AGENTS.md`-only-inside-a-block all behave per SPEC §1; confirmed every
+other check still reads files as written. Minors deferred to work-verify
+triage: (a) `n === rawCount(f)` re-reads the file for a cosmetic suffix;
+(b) binding named `of` reads as a keyword; (c) padding comment could say
+"any run of blank lines" explicitly; (d) coverage suggestion — a fixture
+pinning `@AGENTS.md`-only-inside-the-block would guard containment
+against future refactors.
+
 ## Notes
 
 - docs/how-it-works survey (brief item 4): `standard-lifecycle.md` is the
   only chapter enumerating the pointer rule (lines 42, 48-51);
   `architecture.md:116` names "pointer shape" as a category only — no
   enumeration, left untouched.
+- Step 2 reviewer's out-of-scope observation, recorded for the parent /
+  downstream remediation (SPEC "Out of scope"): the `read-order` check
+  still scans tool-managed block interiors (correct per SPEC §1's
+  "Untouched" clause), so a real `nextjs-agent-rules` block containing a
+  "read X before Y"-shaped phrase would still raise a `read-order` high
+  on the pointer file — the pointer exemption alone may not clear every
+  documented high in Kiosco-Diagonal / ecotronk; check the actual block
+  content there before declaring those highs remediable.
