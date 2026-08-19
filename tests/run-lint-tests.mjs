@@ -80,7 +80,13 @@ const cases = [
     path: fx("cmd-escaping"),
     fail: false,
     expect: ["cmd-drift"],
-    expectMatch: ["escapes the repo", "sibling checkout"],
+    expectMatch: [
+      "escapes the repo",
+      "sibling checkout",
+      // An absolute path escapes too — same branch, and the message has
+      // to fit it as well as the `../<sibling>/…` shape.
+      "/opt/absent-toolchain/tool.mjs escapes the repo",
+    ],
   },
   {
     // Regression guard, green from birth: the drift cmd-drift was born
@@ -90,7 +96,13 @@ const cases = [
     path: fx("cmd-inrepo-drift"),
     fail: true,
     expect: ["cmd-drift"],
-    expectMatch: ["file not found: scripts/missing.mjs"],
+    expectMatch: [
+      "file not found: scripts/missing.mjs",
+      // `..config/` is an in-repo directory whose NAME begins with two
+      // dots. A prefix test on the relative path reads it as `../` and
+      // downgrades real drift; the escape test compares path segments.
+      "file not found: ..config/tool.mjs",
+    ],
   },
   {
     // The boundary: exactly at the cap reference/skills.md states, so the

@@ -14,6 +14,7 @@ Tiers: S direct+verify · M lane+plan · L four files+feature list · XL fan-out
 
 - Self-lint: `node ../sibling-toolchain/scripts/agent-lint.mjs .`
 - Smoke: `node scripts/present.mjs`
+- Vendored: `node /opt/absent-toolchain/tool.mjs`
 
 ## Gotchas
 

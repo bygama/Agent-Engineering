@@ -12,8 +12,12 @@ Tiers: S direct+verify · M lane+plan · L four files+feature list · XL fan-out
 ## Commands
 
 - Migrate: `node scripts/missing.mjs`
+- Tooling: `node ..config/tool.mjs`
 
 ## Gotchas
 
 - The script was deleted and the command was never updated — the drift
   cmd-drift was born to catch.
+- `..config/` is an in-repo directory whose NAME starts with two dots —
+  it does not escape anything, and the escape test must not read it as
+  a `../` prefix.
