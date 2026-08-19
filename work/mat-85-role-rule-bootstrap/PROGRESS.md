@@ -90,7 +90,7 @@
 
 ## In progress
 
-- Nothing. All 6 PLAN steps done; work-verify next, then push + PR.
+- Nothing. All 6 PLAN steps done, M DoD PASS recorded above.
 
 ## Tried and failed
 
@@ -113,6 +113,49 @@
   flight), so both are reported rather than edited — DECISIONS ruling 3.
 
 ## Verification
+
+### 2026-08-19 — M DoD — PASS
+
+- **L1 static:** `node scripts/agent-lint.mjs . --ignore
+  tests,templates,global,examples` → exit 0 (`0 high, 0 medium, 0 low —
+  PASS`).
+- **L2 behavioral:** `node tests/run-lint-tests.mjs` → exit 0 (`all 16
+  cases passed`); `node tests/run-gen-tests.mjs` → exit 0 (`all gen cases
+  passed`); `node tests/run-eval-checks.mjs` → exit 0 (`ok   using-ae: 5
+  evals well-formed`, `ok   orchestrate: 4 evals well-formed`). Starts:
+  `global/hooks/using-ae.ps1` run the way SessionStart invokes it, from a
+  staged junction-shaped layout → exit 0, empty stderr, stdout = the one
+  header line plus this lane's `SKILL.md` verbatim; the emitted text
+  carries the seat rule, the detection command and the new red-flag row,
+  and `No bound Run` is absent. The single trailing newline the hook adds
+  reproduces identically against `main`'s SKILL.md — pre-existing, not
+  introduced here.
+- **L3 end-to-end:** the rule's own detection flow executed, not read.
+  `git rev-parse --path-format=absolute --git-dir --git-common-dir` in
+  four positions → identical paths at the main checkout's root and in a
+  subdir of it (parent seat), differing paths at this worktree's root and
+  in a subdir of it (not a parent) — the documented outcome in all four.
+  Orca's independent `isMainWorktree` agrees on every worktree of this
+  repo (main `true`, all three children `false`). The reported trigger
+  reproduced live in this session: `orca orchestration run-current --json`
+  → `"run": null`.
+- **Budget:** `wc -l < skills/using-ae/SKILL.md` → 72 (SessionStart cap 80).
+- **Scope guard:** `git diff --name-only main...HEAD | grep -E
+  '^(README|reference/tracker|CHANGELOG|skills/ae-init/|docs/how-it-works/standard-lifecycle|\.claude/skills/docs-sweep/)'`
+  → exit 1; the branch's own files are the 6 lane surfaces plus this
+  lane's 4 files, nothing else.
+- **Fresh-context review:** PASS — 0 Critical, 2 Important (the
+  main-worktree seat lacked an exclusion clause so seats 1 and 2 could both
+  match with no stated precedence; `using-ae`'s eval-04 still graded
+  routing by the binding). Both fixed in this lane rather than deferred
+  (rulings 5-6), plus all five minors.
+- **Scoped re-review, round 1:** finding 1 and minors 3-7 ADDRESSED;
+  finding 2 NOT ADDRESSED — caught that the eval-01 half had silently
+  no-op'd on a bad anchor (ruling 8). **Round 2:** "All findings addressed,
+  no new Critical/Important breakage", with cross-eval consistency checked
+  across eval-01/04/05 and the SKILL's Role rule.
+- **Adversarial review:** n/a at M — the parent dispatches 1 ballena after
+  `worker_done`, per this dispatch's config.
 
 <!-- PASS evidence only, written by work-verify (newest on top); the close
      handoff refuses to close a lane without a current PASS block here. -->

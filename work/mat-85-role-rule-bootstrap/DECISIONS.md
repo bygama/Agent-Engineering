@@ -98,3 +98,13 @@
   says "bound Run redirects" or "Because the session is Run-bound"
   (exit 1). Standing consequence for this lane: every scripted edit asserts
   its anchor — an edit that cannot fail loudly is not evidence.
+- 2026-08-19 — Ruling 9: work-handoff closes this lane WITHOUT removing the
+  lane folder, against the skill's default. Two reasons, both house
+  convention: the parent's adversarial reviewer (1 ballena, dispatched
+  after `worker_done`) reads SPEC/PLAN/PROGRESS/DECISIONS from the branch,
+  so deleting them here would delete the reviewer's context package; and in
+  this repo lane removal is the PARENT's terminal-close step after merge,
+  not the child's — precedent `1ee598e` ("terminal close — finalize-then-
+  remove the MAT-82 and MAT-68 lane records"), which removed two merged
+  lanes in one parent commit. The lane's final state IS committed first, as
+  the skill requires, so the evidence is in history either way.
