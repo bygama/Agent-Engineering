@@ -286,10 +286,20 @@ execution truth flows repo → tracker (status changes and comments happen
 only after verification passes). The **respect rule** (1.3.1,
 `reference/tracker.md`): before any tracker write, the agent compares its
 live binding — which workspace its MCP or API key actually sees — against
-the repo's one-line `Tracker:` declaration in AGENTS.md; a mismatch or an
-unresolved binding means NO write, the operation is emitted for the
-operator instead. Nobody hand-edits both planes for the same fact, and
-nothing lands in a workspace the repo never declared.
+the **nearest** declaration, walking up from the file it is working on; a
+mismatch or an unresolved binding means NO write, the operation is emitted
+for the operator instead. Nobody hand-edits both planes for the same fact,
+and nothing lands in a workspace the repo never declared.
+
+Nearest, not root, because the declaration is hierarchical: the root
+`Tracker:` line names the workspace, the team, and — depending on the
+repo's shape — either its single project or the initiative the whole repo
+rolls up to, while a nested AGENTS.md may add one `Tracker-project:` line
+naming its own domain's project and inherit workspace and team from above.
+A flat repo's walk lands on the root line and nothing changes; a deep
+monorepo gets a per-domain answer to "where does this issue belong" without
+repeating the binding in every file. `reference/tracker.md` owns the format
+— that section is the single definition, cited here, not restated.
 
 The coupling is optional by construction: the `issue:` frontmatter field and
 the key-in-slug convention are affordances. A repo with no tracker runs the
