@@ -130,6 +130,89 @@ work-verify triage** (work-run: minors never enter the fix loop):
    (its consequences, not the slot's shape); worth a check when step 3
    lands.
 
+### Step 2 — `dispatch-child.md`, the child-side clauses (2026-08-19)
+
+One file touched: `skills/orchestrate/references/dispatch-child.md`.
+`reviewer.md` untouched, as the step requires.
+
+Inside the fence (the text every child is dispatched with):
+
+- **§ No grandchildren rewritten** (SPEC §§1-3), retitled "No
+  grandchildren — and the reviewers you DO run" so the heading itself
+  carries both sides. Four beats: orchestration workers FORBIDDEN
+  (`worker-start`, Tasks, Dispatches, anything carrying `worker_done`
+  authority; a child never births a child) with the sibling-Task escape
+  kept; the child's own in-session subagents REQUIRED at their tiers
+  (work-run's per-step reviewer, work-verify's step-4 fresh-context
+  review — same worktree, same session, sequential, invisible to Orca),
+  with the parent's adversarial reviewer named as an ADDITIONAL
+  cross-model seat and never a substitute; fence-READ vs
+  refusal-OBSERVED, including the "not available to you until you have
+  attempted it" line; and the genuine-refusal branch — step 4 recorded
+  **NOT RUN** in PROGRESS.md with the runtime's exact refusal text
+  quoted, reported to the parent, closed visibly by the parent's
+  reviewer, never self-certified and never a PASS with the rung silently
+  missing.
+- **The absolute clause is gone.** The old closing "…ask the parent for
+  a sibling Task instead of spawning anything yourself" was the string
+  three of four children read as a total ban; `grep -in
+  "spawn|yourself|anything itself"` over the file now returns only
+  benign uses ("orchestrate's child spawn" in the wrapper prose, and
+  "read your ticket yourself" / "push the PR yourself" / "run `orca
+  orchestration check` yourself" / "report `worker_done` yourself").
+  This is the ABSENCE eval-01:73 grades.
+- **Verdict recorded verbatim** (SPEC §3): the in-session reviewer's
+  verdict TEXT — the PASS/FAIL line and its findings — pasted into
+  PROGRESS.md or DECISIONS.md, with MAT-46's "the re-review returned
+  CONFIRMED" named as the failure being graded.
+- **§ Heartbeat phases extended** with SPEC §5's cadence: beat at every
+  phase transition AND at least every ~10 minutes while one phase runs
+  long, with a repeated phase named as a valid signal rather than noise,
+  and the consequence stated (beating only at transitions lets a healthy
+  lane go dark for an hour and reads as idle from the parent's seat).
+  The existing vocabulary paragraph is unchanged — the cadence is a
+  second paragraph beside it, not a rewrite of MAT-62's fix.
+
+Outside the fence: a **`## Contents` table of contents** (DECISIONS 5;
+`reference/skills.md` line 25 — reference files >100 lines start with
+one). It sits in the wrapper prose above the fence, so the dispatched
+text is byte-identical to what a child would have received without it,
+and it lists the nine fenced sections plus the Placeholders block, with
+one line marking which side of the fence is authoring notes. Plain-text
+bullets, following `ae-audit`'s `checklist.md`; anchor links would not
+resolve, since the fenced headings are not markdown headings.
+
+No new placeholder was introduced, so the **Placeholders:** list is
+unchanged — `[REPO_CONSTRAINTS]` is step 3's interface change, not this
+step's. File grew 125 → 179 lines; skill reference files carry no
+≤120-line budget (that is `reference/`, SPEC line 173), only the TOC
+rule this step satisfies.
+
+Acceptance (PLAN step 2), both run here:
+
+- `node -e "const s=require('fs').readFileSync('skills/orchestrate/references/dispatch-child.md','utf8');process.exit(!/never spawning anything yourself/.test(s) && /in-session/.test(s) && /verbatim/.test(s) && /10 minutes/.test(s) && /\[LANE_PATH\]/.test(s) && /\[TASK_BRIEF\]/.test(s) ? 0 : 1)"`
+  → exit 0
+- `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  → `0 high, 0 medium, 0 low — PASS`, exit 0
+
+Other lane gates re-run at this step (not this step's acceptance, but the
+lane keeps them green): `node tests/run-eval-checks.mjs` → exit 0,
+`ok   orchestrate: 5 evals well-formed`; `node tests/run-lint-tests.mjs`
+→ exit 0; `node tests/run-gen-tests.mjs` → exit 0.
+
+Files changed: `skills/orchestrate/references/dispatch-child.md` (M).
+`git status --porcelain` shows that file alone — no do-not-touch path in
+the diff.
+
+Concerns: none blocking. Two notes for later steps — (a) the fenced text
+a child pays for grew by ~45 lines, which is the cost of the URGENT
+ticket's content; if a later reviewer wants it shorter, the
+fence-vs-refusal paragraph is the compressible one, not the two-sides
+paragraph. (b) `skills/work-run/references/step-reviewer.md` is 111 lines
+with no TOC — the same pre-existing drift DECISIONS 5 fixed here, on a
+file this lane does not own; worth a follow-up ticket rather than a
+silent fix inside this PR.
+
 ## Evidence — Orca CLI verification (2026-08-19, this machine)
 
 Every CLI claim this lane adds to the standard was produced by running
