@@ -52,6 +52,9 @@ The global layer is the one exception: `~/.claude/CLAUDE.md` (H1
 `# Global instructions`, ≤40 lines) is its own canon — user identity, safety,
 working style — and is not a pointer.
 
+A fenced tool-managed block does not count against the line budget — the lint's
+`pointer-shape` check settles what qualifies as one.
+
 ## Nesting: a directory earns its own file
 
 AGENTS.md files nest at any depth — `apps/web/`, `packages/ui/core/`,
