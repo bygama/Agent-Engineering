@@ -118,3 +118,17 @@
   lines) plus the 80-line entry-skill cap on `using-ae`; shaping goes
   110 → 117 and skill-authoring 186 → 193, both far under, and neither
   is the entry skill.
+- 2026-08-19 — Step 5, `reference/skills.md` trim to make room for the
+  stance rule: cut the trailing clause "and two protocols over the same
+  information is permanent friction" from the ADR-004 paragraph in
+  "Composing with process-skill suites" — it restates, in substance,
+  the "One artifact set, never two." sentence two paragraphs above; the
+  paragraph's load-bearing content (which house skill owns which
+  artifact-producing phase, and that the suite's own tooling is not
+  used) is unaffected. Saves exactly 1 line. The new stance-rule
+  sentence was then written as a 2-line continuation of the existing
+  "Supersession redirects a chain..." paragraph (no new blank-line
+  paragraph break, since it caps the same porting/supersession topic;
+  splitting it into its own paragraph would have cost a 3rd line via
+  the blank-line separator and blown the budget). Net: 119 → 120 lines
+  (`wc -l`), landing exactly at the 120-line budget.
