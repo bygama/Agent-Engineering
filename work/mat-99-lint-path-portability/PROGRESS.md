@@ -165,3 +165,28 @@
   templates/ files at all, so step 2's fenced-block skip logic is proven on
   one surface only." Reviewer independently re-ran the suite (1/22 red,
   exit 1) and both fixtures standalone (zero findings each).
+
+- 2026-08-19 — Step 2 review (fresh reviewer, opus). Verdict verbatim:
+  "### Spec compliance / ✅ Compliant — every element of the step is present
+  and the acceptance claim reproduces." · "**Step quality:** Approved" ·
+  "**Reasoning:** The check implements the SPEC's three classes exactly,
+  with the skip-not-strip semantics and the severity rationale the parent
+  ruling demanded, and both acceptance commands plus the two untouched
+  gates reproduce green from a clean tree; independent probing of the
+  false-positive surface (URLs, ~/, /opt, /api/users, /mnt/data) and of
+  the fenced-block skip on a second surface found no defect. Both judgment
+  calls are minimal responses to real problems in this codebase's walk
+  semantics, not speculative generality." Issues: none Critical/Important;
+  six Minors, verbatim in short form: (1) prose ABOUT drive paths on a
+  shipped surface fires — advise placeholder `X:\…` when illustrating the
+  defect (carried into step 3's chapter text); (2) single-letter-token FPs
+  (`sed 's:/usr:/opt:'`) — contrived, zero corpus hits, on record only;
+  (3) space-truncated quote reads oddly (`C:\Program`) — cosmetic;
+  (4) whole-file read before NUL bail — cheap pre-filter if ever needed;
+  (5) `/mnt/c` without trailing slash not flagged — deliberate non-hole
+  per SPEC literal; (6) UTF-16 markdown skipped by NUL heuristic —
+  consistent with the UTF-8-everywhere lint. Reviewer re-ran all four
+  gates green from a clean tree and inspected fixture JSON directly.
+  Step-1 minor (fenced-block skip pinned on one surface) answered
+  empirically by the reviewer's probe on reference/ — committed-fixture
+  pin still deferred to work-verify triage.
