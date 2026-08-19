@@ -873,6 +873,51 @@ all eval checks passed
 EXIT=0
 ```
 
+### Lane-gate finding fix — eval-06.md preamble paraphrase
+
+Fresh-context reviewer finding (confirmed): `skills/ae-init/evals/eval-06.md:4-5`
+still said "Linear's model is strict (Issue ⊂ Project ⊂ Initiative)" — the
+exact contradicted paraphrase SPEC item 4 fixed in `reference/tracker.md`
+(step 1). A repo-wide grep for the old paraphrase returned exactly this one
+hit, confirmed both before and after the fix.
+
+Changed: the phrase now reads "an issue can be added to only one project,
+while an initiative can hold several" — tracks `reference/tracker.md`'s
+corrected citation (issue belongs to a team, can be added to a project;
+initiative can contain multiple projects) — while preserving the preamble's
+argument unchanged: because a flat single project would still bucket every
+domain's issues together, the fitting shape is an initiative for the repo
+with a project per domain. Rewrapped the paragraph (lines 3-11) to the
+house ~78-col width since the new phrase's length shifted the wrap points;
+no other line, section or file touched.
+
+Acceptance:
+
+```
+$ node tests/run-eval-checks.mjs
+ok   ae-audit: 4 evals well-formed
+ok   ae-init: 7 evals well-formed
+ok   loop-setup: 5 evals well-formed
+ok   orchestrate: 4 evals well-formed
+ok   shaping: 4 evals well-formed
+ok   using-ae: 4 evals well-formed
+ok   work-handoff: 6 evals well-formed
+ok   work-plan: 5 evals well-formed
+ok   work-run: 4 evals well-formed
+ok   work-verify: 6 evals well-formed
+ok   .claude/docs-sweep: 3 evals well-formed
+ok   .claude/release: 4 evals well-formed
+all eval checks passed
+EXIT=0
+
+$ node scripts/agent-lint.mjs . --ignore tests,templates,global,examples
+agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-83-84-scale-polish
+0 high, 0 medium, 0 low — PASS
+EXIT=0
+```
+
+Files changed: `skills/ae-init/evals/eval-06.md` (+8/−8, lines 3-11).
+
 ## In progress
 
 ## Tried and failed

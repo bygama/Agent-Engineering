@@ -1,14 +1,14 @@
 # Eval 06: fresh install in a deep monorepo — hierarchical tracker
 
 Origin failure: a deep monorepo that declares one flat project drops every
-issue from every domain into the same bucket, and Linear's model is strict
-(Issue ⊂ Project ⊂ Initiative), so the shape that fits is an initiative for
-the repo with a project per domain. Deriving that by interview costs one
-question per domain — friction long enough to get answered "skip", after
-which the repo has no declaration at all. The layout already says what the
-structure should be: ae-init reads it, proposes the whole thing, and asks
-for one approval (`reference/tracker.md`, "Which workspace — the repo
-declares, tools obey").
+issue from every domain into the same bucket, and an issue can be added to
+only one project, while an initiative can hold several, so the shape that
+fits is an initiative for the repo with a project per domain. Deriving that
+by interview costs one question per domain — friction long enough to get
+answered "skip", after which the repo has no declaration at all. The layout
+already says what the structure should be: ae-init reads it, proposes the
+whole thing, and asks for one approval (`reference/tracker.md`, "Which
+workspace — the repo declares, tools obey").
 
 ## Query
 
