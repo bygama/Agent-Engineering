@@ -166,19 +166,27 @@ the ballena needs custom argv, so it takes the two-step launch:
 orca worktree create --name <slug>-review-<seat> --base-branch <lane-branch> \
   --parent-worktree active --setup run --json
 orca terminal create --worktree id:<review_worktree_id> \
-  --command "opencode -m opencode-go/deepseek-v4-flash" --json   # reference/runners.md
+  --command "opencode -m opencode-go/deepseek-v4-flash --auto" --json   # reference/runners.md
 orca terminal wait --terminal <handle> --for tui-idle --timeout-ms 60000 --json
 orca orchestration worker-start --task <review_task_id> --terminal <handle> --json
 ```
 
 `<seat>` numbers each reviewer (`r1`, `r2`, …) so N>1 agreed reviewers
 never collide on one worktree name. No OpenCode Go auth on the machine ⇒
-same launch with `-m opencode/deepseek-v4-flash-free`, the no-auth
+same launch with `-m opencode/deepseek-v4-flash-free --auto`, the no-auth
 fallback (`reference/runners.md`). The two-step create can leave an
 unused fallback startup shell behind; where it does, closing it is a
 **required step**, not advice — confirm that shell is actually unused
 first (`orca terminal list --worktree <sel> --json` shows both), never
 close it blindly, never leave it running as debris.
+
+**Review-seat stall clock.** A ballena reviewer cannot heartbeat, so step
+5's cadence rule cannot reach it — it is watched against a threshold
+instead: 20-45 minutes is a normal review; 75+ minutes with an empty
+orchestration transcript and `latestCursor: 0` is a stall, never a slow
+review. Recovery: `worker-stop`, then remove the review worktree, then
+`task-update --status ready`, then launch a fresh seat — never left
+waiting past the threshold, never nursed on the same stalled seat.
 
 The verdict is the PASS/FAIL line in the reviewer's `worker_done` **body**;
 `--outcome` reports only whether the review itself finished. Route on the
