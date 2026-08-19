@@ -190,8 +190,12 @@ rather than staying silent.
   verbatim. A fill has exactly two legal outcomes here: the section
   carrying that block, or the whole `## Repo constraints` section
   deleted — heading and closing paragraph included, not just the slot.
-  A section left standing with nothing in it is a placeholder that
-  survived
+  The omit is one executable cut, not a judgment call: **delete every
+  line from `## Repo constraints` through the blank line before
+  `## Push and PR`**. A section left standing with nothing in it is a
+  placeholder that survived, and a bracket scan passes it — so the
+  generator's fail-on-placeholder check here is "`## Repo constraints`
+  absent, OR `[REPO_CONSTRAINTS]` replaced", never brackets alone
 
 **Child reports via `worker_done`:** outcome (succeeded/failed), the
 changed files, a report path into its own PROGRESS.md, and the PR URL —

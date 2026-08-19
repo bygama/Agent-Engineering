@@ -164,6 +164,57 @@ now use `main...HEAD`. This matters beyond this lane: any lane in a
 multi-lane wave that fences itself with a two-dot diff against a moving
 `main` inherits the same false positive.
 
+## 8. F01's verification command was corrected AT VERIFY TIME — and why that is not cheating
+
+work-verify ran the five feature-list commands and F01 came back **exit 1**.
+Diagnosis before any edit: the content requirement was met and the *check*
+was wrong, in two independent ways.
+
+- `/NOT RUN/` searched for a literal. The template says exactly that at
+  `dispatch-child.md:104-105` — but step 7's reflow wrapped the line
+  between `NOT` and `RUN`, so the regex was measuring **where the line
+  broke**, not whether the branch existed.
+- `/runtime refusal/i` searched for a two-word phrase the fix round had
+  replaced with better wording: "A refusal is what you OBSERVED the
+  runtime do once you tried."
+
+Changing a failing check to make it pass is the anti-pattern this repo
+exists to prevent, so the correction was made in the direction that makes
+the check HARDER, and proved:
+
+- whitespace-normalized the haystack (`.replace(/\s+/g,' ')`) so line
+  wrapping cannot decide the verdict;
+- concept-anchored the refusal clause on `/refusal/i` **and** `/OBSERVED/`
+  — two signals where there was one phrase;
+- **replaced the vacuous clause.** `!/never spawning anything yourself/`
+  was the guard the step-2 reviewer found could never bite: the string
+  actually removed was "instead of spawning anything yourself", so the
+  clause would have passed on the untouched file. It is now
+  `!/spawning anything (yourself|itself)/i`, which does grade the
+  absence.
+
+**Proof it is a real test, run here:** the corrected command exits **1**
+against the pre-lane file (`git show 9fc4bda:…/dispatch-child.md`) and
+**0** against the current one. A check that is red before the change and
+green after is a test; the old one was neither.
+
+**Addendum (fresh-context review) — the JSON escaping of that fix.** The
+first encoding wrote `\\\\s+` in the JSON string, which decodes to `\\s+`,
+so the shell handed node `/\\s+/` — a literal backslash followed by `s`.
+POSIX `sh` collapses it back to `/\s+/` inside double quotes and the check
+passed; `cmd.exe` and PowerShell do not, so on this machine's native shell
+the haystack was never normalized and the check failed for the very reason
+it was written to fix. The JSON now carries `\\s+` (command: `/\s+/g`).
+Re-proved on all three shells, both directions — the rule this leaves is
+that a verification string is portable only once it has been run on more
+than one shell.
+
+This is the sixth vacuous-or-brittle guard this lane has surfaced, and
+the only one that actually fired. The pattern is recorded for the parent
+in PROGRESS: **PLAN-authored acceptance regexes in this lane were written
+against remembered wording rather than run against the file**, which is
+the same class of error as MAT-97's operator guessing `title`.
+
 ## 6. `reference/orca.md` trim — what was tightened
 
 Budget was 109 of 120 lines before §11's field table. Only duplicated

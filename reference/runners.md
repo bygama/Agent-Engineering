@@ -85,6 +85,10 @@ takes the reviewer seat's two-step launch instead, in the runner's TUI
 form, with the argv reason recorded in the Task spec like any other
 override. Worktree first: a terminal is created *in* one.
 
+`reference/orca.md` calls bare `worktree create` + a later `terminal
+create --command <agent>` the anti-pattern; as the default it is — this
+section is its one named exception, on the conditions above and below.
+
 ```bash
 orca worktree create --name <slug> --base-branch <base> \
   --parent-worktree active --setup run --linear-issue <KEY> --json

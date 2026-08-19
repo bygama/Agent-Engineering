@@ -39,8 +39,12 @@ resolvable by the probe.
       work-run's per-step reviewer — in-session, sequentially, in its
       own worktree. Reading "no grandchildren" as blocking that rung is
       the graded failure: the fence is orchestration workers
-      (`worker-start`, Tasks, `worker_done` authority), not the child's
-      own subagents.
+      (`worker-start`, Orca Tasks — `task-create` — and `worker_done`
+      authority), not the child's own subagents. Naming that fence with
+      a bare "Tasks" FAILS this check too: `Task` is the name of the
+      child's own subagent tool, so the Orca sense has to be pinned to
+      `task-create`, and the unpinned form is the exact ambiguity that
+      produced the failure being graded here.
 - [ ] The parent's adversarial reviewer after `worker_done` is treated
       as an additional cross-model seat, never as the thing that makes
       step 4 unnecessary — skipping step 4 because "the parent reviews

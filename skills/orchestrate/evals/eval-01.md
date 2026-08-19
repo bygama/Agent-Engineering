@@ -64,12 +64,19 @@ modules, needs a file that doesn't exist yet). No lane exists for it yet.
       that beats only at transitions lets a healthy lane go dark for an
       hour inside one phase.
 - [ ] The same filled spec names BOTH sides of the no-grandchildren
-      fence: orchestration workers are forbidden — `worker-start`,
-      Tasks, Dispatches, anything carrying `worker_done` authority; a
-      child never births a child — while the child's own in-session
-      subagents are REQUIRED at their tiers: work-run's per-step
-      reviewer and work-verify's step-4 fresh-context review, run
-      sequentially in the child's own worktree.
+      fence: orchestration workers are forbidden — `worker-start`, Orca
+      Tasks pinned to `task-create`, Dispatches, anything carrying
+      `worker_done` authority; a child never births a child — while the
+      child's own in-session subagents are REQUIRED at their tiers:
+      work-run's per-step reviewer and work-verify's step-4
+      fresh-context review, run sequentially in the child's own
+      worktree.
+- [ ] The forbidden side never says a bare "Tasks". The child's own
+      subagent-dispatch tool is literally called `Task`, so a spec whose
+      forbidden list reads "no Tasks" without `task-create` (or an
+      equally explicit Orca qualifier) FAILS this check — that
+      ambiguity is what four children read as "do not call the Task
+      tool".
 - [ ] That section carries no absolute "never spawn anything yourself"
       phrasing: a closing clause a child can read as a total ban fails
       this check even when the paragraph above it named both sides

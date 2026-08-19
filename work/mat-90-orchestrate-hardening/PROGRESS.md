@@ -1527,6 +1527,103 @@ Nothing to fix; nothing found to repair. All four gates exit 0, the
 fence check exits 1 (no fenced path in the diff), and the two budgeted
 caps with numeric ceilings are both respected.
 
+### Fresh-context review — the five findings landed (2026-08-19)
+
+The lane PASSED its fresh-context review. Five findings were dispositioned
+here before handoff: four Important, one MUST-CLOSE Minor. Each is a one-
+to two-line edit; the reviewer named the fix in every case and each fix is
+the one named.
+
+**F1 (Important) — F01's verification was not shell-portable.**
+`feature_list.json:5` carried `\\s+` in the JSON string, which decodes
+to `\s+`, so the shell handed node `.replace(/\s+/g,' ')`. POSIX `sh`
+collapses `\`→`\` inside double quotes and node saw `/\s+/`; `cmd.exe`
+and PowerShell do not, so node saw a regex matching a literal backslash
+followed by `s`, the haystack was never normalized, and `/NOT RUN/` failed
+against the reflowed `**NOT\nRUN**`. One character: the JSON now carries
+`\s+`, so the command carries `/\s+/g` on every shell. Proved all three
+properties here rather than asserting them:
+
+- bash, current file → `BASH EXIT=0`
+- PowerShell, current file → `PWSH EXIT=0`; cmd.exe, current file →
+  `CMD EXIT=0` (and `execSync` on Windows runs the five rows through
+  `cmd.exe`, which is the fourth independent confirmation)
+- pre-lane file (`git show 9fc4bda:skills/orchestrate/references/dispatch-child.md`,
+  125 lines, materialized under the same relative path) → `BASH PRE-LANE
+  EXIT=1` and `PWSH PRE-LANE EXIT=1`
+
+So the ruling-8 proof survives the correction: still red before the
+change, green after, now on every shell instead of one.
+
+**F2 (Important) — the standard contradicted itself on the two-step.**
+`reference/orca.md:107-109` states flatly that bare `worktree create` plus
+a later `terminal create --command <agent>` is the anti-pattern;
+`reference/runners.md` § The child seat prescribes exactly that four-
+command sequence as MAT-96's named exception, and `SKILL.md` blesses it —
+with neither side referencing the other, so an operator reading `orca.md`
+alone would refuse the exception MAT-96 exists to authorize. Fixed in
+`runners.md` only, because `orca.md` is at 120/120 with zero slack: the
+child-seat section now names the anti-pattern in `orca.md`'s own words,
+concedes it as the default, and claims itself as its one named exception,
+on the conditions above and below it. `runners.md` 115 → 119 lines, budget
+≤120 held; `orca.md` untouched at exactly 120.
+
+**F3 (Important) — the omit rule had no boundary a generator can execute.**
+A fill that deleted only the `[REPO_CONSTRAINTS]` line left `## Repo
+constraints` plus its closing paragraph standing — an artifact with no
+bracket text in it, which `SKILL.md`'s "fail on any surviving placeholder"
+passes when the check is a bracket scan. The prose was already right; what
+was missing was a checkable boundary. The **Placeholders:** entry (wrapper
+prose, below the fence — the template stays FILLABLE, the fenced text is
+byte-identical) now states the cut executably: delete every line from
+`## Repo constraints` through the blank line before `## Push and PR`, and
+the generator's check here is "`## Repo constraints` absent, OR
+`[REPO_CONSTRAINTS]` replaced", never brackets alone. That is the boundary
+the lane's own step-3 reviewer proposed.
+
+**F4 (Important) — the urgent clause had no eval guarding it.** SPEC §1 ¶2
+is explicit that the forbidden list must not name a bare "Tasks", because
+the child's own subagent tool is literally called `Task`.
+`dispatch-child.md:81-82` implements it correctly, but `eval-01.md:66-68`
+and `eval-04.md:41-43` wrote the forbidden list in their *own* expected-
+behavior text using a bare "Tasks" — so a spec that regressed to the
+ambiguous form would have been graded PASS. Both now pin it: eval-01's
+existing check says "Orca Tasks pinned to `task-create`" and gains a
+dedicated check whose failure condition is a forbidden list reading "no
+Tasks" without `task-create` or an equally explicit Orca qualifier;
+eval-04's contrast check names the fence as `worker-start` / Orca Tasks —
+`task-create` — / `worker_done` authority and states that naming it with a
+bare "Tasks" FAILS. The lane's most urgent requirement now has a guard on
+both sides of the fence.
+
+**F5 (MUST CLOSE Minor) — SPEC §15's tail was in no shipped file.** §15
+asks that `--spec "$(cat <file>)"` be framed as standing until an upstream
+`--spec-file` exists, with the ask named as an upstream ask on Orca.
+`SKILL.md:260`, `execution.md:374` and `eval-05.md:79` all carried the flat
+statement that no `--spec-file` exists, none carried the framing; the
+step-6 reviewer marked it MUST CLOSE and no disposition was recorded
+anywhere. Closed in `skills/orchestrate/SKILL.md`: the form "stands until
+an upstream `--spec-file` exists — an ask on Orca, not a gap this repo can
+close". SKILL.md 352 → 354 lines, cap 500.
+
+**Gates, re-run after all five edits — all four exit 0:**
+
+- `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  → `0 high, 0 medium, 0 low — PASS`, exit 0
+- `node tests/run-lint-tests.mjs` → `all 16 cases passed`, exit 0
+- `node tests/run-gen-tests.mjs` → `all gen cases passed`, exit 0
+- `node tests/run-eval-checks.mjs` → `ok   orchestrate: 5 evals
+  well-formed` … `all eval checks passed`, exit 0
+
+**All five feature_list rows exit 0** (driven through `execSync`, i.e.
+`cmd.exe`): `F01 EXIT=0 · F02 EXIT=0 · F03 EXIT=0 · F04 EXIT=0 ·
+F05 EXIT=0`.
+
+**Fence check** — `git diff --name-only $(git merge-base main HEAD)...HEAD
+| grep -E '<fenced paths>'` exits 1: no do-not-touch path in the lane's
+diff. `state` and `evidence` in `feature_list.json` were not touched; the
+controller records those.
+
 ## Evidence — Orca CLI verification (2026-08-19, this machine)
 
 Every CLI claim this lane adds to the standard was produced by running

@@ -258,7 +258,9 @@ its own PROGRESS.
   `task-create` is caught before dispatch, not by the child. Feed the
   result as `--spec "$(cat <file>)"`: `task-create` takes `--spec <text>`
   only, there is no `--spec-file`, and `task-update` changes state, not
-  spec. Generating is a house convention, not a tool this skill ships.
+  spec. That form stands until an upstream `--spec-file` exists — an ask
+  on Orca, not a gap this repo can close. Generating is a house
+  convention, not a tool this skill ships.
 - **Merge order** decided up front (item order, never arrival order) and
   one disagreement rule: **anchors win** — a child that drifted from a
   frozen interface reverts to it, and the divergence is recorded as a
