@@ -71,6 +71,49 @@ hits.
    naturally with MAT-92 (the ≤80 cap check) as the same "make the law
    executable" family.
 
+## Handoff — 2026-08-19
+
+**State: work complete, pushed, PR open. Owner of the next step: the
+parent.** Nothing in this lane is in progress and nothing is blocked.
+
+**Mode.** Closed to review, not terminally closed — and the lane folder
+**survives on purpose**. work-handoff's default close removes it, but this
+repo's convention is visibly the opposite for dispatched lanes: the parent
+removes lane records itself after merge (`9fc4bda`, "chore(lanes):
+terminal close — MAT-44 and MAT-87 lane records"). Deleting the lane here
+would also destroy what the parent's review wave reads — SPEC, PLAN,
+DECISIONS and this file are the reviewers' inputs, and `--report-path`
+points straight at PROGRESS.md.
+
+**Debris sweep.** `git status --porcelain` → 0 lines. No stray TODO/FIXME
+added, no commented-out blocks, no scratch file inside the repo (the two
+this lane used — a resolver probe and a text block — live in the session
+scratchpad, outside the tree). The two `{{PLACEHOLDER}}` matches in the
+diff are prose *about* placeholder sweeps (`ae-init/SKILL.md:115`,
+pre-existing; `loop-setup/evals/eval-06.md:43`, this lane's), not surviving
+markers.
+
+**State check, re-run after the reflow commit** (files changed since the
+verification block, so nothing is carried over from that run): all four
+gates exit 0.
+
+**What the parent still owns:**
+
+1. **The review wave** — fresh-context and adversarial rungs, NOT run here
+   (see `## Verification`). 1 ballena per the dispatch config.
+2. **The merge** — this lane never merges, and has not rebased onto fresh
+   main; say the word and it rebases.
+3. **Terminal lane close** — removing `work/mat-91-portability/` after the
+   merge, as with MAT-44 and MAT-87.
+4. **Four reported findings** — see `## Reported to the parent` above; the
+   only one that wants a new ticket is the lint check banning
+   machine-absolute paths on shipped surfaces.
+
+**If a reviewer disagrees with a call**, the reasoning is already written
+down rather than needing reconstruction: DECISIONS carries rulings 1-3 and
+three local calls, including why the `<repo>` token differs from the
+brief's literal and why the `docs/plans/` hit was left alone.
+
 ## Verification
 
 ### 2026-08-19 — M DoD — PASS on the executable layers; review rung OWED
