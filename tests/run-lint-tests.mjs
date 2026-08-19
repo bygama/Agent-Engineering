@@ -93,6 +93,25 @@ const cases = [
     expectMatch: ["file not found: scripts/missing.mjs"],
   },
   {
+    // The boundary: exactly at the cap reference/skills.md states, so the
+    // pair proves the whole passing range without pinning a live count.
+    name: "entry skill exactly at the always-loaded cap passes",
+    path: fx("entry-skill-ok"),
+    fail: false,
+    expect: [],
+    forbid: ["entry-skill-cap", "skill-size", "skill-frontmatter"],
+  },
+  {
+    // Red until the always-loaded cap becomes a check (MAT-92). Differs
+    // from entry-skill-ok by exactly one line.
+    name: "entry skill one line over the always-loaded cap fails",
+    path: fx("entry-skill-bloat"),
+    fail: true,
+    expect: ["entry-skill-cap"],
+    expectMatch: ["81 lines"],
+    forbid: ["skill-size"],
+  },
+  {
     name: "malformed lanes fail",
     path: fx("lanes-bad"),
     fail: true,
