@@ -28,7 +28,7 @@ Constraints (every step):
       it, emits the operations — ADR-001, `reference/tracker.md` Without
       Orca). — accept:
       `grep -qi "MCP present" skills/ae-init/evals/eval-06.md && node tests/run-eval-checks.mjs`
-- [ ] 3. `mechanical` `[batch]` — Retired-vocabulary sweep, one commit:
+- [x] 3. `mechanical` `[batch]` — Retired-vocabulary sweep, one commit:
       "per-app" → nested/any-depth vocabulary on `README.md` (budget
       table), `skills/ae-audit/SKILL.md` (inventory line),
       `scripts/agent-lint.mjs` (both finding messages),

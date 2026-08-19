@@ -402,14 +402,32 @@ Files changed: `skills/ae-init/evals/eval-03.md`,
 Minor findings from the review stay deferred to the lane gate (none
 were surfaced for step 3 beyond this Important finding).
 
+### Step 3 review closed — fix round 1 ADDRESSED
+
+Fresh reviewer: all seven enumerated targets swept precisely (migration
+target/source split and lint message-only change verified against the
+lint tests' ID-based assertions); one Important finding — eval-03.md:29
+was live graded text left unswept, and the battery row's file-wide
+exclusion would have masked it. Fixed in round 1 (`7eeecfc`, all three
+parts); re-review: ADDRESSED, no new breakage.
+
+Minor findings deferred to the lane gate (work-verify triage):
+
+- The step's acceptance had no executable leg over the eval edits
+  (covered ad hoc by running run-eval-checks in the fix report; noted
+  for future plan-shaping).
+- architecture.md:144 now says "nested AGENTS.md files" while
+  examples/monorepo itself still says "Per-app" — accepted drift
+  (examples are authoring-time-frozen by design); recorded so it is not
+  re-litigated later.
+
 ## In progress
 
 ## Tried and failed
 
 ## Next
 
-- Execute PLAN steps 4-8 via work-run (steps 1-2 closed Approved, step 3
-  implemented, awaiting its review).
+- Execute PLAN steps 4-8 via work-run (steps 1-3 closed Approved).
 
 ## Verification
 
