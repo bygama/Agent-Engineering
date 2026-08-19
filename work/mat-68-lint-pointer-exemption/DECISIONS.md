@@ -26,3 +26,12 @@ apart (the repo's ritual-and-law principle) — a reader of the budget table
 would otherwise believe a fenced-block pointer violates the standard while
 the check permits it. MAT-82 is merged, so context.md is stable — no
 contention. Folded into SPEC §5.
+
+## 3. Step 5's step review is subsumed by the lane gate
+
+2026-08-19 — controller ruling, mirroring MAT-82's precedent (its ruling
+9). Step 5 produces no production change — it runs the four gates and
+records their output into PROGRESS.md; a separate step-reviewer seat
+would re-read the same evidence work-verify's lane gate is about to
+re-establish with fresh context. The step closes on its acceptance
+(all four gates exit 0); work-verify is its review.
