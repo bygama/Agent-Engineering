@@ -67,6 +67,11 @@ watching the mailbox, not a terminal. Report `worker_done` yourself:
     --body "<PASS|FAIL — findings by severity, file:line, command
            output quoted>"
 
+worker_done is SINGLE-SHOT per dispatch — never test-fire the channel
+with a placeholder. If a send fails to parse, fix the escaping (write
+the body to a file and use `--body "$(cat file)"`; avoid backticks in
+the body) and send ONCE.
+
 Your verdict is the PASS/FAIL line inside `--body`, not `--outcome` —
 `--outcome` reports whether you finished the review at all. Use
 `--outcome failed` only if you could not complete the review itself
