@@ -96,6 +96,26 @@ and a child told its ticket later was never bound. Never
 handoff: no Task, no Dispatch, no `worker_done` authority), and never a raw
 `terminal send` brief.
 
+Stock is the default, not a requirement. A child that genuinely needs argv
+that `--agent`/`--model`/`--effort` cannot express — a wrapper binary,
+custom flags — takes the reviewer seat's two-step launch instead
+(`reference/runners.md` carries the recipe), on three conditions: the
+reason is recorded at dispatch, closing the fallback shell is a required
+step there, and the provenance cost is known rather than traded away
+silently. That cost is measured, not asserted — two dispatches in this
+repo's own Run, one each way:
+
+- `worker.effects` records the worktree as `reused`, never
+  `created_child`: the worktree was born outside the dispatch record.
+- `setup` is `not_applicable` — repo setup hooks never run under the
+  dispatch, so `--setup run` has to move onto the `worktree create`.
+- `resource.ownershipState` is `external` with `retainedReason:
+  external_terminal`, not `user_owned` / `user_requested` — the dispatch
+  does not own the terminal, so teardown is the parent's manual job.
+- `--model` and `--effort` are rejected with `--terminal`: the model
+  choice leaves the dispatch record and lives in the argv, where nothing
+  reads it back.
+
 **5. Supervise by mailbox**, never by terminal:
 
 ```bash
@@ -117,6 +137,19 @@ orca orchestration check --wait --types "worker_done,escalation,question" \
 - Reading or writing the child's terminal to "check in" is the
   anti-pattern even when the handle works. `worker-read --dispatch <id>`
   exists to diagnose a worker you already suspect, not to supervise one.
+
+**Idle is not slow, and it has a signature.** A cadence the child
+established and then STOPPED, *plus* a `worker-read` transcript that has
+not advanced between two reads minutes apart, is an idle child — a turn
+that ended without reporting. Both signals are required: a long silence
+alone, or one flat read, is still the rolling wait's business. The remedy
+is the fix loop's mechanism pointed at the lane it already owns —
+`task-create` with what is missing, then `worker-start --task <id>
+--terminal <handle> --worktree <selector>` on its **existing** terminal —
+never a raw `terminal send`, never a fresh child for a lane that has one.
+The reason is structural: **an idle agent does not read its mailbox**, so
+`send --to dispatch:<id>` cannot reach a session whose turn has ended. A
+dispatched Task is the one call that resumes a finished turn.
 
 **6. Review wave and fix loop.** On `worker_done` the child has pushed its
 branch and opened its PR — and has not merged it.
@@ -142,9 +175,10 @@ orca orchestration worker-start --task <review_task_id> --terminal <handle> --js
 never collide on one worktree name. No OpenCode Go auth on the machine ⇒
 same launch with `-m opencode/deepseek-v4-flash-free`, the no-auth
 fallback (`reference/runners.md`). The two-step create can leave an
-unused fallback startup shell behind — confirm it is actually unused
-before closing it (`reference/orca.md`); never close it blindly, never
-leave it running as debris.
+unused fallback startup shell behind; where it does, closing it is a
+**required step**, not advice — confirm that shell is actually unused
+first (`orca terminal list --worktree <sel> --json` shows both), never
+close it blindly, never leave it running as debris.
 
 The verdict is the PASS/FAIL line in the reviewer's `worker_done` **body**;
 `--outcome` reports only whether the review itself finished. Route on the
@@ -215,6 +249,16 @@ its own PROGRESS.
   change one mid-flight stops the wave first.
 - **Worker table** in the parent PLAN: lane · slug · child worktree ·
   branch · Task id · reviewer config.
+- **The fill is mechanical at this scale, and expected to be.** Each
+  filled spec runs ~15K chars; seven of them is ~105K chars of
+  near-duplicate text, and hand-pasting that is what breaks the verbatim
+  rule step 4 demands. Keep one per-repo common block, generate the
+  filled specs from it, and make the generation **fail on any surviving
+  placeholder** — a `[LANE_PATH]` or an empty optional section reaching
+  `task-create` is caught before dispatch, not by the child. Feed the
+  result as `--spec "$(cat <file>)"`: `task-create` takes `--spec <text>`
+  only, there is no `--spec-file`, and `task-update` changes state, not
+  spec. Generating is a house convention, not a tool this skill ships.
 - **Merge order** decided up front (item order, never arrival order) and
   one disagreement rule: **anchors win** — a child that drifted from a
   frozen interface reverts to it, and the divergence is recorded as a
@@ -228,6 +272,23 @@ its own PROGRESS.
 - **One parent per repo.** Two parents over one main are two merge queues
   on one branch: allowed only with disjoint file scopes and disjoint lanes,
   agreed in writing; otherwise the second waits, or becomes a child.
+
+## Orca is the ledger
+
+The shell does not persist between calls, so ids are chained by
+**rereading Orca**, not by writing them to a file beside the plan:
+`task-list --brief --json`, `worker-list --json` and `worker-show
+--dispatch <ctx_id> --json` each return the current state, and `ctx_`
+dispatch ids are valid input to show, retain and release. Read the field
+names off `reference/orca.md` rather than guessing one — a guessed name
+comes back `undefined`, which reads exactly like an empty ledger
+(`task_title`, never `title`).
+
+The one human-readable copy the standard does prescribe is the **worker
+table in the parent PLAN**. And the parent lane is committed like any
+other lane: when the wave ends, the specs and briefs live in Orca and the
+work lives in the children's merged branches — the parent's
+PLAN/PROGRESS/DECISIONS are the only artifacts nothing else can rebuild.
 
 ## No-Orca fallback
 
@@ -266,12 +327,14 @@ The automation is what is missing here. The discipline is not.
 |---|---|
 | "This M is two lines, I'll just do it here" | The parent implements nothing. M+ is a child, always. |
 | "I'll peek at the child's terminal to see how it's going" | Supervision is the mailbox. A reachable handle is not permission. |
-| "Nothing for 20 minutes — it's stuck" | A timeout is a checkpoint. Keep the rolling wait. |
+| "Nothing for 20 minutes — it's stuck" | A timeout is a checkpoint. Keep the rolling wait — unless an established cadence stopped AND the transcript is flat across two reads (step 5). |
 | "The diff looks fine, skip the reviewer" | The reviewer was agreed with the owner at dispatch. Skipping it re-decides their call alone. |
 | "Round 6 will converge" | Past 5 the failure is structural — gate it to the owner. |
 | "The child reported PASS, merge it" | Rebase onto fresh main, rerun the gates, then the parent merges. |
 | "Let the child merge, it is already green" | The child never merges. Not once, however clean. |
 | "This half deserves its own child" (from a child) | No grandchildren: fold it into the lane, or ask the parent for a sibling Task. |
+| "The child says no-grandchildren blocks its step-4 reviewer" | It misread the fence. The fence is orchestration workers; work-run's per-step reviewer and work-verify's step-4 review are in-session subagents, REQUIRED at their tiers. |
+| "I'll keep a file of the wave's ids next to the PLAN" | Orca is the ledger; reread it. The one copy on disk is the worker table in the parent PLAN. |
 | "No Orca here, so relax the ceremony" | Same lanes, same ceremony; the Orca-only steps are declared NOT done. |
 
 ## Judgment notes
