@@ -430,6 +430,14 @@
   than preempting the triage; it is a one-word fix ("nested ≤30") whenever
   the controller wants it.
 
+- **Step 6 review — Approved** (fresh reviewer, spec ✅ compliant, no
+  Critical/Important; acceptance re-run, 0; all four Feature D elements
+  present, provenance matched against context.md directly). Minor DEFERRED
+  to work-verify triage: (m28) "AE's nesting rule is the spec's own"
+  over-bundles — only nearest-wins is the spec's; suggest "aligns with the
+  spec's own"; reviewer also re-flagged m4's README:252 "per-app ≤30" as
+  now sitting close to the new any-depth wording (already tracked).
+
 ## In progress
 
 ## Tried and failed
