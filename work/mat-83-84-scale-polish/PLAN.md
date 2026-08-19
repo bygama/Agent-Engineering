@@ -56,7 +56,7 @@ Constraints (every step):
       noise, graded). The eval's graded phrasing is the interface step 6
       implements. — accept:
       `test -f skills/ae-init/evals/eval-07.md && node tests/run-eval-checks.mjs`
-- [ ] 6. `judgment` — Content AFTER evals: `skills/ae-init/SKILL.md`
+- [x] 6. `judgment` — Content AFTER evals: `skills/ae-init/SKILL.md`
       step 6 gains the browser-gotcha instruction beside the DESIGN.md
       offer, matching the line eval-07 grades (step 5's interface);
       `docs/how-it-works/standard-lifecycle.md` §Install narrates it in

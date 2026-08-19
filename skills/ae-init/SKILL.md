@@ -131,11 +131,25 @@ declaration whole. Every declaration line is written even when the tracker
 objects were only emitted for the operator: the repo does not wait on them
 existing. Keep existing README/LICENSE.
 UI stack detected in step 1: offer `DESIGN.md.template` per app — opt-in, per
-`reference/design-md.md`. Do NOT create `work/` lanes, `feature_list.json`,
-or `loops/` speculatively — lanes and feature lists are per-effort
-artifacts, loops need a task that passes the loop filter; offer them only
-when a concrete effort or recurring task is starting (see
-`reference/task-tiers.md`, `reference/loops.md`).
+`reference/design-md.md`. The SAME detection also writes ONE browser bullet
+into the root Gotchas: not asked, not offered, and independent of how the
+DESIGN.md offer was answered — inferred and written, like step 3's language
+split. It carries the three clauses of the browser criterion
+(`reference/orca.md`, "The browser criterion" — your source, cited nowhere in
+the line): prefer the runner's own embedded or app-managed browser; reach for
+a driven-browser MCP only for a capability that browser lacks — performance
+traces, heap snapshots, a11y audits, device emulation, never convenience or
+"it is already installed"; never from a supervised child session. Keep it
+RUNTIME-NEUTRAL — no runner, product or command in the generated text
+(Playwright and chrome-devtools are examples for you, never text in the file)
+— it must read true for an agent on another runner. Context, not a command:
+nothing on the machine is installed, probed or configured, and the line counts
+against the budget like any other. No rendering surface: no bullet, no
+question.
+Do NOT create `work/` lanes, `feature_list.json`, or `loops/` speculatively —
+lanes and feature lists are per-effort artifacts, loops need a task that
+passes the loop filter; offer them only when a concrete effort or recurring
+task is starting (see `reference/task-tiers.md`, `reference/loops.md`).
 Then run the `ae-audit` skill as the final gate and report: files created,
 files deleted (migrations), audit score, and before/after line counts of
 always-loaded context when migrating. When a tracker is connected to the
