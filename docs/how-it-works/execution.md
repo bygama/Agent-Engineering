@@ -246,7 +246,7 @@ sequenceDiagram
         P->>R: 6. worker-start --task --model &lt;id&gt;<br/>one-step launch
     else ballena (deepseek v4 flash - no --model id)
         P->>R: 6. worktree create --base-branch &lt;lane-branch&gt;
-        P->>R: terminal create --command "opencode -m ..."
+        P->>R: terminal create --command "opencode -m ... --auto"
         P->>R: terminal wait --for tui-idle
         P->>R: worker-start --terminal &lt;handle&gt;<br/>two-step launch
     end
@@ -281,7 +281,17 @@ not a stylistic one: `--model` only accepts Claude, Codex, and Cursor
 ids, so a `--model`-selectable reviewer starts in one call while the
 ballena — custom argv, no such id — takes the four-command two-step
 launch (`worktree create` → `terminal create` → `terminal wait` →
-`worker-start --terminal`). Stage 7's ordering is easy to miss: the
+`worker-start --terminal`).
+
+Stage 6 also runs a clock the diagram doesn't draw: a ballena reviewer
+cannot heartbeat, so stage 5's cadence signature — a stopped cadence plus
+a flat transcript — can never fire for it. It is watched against a
+threshold instead: 20-45 minutes is a normal review, and 75+ minutes with
+an empty orchestration transcript and `latestCursor: 0` is a stall, never
+a slow review. Recovery is `worker-stop`, then removing the review
+worktree, then `task-update --status ready`, then a fresh seat — the same
+fix-loop mechanism stage 5 points at an idle child, pointed here at a
+reviewer instead. Stage 7's ordering is easy to miss: the
 rebase and re-gate happen *before* the merge, inside the child, not
 after — a PASS earned against a stale `main` is not a PASS against the
 `main` the PR is about to land on. And stage 8 is not optional
