@@ -222,13 +222,109 @@ One finding routed forward, ruling recorded in DECISIONS.md: eval-06:120
 "monorepo pair (`AGENTS.md` + pointer) per app" is live contract text
 using the retired vocabulary — added to step 3's sweep targets.
 
+### Step 3 DONE — retired-vocabulary sweep, "per-app" → nested/any-depth
+
+One commit, six files. "per-app" replaced by "nested" / "at any earned
+depth" vocabulary everywhere it still read as current contract text on a
+living surface; the docs-sweep battery gained the row naming the real
+instances (ratchet rule, same commit).
+
+What changed:
+
+- `README.md:252` — budget-table cell "per-app ≤30" → "nested ≤30"
+  (matches the SPEC/PLAN Constraints block's own "root ≤60/100, nested
+  ≤30, pointer ≤3" wording).
+- `skills/ae-audit/SKILL.md:27` — inventory line "per-app
+  AGENTS.md/CLAUDE.md" → "nested AGENTS.md/CLAUDE.md".
+- `scripts/agent-lint.mjs:101-102` — both finding messages ("per-app
+  AGENTS.md far over the cap", "over the per-app cap") → "nested AGENTS.md
+  far over the cap", "over the nested cap". No test asserts the old
+  message text (checked `tests/`), so the wording swap is inert to
+  `run-lint-tests.mjs`.
+- `skills/ae-init/references/migration.md:14,28` — TARGET (Destination)
+  columns only: "Per-app AGENTS.md (≤30) + per-app pointer CLAUDE.md" →
+  "Nested AGENTS.md (≤30) + nested pointer CLAUDE.md"; "Per-app AGENTS.md
+  ≤30 lines + pointer" → "Nested AGENTS.md ≤30 lines + pointer". The
+  source/legacy-side columns ("Per-app CLAUDE.md (≤30)", "Per-app
+  AGENTS.md contracts") are untouched — found-state vocabulary describing
+  what a legacy repo looked like, per the step's own carve-out.
+- `docs/how-it-works/architecture.md:144` — examples line "a monorepo
+  with per-app files" → "a monorepo with nested AGENTS.md files".
+- **DECISIONS.md ruling honored** — `skills/ae-init/evals/eval-06.md:120`
+  ("monorepo pair (`AGENTS.md` + pointer) per app") → "... at any earned
+  depth" (matching `skills/ae-audit/references/checklist.md`'s existing
+  "at any earned depth" phrasing); this line is graded contract text, not
+  a fixture description, so it fell inside the sweep per the step-2
+  reviewer's routed finding. Re-wrapped the surrounding checklist item to
+  the file's house width (no line over 80) since the replacement text
+  shifted the wrap points.
+- `.claude/skills/docs-sweep/references/patterns.md` — new Grep-battery
+  row: pattern `` `per-app` `` on living surfaces outside CHANGELOG,
+  `docs/plans/`, `examples/`, and eval fixtures describing a legacy
+  repo's found state (migration.md's legacy-side columns called out as
+  found-state too); names all six real instances above, tagged MAT-83.
+
+Left untouched (excluded categories, verified by a full-repo grep after
+the edits): `CHANGELOG.md:345` (untouchable record), `examples/README.md`
+and `examples/monorepo/README.md` (deliberate-clean, excluded by SPEC),
+`docs/plans/2026-08-16-*.md` (dated record), `skills/ae-init/evals/eval-03.md:11`
+and `skills/ae-audit/evals/eval-01.md:11` (both under `## Fixture`,
+describing "A 2025-style legacy monorepo" / "A legacy 2025-style repo" —
+found-state fixture descriptions, the SPEC's explicit exclusion), and
+`migration.md`'s two legacy-side table cells. This lane's own SPEC.md/
+PLAN.md (which cite "per-app" as the literal sweep target) are lane
+records, not living surfaces.
+
+Acceptance:
+
+```
+$ ! grep -n "per-app" README.md skills/ae-audit/SKILL.md docs/how-it-works/architecture.md scripts/agent-lint.mjs && grep -q "per-app" .claude/skills/docs-sweep/references/patterns.md && node tests/run-lint-tests.mjs
+ok   v2-clean repo passes
+ok   bloated canonical AGENTS.md fails
+ok   per-tool adapters fail
+ok   read order + broken link fail
+ok   v1-style repo drifts (pointer + stamp)
+ok   pointer-fenced repo passes (fenced tool-managed block exempted)
+ok   pointer-unfenced repo still fails (unfenced extra content over budget)
+ok   pointer-unclosed repo still fails (unmatched BEGIN is not an exemption)
+ok   malformed lanes fail
+ok   invalid feature list fails
+ok   global-layer CLAUDE.md passes its own canon
+ok   clean DESIGN.md passes
+ok   drifted/undated DESIGN.md fails
+ok   dangling-ref/ungenerated DESIGN.md fails
+ok   DESIGN.md with mode groups passes
+ok   kitchen-sink composite fires the planted set
+all 16 cases passed
+EXIT=0
+```
+
+Other three gates re-run as insurance (this step touches an eval file and
+a script, so all four matter here): `node scripts/agent-lint.mjs .
+--ignore tests,templates,global,examples` → "0 high, 0 medium, 0 low —
+PASS" (exit 0); `node tests/run-gen-tests.mjs` → "all gen cases passed";
+`node tests/run-eval-checks.mjs` → "all eval checks passed" (12/12
+skills' evals well-formed, eval-06 included).
+
+No `docs/how-it-works/` chapter needed updating beyond the one edited
+line itself (architecture.md's own examples line, which IS the change):
+this step is pure vocabulary substitution, no behavior changed.
+
+Files changed: `README.md`, `skills/ae-audit/SKILL.md`,
+`scripts/agent-lint.mjs`, `skills/ae-init/references/migration.md`,
+`docs/how-it-works/architecture.md`, `skills/ae-init/evals/eval-06.md`,
+`.claude/skills/docs-sweep/references/patterns.md` (7 files, +11/−10).
+
+Concerns: none.
+
 ## In progress
 
 ## Tried and failed
 
 ## Next
 
-- Execute PLAN steps 3-8 via work-run (steps 1-2 closed Approved).
+- Execute PLAN steps 4-8 via work-run (steps 1-2 closed Approved, step 3
+  implemented, awaiting its review).
 
 ## Verification
 
