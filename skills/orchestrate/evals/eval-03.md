@@ -21,10 +21,24 @@ at worker_done, each already past their own review wave and marked PASS.
       per-seat name (`<slug>-review-r1` here; `-r2`, `-r3` … if the
       dialogue had agreed more reviewers) — never a bare `<slug>-review`
       that a second reviewer's worktree would collide with.
+- [ ] The ballena's two-step launch carries `--auto` on both invocation
+      forms — `opencode -m opencode-go/deepseek-v4-flash --auto` and the
+      no-auth fallback `opencode -m opencode/deepseek-v4-flash-free
+      --auto` — never launched bare. Safe here only because the filled
+      `reviewer.md` forbids commit/push/merge and any file edit; the same
+      flag on a WRITING seat would be a different decision, not this one.
 - [ ] If that two-step create left an unused fallback startup shell,
-      confirms it's actually unused before closing it
-      (`reference/orca.md`) — never closed blindly, never left running
-      as debris.
+      confirms it's actually unused before closing it with `orca
+      terminal close --terminal <handle>` (`reference/orca.md`) — never
+      closed blindly, never left running as debris.
+- [ ] A ballena reviewer cannot heartbeat, so step 5's cadence rule
+      cannot reach it — it is watched against a threshold instead:
+      20-45 minutes is a normal review; 75+ minutes with an empty
+      orchestration transcript and `latestCursor: 0` is a stall, not a
+      slow review. Recovery is `worker-stop`, then removing the review
+      worktree, then `task-update --status ready`, then a fresh seat —
+      never left waiting past the threshold, never nursed on the same
+      stalled seat.
 - [ ] On a FAIL verdict, routes the findings back to the SAME child
       worktree for fixes — never a fresh child, never a new worktree for
       the same lane — reassigning it with `worker-start --task
