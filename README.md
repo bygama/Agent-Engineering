@@ -140,8 +140,8 @@ reviews, and merges — one child every time, XL's parallel lanes included
 **loop-setup** turns recurring work into standing automation, and
 **skill-authoring** applies the same evidence discipline to the skills
 themselves — no skill content before a baseline run shows what agents
-actually do without it. Suite
-planners, executors, and `brainstorming` are superseded in writing
+actually do without it. Suite planners, executors, `writing-skills`
+and `brainstorming` are all superseded in writing
 ([`reference/skills.md`](reference/skills.md),
 [ADR-004](docs/adrs/ADR-004-relay.md),
 [ADR-005](docs/adrs/ADR-005-artifact-phases.md),
