@@ -100,7 +100,7 @@ When in doubt, take the higher tier. Consumers receive this table as
 
 **Deep dive → [docs/how-it-works/work-lifecycle.md](docs/how-it-works/work-lifecycle.md)** · tiers: [reference/task-tiers.md](reference/task-tiers.md)
 
-## The ten skills
+## The eleven skills
 
 Skills are plain markdown procedures — runtimes with native skill support
 load them by trigger, and any other agent can simply be told to read the
@@ -118,6 +118,7 @@ file and follow it. Each ships with ≥3 evals, written before the skill.
 | [`work-handoff`](skills/work-handoff/SKILL.md) | closing or pausing work — clean state, card + tracker sync |
 | [`orchestrate`](skills/orchestrate/SKILL.md) | the main-worktree parent seat takes M+ work — binds its Run, dispatches to a child worktree; XL fan-out included |
 | [`loop-setup`](skills/loop-setup/SKILL.md) | a recurring task passes the loop filter — standing automation |
+| [`skill-authoring`](skills/skill-authoring/SKILL.md) | a skill is being created or its behavior changed — baseline first, then the minimum that fixes what the baseline showed |
 
 **`using-ae`** is the entry point: loaded at every session start, it
 triages an arriving task's tier and routes to whichever skill below
@@ -136,7 +137,10 @@ worktree it supervises,
 reviews, and merges — one child every time, XL's parallel lanes included
 ([ADR-008](docs/adrs/ADR-008-orchestration.md), absorbing `fan-out`).
 **ae-init** installs the standard, **ae-audit** measures it,
-**loop-setup** turns recurring work into standing automation. Suite
+**loop-setup** turns recurring work into standing automation, and
+**skill-authoring** applies the same evidence discipline to the skills
+themselves — no skill content before a baseline run shows what agents
+actually do without it. Suite
 planners, executors, and `brainstorming` are superseded in writing
 ([`reference/skills.md`](reference/skills.md),
 [ADR-004](docs/adrs/ADR-004-relay.md),

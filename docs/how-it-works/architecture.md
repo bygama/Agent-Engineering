@@ -64,7 +64,7 @@ stays out.
 
 ### `skills/` — how does it replicate and get used day to day?
 
-Live, all ten: `ae-init`, `ae-audit` (AE/2.0); `work-verify`,
+Live, all eleven: `ae-init`, `ae-audit` (AE/2.0); `work-verify`,
 `work-handoff` (AE/2.1); `loop-setup` (AE/2.2); `orchestrate` (1.3.0 —
 [ADR-008](../adrs/ADR-008-orchestration.md) absorbed `fan-out`); `work-run`
 (1.1.0 — [ADR-004](../adrs/ADR-004-relay.md) gave execution a house
@@ -72,7 +72,9 @@ owner); `work-plan`, `using-ae` (1.2.0 —
 [ADR-005](../adrs/ADR-005-artifact-phases.md) generalized ADR-004 to
 every artifact-producing phase); `shaping` (1.2.2 —
 [ADR-006](../adrs/ADR-006-design-dialogue.md) gave the design dialogue
-a house owner).
+a house owner); `skill-authoring` ([ADR-005](../adrs/ADR-005-artifact-phases.md)
+again — a skill and its evals are artifacts, so authoring is an
+artifact-producing phase like the rest).
 
 The actors. `using-ae` is the always-loaded entry point: it triages an
 arriving task's tier and routes to whichever skill below owns the
@@ -87,7 +89,10 @@ step, the lane as its entire context package), `work-verify` gates
 clean. `loop-setup` and `orchestrate` scale the same discipline to
 scheduled and dispatched work — `orchestrate` owns dispatch end to end,
 from one child at M+ through XL's parallel lanes, where every worker
-runs that same inner cycle in its own lane. Process-skill suites' own
+runs that same inner cycle in its own lane. `skill-authoring` turns the
+discipline back on the skills themselves: a baseline run against a
+fresh agent before any content is written, then the minimum that fixes
+what the run actually showed. Process-skill suites' own
 planners
 and executors are superseded in writing by this chain
 (`reference/skills.md`, [ADR-004](../adrs/ADR-004-relay.md),
@@ -96,7 +101,11 @@ markdown procedures: runtimes with native skill support load them by
 trigger, and any other agent can simply be told to read the file and
 follow it — that readability is a design requirement, not an accident.
 Every skill ships with at least three evals, written before the skill
-content, and the evals change before the skill does.
+content, and the evals change before the skill does. `reference/skills.md`
+is the law those evals answer to; `skills/skill-authoring` is the method
+that makes them honest — evals derived from an observed baseline failure
+rather than an imagined one, and a guidance form chosen to match the
+failure class it must fix.
 
 Two skills sit outside `skills/` on purpose, in `.claude/skills/` —
 repo-local law, never junctioned, never installed in consumers, yet
