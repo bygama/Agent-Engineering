@@ -184,3 +184,10 @@ your missing sentence or proof the problem is prominence, not content
   skill's behavior is a change under test.
 - Skill type decides what "failing" even means; a pure reference skill
   has no rule to violate (`references/testing-with-subagents.md`).
+
+## Attribution
+
+The failure-form table and its wording-test findings are adapted from
+the `writing-skills` skill in the **superpowers** project — MIT
+License, Copyright (c) 2025 Jesse Vincent. Additive: this file stays
+MIT (c) 2026 Mateo García (see `LICENSE`).

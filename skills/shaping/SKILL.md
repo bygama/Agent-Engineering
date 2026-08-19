@@ -108,3 +108,10 @@ shaping neither re-tiers nor lets work-plan re-tier independently.
   action before the owner approves the resulting design.
 - A feasibility probe is the one path that skips steps 1-3 outright —
   there is no design to shape, only a question to answer.
+
+## Attribution
+
+The Red flags rows and the HARD-GATE aphorism are adapted from the
+`brainstorming` skill in the **superpowers** project — MIT License,
+Copyright (c) 2025 Jesse Vincent. Additive: this file stays MIT
+(c) 2026 Mateo García (see `LICENSE`).
