@@ -356,7 +356,7 @@ skill carries the rule that resolves those citations (`skills/using-ae`,
 §Reference paths): `reference/…` means the standard's own repo root, found
 in order — the skill's link-resolved location (a junction's `..` walks the
 link, not the target, so the naive `../../reference/` lands in the runner's
-own skills directory), then a local clone, then the public repo. A
+own config root), then a local clone, then the public repo. A
 reference layer none of those reaches is reported, never guessed: the same
 contract the no-Orca fallback applies to a missing control plane, applied
 to a missing source.
