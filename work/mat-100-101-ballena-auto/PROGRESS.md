@@ -136,7 +136,62 @@ Lane: MAT-100 + MAT-101 (declared family, one PR closes both).
   tests,templates,global,examples` → `0 high, 0 medium, 0 low — PASS`
   (sanity check, not this step's gate).
 
-## In progress
+- 2026-08-19 — Step 3 review (fresh in-session reviewer, sonnet),
+  verdict verbatim:
+  > ### Spec compliance
+  > ✅ Compliant — all four SPEC items for this step (SKILL.md two-step
+  > snippet `--auto` on both lines, stall-clock paragraph
+  > placement/content, execution.md mermaid flag consistency,
+  > execution.md narration gaining the same stall clock) are present
+  > and correctly scoped. `reference/runners.md`, `reference/orca.md`
+  > untouched (later steps' territory),
+  > `docs/how-it-works/standard-lifecycle.md` untouched
+  > (sibling-owned), no CHANGELOG/version-stamp touch.
+  > […] eval-03.md consistency — thresholds […], signals […], and
+  > recovery sequence […] all match the SKILL.md addition exactly on
+  > every load-bearing token […] Both launch commands […] match
+  > eval-03 verbatim. Stall-clock placement — confirmed […] the
+  > fallback-shell paragraph's own text (step 4's territory) is
+  > untouched by this diff.
+  > ### Issues
+  > Critical: None. Important: None.
+  > Minor: SKILL.md:186 / execution.md:290 — "is a stall, never a slow
+  > review" vs. eval-03's "is a stall, not a slow review." Purely
+  > cosmetic […] a future pass could align the connector word.
+  > ### Assessment
+  > **Step quality:** Approved
+  > **Reasoning:** Both required files were edited in the same commit
+  > as the house rule demands, the added prose matches eval-03's graded
+  > wording on every threshold/command/sequence detail, the stall-clock
+  > paragraph is placed exactly where the SPEC specifies without
+  > touching step 4's adjacent paragraph, and both acceptance commands
+  > pass as verified directly.
 
-- Step 4 (MAT-101 — `reference/runners.md` fallback-shell paragraph,
-  `skills/orchestrate/SKILL.md` step 6 closing command) not started.
+  Deferred minors (for work-verify triage): "never/not a slow review"
+  connector-word alignment between SKILL.md/execution.md and eval-03 —
+  cosmetic only.
+
+- 2026-08-19 — Step 4 DONE. `reference/runners.md` lines 115-120: the
+  categorical claim "the bare create opens a startup shell of its own" was
+  changed to "the bare create can leave a startup shell of its own; observed
+  both ways on this repo's own Run (2026-08-19: present on some launches,
+  absent on the MAT-91 review seats)" — the "can" form matches the observed
+  behavior and aligns with the already-correct wording in
+  `skills/orchestrate/SKILL.md:177` ("can leave") and `reference/orca.md:109`
+  ("can leave"). The required-close rule and confirm-before-close discipline
+  remain intact; only the categorical form changed.
+  `skills/orchestrate/SKILL.md` lines 177-181: the fallback-shell paragraph
+  now explicitly names the closing command — `orca terminal close --terminal
+  <handle>` — where the requirement is stated (right after "not advice"),
+  citing `reference/runners.md` for the full recipe (single-definition
+  discipline, no duplication of the whole procedure). The Review-seat stall
+  clock paragraph immediately after was left untouched per step scope.
+  Verification: all three files now use the "can" form consistently. No
+  other files touched (`reference/orca.md` already correct at line 109,
+  `docs/`, `evals/eval-03.md` untouched per step 4 scope). Acceptance:
+  `grep -c 'opens a startup shell' reference/runners.md` → 0 (categorical
+  removed); `grep -c 'terminal close --terminal' skills/orchestrate/SKILL.md`
+  → 1 (closing command present). Also ran `node scripts/agent-lint.mjs . --ignore
+  tests,templates,global,examples` → `0 high, 0 medium, 0 low — PASS`.
+
+## In progress

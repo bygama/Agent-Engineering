@@ -113,11 +113,12 @@ setup; that, and the rest of what this path trades away, is the cost list
 in `skills/orchestrate/SKILL.md` step 4 — read it before choosing it.
 
 Closing the fallback shell is a **required step here**, not advice: the
-bare create opens a startup shell of its own and the runner lives in a
-second terminal (`orca terminal list --worktree <sel> --json` shows
-both). Confirm that shell is actually unused before closing it (`orca
-terminal close --terminal <handle>`) — never close it blindly, never
-leave it running as debris.
+bare create can leave a startup shell of its own; observed both ways on
+this repo's own Run (2026-08-19: present on some launches, absent on the
+MAT-91 review seats) — the runner lives in a second terminal (`orca
+terminal list --worktree <sel> --json` shows both). Confirm that shell
+is actually unused before closing it (`orca terminal close --terminal
+<handle>`) — never close it blindly, never leave it running as debris.
 
 ## Orchestrating across runners
 
