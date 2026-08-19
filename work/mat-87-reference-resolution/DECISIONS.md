@@ -49,3 +49,12 @@
   consumers already carry at `templates/repo/docs/tiers.md:28`. No new
   canonical address, and no script or hook performs the lookup: the rule is
   prose an agent follows, so the standard stays runtime-neutral.
+- 2026-08-19 — **work-run executed inline, not by dispatched subagents** —
+  this session is instructed not to spawn agents (the dispatch brief's "no
+  grandchildren", plus a standing harness rule against the Agent tool). That
+  is work-run's own documented fallback for a runner without subagent
+  capability: the SAME lane under the SAME ceremony — PLAN steps in order,
+  the step's acceptance command run and its output recorded before the
+  commit, PROGRESS updated per step, nothing downgraded. No dispatch was
+  simulated, and no step was reported DONE without its acceptance command
+  exiting 0.

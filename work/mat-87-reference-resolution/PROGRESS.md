@@ -42,17 +42,27 @@
   → exit 0 · `git diff --name-only main -- docs/how-it-works/ | grep -q
   architecture` → exit 1 · lint exit 0.
 
+- **Step 4 DONE** — gate sweep and lane truth. All four gates exit 0 (block
+  below), the fence check finds no do-not-touch file in the diff, and the
+  two REPORTED items for the parent are recorded in this file.
+
 ## In progress
 
-- Step 4: gate sweep and lane truth.
+- Nothing — all four PLAN steps are DONE. Next is work-verify.
 
 ## Tried and failed
 
-- Nothing yet.
+- A first draft of the rule targeted the standard's full ≤80-line cap
+  (80/80). The parent overrode it at SPEC approval (DECISIONS ruling 1):
+  sibling lane MAT-44 needs a map row this same wave, so the lane lands at
+  ≤78 instead. No existing line was trimmed to get there — the addition was
+  compressed from 8 lines to 6; DECISIONS records why each trim candidate
+  was rejected.
 
 ## Next
 
-- Steps 1-4 of PLAN.md, then work-verify, then push + PR (`Closes MAT-87`).
+- work-verify (M DoD), then push + PR with `Closes MAT-87`. This lane never
+  merges — that is the parent's action, after its reviewers pass.
 
 ## Reported to the parent (not fixed here — fenced files)
 
@@ -103,6 +113,22 @@ not its real one: this session's `work-plan` invocation announced
 Failure mode 2 is structural: README's adoption option 2 copies
 `skills/<name>/` into the runner's skills directory, which has no
 `reference/` sibling on any path, link-resolved or not.
+
+Gate sweep after step 3 (all four exit 0):
+
+```
+node scripts/agent-lint.mjs . --ignore tests,templates,global,examples  -> 0 (0 high, 0 medium, 0 low — PASS)
+node tests/run-lint-tests.mjs                                           -> 0 (all 16 cases passed)
+node tests/run-gen-tests.mjs                                            -> 0 (all gen cases passed)
+node tests/run-eval-checks.mjs                                          -> 0 (all eval checks passed; using-ae: 6 evals well-formed)
+wc -l < skills/using-ae/SKILL.md                                        -> 78  (<=78 per ruling 1; standard's cap is <=80)
+git diff --name-only main | grep -E '^(README|CHANGELOG)\.md|^reference/skills\.md|^skills/skill-authoring/|^docs/how-it-works/architecture\.md|^global/|^templates/'
+                                                                        -> exit 1 (fence clean)
+```
+
+Files changed vs main: `docs/how-it-works/execution.md`,
+`skills/using-ae/SKILL.md`, `skills/using-ae/evals/eval-06.md`, and the
+four lane files.
 
 Baseline gates on the lane's base commit (96da7ca, tag v1.4.0), all exit 0:
 
