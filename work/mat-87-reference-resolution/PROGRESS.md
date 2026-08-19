@@ -48,7 +48,10 @@
 
 ## In progress
 
-- Nothing — all four PLAN steps are DONE. Next is work-verify.
+- Nothing. All four PLAN steps are DONE, work-verify recorded an M DoD
+  **PASS** (block below), and the lane is **PAUSED for the parent's review
+  wave** — not closed. The folder stays: the parent's ballena reads these
+  artifacts, and the merge is the parent's action.
 
 ## Tried and failed
 
@@ -61,8 +64,20 @@
 
 ## Next
 
-- work-verify (M DoD), then push + PR with `Closes MAT-87`. This lane never
-  merges — that is the parent's action, after its reviewers pass.
+For the parent, in order:
+
+1. Dispatch the ballena (cross-model adversarial seat) against this branch.
+   Everything it needs is here: SPEC (the binding authority), the four
+   rulings in DECISIONS, and the PASS block's command evidence.
+2. Rebase onto fresh main at your request — this lane does that, not you.
+3. Merge (rebase-only). **This lane never merges**, however clean its own
+   verification looks.
+4. Route the three reported items: the `architecture.md` line (sibling lane
+   owns the file), the deferred `README.md` adoption line, and the
+   unenforced ≤80-line cap on `using-ae`.
+
+For a cold session resuming this lane instead: read SPEC.md first, then the
+PASS block below; the tree is green as recorded and needs no repair.
 
 ## Reported to the parent (not fixed here — fenced files)
 
