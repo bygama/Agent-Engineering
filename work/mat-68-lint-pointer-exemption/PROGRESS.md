@@ -7,7 +7,7 @@ SPEC approved by the parent with one scope extension (DECISIONS ruling 2).
 
 - [x] 1. Fixtures + self-test cases (red on `pointer-fenced`)
 - [x] 2. `stripToolManagedBlocks` in the pointer check (all green)
-- [ ] 3. Checklist rows: exemption clause + nesting-law rewording
+- [x] 3. Checklist rows: exemption clause + nesting-law rewording
 - [ ] 4. standard-lifecycle.md + reference/context.md one-clause notes
 - [ ] 5. Gate sweep with evidence
 
@@ -213,6 +213,51 @@ triage: (a) `n === rawCount(f)` re-reads the file for a cosmetic suffix;
 "any run of blank lines" explicitly; (d) coverage suggestion — a fixture
 pinning `@AGENTS.md`-only-inside-the-block would guard containment
 against future refactors.
+
+### Step 3 — Checklist rows: exemption clause + nesting-law rewording (2026-08-19)
+
+In `skills/ae-audit/references/checklist.md`, made three categories of changes:
+
+1. **Pointer rows exemption note:** Added a one-clause note below the pointer
+   rows (lines 39-41) explaining that fenced tool-managed blocks do not count
+   against the line budget, and that the lint's `pointer-shape` check settles
+   the block recognition grammar (SPEC §3). Note cites the lint as the authority
+   on marker grammar, never restating it.
+
+2. **Per-app → nested terminology:** Retired "per-app" wording file-wide per
+   DECISIONS ruling 1:
+   - Line 26 (AGENTS.md Line budget row): "per-app ≤30" → "nested ≤30"
+   - Line 40 (Pointer rows): "Per-app CLAUDE.md" → "Nested CLAUDE.md"
+   - Line 40 (Pass condition): "Same pointer shape per app dir" →
+     "Same pointer shape at any earned depth"
+   - Line 61 (Monorepo row): "Per-app AGENTS.md (≤30) + pointer CLAUDE.md per
+     app" → "Nested AGENTS.md (≤30) + pointer CLAUDE.md at any earned depth"
+
+All four edits align with the nesting law merged with MAT-82: nested AGENTS.md
+(≤30) + pointer CLAUDE.md beside it at any earned depth, no privileged
+`apps/*` level (reference/context.md, lines 55-68).
+
+**Acceptance commands and output:**
+
+```
+$ grep -i "tool-managed" skills/ae-audit/references/checklist.md
+**Pointer rows note:** A fenced tool-managed block (delimited by `<!-- BEGIN:… -->` and `<!-- END:… -->` with matching kebab-case names) does not count against the line budget; the lint's `pointer-shape` check settles the block recognition grammar.
+```
+
+Exit code: 0 ✓
+
+```
+$ grep -iE "per.app" skills/ae-audit/references/checklist.md
+```
+
+Exit code: 1 ✓ (no matches found)
+
+**Files changed:**
+- `skills/ae-audit/references/checklist.md` (four rows updated: lines 26, 40 ×2, 61)
+
+**Concerns:** none. The rewording displaces no content; table pass conditions
+remain atomic and scannable; the exemption note is positioned immediately
+after the pointer section where it applies.
 
 ## Notes
 
