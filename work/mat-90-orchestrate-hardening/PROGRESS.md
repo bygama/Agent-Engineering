@@ -1305,6 +1305,75 @@ Step-7 concern 1 (PLAN vs. note 1 on where the fill narration belongs) is
 resolved rather than standing: the reviewer confirmed the paragraph stays
 in §The 8-stage dispatch cycle and only the pointer needed naming.
 
+### Step 7 — review verdicts (in-session, recorded verbatim, 2026-08-19)
+
+**Round 0 — step reviewer.** Implementer reported DONE_WITH_CONCERNS;
+both concerns were judged.
+
+> ### Spec compliance
+> ✅ **Compliant** — all three acceptance checks hold from the diff
+> alone. […] I verified all three anchors are in their real homes before
+> judging the narration: four costs at `SKILL.md:99-117` (step 4), idle
+> diagnosis + remedy at `SKILL.md:141-152` (step 5), mechanical fill at
+> `SKILL.md:252-261` (§Several children at once, XL) […] No new or
+> drifted claim.
+>
+> **Concern 1** […] the placement is fine; the pointer sentence is not.
+> […] the implementer's own stated resolution — "naming the XL home in
+> the text itself" — was not actually carried out. […] the sentence sends
+> the reader to a place the content is not.
+>
+> **Concern 2 — the mermaid `opt`: I found nothing further.** Both
+> participants declared at `:224-225`, well before use; `->>` is a plain
+> solid message, valid inside `opt` and inside an activation span; the
+> `opt` label carries no `:` […]; the `opt` nests cleanly inside
+> `activate C`/`deactivate C` without crossing a block boundary;
+> escaping is character-for-character the shape of the working line […]
+>
+> **Step quality:** Needs fixes
+>
+> **Reasoning:** The narration is substantive, accurate against SPEC
+> §§6-9/11-15, and consistent with `SKILL.md` and the diagrams — the only
+> blocking item is one clause at `:369-370` that directs the reader to an
+> XL section that does not hold the rule […]
+
+**Round 1 — re-reviewer.** Verdict text:
+
+> 1. **stale pointer** — ADDRESSED. […] names the document
+>    (`skills/orchestrate/SKILL.md`) and cites the section title
+>    verbatim, matching the actual heading confirmed at `SKILL.md:245`
+>    […] The paragraph itself did not move […]
+> 2. **diagram self-contradiction** — ADDRESSED. […] Word-level diff of
+>    that hunk shows exactly one deletion (`otherwise`) and one addition
+>    (`alone`) […]
+> 3. **incomplete loop-back description** — ADDRESSED. […]
+>
+> ### New breakage in the fix diff
+> None. Verified via a scripted word-level diff (LCS-based) over each of
+> the three hunks […] Hunk 3 […] `stage`→`step` (correctly matching
+> SKILL.md's own terminology — SKILL.md:255 itself calls it "step 4", so
+> this is not a stray inconsistency but a deliberate disambiguation
+> between this chapter's "stage 4" and the skill's "step 4").
+>
+> The implementer's claim that only line breaks moved beyond the three
+> intended edits holds up under this word-diff, confirming "rewrap, not
+> rewrite."
+>
+> ### Verdict
+> **Fix round:** All findings addressed, no new Critical/Important
+> breakage.
+
+Step 7 closed at round 1 of a cap of 5. The word-level diff surfaced a
+third edit (`stage`→`step`) the fix report had not named; it is correct
+and deliberate.
+
+**Five Minor, deferred to work-verify triage:** the ragged rewrap at the
+old `:198-201`; the narrated remedy at `:326-337` dropping `--worktree
+<selector>` that SPEC §7 and `SKILL.md:147-148` both carry; the four
+costs reproduced at nearly the skill's own granularity; a `;`→`,`
+precaution in the mermaid line (no known break); and the implicit subject
+in the `opt` label.
+
 ## Evidence — Orca CLI verification (2026-08-19, this machine)
 
 Every CLI claim this lane adds to the standard was produced by running
