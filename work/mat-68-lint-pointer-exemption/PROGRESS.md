@@ -381,7 +381,15 @@ Exit code: 0 ✓
 - `reference/context.md` (note moved from lines 55-56 to line 21, immediately
   after Budgets table).
 
-**Step 4 re-review (fix round 1, 2026-08-19):** (pending)
+**Step 4 re-review (fix round 1, 2026-08-19):** finding ADDRESSED — the
+clause sits at `reference/context.md:24` as a labelled "**Pointer rows
+note:**" immediately under the Budgets table, verbatim text, mirroring
+the checklist.md precedent; no new breakage, no out-of-scope
+observations. Step 4 closes Approved after one fix round (initial
+review: ✅ spec-compliant on both files — one-clause discipline verbatim
+across all three prose surfaces, `standard-lifecycle.md` placement
+called exemplary; the sole Important finding was the context.md
+placement, fixed above).
 
 ## Notes
 
