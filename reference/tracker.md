@@ -1,8 +1,11 @@
 # Tracker plane
 
 Sources: `docs/specs/SPEC-agent-engineering.md` Decision 8; `orca linear`
-CLI help output verified on-machine 2026-08-16. The tracker is optional by
-construction — a repo with no tracker runs the identical lifecycle.
+CLI help output verified on-machine 2026-08-16; Linear's
+[Concepts](https://linear.app/docs/conceptual-model) (an issue sits in at
+most one project; initiatives group projects), read 2026-08-18. The
+tracker is optional by construction — a repo with no tracker runs the
+identical lifecycle.
 
 ## Two planes, no double truth
 
@@ -25,9 +28,6 @@ Two rules join them:
 - `issue: <KEY>` in a lane file's frontmatter.
 - The key in the lane slug: `work/dem-101-checkout-fix/`.
 - Branch names may carry the key for Linear's branch-format autolinking.
-- When the workspace groups repos as Linear projects (one project per
-  repo), issues born from a repo's flow carry that repo's project — the
-  team stays single, the per-repo view comes from the project.
 
 Either alone is enough for the skills (`work-handoff`, triage loops) to
 detect the link; absence of both simply skips the tracker steps.
@@ -57,6 +57,10 @@ State names passed to `--to` must match the team's workflow exactly —
 list them first. Default handoff target is `"In Review"` when a human
 review step follows; `"Done"` only when terminal AND passing (gate rule).
 
+A Linear MCP the session already carries writes the same plane under the
+same declaration check — a second connector, not a second rung: it does
+not restore tracker writes where Orca is absent (ADR-001, below).
+
 ## Which workspace — the repo declares, tools obey
 
 Tool bindings are per-workspace (Linear MCP OAuth, the `orca linear` API
@@ -65,20 +69,42 @@ tracks in — and the write lands, invisibly, in the wrong place. The repo
 settles it once, in writing:
 
 ```text
-Tracker: Linear — workspace <workspace> · team <KEY> · project <project>
+Tracker: Linear — workspace <slug> · team <KEY> [· project <name>][· initiative <name>]
 ```
 
-One always-loaded line in AGENTS.md, directly under the `Standard:
-AE/<version>` stamp and above the summary. `<workspace>` is the URL slug
-(the `<slug>` in `linear.app/<slug>/…`), `<KEY>` is the team key, and the
-`· project <project>` segment is omitted entirely when the repo has none.
-ae-init asks for it once at install, whenever a tracker is in play, and
-writes the answer verbatim — never inferred from the live session, since
-the binding is exactly what can be wrong. This is the format's single
-definition: other files cite this section, they do not restate it.
+One always-loaded line in the root AGENTS.md, directly under the
+`Standard: AE/<version>` stamp and above the summary. `<slug>` is the URL
+slug (the `<slug>` in `linear.app/<slug>/…`), `<KEY>` is the team key, and
+both trailing segments are optional and independent — one the repo has no
+answer for is omitted entirely. The shape follows the repo, because Linear
+nests one way: a single-domain repo names `· project` (one per repo, the
+common case); a deep monorepo names `· initiative` and leaves the projects
+to the domains below. The team stays single either way.
+
+A nested AGENTS.md declares its domain's project with one line directly
+under its title:
+
+```text
+Tracker-project: <Name>
+```
+
+Issues filed or read from anywhere in that subtree belong to that project;
+workspace and team are never repeated — they inherit from the nearest full
+`Tracker:` declaration above. No line ⇒ inherit everything, project
+included. The line never earns a directory a file of its own: nesting
+stays earned by non-inferable local knowledge (`reference/context.md`).
+
+ae-init asks for the declaration once at install, whenever a tracker is in
+play, and writes the answer verbatim — never inferred from the live
+session, since the binding is exactly what can be wrong. This is the
+format's single definition: other files cite this section, they do not
+restate it.
 
 **Before ANY tracker write** — status move, comment, attachment, issue
-create — compare the live binding against the declaration:
+create — resolve the declaration governing the file being worked on by
+walking UP from it: the nearest `Tracker-project:` names the project, the
+nearest full `Tracker:` above it supplies workspace and team. Compare the
+live binding against THAT declaration:
 
 - Compare on the workspace slug in any resolved issue's `url`
   (`linear.app/<slug>/issue/…`) — the identity the declaration names.
@@ -96,16 +122,19 @@ create — compare the live binding against the declaration:
   workspace silently. Same treatment when the binding cannot be resolved
   at all — no issue to read (fresh or empty workspace) or an erroring
   read: no write, state it, emit the operation.
-- **No declaration line → the rule is inert.** Repos that predate the
-  declaration, and repos whose owner answered "none", behave exactly as
-  they did before. Absence degrades cleanly.
+- **No full `Tracker:` line above the file → the rule is inert.** Repos
+  that predate the declaration, and repos whose owner answered "none",
+  behave exactly as they did before — a `Tracker-project:` line with no
+  declaration above it names no workspace, so there is nothing to compare.
+  Absence degrades cleanly.
 
 ## Without Orca
 
-The no-Orca contract (`reference/orca.md`) applies: tracker writes are
-Orca-only. Emit the exact calls + payloads for the operator and state
-plainly that the tracker was NOT updated. Never claim a write without a
-confirmed call.
+The no-Orca contract (`reference/orca.md`) applies: without an Orca
+session there is no tracker write, whatever connector the session carries
+(ADR-001 — the MCP is a connector, not a fallback rung). Emit the exact
+calls + payloads for the operator and state plainly that the tracker was
+NOT updated. Never claim a write without a confirmed call.
 
 ## The GitHub plane
 

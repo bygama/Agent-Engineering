@@ -70,8 +70,11 @@ powers:
   `orca linear list --filter open --json`.
 
 Before any tracker write, the agent verifies the live binding's workspace
-matches the repo's declared workspace (`reference/tracker.md`, "Which
-workspace — the repo declares, tools obey"); mismatch prevents the write.
+against the **nearest** declaration — walking up from the file it is
+working on, so a monorepo domain's own `Tracker-project:` line answers
+first and inherits workspace and team from the root `Tracker:` line above
+it (`reference/tracker.md`, "Which workspace — the repo declares, tools
+obey"); a mismatch, or a binding that will not resolve, prevents the write.
 
 ### Orca ↔ GitHub — branches and the gh CLI
 
@@ -150,7 +153,9 @@ Everything above needs five owner actions, each once per workspace/org:
 5. Group repos as Linear **projects** (one per repo — this repo's is
    `Agent-Engineering`, created 2026-08-17): the team and its keys stay
    single, each repo gets its own board and progress view, and issues
-   born from the flow carry the project.
+   born from the flow carry the project. A deep monorepo splits that view
+   one level down instead — an **initiative** for the repo, a project per
+   domain, declared per subtree (`reference/tracker.md`).
 
 ## Hard-won gotchas
 

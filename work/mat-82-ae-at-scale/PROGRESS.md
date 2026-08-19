@@ -208,6 +208,86 @@
   (m15) exactly-3-domains threshold ungraded (must-not-fire side pinned
   at 2).
 
+- **Step 4 — Feature C contract in `reference/tracker.md`.** The declaration
+  section ("Which workspace — the repo declares, tools obey", title kept so
+  every existing citation still resolves) now defines the extended grammar
+  `Tracker: Linear — workspace <slug> · team <KEY> [· project <name>][·
+  initiative <name>]` — both trailing segments optional and independent, one
+  the repo has no answer for omitted entirely; the shape follows the repo
+  because Linear nests one way (single-domain repo → `· project`, the common
+  case; deep monorepo → `· initiative` at the root with the projects left to
+  the domains below; team single either way). The nested form is defined
+  right after it: one `Tracker-project: <Name>` line directly under a nested
+  AGENTS.md's title, meaning issues filed or read anywhere in that subtree
+  belong to that project, with workspace and team inherited from the nearest
+  full `Tracker:` declaration above and never repeated; no line ⇒ inherit
+  everything, project included; and the line never earns a directory a file
+  of its own (nesting stays earned, `reference/context.md` — the Feature A×C
+  interaction eval-06 grades). Respect rule: the write now resolves the
+  declaration by walking UP from the file being worked on (nearest
+  `Tracker-project:` names the project, nearest full `Tracker:` above it
+  supplies workspace and team) and compares the live binding against THAT
+  declaration — mechanism untouched (same slug-in-`url` comparison, same
+  mismatch/unresolved ⇒ no write + emit-for-operator). The inert bullet now
+  keys on the full `Tracker:` line, which also settles the orphan case (a
+  `Tracker-project:` with no declaration above it names no workspace, so
+  there is nothing to compare). tracker.md stays the single definition — no
+  other file restates the format (verified by grep: only the lane files, the
+  evals and the how-it-works chapters mention it, all as citations).
+  **m13 reconciled — DECISIONS ruling 7.** The Connector section gains one
+  sentence: a Linear MCP the session already carries writes the same plane
+  under the same declaration check — a second connector, not a second rung —
+  and "Without Orca" now reads "without an Orca session there is no tracker
+  write, whatever connector the session carries (ADR-001 — the MCP is a
+  connector, not a fallback rung)" instead of "tracker writes are
+  Orca-only". That grounds eval-06's "`orca linear` or the Linear MCP" while
+  keeping the SPEC's literal fallback trigger ("no-Orca or unresolvable
+  binding ⇒ emit") and leaving ADR-001 intact, so `reference/orca.md` and
+  `docs/how-it-works/execution.md` stay untouched and non-contradictory —
+  reinstating the MCP as a no-Orca rung would amend an accepted ADR and is
+  not this lane's change.
+  Also: the stale flat bullet in "Linking affordances" (workspace groups
+  repos as one project per repo) was removed — the declaration section now
+  owns both shapes, and leaving it would have been the retired flat framing;
+  the operator-facing version of that fact survives in integrations.md.
+  Sources header gained Linear's [Concepts](https://linear.app/docs/conceptual-model)
+  page (an issue sits in at most one project; initiatives group projects),
+  read live 2026-08-18 via the Linear MCP docs search — the grounding for
+  "Linear nests one way". Deliberately phrased as what the doc states rather
+  than "strict Issue ⊂ Project ⊂ Initiative", which the page does not say in
+  those words.
+  Same change, both mapped chapters (DECISIONS ruling 4):
+  `docs/how-it-works/work-lifecycle.md` — respect rule → nearest
+  declaration, plus a "nearest, not root" paragraph explaining the hierarchy
+  and stating that a flat repo's walk lands on the root line and nothing
+  changes; `docs/how-it-works/integrations.md` — the Orca↔Linear binding
+  check → nearest declaration, and operator-setup item 5 notes the deep
+  monorepo splits the per-repo project view one level down (initiative for
+  the repo, project per domain). Both cite tracker.md, neither restates the
+  format.
+  Acceptance: `grep -q "Tracker-project:" reference/tracker.md && grep -qi
+  "initiative" reference/tracker.md && node scripts/agent-lint.mjs . --ignore
+  tests,templates,global,examples` → `0 high, 0 medium, 0 low — PASS`,
+  `EXIT=0`. Other three gates green: `run-lint-tests.mjs`=0,
+  `run-gen-tests.mjs`=0, `run-eval-checks.mjs`=0. `git diff --quiet HEAD --
+  skills/orchestrate/references/dispatch-child.md` → 0. Files changed:
+  `reference/tracker.md`, `docs/how-it-works/work-lifecycle.md`,
+  `docs/how-it-works/integrations.md` (+ DECISIONS ruling 7 and this entry).
+  `skills/ae-init/SKILL.md` and `templates/` untouched (step 5). No
+  CHANGELOG, no restamp, no version bump. This repo's own root declaration
+  (`· project Agent-Engineering`) and eval-05's small-repo shape both stay
+  valid verbatim under the extended grammar.
+  Concerns: (1) **budget** — tracker.md is 178 lines against the ≤120 house
+  budget for `reference/` (`docs/specs/SPEC-agent-engineering.md:173`); it
+  was already 149 before this step, and the +29 is the mandated definition
+  (grammar, nested form, walk-up rule, connector reconciliation) after two
+  compression passes and one deletion. A trim pass — the 31-line "The GitHub
+  plane" section is the obvious candidate to move to a chapter — is
+  follow-up material, outside this step's surfaces. (2) eval-05:57 still
+  writes the segment as `· project <project>` while the grammar now uses
+  `· project <name>`; placeholder wording only, no contract difference,
+  eval-05 is step 3's surface.
+
 ## In progress
 
 ## Tried and failed
