@@ -514,7 +514,7 @@ the wrong live binding in front of the tracker question:
 - **Run B** — the same repo with the UI removed (CLI/library, no
   rendering surface). No UI signal, so no DESIGN.md offer either.
 
-What the twelve graded items pin down (this is the interface step 6
+What the eleven graded items pin down (this is the interface step 6
 implements):
 
 - **The trigger** — exactly ONE Gotchas bullet, written on the strength of
@@ -621,7 +621,7 @@ comments; ae-init step numbering checked. Minors only, deferred:
 - eval-07:80-81 — "no product named" is stricter than the SPEC's
   illustrative "(Playwright, devtools)"; same ruling settles which text
   is generated vs skill-side.
-- PROGRESS step-5 entry says "twelve graded items"; the file has 11.
+- PROGRESS step-5 entry says "eleven graded items"; the file has 11.
 - eval-07:101 phrasing lacks the MAT-68 fenced-block carve-out (matches
   eval-06's phrasing; consistency-only).
 - eval-07 preamble could preempt the machine-policy-vs-repo-property
@@ -785,7 +785,7 @@ addition, no structural or behavioral change — `architecture.md`'s
 existing global/ description already covers the owner's installer
 mechanism and stays accurate.
 
-Files changed: `README.md` (+7 lines, one new paragraph);
+Files changed: `README.md` (+8 lines: 7-line paragraph + blank separator);
 `work/mat-83-84-scale-polish/PLAN.md` (step 7 ticked).
 
 Concerns: none.
