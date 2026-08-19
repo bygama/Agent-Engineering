@@ -49,7 +49,7 @@
   "owner terminal" reference/orca.md && [ $(wc -l < global/CLAUDE.md)
   -le 40 ] && node scripts/agent-lint.mjs . --ignore
   tests,templates,global,examples` exits 0
-- [ ] 3. [judgment] Feature C evals FIRST (DECISIONS.md ruling 3):
+- [x] 3. [judgment] Feature C evals FIRST (DECISIONS.md ruling 3):
   extend `skills/ae-init/evals/eval-05.md` (small repo <3 domains keeps
   the EXACT current single question — no recommendation, no extra
   prompt, no new friction) + write `skills/ae-init/evals/eval-06.md`
@@ -61,7 +61,7 @@
   initiative + per-domain `Tracker-project:` lines) — these evals are
   the contract step 5's SKILL.md edit must satisfy — accept: `node
   tests/run-eval-checks.mjs` exits 0
-- [ ] 4. [judgment] Feature C contract: `reference/tracker.md` — root
+- [x] 4. [judgment] Feature C contract: `reference/tracker.md` — root
   declaration format gains both optional segments (`Tracker: Linear —
   workspace <slug> · team <KEY> [· project <name>][· initiative
   <name>]`; small repo = project, deep monorepo = initiative at root +
@@ -77,7 +77,7 @@
   reference/tracker.md && grep -qi "initiative" reference/tracker.md &&
   node scripts/agent-lint.mjs . --ignore
   tests,templates,global,examples` exits 0
-- [ ] 5. [judgment] Feature C installer: `skills/ae-init/SKILL.md` —
+- [x] 5. [judgment] Feature C installer: `skills/ae-init/SKILL.md` —
   step-3 tracker question ships the pre-built recommendation when
   step-1 exploration finds ≥3 domains (apps or top-level dirs with own
   manifests), citing tracker.md's "Which workspace — the repo declares,
@@ -92,21 +92,21 @@
   must satisfy step 3's eval-05/eval-06 checklists — accept: `node
   tests/run-eval-checks.mjs && node scripts/agent-lint.mjs . --ignore
   tests,templates,global,examples` exits 0
-- [ ] 6. [judgment] Feature D — README interop statement: AE's AGENTS.md
+- [x] 6. [judgment] Feature D — README interop statement: AE's AGENTS.md
   files ARE the agents.md open-standard format (Agentic AI Foundation),
   so migrated repos are automatically readable by Codex, Gemini CLI,
   Cursor and other standard-following agents; AE's nesting rule aligned
   with the spec's nearest-wins — accept: `grep -qi "nearest-wins"
   README.md && node scripts/agent-lint.mjs . --ignore
   tests,templates,global,examples` exits 0
-- [ ] 7. [mechanical] Feature E — `templates/repo/docs/tiers.md` one
+- [x] 7. [mechanical] Feature E — `templates/repo/docs/tiers.md` one
   closing line pointing home (standard lives at
   github.com/bygama/Agent-Engineering: skills + the README's adoption
   guide; without the skills installed the ceremony runs by hand);
   `reference/task-tiers.md` untouched — accept: `grep -q
   "bygama/Agent-Engineering" templates/repo/docs/tiers.md && git diff
   --quiet HEAD -- reference/task-tiers.md` exits 0
-- [ ] 8. [mechanical] Full gate sweep + feature list: all four gates in
+- [x] 8. [mechanical] Full gate sweep + feature list: all four gates in
   sequence and flip feature_list.json rows on their verification
   commands — accept: `node scripts/agent-lint.mjs . --ignore
   tests,templates,global,examples && node tests/run-lint-tests.mjs &&
