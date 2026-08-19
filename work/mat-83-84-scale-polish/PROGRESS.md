@@ -614,16 +614,21 @@ Important findings; source fidelity verified clause-by-clause against
 reference/orca.md's browser criterion and the AGENTS.md template
 comments; ae-init step numbering checked. Minors only, deferred:
 
-- eval-07:72-74 — the "cited, not restated" parenthetical could be
-  misread as requiring the GENERATED bullet to cite reference/orca.md
-  (a dead, runner-naming pointer in an adopter repo). Interface reading
-  fixed by DECISIONS ruling (below) instead of a fix round.
-- eval-07:80-81 — "no product named" is stricter than the SPEC's
-  illustrative "(Playwright, devtools)"; same ruling settles which text
-  is generated vs skill-side.
-- PROGRESS step-5 entry says "eleven graded items"; the file has 11.
-- eval-07:101 phrasing lacks the MAT-68 fenced-block carve-out (matches
-  eval-06's phrasing; consistency-only).
+- eval-07, "cited, not restated" parenthetical (graded item on the
+  bullet's three clauses) — could be misread as requiring the GENERATED
+  bullet to cite reference/orca.md (a dead, runner-naming pointer in an
+  adopter repo). Interface reading fixed by DECISIONS ruling (below)
+  instead of a fix round.
+- eval-07, "no product named" (runtime-neutrality item) — stricter than
+  the SPEC's illustrative "(Playwright, devtools)"; same ruling settles
+  which text is generated vs skill-side.
+- PROGRESS step-5 entry originally said "twelve graded items"; the file
+  has 11 — corrected at the lane gate (1ed97ab).
+- eval-07's pointer-budget item phrasing lacks the MAT-68 fenced-block
+  carve-out (matches eval-06's phrasing; consistency-only).
+- (record note, lane gate) the line refs in this section came from the
+  review's diff-file view and exceed eval-07's real 82 lines — replaced
+  here by item names.
 - eval-07 preamble could preempt the machine-policy-vs-repo-property
   challenge explicitly (implicit today: the trigger is a repo property).
 
@@ -924,12 +929,49 @@ Files changed: `skills/ae-init/evals/eval-06.md` (+8/−8, lines 3-11).
 
 ## Next
 
-- Execute PLAN steps 5-8 via work-run (steps 1-4 closed; 1-3 Approved,
-  4 pending its review).
+- work-handoff: commit lane record, push branch, open the PR
+  (Closes MAT-83 / Closes MAT-84), report worker_done to the parent.
 
 ## Verification
 
 <!-- PASS evidence only, written by work-verify (newest on top); the close
      handoff refuses to close a lane without a current PASS block here. -->
+
+### 2026-08-19 — M DoD — PASS
+
+- L1 static: `node scripts/agent-lint.mjs . --ignore
+  tests,templates,global,examples` → exit 0 ("0 high, 0 medium, 0 low —
+  PASS").
+- L2 behavioral: `node tests/run-lint-tests.mjs` → exit 0 ("all 16 cases
+  passed"); `node tests/run-gen-tests.mjs` → exit 0 ("all gen cases
+  passed"); `node tests/run-eval-checks.mjs` → exit 0 ("all eval checks
+  passed", ae-init 7 evals); all four re-run after the lane-gate fix
+  (`ae3056f`). PLAN steps 1-7 acceptance greps re-run fresh this
+  session, all OK (step 8's acceptance IS the four-gate chain).
+- L3 end-to-end: n/a — docs/skills/eval surfaces only, no executable
+  cross-component flow; the graded read of eval-07 against a real
+  install is future ae-init usage, not this lane's runtime.
+- Fresh-context review: PASS (diff 1ee598e..1ed97ab; reviewer ran every
+  DoD layer itself, quoted exits all 0; verified the tracker.md trim
+  lossless against each dropped fact's claimed home, all citations
+  resolving, evals-before-content real in git history). Findings: 3
+  Important — eval-06 stale strict-hierarchy paraphrase (fixed,
+  `ae3056f`, gates re-run green), stale ## Next (fixed, this commit),
+  empty Verification (this block); minors recorded below/above.
+- Adversarial review: n/a at M per dispatch config — the parent
+  dispatches its own ballena after worker_done; this lane runs
+  work-verify only.
+
+Deferred minors triage (lane gate): tracker.md polish items (`--json`
+scope, autolink precision, fence asymmetry, dense pre-write paragraph,
+"same when") — accepted; the file sits at 120/120 with zero headroom, so
+each would trade a normative line for polish; left to the parent's
+review wave to overrule. README "root-first" consequence clause and
+SKILL.md instruction-tightening items ("nothing in the report",
+"(Gotchas, never Hard constraints)", length cue) — accepted as satisfied
+by construction + graded by eval-07; cheap follow-ups if the ballena
+asks. `grep -qi "seed"` vacuous-gate note and `reference/skills.md` at
+127 (pre-existing, out of scope) — recorded for future plan-shaping and
+the maintenance queue.
 
 <!-- First read of every session. If it isn't here, it didn't happen. -->
