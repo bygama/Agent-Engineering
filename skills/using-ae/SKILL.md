@@ -31,6 +31,7 @@ a local AE clone, else github.com/bygama/Agent-Engineering; none ⇒ say so.
 - **loop-setup** — work that repeats on a cadence or event.
 - **ae-init** — installing or migrating a repo onto the standard.
 - **ae-audit** — measuring a repo against the standard.
+- **skill-authoring** — creating a skill or changing its behavior.
 
 ## Role rule
 
