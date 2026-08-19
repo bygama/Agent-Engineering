@@ -397,6 +397,39 @@
   (m27) template marker deletion leaves a double blank line — comment
   could say "delete the marker and its blank line".
 
+- **Step 6 — Feature D, README interop statement.** One short paragraph added
+  to `README.md`'s "Installing in any repo" section, between the install
+  flow's item 4 and `### Customizing` — the natural home: that is where the
+  reader has just been told what they end up with (a stamped `AGENTS.md`),
+  so the interop fact is the payoff of the same sentence rather than a
+  section of its own. It states that the file is no AE-private format —
+  `AGENTS.md` **is** the [agents.md](https://agents.md) open standard,
+  stewarded by the Agentic AI Foundation (Linux Foundation) — so a repo AE
+  installs or migrates is read as-is by Codex, Gemini CLI, Cursor and any
+  other standard-following agent, with no adapters and no second copy
+  (tying back to the README's own per-tool-adapter ban two paragraphs
+  later); and that AE's nesting rule is the spec's own: nest at any depth,
+  nearest-wins, linking `reference/context.md` where step 1 wrote the rule.
+  Voice and provenance match step 1 deliberately: same steward attribution,
+  same `https://agents.md` URL, same `nearest-wins` term, so README and
+  `reference/context.md` cite one source in one vocabulary. Seven lines,
+  all ≤73 columns (README prose norm); link discipline kept — the local
+  link resolves (agent-lint's broken-link check covers it) and the external
+  one is skipped by the lint (`scripts/agent-lint.mjs:147`).
+  Acceptance: `grep -qi "nearest-wins" README.md && node
+  scripts/agent-lint.mjs . --ignore tests,templates,global,examples` →
+  `0 high, 0 medium, 0 low — PASS`, `EXIT=0`. Other three gates green:
+  `run-lint-tests.mjs`=0, `run-gen-tests.mjs`=0, `run-eval-checks.mjs`=0.
+  Files changed: `README.md` (+ this entry) — `git status --porcelain`
+  showed `M README.md` alone before the PROGRESS write. No CHANGELOG, no
+  restamp, no version bump.
+  Concern (minor, not fixed on purpose): `README.md:244` still writes the
+  budget as "per-app ≤30", the flat vocabulary Feature A retired — that is
+  step-1 review minor **m4**, which the controller DEFERRED to work-verify
+  triage. This step's scope is Feature D only, so I left it standing rather
+  than preempting the triage; it is a one-word fix ("nested ≤30") whenever
+  the controller wants it.
+
 ## In progress
 
 ## Tried and failed

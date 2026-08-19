@@ -235,6 +235,14 @@ standard in this repo"*. The flow:
    `CLAUDE.md`, and a `docs/` seed (`tiers.md`, ADR/spec templates) —
    nothing speculative. `ae-audit` runs as the final gate.
 
+That file is no AE-private format: `AGENTS.md` **is** the
+[agents.md](https://agents.md) open standard, stewarded by the Agentic AI
+Foundation (Linux Foundation) — so a repo AE installs or migrates is read
+as-is by Codex, Gemini CLI, Cursor, and any other standard-following
+agent, with no adapters and no second copy. AE's nesting rule is the
+spec's own: nest at any depth, nearest-wins
+([reference/context.md](reference/context.md)).
+
 ### Customizing
 
 Templates are defaults, not law — but budgets are law:
