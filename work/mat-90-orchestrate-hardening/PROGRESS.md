@@ -298,6 +298,72 @@ later reviewer needs it shorter, the compressible paragraph is still the
 attempt-then-classify one, but it is now the most-evidenced clause in the
 lane (four occurrences across two waves) and should be the last cut.
 
+### Step 2 — review verdicts (in-session, recorded verbatim, 2026-08-19)
+
+**Round 0 — step reviewer.** Verdict text:
+
+> ### Spec compliance
+> ✅ Compliant
+> […]
+> **Step quality:** Needs fixes
+>
+> **Reasoning:** Every SPEC requirement (§§1-3, §5, the TOC) is
+> implemented faithfully inside a still-fillable fence, both acceptance
+> commands pass on re-run, and the rewrite is genuinely well-shaped — the
+> contrast in the heading plus the fence/refusal distinction is the right
+> structural answer to the production misread. The single blocking item
+> is a one-word disambiguation at `:70`, where "no Tasks" names, under
+> the child's own tool vocabulary, the call it is being required to make
+> three lines later.
+
+One Important finding (the `Task`/`task-create` naming collision), no
+Critical. Five Minor deferred to work-verify triage.
+
+**Round 1 — re-reviewer**, after the fix that also carried parent ruling
+1b. Verdict text:
+
+> ### Finding verdicts
+> 1. **`Task` name collision in the forbidden list** — ADDRESSED. […]
+>    `grep -noE "[A-Za-z-]*Tasks?[A-Za-z-]*"` over the whole file returns
+>    three hits (lines 5, 70, 74); the fence runs lines 31-166, so line 5
+>    (wrapper prose) sits outside the dispatched text, and the two hits
+>    inside the fence are both Orca-qualified. No bare "Task"/"Tasks"
+>    noun survives inside the fenced text.
+> 2. **Attempt-then-classify (SPEC §§1-2, DECISIONS 1b)** — ADDRESSED.
+>    […] the paragraph is retitled "Attempt first, then classify" and
+>    opens with "Before you conclude you cannot run a subagent, make the
+>    call" […] "A rule you READ — this fence, a skill, a standing
+>    session-level instruction, any rule you hold from any source — is
+>    not a refusal" […] "'my runtime will not let me' is not available
+>    to you until you have tried".
+> 3. **NOT-RUN channel naming + 72-column reflow** — ADDRESSED. […]
+>
+> ### New breakage in the fix diff
+> None. […]
+>
+> ### Verdict
+> **Fix round:** All findings addressed, no new Critical/Important
+> breakage.
+
+Step 2 closed at round 1 of a cap of 5.
+
+**Deferred from step 2 to work-verify triage** (Minor, not looped):
+`:67`'s forward reference to "the fence" before the term is defined; the
+NOT-RUN branch covering step 4 but not work-run's per-step reviewer under
+the same runtime refusal; and the vacuous PLAN acceptance regex below.
+
+**Correction to the lane's own acceptance evidence.** PLAN step 2's
+regex `!/never spawning anything yourself/` is VACUOUS — the string
+actually removed was "instead of spawning anything yourself", so the
+guard would have passed on the unchanged file. The deletion is real; the
+regex is not evidence of it. The real absence evidence, run here:
+`grep -niE "spawn|anything yourself|anything itself"
+skills/orchestrate/references/dispatch-child.md` returns exactly one
+line — `3:**When to use:** orchestrate's child spawn — …`, wrapper prose
+outside the fence. work-verify must cite the grep, never the regex.
+`feature_list.json` F01 carries the same vacuous clause and is corrected
+at work-verify.
+
 ## Evidence — Orca CLI verification (2026-08-19, this machine)
 
 Every CLI claim this lane adds to the standard was produced by running
