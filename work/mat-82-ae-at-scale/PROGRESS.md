@@ -309,6 +309,81 @@
   ADR-001 two-connectors tension deserve a filed follow-up so they survive
   lane close.
 
+- **Step 5 — Feature C installer (`skills/ae-init/SKILL.md`).** Step 1
+  (Explore) now counts the repo's **domains** — every `apps/*` entry plus
+  every top-level directory carrying a manifest of its own; a directory
+  without one (`scripts/`, `docs/`) is not a domain however many files it
+  holds — and states that the count decides the shape of step 3's tracker
+  question (≥3 opens the monorepo path). Step 3's existing tracker paragraph
+  is untouched verbatim, gaining only the closing clause "Under 3 domains
+  that is the whole question: one turn, no proposal, nothing new to answer"
+  (eval-05's no-new-friction check; the boundary run at two domains falls on
+  the same side). Two new paragraphs follow it, both still inside the
+  tracker-in-play gate so the layout alone never triggers anything: (a) at
+  ≥3 the SAME single question carries a PRE-BUILT recommendation —
+  initiative named after the repo at the root, one project per domain named
+  from its folder, title-cased (`apps/api` → `Api`, resolving step-3 review
+  minor m12), never a description of what the folder does, and no project on
+  the root line — declared as the shape `reference/tracker.md` ("Which
+  workspace — the repo declares, tools obey") defines for a deep monorepo,
+  cited and never restated; workspace and team key stay the owner's to
+  supply in that same answer (DECISIONS ruling 6), the live binding never
+  standing in for them; one answer settles it — approved as offered,
+  approved with edits (drop a domain, rename a project) taken verbatim with
+  no second approval round, or "none", which declares and creates nothing;
+  (b) on approval ae-init creates only what is MISSING (the initiative —
+  DECISIONS ruling 5 — and each absent project, reusing every one that
+  exists) and nothing else: no issues, no status moves, nothing outside the
+  approved structure; writes go through `orca linear` or a Linear MCP the
+  session already carries, and **without an Orca session there is no tracker
+  write whatever connector is present** (DECISIONS ruling 7 — eval-06 Run D
+  passes under the stricter reading), same contract when the binding cannot
+  be resolved: create nothing, say plainly the tracker was NOT written, emit
+  the exact operation (command + payload) per missing object.
+  Step 6 (Instantiate): the root sentence gains "an approved monorepo
+  structure names its initiative there and leaves the projects to the
+  domains below"; the monorepo sentence now reads "+ pointer per directory
+  that earns one (`reference/context.md`)" — retiring the flat per-app
+  framing (step-3 review m14) — with each such file carrying its domain's
+  `Tracker-project:` line directly under the title, workspace and team
+  inherited from the root and never repeated, no directory getting a file
+  just to hold the line (the Feature A×C interaction), and every declaration
+  line written even when the tracker objects were only emitted for the
+  operator. Judgment notes: budget list "per-app ≤30" → "nested ≤30" plus
+  "a declaration line counts against them like any other" (eval-06's budget
+  check).
+  `templates/monorepo/app-AGENTS.md.template`: optional
+  `{{APP_TRACKER_PROJECT}}` marker directly under the title with an inline
+  OPTIONAL comment (format and inheritance per `reference/tracker.md`;
+  delete the marker when the domain inherits the root declaration whole) —
+  same inline-comment style as `templates/repo/AGENTS.md.template`'s Map
+  section; comments are authoring guidance and instantiated files drop them,
+  so the ≤30 budget is untouched.
+  Same change: `docs/how-it-works/standard-lifecycle.md` Install section
+  gained a paragraph before "Templates are instantiated" — the one question
+  that scales with the repo, the ≥3-domain drafted answer, one-answer
+  approval with workspace/team still the owner's, missing-objects-only
+  creation with the emit-for-operator path, declaration lines landing
+  regardless, and below three domains the single question it has always
+  been; cites `reference/tracker.md` by name (house style in these chapters
+  is the backticked path, not a markdown link).
+  Acceptance: `node tests/run-eval-checks.mjs && node scripts/agent-lint.mjs
+  . --ignore tests,templates,global,examples` → `ok   ae-init: 6 evals
+  well-formed` … `all eval checks passed`, then `0 high, 0 medium, 0 low —
+  PASS`, `EXIT=0`. Other two gates green: `run-lint-tests.mjs` → `all 13
+  cases passed` (0), `run-gen-tests.mjs` → `all gen cases passed` (0).
+  SKILL.md is 154 lines (lint's skill-size check is <500). Files changed:
+  `skills/ae-init/SKILL.md`, `templates/monorepo/app-AGENTS.md.template`,
+  `docs/how-it-works/standard-lifecycle.md` (+ this entry) — `reference/`,
+  the evals, `examples/` and `dispatch-child.md` untouched. No CHANGELOG, no
+  restamp, no version bump.
+  Concern (minor): the template's marker is a `{{APP_TRACKER_PROJECT}}`
+  placeholder while the root template carries no tracker placeholder at all
+  (ae-init inserts the root line from step 6's instruction) — an asymmetry
+  the PLAN's "optional `Tracker-project:` marker" asked for on the nested
+  side only; harmless, but a future pass may want the root template to carry
+  the same kind of marker.
+
 ## In progress
 
 ## Tried and failed

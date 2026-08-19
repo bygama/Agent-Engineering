@@ -7,6 +7,11 @@
      Ships with its own ≤3-line CLAUDE.md pointer beside it. -->
 # {{APP_NAME}}
 
+{{APP_TRACKER_PROJECT}}
+<!-- OPTIONAL: this domain's `Tracker-project:` line, format and inheritance
+     per reference/tracker.md. Delete the marker when the domain has no
+     project of its own — it then inherits the root declaration whole. -->
+
 {{APP_SUMMARY}}
 
 ## Commands
