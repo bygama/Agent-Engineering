@@ -18,6 +18,8 @@ nesting sources 2026-08-18.
 | CLAUDE.md (pointer, root or nested) | ≤3 lines | 3 |
 | Global ~/.claude/CLAUDE.md | ≤40 lines | 40 |
 
+**Pointer rows note:** A fenced tool-managed block does not count against the line budget — the lint's `pointer-shape` check settles what qualifies as one.
+
 ## The canonical file: AGENTS.md
 
 One canonical entry file per repo, readable by every runner (Claude Code via
@@ -51,9 +53,6 @@ ban stands.
 The global layer is the one exception: `~/.claude/CLAUDE.md` (H1
 `# Global instructions`, ≤40 lines) is its own canon — user identity, safety,
 working style — and is not a pointer.
-
-A fenced tool-managed block does not count against the line budget — the lint's
-`pointer-shape` check settles what qualifies as one.
 
 ## Nesting: a directory earns its own file
 
