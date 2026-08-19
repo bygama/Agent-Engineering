@@ -72,9 +72,9 @@
   The file sat at exactly 40/40, so the existing browser bullet was
   reflowed rather than extended: dropped the now-redundant `(dev server,
   driven browser)` parenthetical (both cases are named explicitly two
-  clauses later) and spent the reclaimed width on the criterion — `browsers:
-  Orca's embedded one (\`orca goto/snapshot/click\`) — Playwright/Chrome
-  MCPs only for capabilities it lacks, from an owner terminal.` Still 5
+  clauses later) and spent the reclaimed width on the criterion: "browsers:
+  Orca's embedded one (`orca goto/snapshot/click`) — Playwright/Chrome
+  MCPs only for capabilities it lacks, from an owner terminal." Still 5
   lines, file still exactly 40 (`wc -l` run BEFORE committing: `40
   global/CLAUDE.md`), all prose ≤74 cols (the house max in this file and in
   orca.md). The capability examples were deliberately left out of global —
