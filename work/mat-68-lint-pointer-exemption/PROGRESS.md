@@ -346,6 +346,43 @@ enumerates the pointer rule comprehensively, `reference/context.md` establishes
 the budget law, each surface now declares the exemption with uniform citation to
 the lint.
 
+**Step 4 review (initial review): needs fixes.** Reviewer found placement error
+in `reference/context.md`: the note was 35+ lines below the Budgets table
+(lines 55-56, after the global-layer exception), violating DECISIONS ruling 2's
+stated target ("budget-table pointer row") and rationale. The original placement
+also created ambiguity: "the line budget" could be misread as applying to the
+global ≤40 budget just mentioned, contrary to SPEC §1's exemption scope. **Fix applied:**
+
+Moved the note to line 21, immediately after the Budgets table (right after the
+global CLAUDE.md row), labelled "**Pointer rows note:**" to mirror the
+`skills/ae-audit/references/checklist.md:43` pattern. This placement directly
+addresses ruling 2's target and ensures a reader stopping at the table sees
+the exemption without ambiguity.
+
+**Acceptance commands re-run:**
+
+```
+$ grep -il "tool-managed" docs/how-it-works/standard-lifecycle.md reference/context.md
+docs/how-it-works/standard-lifecycle.md
+reference/context.md
+```
+
+Exit code: 0 ✓
+
+```
+$ node scripts/agent-lint.mjs . --ignore tests,templates,global,examples
+agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-68-lint-pointer-exemption
+0 high, 0 medium, 0 low — PASS
+```
+
+Exit code: 0 ✓
+
+**Files changed (fix):**
+- `reference/context.md` (note moved from lines 55-56 to line 21, immediately
+  after Budgets table).
+
+**Step 4 re-review (fix round 1, 2026-08-19):** (pending)
+
 ## Notes
 
 - docs/how-it-works survey (brief item 4): `standard-lifecycle.md` is the
