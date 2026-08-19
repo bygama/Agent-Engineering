@@ -22,7 +22,7 @@ Constraints (every step):
       page (SPEC item 4: issue belongs to a team, can be added to a
       project; initiative can contain multiple projects). — accept:
       `[ $(wc -l < reference/tracker.md) -le 120 ] && grep -q "second connector" reference/tracker.md && grep -q "belongs to a team" reference/tracker.md && node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
-- [ ] 2. `judgment` — Widen ae-init eval-06 Run D: preamble and graded
+- [x] 2. `judgment` — Widen ae-init eval-06 Run D: preamble and graded
       item cover the no-Orca contract both bare AND with a Linear MCP
       present (the MCP-present case equally refuses the write, states
       it, emits the operations — ADR-001, `reference/tracker.md` Without

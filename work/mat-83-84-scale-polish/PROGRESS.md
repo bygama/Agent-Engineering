@@ -204,14 +204,31 @@ Files changed: `skills/ae-init/evals/eval-06.md` (+21 / −9).
 Concerns: none. Wrapping kept at the file's 78-col house width (no line
 exceeds 80).
 
+### Step 2 review closed — Approved, no fix loop
+
+Fresh reviewer: spec ✅ compliant, quality Approved, no Critical or
+Important findings. Citations verified load-bearing against the
+post-trim tracker.md and ADR-001; acceptance re-run exit 0 clean.
+
+Minor findings deferred to the lane gate (work-verify triage):
+
+- run-eval-checks is structural only — the gate's green proves shape,
+  not content; the substantive check was the review read itself.
+- eval-06 could state the Run A / Run D contrast (same connector,
+  opposite outcome depending on the Orca session) in the file itself,
+  not only in the lane record.
+
+One finding routed forward, ruling recorded in DECISIONS.md: eval-06:120
+"monorepo pair (`AGENTS.md` + pointer) per app" is live contract text
+using the retired vocabulary — added to step 3's sweep targets.
+
 ## In progress
 
 ## Tried and failed
 
 ## Next
 
-- Execute PLAN steps 3-8 via work-run (steps 1-2 done; step 2 awaits its
-  fresh-context review).
+- Execute PLAN steps 3-8 via work-run (steps 1-2 closed Approved).
 
 ## Verification
 
