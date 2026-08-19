@@ -7,10 +7,11 @@ becomes the Task's `--spec` (`orca orchestration task-create --spec
 runs `worker-start --task <id> --worktree new-child --agent <id>
 [--model <id>]`. Filled verbatim, never freehand (MAT-43 pattern).
 
-**How to fill:** two things — `[LANE_PATH]` and `[TASK_BRIEF]`. The
-brief is the shaped design from the dispatch dialogue — the parent has
-already done the judgment here; the child's job is to formalize it into
-a lane, not to re-shape it.
+**How to fill:** two required slots, `[LANE_PATH]` and `[TASK_BRIEF]`,
+plus an optional `[REPO_CONSTRAINTS]` — omitted whole when the repo
+has no standing block. The brief is the shaped design from the
+dispatch dialogue — the parent has already done the judgment here; the
+child's job is to formalize it into a lane, not to re-shape it.
 
 ## Contents
 
@@ -19,6 +20,7 @@ the fence are authoring notes and are never dispatched.
 
 - Your lane
 - The brief
+- Repo constraints (optional)
 - Push and PR — never merge
 - No grandchildren — and the reviewers you DO run
 - Questions
@@ -53,6 +55,15 @@ wants owner approval before PLAN.md, that approval is the parent's call
 — get it via Questions, below, never by proceeding unapproved or
 switching to direct mode. Then run the unchanged work-cycle: `work-run`
 → `work-verify` → `work-handoff`.
+
+## Repo constraints
+
+[REPO_CONSTRAINTS]
+
+These are the house's standing rules — ports, commands, fences this
+repo already lives by — and they hold for every step of the lane, not
+just the step that trips over them. Where one collides with the brief,
+ask (below) rather than choosing.
 
 ## Push and PR — never merge
 
@@ -174,6 +185,13 @@ rather than staying silent.
 - `[TASK_BRIEF]` — REQUIRED: the shaped design from the dispatch
   dialogue, verbatim — not a pointer to a conversation the child can't
   read
+- `[REPO_CONSTRAINTS]` — OPTIONAL: the standing per-repo block (ports,
+  house commands, fences) every child in this repo is given, pasted
+  verbatim. A fill has exactly two legal outcomes here: the section
+  carrying that block, or the whole `## Repo constraints` section
+  deleted — heading and closing paragraph included, not just the slot.
+  A section left standing with nothing in it is a placeholder that
+  survived
 
 **Child reports via `worker_done`:** outcome (succeeded/failed), the
 changed files, a report path into its own PROGRESS.md, and the PR URL —

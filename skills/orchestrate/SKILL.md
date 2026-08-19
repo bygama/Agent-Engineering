@@ -78,7 +78,8 @@ Record the answer in the Task spec — it is what the review wave dispatches
 later, and asking after the child is already working is asking too late.
 
 **4. Birth the child.** Fill `references/dispatch-child.md` verbatim
-(`[LANE_PATH]`, `[TASK_BRIEF]`); that filled text is the `--spec` above.
+(`[LANE_PATH]`, `[TASK_BRIEF]`, plus the optional `[REPO_CONSTRAINTS]`
+section — filled or deleted whole); that filled text is the `--spec` above.
 Then one command, with the provenance attached:
 
 ```bash

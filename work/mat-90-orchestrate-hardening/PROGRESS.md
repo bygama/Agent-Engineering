@@ -364,6 +364,101 @@ outside the fence. work-verify must cite the grep, never the regex.
 `feature_list.json` F01 carries the same vacuous clause and is corrected
 at work-verify.
 
+### Step 3 — the `[REPO_CONSTRAINTS]` slot (2026-08-19)
+
+SPEC §16, the template's interface change. Two files:
+`skills/orchestrate/references/dispatch-child.md` (the slot) and
+`skills/orchestrate/SKILL.md` (one clause, see "Second file" below).
+
+**Inside the fence — a new `## Repo constraints` section**, placed
+between § The brief and § Push and PR. The placement is this step's
+judgment call and was made deliberately: the block carries standing
+per-repo fences (ports, house commands), so it belongs immediately
+after the ask it bounds and above every orchestration-protocol
+section — a child reads it before it starts working, not after.
+Appending it at the end, past § Reporting done, would put standing
+constraints below the report format.
+
+The section is the slot plus one short closing paragraph: the rules
+hold for every step of the lane, not just the step that trips over
+them, and where one collides with the brief the child asks
+(§ Questions) rather than choosing. That last line is the template's
+own spine — never guess, ask — applied to the one place where two
+binding inputs can disagree.
+
+**Outside the fence, three consequences of the interface change:**
+
+- The `## Contents` TOC added in step 2 gains `- Repo constraints
+  (optional)` in its fenced position. A TOC that omits a section it
+  should carry is a defect this step would otherwise have introduced.
+- The **How to fill** note said "two things"; it now says two required
+  slots plus an optional `[REPO_CONSTRAINTS]`, omitted whole.
+- The **Placeholders:** list gains the declaration, written so the
+  omit-entirely semantics are unambiguous (eval-05:73-76 grades "an
+  empty optional section still in it" as a fill failure): *a fill has
+  exactly two legal outcomes here: the section carrying that block, or
+  the whole `## Repo constraints` section deleted — heading and
+  closing paragraph included, not just the slot. A section left
+  standing with nothing in it is a placeholder that survived.* Two
+  outcomes, named, with no third state a generator could pass.
+
+**Second file — `skills/orchestrate/SKILL.md`, one clause.** Step 4 of
+the skill enumerated the template's fill slots as "(`[LANE_PATH]`,
+`[TASK_BRIEF]`)". That enumeration is the template's only caller and
+this step made it wrong, so it now reads "…plus the optional
+`[REPO_CONSTRAINTS]` section — filled or deleted whole". This is the
+interface change's own consequence, not step 6's content: none of step
+6's four clauses (a)-(d) touch this line, and leaving a stale slot list
+in the repo between commits is a defect this step introduces. Flagged
+here so step 6 knows the paragraph already moved by one line.
+
+Acceptance (PLAN step 3), both run here. The first, verbatim as the
+step writes it:
+
+````
+node -e "const s=require('fs').readFileSync('skills/orchestrate/references/dispatch-child.md','utf8');const f=s.split('\n```')[1]||'';process.exit(/\[REPO_CONSTRAINTS\]/.test(f) && /OPTIONAL/.test(s) ? 0 : 1)"
+````
+
+→ exit 0. Splitting on the opening fence puts the dispatched body at
+index 1, so the guard proves the slot sits INSIDE the fence rather
+than in the authoring notes; `OPTIONAL` is matched against the whole
+file, where it appears in the Placeholders declaration.
+
+Second: `node scripts/agent-lint.mjs . --ignore
+tests,templates,global,examples` → `0 high, 0 medium, 0 low — PASS`,
+exit 0.
+
+Other lane gates re-run after both edits: `node tests/run-eval-checks.mjs`
+→ exit 0; `node tests/run-lint-tests.mjs` → exit 0;
+`node tests/run-gen-tests.mjs` → exit 0. Step 2's acceptance regex
+re-run as a regression guard → exit 0. `awk 'length($0) > 72'` over
+`dispatch-child.md` → no output (main's 72-column fill held).
+
+Files changed: `skills/orchestrate/references/dispatch-child.md` (M,
+181 → 199 lines), `skills/orchestrate/SKILL.md` (M, +1 line).
+
+**Do-not-touch check, and a correction for step 8.** The lane's own
+changes touch no forbidden path — `git diff --name-only main...HEAD`
+(three-dot) plus the dirty worktree lists only the three evals, the two
+files above and the lane's own `work/` files. But PLAN step 8's check
+is written with the TWO-dot `git diff --name-only main`, and that form
+returns `scripts/agent-lint.mjs`, `tests/**` and
+`docs/how-it-works/standard-lifecycle.md` here — not because this lane
+touched them, but because local `main` has moved ahead of this branch's
+base with sibling lanes' merged work (`git log main..HEAD` shows this
+branch's seven commits touch none of those paths). Step 8 must use
+`main...HEAD` or a `git merge-base` cutoff, or rebase first; the
+two-dot form as written will fail on a clean lane.
+
+Concerns: none blocking. One note — the closing paragraph inside the
+fence is text the parent must delete along with the heading when the
+repo has no standing block; the Placeholders entry names it explicitly
+("heading and closing paragraph included") for exactly that reason, but
+it is one more thing a careless fill can leave behind than a bare
+heading would have been. Kept because a child receiving the block still
+needs to be told the rules are binding across the whole lane, and what
+to do when one collides with the brief.
+
 ## Evidence — Orca CLI verification (2026-08-19, this machine)
 
 Every CLI claim this lane adds to the standard was produced by running
