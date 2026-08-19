@@ -421,13 +421,70 @@ Minor findings deferred to the lane gate (work-verify triage):
   (examples are authoring-time-frozen by design); recorded so it is not
   re-litigated later.
 
+### Step 4 DONE — README interop over-bundle split (identical → aligned)
+
+`README.md` §Installing in any repo, the interop paragraph. The old tail
+claimed AE's nesting rule *is* the spec's ("AE's nesting rule is the
+spec's own: nest at any depth, nearest-wins"), which bundles two
+different things: the shared precedence behavior, and AE's own additions
+on top of it. Split into what the standard defines and what AE adds.
+
+New text (replacing lines 242-244):
+
+> AE's nesting rule is *aligned* with that standard, not identical to
+> it: files nest at any depth and the nearest one wins — the spec's own
+> precedence, which Claude Code's walk-up reproduces by combining
+> ancestors root-first. What AE adds is its own: the earning test (a
+> directory gets a file only for non-inferable local knowledge, never
+> for symmetry) and the line budgets that keep every file small
+> ([reference/context.md](reference/context.md)).
+
+Attribution checked against the repo's own sources rather than restated
+from memory: `reference/context.md:72-79` assigns nearest-wins precedence
+to the agents.md standard (quoted there) and the walk-up/concatenate
+mechanics to Claude Code, and states the earning test + the ≤30/≤3
+budgets as AE's rules; `docs/how-it-works/standard-lifecycle.md:50-62`
+already draws the same split ("which is what the agents.md standard
+specifies and what Claude Code's walk-up produces"). The README was the
+only surface carrying the over-bundled form — a repo-wide grep for
+"spec's own" / "nearest-wins" returns only `reference/context.md`,
+`standard-lifecycle.md` (both already precise), this lane's SPEC/PLAN,
+and the README line now fixed.
+
+No `docs/how-it-works/` chapter needed updating: nothing structural or
+behavioral changed — this is a precision fix to a README claim, and the
+chapter that narrates nesting (`standard-lifecycle.md`) was already
+correct, so the change moves README toward it rather than away.
+
+Acceptance:
+
+```
+$ grep -qi "aligned" README.md && node scripts/agent-lint.mjs . --ignore tests,templates,global,examples
+agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-83-84-scale-polish
+0 high, 0 medium, 0 low — PASS
+EXIT=0
+```
+
+Other three gates re-run as insurance (the lane constraint wants all four
+green; none reads README): `node tests/run-lint-tests.mjs` → "all 16 cases
+passed"; `node tests/run-gen-tests.mjs` → "all gen cases passed"; `node
+tests/run-eval-checks.mjs` → "all eval checks passed". Combined exit 0.
+
+Files changed: `README.md` (+6 / −3, one paragraph tail). Wrapping kept
+at the section's house width (longest new line 74 cols).
+
+Concerns: none. The paragraph grew by three lines; README carries no line
+budget (budgets bind entry files, not the README), and the lint confirms
+it.
+
 ## In progress
 
 ## Tried and failed
 
 ## Next
 
-- Execute PLAN steps 4-8 via work-run (steps 1-3 closed Approved).
+- Execute PLAN steps 5-8 via work-run (steps 1-4 closed; 1-3 Approved,
+  4 pending its review).
 
 ## Verification
 
