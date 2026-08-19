@@ -18,3 +18,11 @@
   illustrative and its exclusions cover found-state descriptions only,
   so live graded text using the retired vocabulary falls inside the
   sweep. Controller ruling against the SPEC, no scope change.
+- 2026-08-19 — interface ruling for step 6 (from step-5 review minors):
+  the GENERATED browser bullet in an adopter's AGENTS.md cites no AE
+  file and names no MCP product — "cited, not restated" in eval-07
+  refers to the SKILL's relationship to reference/orca.md (house idiom,
+  eval-06:85), and the SPEC's "(Playwright, devtools)" parenthetical is
+  illustrative skill-side language, never required generated text. The
+  skill's instruction may name examples; the emitted line stays
+  runtime-neutral and product-free per eval-07's graded items.
