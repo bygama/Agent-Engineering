@@ -11,7 +11,7 @@ requires a clean git tree so everything is reversible.
 | — | Add | current `Standard: AE/MAJOR.MINOR.PATCH` stamp + tier one-liner after the summary |
 | AGENTS.md entry stub | Replace | The canonical AGENTS.md above |
 | CLAUDE.md | Replace | ≤3-line pointer (`@AGENTS.md`) |
-| Per-app CLAUDE.md (≤30) | Convert | Per-app AGENTS.md (≤30) + per-app pointer CLAUDE.md |
+| Per-app CLAUDE.md (≤30) | Convert | Nested AGENTS.md (≤30) + nested pointer CLAUDE.md |
 | docs/, ADRs, specs, repo skills, community files | Keep as-is | — |
 
 A healthy v1 repo migrates in one atomic step; the plan lists before/after
@@ -25,7 +25,7 @@ per-version notes appended at the bottom of this file.
 | AGENTS.md rule lists | Distill: disposition each rule as gotcha / hard constraint / delete, with a one-line reason | AGENTS.md blocks 3-4 |
 | Read orders ("read X first") | Delete | Map block absorbs genuinely non-obvious locations |
 | CODEX.md / GEMINI.md / .cursorrules adapters | Delete | Canonical AGENTS.md + pointer CLAUDE.md are the only entry files |
-| Per-app AGENTS.md contracts | Replace | Per-app AGENTS.md ≤30 lines + pointer (monorepo templates) |
+| Per-app AGENTS.md contracts | Replace | Nested AGENTS.md ≤30 lines + pointer (monorepo templates) |
 | docs/conventions prose (code style, commit format) | Delete if a linter/formatter enforces it; else one line in Hard constraints or a proposed skill | linters / AGENTS.md / skill proposal |
 | Procedural docs ("how to add X") | Propose as repo skill — do NOT create without approval | `.claude/skills/` proposals list |
 | ADRs, specs, diagrams | Keep as-is | docs/ (rich references) |

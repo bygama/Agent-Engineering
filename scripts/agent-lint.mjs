@@ -98,8 +98,8 @@ for (const f of agents) {
     else if (!stampLines.some((l) => /^Standard: AE\/\d+\.\d+(\.\d+)?\s*$/.test(l)))
       add("medium", "stamp-shape", f, `malformed stamp: "${stampLines[0].trim()}"`);
   } else {
-    if (n > 60) add("high", "budget-cap", f, `${n} lines — per-app AGENTS.md far over the cap (30)`);
-    else if (n > 30) add("medium", "budget", f, `${n} lines — over the per-app cap (30)`);
+    if (n > 60) add("high", "budget-cap", f, `${n} lines — nested AGENTS.md far over the cap (30)`);
+    else if (n > 30) add("medium", "budget", f, `${n} lines — over the nested cap (30)`);
   }
 }
 

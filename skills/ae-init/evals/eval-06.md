@@ -117,6 +117,6 @@ answer comes from.
       nothing to ask.
 - [ ] Rest of the fresh-install contract unchanged: explores before asking,
       profile asked once, commands verified by running them, monorepo pair
-      (`AGENTS.md` + pointer) per app, no `work/` lane and no feature list,
-      the coding-tools prompt-template reminder fires once, and ae-audit is
-      the final gate with lint exiting 0.
+      (`AGENTS.md` + pointer) at any earned depth, no `work/` lane and no
+      feature list, the coding-tools prompt-template reminder fires once,
+      and ae-audit is the final gate with lint exiting 0.

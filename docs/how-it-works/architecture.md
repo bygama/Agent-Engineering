@@ -141,7 +141,7 @@ beside it. The anatomy, run protocol, and diagrams live in
 
 Live since 1.0.0 (the SPEC deferred it "until real repos migrate" —
 workstation migrating satisfied that). Instantiated setups per repo
-shape: a single app, a monorepo with per-app files, and the
+shape: a single app, a monorepo with nested AGENTS.md files, and the
 machine-config entry that points at the living public consumer
 (workstation) instead of a snapshot that would drift. Stamps inside are
 authoring-time by design; the directory is excluded from the self-lint

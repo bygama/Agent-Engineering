@@ -249,7 +249,7 @@ Templates are defaults, not law — but budgets are law:
 
 | You can shape | The line that never moves |
 |---|---|
-| Which blocks `AGENTS.md` carries — Map is optional, empty blocks are valid | `AGENTS.md` ≤60 lines, per-app ≤30, pointer ≤3 |
+| Which blocks `AGENTS.md` carries — Map is optional, empty blocks are valid | `AGENTS.md` ≤60 lines, nested ≤30, pointer ≤3 |
 | Community files by profile ([`templates/community/MATRIX.md`](templates/community/MATRIX.md); OSS picks a license) | one canonical `AGENTS.md` + pointer `CLAUDE.md` — never per-tool adapters |
 | When lanes, feature lists, loops, and `DESIGN.md` appear (per effort, per evidence, opt-in) | nothing speculative at install time |
 | Which runner works the repo — any file-reading agent | verification by command; tier ceremony (`docs/tiers.md`) |
