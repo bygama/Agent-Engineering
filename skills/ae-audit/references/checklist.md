@@ -23,7 +23,7 @@ audit only re-reports them.
 
 | Check | Pass condition | Severity |
 |---|---|---|
-| Line budget (lint) | Root ≤60 (cap 100); per-app ≤30 | medium |
+| Line budget (lint) | Root ≤60 (cap 100); nested ≤30 | medium |
 | Stamp (lint) | `Standard: AE/<major>.<minor>` present, well-formed, current | medium |
 | Inferable content | No file trees, framework explanations, facts derivable from code | high |
 | Rules vs judgment | No taste rules; constraints are genuine safety only | high |
@@ -37,8 +37,10 @@ audit only re-reports them.
 | Check | Pass condition | Severity |
 |---|---|---|
 | Root CLAUDE.md (lint) | ≤3 lines, contains `@AGENTS.md` | high |
-| Per-app CLAUDE.md (lint) | Same pointer shape per app dir | high |
+| Nested CLAUDE.md (lint) | Same pointer shape at any earned depth | high |
 | Global exception | `~/.claude`-style file (H1 `# Global instructions`) ≤40 lines, own canon | medium |
+
+**Pointer rows note:** A fenced tool-managed block (delimited by `<!-- BEGIN:… -->` and `<!-- END:… -->` with matching kebab-case names) does not count against the line budget; the lint's `pointer-shape` check settles the block recognition grammar.
 
 ## Duplication checks
 
@@ -56,7 +58,7 @@ audit only re-reports them.
 | Procedural prose | No recurring how-to workflows in entry files or docs (those are skills) | medium |
 | Naming (lint) | ADR-NNN-<topic>.md, SPEC-<feature>.md | low |
 | docs/ index (lint) | docs/README.md exists, one line per area, no content of its own | low |
-| Monorepo | Per-app AGENTS.md (≤30) + pointer CLAUDE.md per app | medium |
+| Monorepo | Nested AGENTS.md (≤30) + pointer CLAUDE.md at any earned depth | medium |
 
 ## Lane checks
 
