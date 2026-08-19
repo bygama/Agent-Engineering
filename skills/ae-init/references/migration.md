@@ -122,3 +122,13 @@ stable line's layout.
 - **1.3.2** (2026-08-18) — heartbeat phase vocabulary fixed in the
   child dispatch template. Migrating up: restamp only — skills are
   machine-global; nothing inside an installed repo must change.
+- **1.4.0** (2026-08-19) — AE at scale: deep-nesting criterion,
+  hierarchical tracker, browser capability criterion, agents.md
+  interop, lint fenced-block exemption, seat-rule bootstrap fix.
+  Migrating up: restamp + refresh `docs/tiers.md` from the template
+  (it gains the closing pointer-home line). Optional adoptions, never
+  required: monorepos may nest AGENTS.md at any earned depth and add
+  `Tracker-project:` lines per domain (root may add `· initiative`);
+  UI repos may take the runtime-neutral browser gotcha (ae-init adds
+  it on the next init/migration). Pointers hosting a fenced
+  tool-managed block are now lint-clean as-is.
