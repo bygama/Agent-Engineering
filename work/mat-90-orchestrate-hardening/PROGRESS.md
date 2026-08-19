@@ -1033,6 +1033,75 @@ Concerns: two, neither blocking.
    rather than in a dispatch stage — the stage 4/5 narration should
    follow those homes.
 
+### Step 6 — review verdict (in-session, recorded verbatim, 2026-08-19)
+
+> ### Spec compliance
+> ✅ Compliant — all four clauses plus both red-flag rows are present and
+> match the SPEC. […] I checked each cost against SPEC §9 and the
+> DECISIONS ruling-2 table row by row: `worker.effects` `reused` not
+> `created_child` ✓; `setup` `not_applicable` ✓; `ownershipState`
+> `external` / `retainedReason: external_terminal` against `user_owned` /
+> `user_requested` ✓; `--model`/`--effort` rejected with `--terminal` ✓.
+> None softened, none re-derived […]
+> […]
+> **Step quality:** Approved
+>
+> **Reasoning:** All four clauses land where the SPEC puts them, the four
+> costs are reproduced exactly as measured, the idle diagnosis requires
+> both signals and composes cleanly with the surviving silence rule, and
+> both acceptance commands pass on re-run. Both unrequested edits are
+> defensible — one closes a gap the SPEC assumed shut, the other prevents
+> an in-file contradiction the new paragraph would otherwise have
+> created […]
+
+Critical: none. Important: none.
+
+**The two judgment calls, both cleared by the reviewer:**
+
+- The reviewer-seat wording change is "correct reading, and the smallest
+  coherent fix" — SPEC §8 asserted the child seat gets required wording
+  "as it already is for the reviewer seat", but the reviewer seat's text
+  was NOT required wording. **The SPEC's own premise was false until this
+  edit made it true.** All three parts of the confirm-before-closing half
+  survived.
+- The red-flag row edit is "necessary coherence, not creep" — the
+  unqualified teaching had a second copy in the table a parent scans;
+  left alone the row and the new paragraph would have contradicted each
+  other inside one file.
+
+**Six Minor, deferred to work-verify triage:**
+
+1. **PRIORITY — a required step with no command.** `SKILL.md:177-181`
+   promoted the reviewer-seat close to "required step, not advice" but
+   its command is `orca terminal list …`, which SHOWS shells and does not
+   CLOSE one. `runners.md:104-105` names `orca terminal close --terminal
+   <handle>`; SKILL.md now names neither it nor a pointer, at the one
+   place it just raised the obligation.
+2. **MUST CLOSE — SPEC §15's tail is unrepresented in any shipped text.**
+   §15 asks that the `--spec "$(cat <file>)"` shape be framed as standing
+   "until an upstream `--spec-file` exists; the ask is named as an
+   upstream ask on Orca". Only SPEC.md carries that framing; the SKILL
+   text presents the `cat` shape flatly. A DECISIONS line or a filed ask
+   closes it.
+3. `SKILL.md:146-147` — the resume Task's spec should name the lane path,
+   mirroring the fix-loop block; a resumed idle child's turn has ended,
+   so that spec is all the context it gets.
+4. `SKILL.md:141-145` — the two signals are stated but not ordered; one
+   clause ("the stopped cadence is what licenses the read") stops a
+   literal parent from satisfying signal 2 by reading transcripts on a
+   schedule, which is the anti-pattern three lines above.
+5. `SKILL.md:110-111` — the `setup` bullet keeps the remedy and drops the
+   reason (`--setup` is rejected for existing worktrees).
+6. **Cross-file confidence divergence on the fallback shell:** SKILL.md
+   and `orca.md` say the two-step "can leave" one; `runners.md:101-103`
+   asserts it does. "Required to close" reads differently against
+   "always produced" than against "sometimes produced". Reconcile the
+   three. (Related to step 5's priority minor 1.)
+
+**Fifth vacuous-guard finding:** PLAN step 6's guard matched `/idle/i`
+and `/placeholder/i` before this step ran; only `/ledger/i`,
+`/ownershipState/` and the `--spec "$(cat` alternative are load-bearing.
+
 ## Evidence — Orca CLI verification (2026-08-19, this machine)
 
 Every CLI claim this lane adds to the standard was produced by running
