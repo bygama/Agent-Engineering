@@ -30,9 +30,21 @@
   `git diff main -- skills/using-ae/SKILL.md | grep -E '^[-+]- \*\*'`
   → exit 1, `## The map` byte-identical for sibling lane MAT-44.
 
+- **Step 3 DONE** — `docs/how-it-works/execution.md`, §"Runners: any
+  file-reading agent can hold a lane" gains the passage the repo's
+  same-change docs constraint requires: a skill file handed to a runner as
+  a procedure still cites the standard by repo-relative path, so the entry
+  skill's `Reference paths` rule resolves it — link-resolved skill location
+  first (with the junction trap named), then a local clone, then the public
+  repo; an unreachable reference layer is reported, never guessed.
+  `architecture.md` is fenced and is REPORTED below instead.
+  Acceptance: `grep -q "Reference paths" docs/how-it-works/execution.md`
+  → exit 0 · `git diff --name-only main -- docs/how-it-works/ | grep -q
+  architecture` → exit 1 · lint exit 0.
+
 ## In progress
 
-- Step 3: the required chapter sentence in `docs/how-it-works/execution.md`.
+- Step 4: gate sweep and lane truth.
 
 ## Tried and failed
 

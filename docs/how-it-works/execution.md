@@ -350,6 +350,17 @@ to read the skill file and follow it as a procedure). "Verify on install"
 is a hard rule: no spawn command enters a worker table until it ran on the
 target machine.
 
+A skill file read that way still cites the standard by repo-relative path,
+and the runner reading it may be nowhere near this repo — so the entry
+skill carries the rule that resolves those citations (`skills/using-ae`,
+§Reference paths): `reference/…` means the standard's own repo root, found
+in order — the skill's link-resolved location (a junction's `..` walks the
+link, not the target, so the naive `../../reference/` lands in the runner's
+own skills directory), then a local clone, then the public repo. A
+reference layer none of those reaches is reported, never guessed: the same
+contract the no-Orca fallback applies to a missing control plane, applied
+to a missing source.
+
 The standard's portability proof is exactly this claim made falsifiable: a
 non-Claude runner completing a prepared lane end to end from the artifacts
 alone. **It ran and passed** (2026-08-16): opencode 1.18.18 driving
