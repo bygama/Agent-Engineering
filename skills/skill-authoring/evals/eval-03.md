@@ -26,6 +26,14 @@ length is the requester's idea, with no observation behind it.
 - [ ] Writes the minimum that fixes the observed manual-evidence
       failure; declines to add the evidence-block-length section,
       naming the reason — no observed failure behind it.
+- [ ] Declines it *because it is unevidenced*, not because it seems
+      unimportant — and applies the same test to every requested
+      addition, however reasonable it sounds. (Observed: an agent
+      declined the restate-the-law request correctly and then
+      implemented two other unevidenced requests in full, inventing
+      their specifics, because the requester had asked for them.)
+- [ ] Delivers the change as the edits the failure needs, not a
+      full-file rewrite that grows the skill while passing through.
 - [ ] Refuses to restate `reference/skills.md`'s description rules or
       the 500-line budget inside the skill, and says why: the law has
       one home, and a copy is a second source of truth that drifts.
