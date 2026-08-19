@@ -128,6 +128,69 @@
   once; (m9) global/CLAUDE.md at exactly 40/40, zero headroom — flag in
   handoff for future editors.
 
+- **Step 3 — Feature C evals FIRST** (DECISIONS ruling 3: evals commit
+  before SKILL.md content). `skills/ae-init/evals/eval-05.md` extended for
+  the small-repo no-new-friction contract: the fixture now states the repo
+  is a SINGLE domain (one root manifest, no `apps/`, no top-level dir with
+  its own manifest) — explicitly under the ≥3 threshold — and gained a
+  **third run** that pins the boundary rather than the middle (the same repo
+  grown to two domains, `apps/web` + `apps/api`, still gets the single
+  question). Three checklist lines added: (a) under 3 domains the question
+  is EXACTLY today's single question — no pre-built recommendation, no
+  proposed initiative, no per-domain project list, no approval round, no
+  second turn, and the ≥3-domain path must not fire on run one or run
+  three; (b) the declaration takes the small-repo shape `· project
+  Agent-Engineering`, never `· initiative`, and no `Tracker-project:` line
+  is written anywhere; (c) ae-init creates NOTHING in the tracker for a
+  small repo — provisioning belongs to the ≥3-domain path alone.
+  `skills/ae-init/evals/eval-06.md` written (108 lines, house style:
+  origin-failure preamble → `## Query` → `## Fixture` → `## Expected
+  behavior` checklist). Fixture: fresh monorepo `Northwind`, tracker in
+  play, four domains — `apps/web`, `apps/api`, `apps/admin` (own manifests,
+  own commands, own gotchas) plus top-level `infra/` (own manifest) — with
+  `scripts/` and `docs/` as manifest-less negative controls, and Linear
+  already holding team `MAT` + a project `Web` but no `Northwind`
+  initiative. Four runs grade the whole contract: **A** approve as offered,
+  **B** "none", **C** approve with edits in the same answer (drop `infra`,
+  rename `Admin` → `Back-office`), **D** no Orca CLI and no Linear MCP
+  (identical contract to an unresolvable binding). The checklist encodes:
+  question still gated on a tracker being in play (layout alone never
+  triggers it); pre-built recommendation derived from the layout — initiative
+  `Northwind` + one project per domain named from the folder; the domain
+  criterion (`apps/*` + top-level dirs with own manifests, so `scripts/`
+  and `docs/` get nothing); ONE-answer approval with workspace/team still
+  the owner's to supply and never inferred from the live binding (the
+  wrong-binding trap stays eval-05's, cited, not duplicated — N+1 turns is
+  the named regression); creation of only the MISSING objects with `Web`
+  reused and nothing else touched; root declaration `Tracker: Linear —
+  workspace bygama · team MAT · initiative Northwind` under the stamp with
+  NO `· project` segment; per-domain `Tracker-project: <Name>` right under
+  each nested title with workspace/team inherited, never restated; both
+  forms cited from `reference/tracker.md` (no invented `Tracker-initiative:`
+  line, frontmatter or config file); no AGENTS.md created just to carry the
+  line (nesting stays earned, `reference/context.md` — the Feature A/C
+  interaction); budgets ≤30 nested / ≤3 pointer / ≤60 root hold WITH the
+  extra line; "none" leaves nothing declared or created; edits are written
+  verbatim with no second approval round; the no-Orca path states plainly
+  the tracker was NOT written, emits the exact operations per missing
+  object, and still writes every declaration line (the repo side does not
+  wait on the projects existing); rest of the fresh-install contract
+  unchanged.
+  These evals grade the TARGET behavior of SPEC Feature C, not today's
+  SKILL.md — they are the contract step 5's edit must satisfy, so eval-06
+  currently describes behavior ae-init does not yet have. That is the
+  intended state of an evals-before-content commit.
+  Acceptance: `node tests/run-eval-checks.mjs` → `ok   ae-init: 6 evals
+  well-formed` … `all eval checks passed`, `EXIT=0`. Other three gates also
+  green: `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  → `0 high, 0 medium, 0 low — PASS` (exit 0), `run-lint-tests.mjs`=0,
+  `run-gen-tests.mjs`=0. Files changed: `skills/ae-init/evals/eval-05.md`,
+  `skills/ae-init/evals/eval-06.md` (+ this PROGRESS entry) — SKILL.md,
+  `reference/tracker.md` and every other surface untouched, per the step's
+  evals-only scope. No CHANGELOG, no restamp, no version bump. Concern
+  (minor): eval-05's line 54 is 81 columns — pre-existing, it is the literal
+  declaration line and cannot wrap; every line I added is ≤76.
+
 ## In progress
 
 ## Tried and failed
