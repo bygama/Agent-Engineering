@@ -72,9 +72,31 @@
                       checkout exists  [cmd-drift]
   ```
 
+- **Step 3 DONE — RED for MAT-92, law first.** `reference/skills.md` :79-80
+  now states the cap inside the sentence that already named the entry skill
+  ("…always-loaded entry point (SessionStart), hard-capped at 80 lines…"),
+  folded per the parent's ruling — the file is still exactly 119 lines of
+  its 120 cap. Added `tests/fixtures/entry-skill-ok/`
+  (`skills/using-ae/SKILL.md` at exactly 80) and
+  `tests/fixtures/entry-skill-bloat/` (the same file at 81, differing by one
+  line) plus both cases. Acceptance — `node tests/run-lint-tests.mjs`
+  exits 1, RED for the right reason, boundary case already green:
+
+  ```
+  ok   entry skill exactly at the always-loaded cap passes
+  FAIL entry skill one line over the always-loaded cap fails
+    expected fail=true, got false
+    missing expected finding "entry-skill-cap"
+    no finding message matched expected "81 lines"
+    findings: (none)
+  1/20 cases failed
+  ```
+
+  `wc -l reference/skills.md` → 119.
+
 ## In progress
 
-- Step 3 — RED for MAT-92 (law in reference/skills.md, then its fixtures).
+- Step 4 — GREEN for MAT-92 (the entry-skill-cap check).
 
 ## Tried and failed
 
