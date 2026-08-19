@@ -13,3 +13,18 @@
   standard-lifecycle (A, C), execution (B), work-lifecycle +
   integrations (C respect rule). — The parent verified (1) against the
   lint source itself; recorded verbatim to bind every later step.
+- 2026-08-18 — Ruling 5 (controller, resolved against the SPEC): eval-06
+  grades creation of the missing INITIATIVE alongside the missing
+  projects, under the same emit-for-operator fallback. — SPEC Feature C
+  says "creates the missing Linear projects" literally, but the approved
+  design puts the initiative at the root of a deep monorepo's
+  declaration; leaving it dangling would break the respect rule's
+  resolution the moment the declaration is written. Coherent completion,
+  not new scope; surfaced to the parent in the final summary.
+- 2026-08-18 — Ruling 6 (controller, resolved against the SPEC): the
+  pre-built recommendation covers what the layout can derive (initiative
+  name, per-domain projects); workspace and team key stay owner-supplied
+  inside the same single question. — No layout yields a Linear team key;
+  the SPEC's "team <KEY>" names the recommendation's shape, not an
+  inference. One-answer approval preserved; eval-06 encodes this
+  reading; surfaced to the parent in the final summary.
