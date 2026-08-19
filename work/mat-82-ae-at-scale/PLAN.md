@@ -35,7 +35,7 @@
   templates/monorepo/app-AGENTS.md.template && node
   scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
   exits 0
-- [ ] 2. [judgment] Feature B — browser criterion: add the criterion to
+- [x] 2. [judgment] Feature B — browser criterion: add the criterion to
   `reference/orca.md` (default = embedded `orca
   goto/snapshot/click/wait --json`; Playwright/chrome-devtools ONLY for
   capabilities Orca's browser lacks — performance traces, heap
