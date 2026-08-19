@@ -12,6 +12,13 @@
 // `@AGENTS.md`. A CLAUDE.md titled "# Global instructions" is the global
 // layer and is checked against its own canon (≤40 lines, free-form).
 //
+// Pointer exemption: a fenced tool-managed block — matched
+// `<!-- BEGIN:<name> -->` / `<!-- END:<name> -->` marker lines, as `next dev`
+// upserts into whichever file hosts it — is not the repo's own content, so
+// it is stripped before the pointer is measured (see
+// stripToolManagedBlocks). Only the pointer check strips; every other check
+// reads the file as written.
+//
 // Usage: node scripts/agent-lint.mjs [path] [options]
 //   --budget N     root AGENTS.md target lines (default 60)
 //   --cap N        root AGENTS.md hard cap (default 100)
@@ -19,7 +26,8 @@
 //                  skipped: node_modules .git .next dist build coverage
 //   --json         machine-readable output
 //
-// Line counts are raw file lines, blanks included, trailing newline ignored.
+// Line counts are raw file lines, blanks included, trailing newline ignored
+// (the pointer check counts the remainder after stripping tool-managed blocks).
 // Exit code: 1 when any high or medium finding, 0 otherwise.
 
 import { spawnSync } from "node:child_process";
@@ -65,10 +73,8 @@ const findings = [];
 const add = (severity, code, file, message) => findings.push({ severity, code, file, message });
 const read = (rel) => readFileSync(join(root, rel), "utf8");
 const fileLines = (rel) => read(rel).split(/\r?\n/);
-const rawCount = (rel) => {
-  const l = fileLines(rel);
-  return l.at(-1) === "" ? l.length - 1 : l.length;
-};
+const countLines = (lines) => (lines.at(-1) === "" ? lines.length - 1 : lines.length);
+const rawCount = (rel) => countLines(fileLines(rel));
 
 // ---------- per-tool adapters ----------
 const ADAPTERS = new Set([
@@ -98,6 +104,31 @@ for (const f of agents) {
 }
 
 // ---------- CLAUDE.md (pointer) ----------
+// A tool-managed block is a matched pair of marker lines whose trimmed
+// content is exactly `<!-- BEGIN:<name> -->` and `<!-- END:<name> -->`, with
+// the same kebab-case <name>. The markers, everything between them and the
+// blank lines padding them are removed; a BEGIN closes at the first matching
+// END, and an unmatched BEGIN is no exemption — it strips nothing.
+const BLOCK_BEGIN = /^<!-- BEGIN:([a-z0-9]+(?:-[a-z0-9]+)*) -->$/;
+const isBlank = (l) => l.trim() === "";
+const stripToolManagedBlocks = (lines) => {
+  const kept = [];
+  for (let i = 0; i < lines.length; i++) {
+    const name = lines[i].trim().match(BLOCK_BEGIN)?.[1];
+    const end = name === undefined
+      ? -1
+      : lines.findIndex((l, j) => j > i && l.trim() === `<!-- END:${name} -->`);
+    if (end === -1) {
+      kept.push(lines[i]);
+      continue;
+    }
+    while (kept.length && isBlank(kept.at(-1))) kept.pop();
+    i = end;
+    while (i + 1 < lines.length && isBlank(lines[i + 1])) i++;
+  }
+  return kept;
+};
+
 // The global layer (H1 "# Global instructions") keeps its own canon.
 const claudes = files.filter((f) => basename(f) === "CLAUDE.md");
 const globals = new Set(claudes.filter((f) => fileLines(f)[0]?.trim() === "# Global instructions"));
@@ -107,9 +138,13 @@ for (const f of claudes) {
     if (n > 40) add("medium", "budget", f, `${n} lines — global CLAUDE.md cap is 40`);
     continue;
   }
-  const n = rawCount(f);
-  if (n > 3 || !/@AGENTS\.md/.test(read(f)))
-    add("high", "pointer-shape", f, `must be a ≤3-line pointer containing \`@AGENTS.md\` (has ${n} lines)`);
+  // Both halves of the rule read the remainder, not the file as written.
+  const kept = stripToolManagedBlocks(fileLines(f));
+  const n = countLines(kept);
+  if (n > 3 || !/@AGENTS\.md/.test(kept.join("\n"))) {
+    const of = n === rawCount(f) ? "" : " outside tool-managed blocks";
+    add("high", "pointer-shape", f, `must be a ≤3-line pointer containing \`@AGENTS.md\` (has ${n} lines${of})`);
+  }
 }
 
 // ---------- read orders ----------

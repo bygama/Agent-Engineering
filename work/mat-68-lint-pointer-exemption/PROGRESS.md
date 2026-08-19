@@ -6,7 +6,7 @@ SPEC approved by the parent with one scope extension (DECISIONS ruling 2).
 ## Steps
 
 - [x] 1. Fixtures + self-test cases (red on `pointer-fenced`)
-- [ ] 2. `stripToolManagedBlocks` in the pointer check (all green)
+- [x] 2. `stripToolManagedBlocks` in the pointer check (all green)
 - [ ] 3. Checklist rows: exemption clause + nesting-law rewording
 - [ ] 4. standard-lifecycle.md + reference/context.md one-clause notes
 - [ ] 5. Gate sweep with evidence
@@ -105,6 +105,101 @@ exactly one `pointer-shape` finding; raw counts 7/12/6 confirmed). One
 Minor deferred to work-verify triage: `pointer-unfenced` /
 `pointer-unclosed` cases carry no broad `forbid` list (weaker regression
 trap than `v2-clean`/`v1-style` convention; not required by SPEC §2).
+
+### Step 2 — `stripToolManagedBlocks` in the pointer check (2026-08-19)
+
+Implemented SPEC §1 in `scripts/agent-lint.mjs`, pointer check only:
+
+- New `stripToolManagedBlocks(lines)` helper sitting immediately above the
+  CLAUDE.md section, with `BLOCK_BEGIN =
+  /^<!-- BEGIN:([a-z0-9]+(?:-[a-z0-9]+)*) -->$/` matched against each
+  **trimmed** line. A BEGIN closes at the first later line whose trimmed
+  content is exactly `<!-- END:<same name> -->`; markers, interior and
+  blank-line padding (all consecutive blanks immediately before the BEGIN
+  and immediately after the END) are dropped. No matching END ⇒ nothing
+  stripped and the BEGIN line is kept as ordinary content, per SPEC §1.
+  Kebab-case is enforced by the regex, so a non-kebab name is not a marker
+  at all and strips nothing.
+- The pointer check now measures the remainder: `const kept =
+  stripToolManagedBlocks(fileLines(f)); const n = countLines(kept);` and the
+  containment test runs on `kept.join("\n")` — both halves of the rule, per
+  SPEC §1. The finding message gains an `outside tool-managed blocks`
+  qualifier when stripping actually removed something, so a 12-line file
+  reported as 5 lines is not confusing.
+- Small refactor in code touched: the trailing-newline arithmetic that lived
+  inside `rawCount` is now `countLines(lines)`, and `rawCount(rel) =
+  countLines(fileLines(rel))` — one definition, reused by the pointer check.
+- Header comment: new "Pointer exemption" paragraph (what a tool-managed
+  block is, `next dev` as the live case, and that ONLY the pointer check
+  strips — every other check still reads the file as written), plus a clause
+  on the "Line counts are raw file lines" note.
+
+Untouched, as scoped: the global-layer branch (`# Global instructions`, ≤40,
+still `rawCount`), AGENTS.md budgets, the read-order scan over CLAUDE.md
+(still sees every line, including a block's interior), every other check.
+
+**Acceptance commands and output:**
+
+```
+$ node tests/run-lint-tests.mjs
+ok   v2-clean repo passes
+ok   bloated canonical AGENTS.md fails
+ok   per-tool adapters fail
+ok   read order + broken link fail
+ok   v1-style repo drifts (pointer + stamp)
+ok   pointer-fenced repo passes (fenced tool-managed block exempted)
+ok   pointer-unfenced repo still fails (unfenced extra content over budget)
+ok   pointer-unclosed repo still fails (unmatched BEGIN is not an exemption)
+ok   malformed lanes fail
+ok   invalid feature list fails
+ok   global-layer CLAUDE.md passes its own canon
+ok   clean DESIGN.md passes
+ok   drifted/undated DESIGN.md fails
+ok   dangling-ref/ungenerated DESIGN.md fails
+ok   DESIGN.md with mode groups passes
+ok   kitchen-sink composite fires the planted set
+all 16 cases passed
+```
+
+Exit code: 0 — step 1's `pointer-fenced` case flipped from red to green and
+the other 15 (including the two new failing-fixture cases) are unchanged.
+
+```
+$ node scripts/agent-lint.mjs . --ignore tests,templates,global,examples
+agent-lint C:\...\mat-68-lint-pointer-exemption
+0 high, 0 medium, 0 low — PASS
+```
+
+Exit code: 0.
+
+Per-fixture messages confirm the arithmetic step 1 predicted (7→1, 12→5,
+6→6): `pointer-unfenced` reports `has 5 lines outside tool-managed blocks`,
+`pointer-unclosed` reports `has 6 lines` (no qualifier — nothing stripped).
+
+Also ran, unchanged and green (not this step's gate): `node
+tests/run-gen-tests.mjs` exit 0, `node tests/run-eval-checks.mjs` exit 0.
+
+**Edge cases probed** with throwaway mini-repos in the session scratchpad
+(never written into the repo), each `AGENTS.md` copied from the
+`pointer-fenced` fixture so only `pointer-shape` can fire:
+
+| pointer CLAUDE.md | result |
+| --- | --- |
+| two matched blocks, padded | PASS (both stripped) |
+| `BEGIN:a-one` … `END:b-two` (name mismatch) | FAIL, 7 lines, nothing stripped |
+| `BEGIN:Foo_Bar` … `END:Foo_Bar` (non-kebab) | FAIL, 7 lines, nothing stripped |
+| `@AGENTS.md` only *inside* the block | FAIL — containment runs on the remainder |
+| CRLF line endings throughout | PASS (markers matched after trim) |
+
+**Files changed:** `scripts/agent-lint.mjs` only (plus this PROGRESS entry).
+
+**Concerns:** none blocking. Two notes for the record: (a) a BEGIN whose END
+belongs to an outer block (interleaved `BEGIN:a … BEGIN:b … END:a … END:b`)
+strips through `END:a` and leaves `END:b` as ordinary content — the direct
+consequence of SPEC §1's "first matching END closes a BEGIN", not a separate
+decision; (b) the finding message can read "has 1 lines" — pre-existing
+phrasing shared with every other `${n} lines` message in the script, left
+alone to keep this diff to the step.
 
 ## Notes
 
