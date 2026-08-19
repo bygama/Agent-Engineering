@@ -74,54 +74,47 @@ methodology skills live in the personal library (`bygama/skills`,
 junctioned); a complementary skill that becomes load-bearing for the
 standard moves upstream into AE.
 
-`skills/orchestrate` now owns dispatch and parallel execution end to
-end — one child through XL fan-out — superseding `skills/fan-out`
-(ADR-008), which is removed: closed finalize-then-remove, its no-Orca
-manual procedure preserved as orchestrate's fallback section. Only this
-living reference updates; fan-out's name stays in ADRs, CHANGELOG,
-closed lanes, and examples/.
+Removed skills keep their name only in ADRs, CHANGELOG, closed lanes
+and `examples/`; this living reference is the one that updates.
 
 ## Composing with process-skill suites
 
 `using-ae` is the always-loaded entry point (SessionStart): it carries
-the precedence rule below (ADR-005) into every session so a suite chain
-never has to be caught mid-drift.
+the precedence rule below (ADR-005) so a chain is never caught mid-drift.
 
-Process suites (e.g. superpowers: test-driven-development,
-systematic-debugging) supply the *how* of thinking; this standard
-supplies the artifacts and gates. One rule joins them: **the standard
-owns locations and lifecycle endings.**
+Process suites supply the *how* of thinking; this standard supplies the
+artifacts and gates. One rule joins them: **the standard owns locations
+and lifecycle endings.**
 
 - Design/brainstorm output → the lane's SPEC (or `docs/specs/` for
   standing designs), never the suite's default folder.
 - A written plan → `work/<slug>/PLAN.md`.
 - Execution runs inside the lane: WIP=1, tier ceremony applies.
-- Finishing → `work-handoff` (the suite's own finishing step yields to
-  it); worktrees are Orca-managed (`reference/orca.md`).
+- Finishing → `work-handoff`; worktrees are Orca-managed (`reference/orca.md`).
 
-Suites that say "user preferences override defaults" (superpowers does)
-are honoring exactly this. One artifact set, never two.
+Suites saying "user preferences override defaults" (superpowers does)
+honor exactly this. One artifact set, never two.
 
 **Every artifact-producing phase is the standard's, not the suite's**
-(ADR-004, generalized by ADR-005). Suites supply the remaining thinking
-phases — TDD, systematic-debugging. Planning is the standard's:
-`skills/work-plan` turns an approved design into `work/<slug>/PLAN.md`,
-the lane's own file. From the moment that plan lands, the standard
-executes: `skills/work-run` runs the lane step-by-step (fresh subagent
-per step, lane as the context package), work-verify gates it,
-work-handoff ends it. A suite's own planners, executors, and finishers
-(superpowers' `writing-plans`, `subagent-driven-development`,
-`executing-plans`, `finishing-a-development-branch`) are not used —
-their artifact machinery (a standalone plan document, workspace,
-ledger, rulings) collides 1:1 with the lane's files, and two protocols
-over the same information is permanent friction. The suite stays
-installed; this rule is what redirects the chain.
+(ADR-004, generalized by ADR-005). `skills/work-plan` turns an approved
+design into `work/<slug>/PLAN.md`; from the moment that plan lands,
+`work-run` executes it step-by-step, `work-verify` gates it,
+`work-handoff` ends it. A suite's own planners, executors and finishers
+are not used — their artifact machinery (standalone plan document,
+workspace, ledger) collides 1:1 with the lane's files, and two protocols
+over the same information is permanent friction.
 
-Superpowers' `brainstorming` is superseded too, but on different
-grounds (ADR-006): not an artifact collision, but observed friction —
-work-plan's own refusal path pointed at an external suite for the one
-case that most needed an AE-owned home. `skills/shaping` is the design
-dialogue's house owner now; `brainstorming` stays installed, cited by
-name as the explicit fallback in a repo with no AE standard present.
-TDD and systematic-debugging are untouched — ADR-006's scope is the
-design dialogue only.
+### Superseded, and by what
+
+| Suite skill | House owner | Grounds |
+|---|---|---|
+| `writing-plans`, `subagent-driven-development`, `executing-plans`, `finishing-a-development-branch` | work-plan · work-run · work-verify · work-handoff | ADR-004, ADR-005 |
+| `brainstorming` | `skills/shaping` | ADR-006 — observed friction, not an artifact collision: work-plan's refusal path pointed at an external suite |
+| `writing-skills` | `skills/skill-authoring` | ADR-005 — a skill and its evals are artifacts, so authoring is an artifact-producing phase |
+| `systematic-debugging` | `bygama/skills`' `tracing-root-causes` (absorbed) | personal library |
+| `test-driven-development` | `bygama/skills`' `testing-first` | personal library |
+| `skills/fan-out` (AE's own, removed) | `skills/orchestrate` | ADR-008 — its no-Orca manual procedure survives as orchestrate's fallback |
+
+Every row reads the same way: the suite stays installed, nothing is
+disabled, and the superseded skill is the explicit fallback where no AE
+standard is present. Supersession redirects the chain, never deletes it.
