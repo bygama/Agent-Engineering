@@ -25,7 +25,7 @@
 
 ## Steps
 
-- [ ] 1. `[mechanical]` **RED for MAT-89** — add fixtures
+- [x] 1. `[mechanical]` **RED for MAT-89** — add fixtures
       `tests/fixtures/cmd-escaping/` (AGENTS.md citing an absent
       `node ../sibling-repo/scripts/tool.mjs` plus a present in-repo
       `node scripts/present.mjs`; pointer CLAUDE.md; stamped) and
@@ -40,7 +40,7 @@
       `cmd-escaping` failing on `expected fail=false, got true`
       (RED quoted in PROGRESS.md)
 
-- [ ] 2. `[mechanical]` **GREEN for MAT-89** — in `scripts/agent-lint.mjs`,
+- [x] 2. `[mechanical]` **GREEN for MAT-89** — in `scripts/agent-lint.mjs`,
       the `node (\S+)` branch of the cmd-drift block resolves the cited
       path against `root` once and classifies before judging: a path whose
       `relative(root, abs)` starts with `..` or is absolute escapes the
@@ -51,7 +51,7 @@
       exemptions, as the pointer exemption already does).
       — accept: `node tests/run-lint-tests.mjs` exits 0, all cases pass
 
-- [ ] 3. `[judgment]` **RED for MAT-92, law first** — fold the cap into the
+- [x] 3. `[judgment]` **RED for MAT-92, law first** — fold the cap into the
       existing statement in `reference/skills.md` :79-80 so the sentence
       reads that `using-ae` is the always-loaded entry point
       (SessionStart) hard-capped at 80 lines, file still exactly 119
@@ -65,7 +65,7 @@
       `entry-skill-bloat` missing expected finding `entry-skill-cap`, and
       `wc -l reference/skills.md` prints 119 (RED quoted in PROGRESS.md)
 
-- [ ] 4. `[mechanical]` **GREEN for MAT-92** — `scripts/agent-lint.mjs`
+- [x] 4. `[mechanical]` **GREEN for MAT-92** — `scripts/agent-lint.mjs`
       gains, beside the existing `skill-size`/`skill-frontmatter` loop,
       the constants `ENTRY_SKILL = "skills/using-ae/SKILL.md"` and
       `ENTRY_SKILL_CAP = 80` carrying a pointer comment citing
@@ -77,7 +77,7 @@
       `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
       exits 0 (this repo's own entry skill is under the cap)
 
-- [ ] 5. `[judgment]` **Docs** — `docs/how-it-works/standard-lifecycle.md`:
+- [x] 5. `[judgment]` **Docs** — `docs/how-it-works/standard-lifecycle.md`:
       the audit section's enumeration of what the lint counts (:145-147)
       names the entry-skill cap, and the command-drift clause states that
       a cited path escaping the repo is reported but not failed. Hard

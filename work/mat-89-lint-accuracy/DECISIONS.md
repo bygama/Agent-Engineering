@@ -72,3 +72,44 @@
   honesty-marker lesson) pins the message wording that names the
   context-dependence, which is the part a future refactor could silently
   drop.
+
+- 2026-08-19 — **work-run's PLAN steps ran inline; work-verify's review
+  rung was dispatched** — the two are separate calls and were decided
+  separately. The step loop took work-run's documented fallback ("no
+  subagent capability on this runner … execute the SAME lane inline under
+  the SAME ceremony"): steps in order, each acceptance command run, output
+  quoted in PROGRESS.md, no dispatch simulated. The fresh-context review
+  was NOT taken inline — see the ruling below.
+
+- 2026-08-19 — **PARENT RULING (ask): "no grandchildren" means no Orca
+  workers, not no in-session subagents** — asked at the work-verify step-4
+  gate, having read the dispatch brief as forbidding any spawn. The parent
+  ruled the fence covers worker-start / Tasks / Dispatches / worker_done
+  authority; work-verify's reviewer is an in-session subagent in the
+  child's own worktree, and six children in this Run had already run
+  theirs. Ordered: attempt the dispatch — fresh context, the lane
+  artifacts and the diff, never the maker's reasoning — and only if the
+  attempt were visibly refused would the parent's cross-model reviewer
+  close the rung. The dispatch succeeded, so the rung was closed in-lane.
+  The maker never certified its own work.
+
+- 2026-08-19 — **All five fresh-context review findings applied, none
+  deferred** — the verdict was PASS with one Important and four Minor, and
+  every one was a real defect rather than taste. Two changed lint
+  behavior, so both were graded before being fixed (f5262dd → 85ec18f),
+  the same house pattern the lane's own checks followed: an in-repo
+  directory NAMED `..config` was misread as a `../` escape by a prefix
+  test (the one shape where the MAT-89 downgrade reached in-repo drift),
+  and the `low` message described only the sibling-checkout half of a
+  branch that also classifies absolute paths. The re-review verdict
+  confirmed four ADDRESSED and the fifth (lane bookkeeping) deliberately
+  deferred to handoff.
+
+- 2026-08-19 — **The `cmd-escaping` fixture pins the concept, not the
+  prose** — the re-review noted, correctly, that the original patterns
+  were satisfied by the old message too, so what the fixture proved was
+  the absolute path's classification rather than the rewording. Rather
+  than pin the new sentence verbatim — which would make any future
+  rewording a false failure — `context-dependent` was added to the
+  pattern list: a finding that stops naming its context-dependence is the
+  silent regression worth catching; the phrasing is not.
