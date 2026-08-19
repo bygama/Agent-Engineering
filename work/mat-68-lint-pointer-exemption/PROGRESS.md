@@ -259,6 +259,40 @@ Exit code: 1 ✓ (no matches found)
 remain atomic and scannable; the exemption note is positioned immediately
 after the pointer section where it applies.
 
+**Step 3 review (reviewer feedback requiring fix, 2026-08-19):** The
+exemption note restated the BEGIN/END marker syntax and kebab-case rule
+identically to `scripts/agent-lint.mjs:107-112`, violating the
+'defined ONCE' principle (PLAN line 14). Marker grammar lives only in
+the lint; prose surfaces cite the lint without restating it (single-definition
+discipline prevents drift if the lint's grammar changes). Fix applied:
+simplified the note to one clause, dropped the parenthetical:
+
+Old: "A fenced tool-managed block (delimited by `<!-- BEGIN:… -->` and
+`<!-- END:… -->` with matching kebab-case names) does not count against
+the line budget; the lint's `pointer-shape` check settles the block
+recognition grammar."
+
+New: "A fenced tool-managed block does not count against the line budget
+— the lint's `pointer-shape` check settles what qualifies as one."
+
+**Acceptance commands re-run:**
+
+```
+$ grep -i "tool-managed" skills/ae-audit/references/checklist.md
+**Pointer rows note:** A fenced tool-managed block does not count against the line budget — the lint's `pointer-shape` check settles what qualifies as one.
+```
+
+Exit code: 0 ✓
+
+```
+$ grep -iE "per.app" skills/ae-audit/references/checklist.md
+```
+
+Exit code: 1 ✓ (no matches)
+
+**Files changed (fix):** `skills/ae-audit/references/checklist.md` (line 43
+simplified, one clause, cites lint without restating grammar).
+
 ## Notes
 
 - docs/how-it-works survey (brief item 4): `standard-lifecycle.md` is the
