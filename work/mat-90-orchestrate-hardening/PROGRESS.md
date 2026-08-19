@@ -1236,6 +1236,75 @@ ledger and the idle child`.
    `alt`/`else`/`end` and `&lt;`-escaping conventions exactly, and the
    label avoids a colon so the parser cannot mistake it for a message.
 
+### Step 7 — fix round 1 (reviewer findings, 2026-08-19)
+
+Three findings applied, all in `docs/how-it-works/execution.md`. Commit
+`266685e fix(how-it-works): name the fill rule's document, not a section
+of this one`.
+
+- **Important — the fill-rule pointer named the wrong document.**
+  `:369-370` read "That rule sits with the XL section below rather than
+  with stage 4", and "below" resolves to *this chapter's*
+  `### Several children at once (XL)`, which carries no fill rule; the
+  rule's home is `skills/orchestrate/SKILL.md:252-261`. A reader
+  following the pointer finds nothing and concludes the docs are stale.
+  Now: "That rule lives with the skill's XL section
+  (`skills/orchestrate/SKILL.md` § Several children at once) rather than
+  with its step 4, because it is scale and not dispatch that makes it
+  necessary." The section name is verified against
+  `skills/orchestrate/SKILL.md:245` (`## Several children at once (XL)`).
+  The paragraph did not move — the reviewer's ruling and mine agree that
+  it belongs where PLAN step 7 put it. Worth recording plainly: my step-7
+  report claimed this resolution ("naming the XL home in the text
+  itself") and the text did not carry it. The claim was written from the
+  intent, not from the file; that is the failure mode, not the wording.
+- **Minor — the prose contradicted its own diagram.** `:316` said the
+  idle loop-back is "the one the diagram would otherwise let you miss",
+  which stopped being true the moment this step added the `opt` at
+  `:239-241`. Now "the one the diagram alone would let you miss" — the
+  diagram shows the remedy, the paragraph supplies the diagnosis that
+  makes it readable.
+- **Minor — the stage walk-through was left incomplete.** `:274-276`
+  enumerated stage 5's loop-back as "on a question" only, while the new
+  paragraph below opens "Stage 5 loops back a second way". Grafted: "`5`
+  on a question (…) — and on an idle child, below — and `6` on a FAIL
+  (…)". Both accounts now agree on the count.
+
+Both edits reflowed their paragraphs, so those paragraphs were rewrapped
+to the file's width rather than left with one over-long and one stub
+line. No other text changed; the rewrap is visible in the diff as moved
+line breaks with identical words.
+
+**Reviewer-cleared, untouched:** the mermaid `opt` at `:238-241` (my
+step-7 concern 2 — the reviewer audited participants, nesting, escaping
+and label syntax independently and found nothing).
+
+**Deferred to work-verify triage per the coordinator, untouched:** the
+ragged rewrap at `:198-201`; the missing `--worktree <selector>` in the
+narrated remedy at `:326-327`; the granularity of the four costs; the
+`;`→`,` precaution in the `opt` label; the implicit subject in that
+label.
+
+**Covering commands re-run after the fix** (reviewers do not re-run
+these):
+
+```
+$ grep -qi "idle" docs/how-it-works/execution.md          → exit 0
+$ grep -qi "ledger" docs/how-it-works/execution.md        → exit 0
+$ git diff --name-only main...HEAD -- docs/how-it-works/ | grep -q standard-lifecycle
+                                                          → exit 1
+$ git diff --name-only main...HEAD -- docs/how-it-works/  → docs/how-it-works/execution.md
+$ node scripts/agent-lint.mjs . --ignore tests,templates,global,examples
+  → 0 high, 0 medium, 0 low — PASS
+$ node tests/run-lint-tests.mjs   → all 16 cases passed
+$ node tests/run-gen-tests.mjs    → all gen cases passed
+$ node tests/run-eval-checks.mjs  → all eval checks passed
+```
+
+Step-7 concern 1 (PLAN vs. note 1 on where the fill narration belongs) is
+resolved rather than standing: the reviewer confirmed the paragraph stays
+in §The 8-stage dispatch cycle and only the pointer needed naming.
+
 ## Evidence — Orca CLI verification (2026-08-19, this machine)
 
 Every CLI claim this lane adds to the standard was produced by running
