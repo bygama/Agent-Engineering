@@ -144,9 +144,10 @@ are filled from what the exploration found and what the human confirmed.
 The audit is the judgment half of enforcement; `agent-lint` is the
 mechanical half and runs inside it. The lint counts (budgets — the
 always-loaded entry skill's own cap among them — stamp present and
-parseable, pointer shape, broken links, command drift, lane coherence,
-feature-list schema and gating sanity); the audit judges (is the entry file
-honest? do the hard constraints deserve to be hard? has knowledge decayed?).
+parseable, pointer shape, broken links, command drift, machine-anchored
+paths on shipped surfaces, lane coherence, feature-list schema and gating
+sanity); the audit judges (is the entry file honest? do the hard
+constraints deserve to be hard? has knowledge decayed?).
 The output is a score with concrete fixes, and fixes are applied only when
 asked — an audit that silently rewrites your repo is an audit nobody runs
 twice.
@@ -164,6 +165,31 @@ context-dependence instead of failing the lint; present, nothing is
 reported at all. A path that stays inside the repo keeps its full weight:
 a command citing a file that no longer exists is the drift the check was
 born for, and the exemption never reaches it.
+
+Machine-anchored paths are drift of the other kind — not a command that
+stopped being true, but content that was only ever true on one disk. The
+five surfaces a consumer receives — `skills/`, `reference/`, `templates/`,
+`global/`, `loops/` — have to read true on any machine, so a path anchored
+to one machine's disk layout is a defect there: a drive root (`X:\…`), a
+POSIX user home (`/home/<name>`, `/Users/<name>`), or a WSL mount
+(`/mnt/<letter>/`). Exactly those three classes count, on the same judgment
+as the drift exemptions above — the broad rule, no absolute path outside
+records, would fail the URL routes and `/dev/null` invocations the standard
+ships on purpose while catching nothing the three classes miss. Records are
+exempt because they are history: `docs/plans/`, `docs/adrs/` and
+`CHANGELOG.md` say what was true on the day they were written, `examples/`
+are authoring-time snapshots, none of them is ever restamped, and a record
+is allowed to name the machine the work happened on. Severity is where the
+contrast with the out-of-repo escape lands: `node ../<sibling>/…` is correct
+*somewhere*, so its absence costs a `low`; a machine path on a shipped
+surface is correct nowhere but the author's machine, so it fails at
+`medium`. One note for authors, since the check reads prose the same way it
+reads a command: a shipped surface documenting this check cannot write a
+letter, a colon and a slash — even with an invented letter — without firing
+on itself, so spell that class `<drive>:\…` there, or name its shape. This
+chapter is not a scanned surface and still illustrates with `X:\…` rather
+than anyone's real path; a real one pasted in to explain the defect is how
+the defect spreads.
 
 The entry skill's cap is the one budget that is not about a file's own
 readers. `skills/using-ae/SKILL.md` is injected at SessionStart into every

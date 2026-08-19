@@ -5,7 +5,7 @@
   design-first; parent approved via blocking ask (ruling verbatim in
   DECISIONS.md). PLAN.md shaped: 3 steps (RED fixtures → GREEN check →
   chapter).
-- Steps: 1 RED ☑ · 2 GREEN ☑ · 3 chapter ☐
+- Steps: 1 RED ☑ · 2 GREEN ☑ · 3 chapter ☑
 
 ## Done
 
@@ -150,6 +150,89 @@
   the logic is surface-agnostic (it runs per file, before any surface
   distinction), so a `reference/` or `templates/` fixture would exercise the
   same code path, but no committed case pins it.
+
+- 2026-08-19 — Step 3 (chapter — machine-path narration in the Audit
+  section). Two edits to `docs/how-it-works/standard-lifecycle.md`, nothing
+  else in the tree. (a) The section's opening parenthetical list of what
+  "the lint counts" gained `machine-anchored paths on shipped surfaces`,
+  placed right after `command drift` — the two content-drift checks read
+  adjacent in the list the way they sit adjacent in the script (the
+  paragraph was reflowed to keep the wrap even; that is the only reason
+  the first hunk touches a line I did not otherwise change). (b) One new
+  paragraph immediately after the cmd-drift paragraph and before the
+  entry-skill-cap one, so the severity contrast lands next to the escape
+  it contrasts with.
+
+  The paragraph carries the five beats the step asked for, in house voice
+  (WHY, not WHAT): the defect ("not a command that stopped being true, but
+  content that was only ever true on one disk"); the five shipped surfaces
+  and the three classes; why narrow rather than "no absolute path outside
+  records" (the broad rule would fail the URL routes and `/dev/null`
+  invocations the standard ships on purpose and catch nothing the three
+  classes miss — the same argument the section already makes for the drift
+  exemptions); why records and `examples/` are exempt (history, never
+  restamped — "a record is allowed to name the machine the work happened
+  on"); and the severity contrast, stated against the out-of-repo escape
+  narrated one paragraph above (`node ../<sibling>/…` is correct
+  *somewhere* → `low`; a machine path on a shipped surface is correct
+  nowhere but the author's machine → `medium`).
+
+  Step-2 minor 1 (placeholder form) carried in, and sharpened by a probe
+  rather than taken on faith. I ran the check's three regexes against the
+  candidate illustration forms before writing the prose:
+  `X:\…` FIRES (the lookbehind is satisfied by the preceding backtick, and
+  an invented drive letter is still `[A-Za-z]:[\\/]`), while
+  `<drive>:\…`, `/home/<name>`, `/Users/<name>` and `/mnt/<letter>/` are
+  all clean — `<` and `>` are outside `PATH_CHAR`, so an angle-bracket
+  placeholder never matches. So the advisory sentence says the accurate
+  thing rather than the tempting one: a shipped surface documenting this
+  check "cannot write a letter, a colon and a slash — even with an
+  invented letter — without firing on itself, so spell that class
+  `<drive>:\…` there, or name its shape." Had I repeated the review's
+  literal wording (advise `X:\…` on shipped surfaces) the advice would
+  have handed a future author a guaranteed lint failure. The chapter
+  itself, which the check never scans, does use `X:\…`, and says so, with
+  the reason: "a real one pasted in to explain the defect is how the
+  defect spreads."
+
+  Acceptance command and output:
+
+  ```
+  $ rg -n "machine" docs/how-it-works/standard-lifecycle.md
+  147:parseable, pointer shape, broken links, command drift, machine-anchored
+  172:`global/`, `loops/` — have to read true on any machine, so a path anchored
+  173:to one machine's disk layout is a defect there: a drive root (`X:\…`), a
+  182:is allowed to name the machine the work happened on. Severity is where the
+  184:*somewhere*, so its absence costs a `low`; a machine path on a shipped
+  185:surface is correct nowhere but the author's machine, so it fails at
+  237:into the standard's tracker on machines that carry its workspace, or as
+  $ echo $?
+  0
+  ```
+
+  All four gates, re-run after the reflow (not before it):
+  `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  → `0 high, 0 medium, 0 low — PASS` (exit 0);
+  `node tests/run-lint-tests.mjs` → `all 22 cases passed` (exit 0);
+  `node tests/run-gen-tests.mjs` → `all gen cases passed` (exit 0);
+  `node tests/run-eval-checks.mjs` → `all eval checks passed` (exit 0).
+
+  Files changed: `docs/how-it-works/standard-lifecycle.md` only (+29/−3);
+  `git status --porcelain` showed that one file and nothing else before the
+  commit. Untouched, per the PLAN's never-touch list: `CHANGELOG.md`, the
+  `AGENTS.md` stamp, `global/`, `examples/`, the sibling lane's files
+  (`reference/runners.md`, `reference/orca.md`, `skills/orchestrate/**`,
+  `docs/how-it-works/execution.md`) and the live case
+  `docs/plans/2026-08-16-agent-engineering-p2-usage-skills.md`.
+
+  Concerns: none blocking. One note for work-verify triage: the paragraph
+  runs long by this section's standard (~22 lines against ~13 for the
+  cmd-drift and entry-skill-cap paragraphs) because the step asked for five
+  distinct beats in one paragraph; length budgets do not apply to
+  `docs/how-it-works/` (AGENTS.md hard constraint), so this is a style
+  observation, not a gate. Step 2's open minor (fenced-block skip pinned by
+  a committed fixture on one surface only) is untouched by this step and
+  still stands for triage.
 
 ## Reviews
 
