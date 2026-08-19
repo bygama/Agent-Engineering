@@ -38,7 +38,7 @@ skip the run when the Linear connector is unreachable.
 
 - Primary: `orca automations create --name issue-triage --trigger weekdays
   --time 09:30 --prompt "Follow loops/issue-triage.md in this repo"
-  --provider claude --repo path:C:/Briar/repos/mine/Agent-Engineering
+  --provider claude --repo path:<repo>
   --precheck "orca linear list --filter open --json"`
   (registered enabled 2026-08-16; a fresh registration adds `--disabled`
   until the owner enables)
