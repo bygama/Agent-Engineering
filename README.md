@@ -116,7 +116,7 @@ file and follow it. Each ships with ≥3 evals, written before the skill.
 | [`work-run`](skills/work-run/SKILL.md) | executing a lane's PLAN in this session — fresh subagent per step, per-step review, capped fix loop |
 | [`work-verify`](skills/work-verify/SKILL.md) | before any "done" — tiered definition of done, evidence by command |
 | [`work-handoff`](skills/work-handoff/SKILL.md) | closing or pausing work — clean state, card + tracker sync |
-| [`orchestrate`](skills/orchestrate/SKILL.md) | a Run-bound parent session takes M+ work — dispatches it to a child worktree; XL fan-out included |
+| [`orchestrate`](skills/orchestrate/SKILL.md) | the main-worktree parent seat takes M+ work — binds its Run, dispatches to a child worktree; XL fan-out included |
 | [`loop-setup`](skills/loop-setup/SKILL.md) | a recurring task passes the loop filter — standing automation |
 
 **`using-ae`** is the entry point: loaded at every session start, it
@@ -130,8 +130,9 @@ straight to work-plan — no thinking suite borrowed for the job anymore
 the lane's own file; **work-run** executes it step-by-step (default at
 L, available at M — a runner without subagents runs the same steps
 inline); **work-verify** stamps the PASS evidence; **work-handoff**
-closes or pauses. **orchestrate** is the parent role, end to end: a
-Run-bound session dispatches M+ work to a child worktree it supervises,
+closes or pauses. **orchestrate** is the parent role, end to end: the
+main-worktree seat binds its Run and dispatches M+ work to a child
+worktree it supervises,
 reviews, and merges — one child every time, XL's parallel lanes included
 ([ADR-008](docs/adrs/ADR-008-orchestration.md), absorbing `fan-out`).
 **ae-init** installs the standard, **ae-audit** measures it,
