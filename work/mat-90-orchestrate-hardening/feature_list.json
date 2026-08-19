@@ -2,7 +2,7 @@
   {
     "id": "F01",
     "behavior": "MAT-90: dispatch-child.md names both sides of the fence — orchestration workers forbidden, in-session subagents (work-run per-step reviewers, work-verify step 4) required, the parent's adversarial reviewer additional and never a substitute — drops the absolute 'never spawning anything yourself', teaches fence vs runtime refusal with the NOT-RUN branch, and requires the in-session reviewer's verdict text recorded verbatim",
-    "verification": "node -e \"const s=require('fs').readFileSync('skills/orchestrate/references/dispatch-child.md','utf8');const ok=!/never spawning anything yourself/.test(s)&&/in-session/i.test(s)&&/work-verify/.test(s)&&/never a substitute/i.test(s)&&/runtime refusal/i.test(s)&&/NOT RUN/.test(s)&&/verbatim/i.test(s);process.exit(ok?0:1)\"",
+    "verification": "node -e \"const s=require('fs').readFileSync('skills/orchestrate/references/dispatch-child.md','utf8').replace(/\\s+/g,' ');const ok=!/spawning anything (yourself|itself)/i.test(s)&&/in-session/i.test(s)&&/work-verify/.test(s)&&/never a substitute/i.test(s)&&/refusal/i.test(s)&&/OBSERVED/.test(s)&&/NOT RUN/.test(s)&&/verbatim/i.test(s);process.exit(ok?0:1)\"",
     "state": "not_started",
     "evidence": null
   },
