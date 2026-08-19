@@ -114,9 +114,25 @@
   a single shared string, so the fixtures grade the path itself — a typo
   would turn both entry-skill cases red rather than dying silently.
 
+- **Step 5 DONE — docs.** `docs/how-it-works/standard-lifecycle.md`, audit
+  section: the enumeration of what the lint counts now names the
+  always-loaded entry skill's cap, and two new paragraphs state the
+  command-drift exemptions (the `# not verified` honesty marker, which the
+  chapter had never carried, and the escaping path reported-but-not-failed,
+  with the in-repo case explicitly untouched) and why the entry-skill cap is
+  the one budget that is not about a file's own readers. All four gates:
+
+  ```
+  node scripts/agent-lint.mjs . --ignore tests,templates,global,examples
+    0 high, 0 medium, 0 low — PASS                       (exit 0)
+  node tests/run-lint-tests.mjs   all 20 cases passed    (exit 0)
+  node tests/run-gen-tests.mjs    all gen cases passed   (exit 0)
+  node tests/run-eval-checks.mjs  all eval checks passed (exit 0)
+  ```
+
 ## In progress
 
-- Step 5 — docs/how-it-works/standard-lifecycle.md.
+- Step 6 — close: repro re-run, work-verify, work-handoff, PR.
 
 ## Tried and failed
 

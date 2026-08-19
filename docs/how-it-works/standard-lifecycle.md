@@ -142,10 +142,34 @@ are filled from what the exploration found and what the human confirmed.
 ## Audit (`ae-audit`)
 
 The audit is the judgment half of enforcement; `agent-lint` is the
-mechanical half and runs inside it. The lint counts (budgets, stamp present
-and parseable, pointer shape, broken links, command drift, lane coherence,
+mechanical half and runs inside it. The lint counts (budgets — the
+always-loaded entry skill's own cap among them — stamp present and
+parseable, pointer shape, broken links, command drift, lane coherence,
 feature-list schema and gating sanity); the audit judges (is the entry file
 honest? do the hard constraints deserve to be hard? has knowledge decayed?).
+
+Command drift carries two exemptions, and both exist for the same reason:
+a mechanical check that fails a repo which is *right* teaches everyone to
+ignore it. A `## Commands` line marked `# not verified` opted out of drift
+checking — the standard's own honesty marker, and flagging it would punish
+the honesty. And a cited command whose path leaves the repo
+(`node ../<sibling>/…`) makes no claim about this repo's contents: it is
+correct wherever the sibling checkout exists — the owner's tree, a CI job
+that checks it out at that position on purpose — and absent from a worktree
+that never had it. Missing, such a path is reported `low` naming that
+context-dependence instead of failing the lint; present, nothing is
+reported at all. A path that stays inside the repo keeps its full weight:
+a command citing a file that no longer exists is the drift the check was
+born for, and the exemption never reaches it.
+
+The entry skill's cap is the one budget that is not about a file's own
+readers. `skills/using-ae/SKILL.md` is injected at SessionStart into every
+conversation, so its lines are spent before any task arrives — the
+tightest attention budget in the standard, stated at 80 lines in
+`reference/skills.md`. The check mirrors that number the way the AGENTS.md
+budgets mirror `reference/context.md`: the law is written once, and the
+check points at it rather than inventing a second one. Repos that do not
+vendor the entry skill never see the check.
 The output is a score with concrete fixes, and fixes are applied only when
 asked — an audit that silently rewrites your repo is an audit nobody runs
 twice.
