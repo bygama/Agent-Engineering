@@ -12,3 +12,9 @@
   Linear-model paraphrase tracks the Concepts page re-read 2026-08-19.
   MAT-84: eval-07 BEFORE SKILL.md step-6 content, non-UI-gets-nothing
   graded too, README global/CLAUDE.md seed clause.
+- 2026-08-19 — step 3's sweep gains eval-06.md:120 ("monorepo pair per
+  app") as a target — the step-2 reviewer flagged it as live contract
+  text, not a legacy-fixture description; SPEC item 3's target list is
+  illustrative and its exclusions cover found-state descriptions only,
+  so live graded text using the retired vocabulary falls inside the
+  sweep. Controller ruling against the SPEC, no scope change.
