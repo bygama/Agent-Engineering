@@ -26,3 +26,12 @@
   illustrative skill-side language, never required generated text. The
   skill's instruction may name examples; the emitted line stays
   runtime-neutral and product-free per eval-07's graded items.
+- 2026-08-19 — lane-gate findings disposition (fresh-context review,
+  PASS): the eval-06 strict-hierarchy paraphrase was confirmed real and
+  fixed (`ae3056f`) with both affected gates re-run green — the fix is
+  the reviewer's own prescription, no re-review round opened; the two
+  lane-record Importants (stale Next, empty Verification) closed by the
+  verify commit itself; tracker.md polish minors accepted against the
+  120/120 zero-headroom budget rather than traded for normative lines;
+  reference/skills.md at 127>120 recorded as pre-existing and out of
+  lane scope (maintenance queue, not this PR).
