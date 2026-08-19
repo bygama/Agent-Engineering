@@ -177,8 +177,10 @@ same launch with `-m opencode/deepseek-v4-flash-free --auto`, the no-auth
 fallback (`reference/runners.md`). The two-step create can leave an
 unused fallback startup shell behind; where it does, closing it is a
 **required step**, not advice — confirm that shell is actually unused
-first (`orca terminal list --worktree <sel> --json` shows both), never
-close it blindly, never leave it running as debris.
+first (`orca terminal list --worktree <sel> --json` shows both), then
+`orca terminal close --terminal <handle>` (see `reference/runners.md`
+for the full recipe). Never close it blindly, never leave it running
+as debris.
 
 **Review-seat stall clock.** A ballena reviewer cannot heartbeat, so step
 5's cadence rule cannot reach it — it is watched against a threshold
