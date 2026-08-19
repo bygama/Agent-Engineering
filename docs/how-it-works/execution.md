@@ -273,15 +273,16 @@ flag, so the tracker binding is a separate `worktree set --linear-issue`
 issued right after it, and the child is only "bound at birth" once both
 have landed. Stages 5 and 6 are the two places the cycle can loop back —
 `5` on a question (the ruling lands in the child's *own* DECISIONS, not
-the parent's) and `6` on a FAIL (findings return to the *same* child's
-terminal, never a fresh one, capped at five rounds before an owner gate
-replaces the loop with a decision). Stage 6's launch also forks for a
-reason the CLI enforces, not a stylistic one: `--model` only accepts
-Claude, Codex, and Cursor ids, so a `--model`-selectable reviewer starts
-in one call while the ballena — custom argv, no such id — takes the
-four-command two-step launch (`worktree create` → `terminal create` →
-`terminal wait` → `worker-start --terminal`). Stage 7's ordering is easy to miss:
-the rebase and re-gate happen *before* the merge, inside the child, not
+the parent's) — and on an idle child, below — and `6` on a FAIL
+(findings return to the *same* child's terminal, never a fresh one,
+capped at five rounds before an owner gate replaces the loop with a
+decision). Stage 6's launch also forks for a reason the CLI enforces,
+not a stylistic one: `--model` only accepts Claude, Codex, and Cursor
+ids, so a `--model`-selectable reviewer starts in one call while the
+ballena — custom argv, no such id — takes the four-command two-step
+launch (`worktree create` → `terminal create` → `terminal wait` →
+`worker-start --terminal`). Stage 7's ordering is easy to miss: the
+rebase and re-gate happen *before* the merge, inside the child, not
 after — a PASS earned against a stale `main` is not a PASS against the
 `main` the PR is about to land on. And stage 8 is not optional
 housekeeping: the reviewer's own dispatch and worktree are decommissioned
@@ -313,8 +314,8 @@ step, and the cost known rather than traded away silently. None of that
 is stage 4's *own* pair of calls above — `worker-start` plus the Linear
 binding is on every dispatch, stock runner or not.
 
-Stage 5 loops back a second way, and it is the one the diagram would
-otherwise let you miss. The rolling wait's rule — a timeout is a
+Stage 5 loops back a second way, and it is the one the diagram alone
+would let you miss. The rolling wait's rule — a timeout is a
 checkpoint, silence is neither progress nor trouble — is true of a child
 that never established a cadence and wrong about one that did. Telling
 them apart needs both halves of a signature: a heartbeat cadence the
@@ -366,12 +367,13 @@ labour of obeying it. So at wave scale the fill is *expected* to be
 mechanical, and the expectation is written down rather than left to
 conscience: one per-repo common block, generated specs, and a generation
 that **fails on any surviving placeholder** instead of dispatching it.
-That rule sits with the XL section below rather than with stage 4,
-because it is scale and not dispatch that makes it necessary. What the
-generator feeds is `--spec "$(cat <file>)"`: `task-create` takes `--spec
-<text>` only — there is no `--spec-file`, and `task-update` changes
-state, not spec. Generating is a house convention; the skill ships no
-generator.
+That rule lives with the skill's XL section
+(`skills/orchestrate/SKILL.md` § Several children at once) rather than
+with its step 4, because it is scale and not dispatch that makes it
+necessary. What the generator feeds is `--spec "$(cat <file>)"`:
+`task-create` takes `--spec <text>` only — there is no `--spec-file`,
+and `task-update` changes state, not spec. Generating is a house
+convention; the skill ships no generator.
 
 ### Several children at once (XL)
 
