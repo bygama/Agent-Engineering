@@ -4,8 +4,9 @@
 // the canonical/pointer split, the version stamp, per-tool adapters, read
 // orders, block structure, broken local links, docs naming, skill hygiene,
 // work-lane coherence, feature-list schema and regression, DESIGN.md drift,
-// and static command drift. Judgment checks (inferable content,
-// rules-vs-taste) remain in the ae-audit skill.
+// machine-anchored paths on shipped surfaces, and static command drift.
+// Judgment checks (inferable content, rules-vs-taste) remain in the
+// ae-audit skill.
 //
 // v2 model: AGENTS.md is the canonical entry file (budgets, structure,
 // commands live there); CLAUDE.md must be a ≤3-line pointer containing
@@ -16,8 +17,10 @@
 // `<!-- BEGIN:<name> -->` / `<!-- END:<name> -->` marker lines, as `next dev`
 // upserts into whichever file hosts it — is not the repo's own content, so
 // it is stripped before the pointer is measured (see
-// stripToolManagedBlocks). Only the pointer check strips; every other check
-// reads the file as written.
+// stripToolManagedBlocks). Only the pointer check strips; the machine-path
+// check reuses the same matched-pair semantics to SKIP those lines while it
+// scans, so its `file:line` stays true to the file as written. Every other
+// check reads the file as written.
 //
 // cmd-drift exemption: a cited `node <path>` whose path resolves OUTSIDE the
 // repo root (`../<sibling>/…`, or absolute) is not a claim about this repo's
@@ -316,6 +319,83 @@ for (const f of files.filter((f) => basename(f) === "DESIGN.md")) {
     else if (norm(fresh) !== norm(genText))
       add("high", "design-drift", genRel, "design.tokens.css differs from a fresh generation — regenerate");
   }
+}
+
+// ---------- machine-anchored paths on shipped surfaces ----------
+// Shipped content must read true on any machine, so on the five surfaces a
+// consumer receives — skills/, reference/, templates/, global/, loops/ — a
+// path anchored to one machine's disk layout is a portability defect.
+// Exactly three classes count (a narrow rule, not "no absolute path": the
+// broad one buys no true positive here and fails legitimate URL routes and
+// device paths the standard wants shipped).
+//
+// The exemptions are decisions, not gaps:
+//   - Dated records are history. docs/plans/, docs/adrs/ and CHANGELOG.md
+//     say what was true on the day they were written and are never
+//     restamped, so they are out of scope by construction — the check reads
+//     only the five shipped surfaces.
+//   - examples/ are authoring-time snapshots, never restamped either, so
+//     they are not a shipped surface and are never scanned.
+//   - A path inside a fenced tool-managed block is not ours to judge — a
+//     tool upserts that block. Those lines are skipped (not stripped), so
+//     the line numbers reported stay true to the file as written; an
+//     unmatched BEGIN exempts nothing, same as in the pointer check.
+//   - Tilde paths stay legal, never a fourth class: `~/…` is user-relative,
+//     hence portable, and is the standard's own convention for the agent
+//     home. Illustrative absolute Unix paths (`/opt/…`, `/usr/…`), URL
+//     routes (`/api/…`) and `/dev/null` are not machine-anchored either.
+//
+// MEDIUM, not LOW: the cmd-drift LOW covers a path that is correct
+// SOMEWHERE (the owner's sibling checkout, CI — it just is not a claim
+// about this repo). A machine-anchored path on a shipped surface is correct
+// nowhere but the author's machine, so it fails the lint, like broken-link.
+// Not high: highs mark structural breaks of the standard; this is content
+// drift.
+const SHIPPED_SURFACE = /^(skills|reference|templates|global|loops)\//;
+const PATH_CHAR = "[^\\s`'\"<>()\\[\\]{},;]"; // runs to the first delimiter no path can contain
+const MACHINE_PATH = [
+  // Drive-rooted (`C:\…`, `D:/…`). The lookbehind is what keeps a URL
+  // scheme out: in `https://`, the `s` is preceded by an alphanumeric.
+  new RegExp(`(?<![A-Za-z0-9])[A-Za-z]:[\\\\/]${PATH_CHAR}*`, "g"),
+  // POSIX user-home. `/Users` keeps its macOS capitalization so an API
+  // route spelled `/users/<id>` is not read as somebody's home directory.
+  new RegExp(`(?<![A-Za-z0-9])/(?:home|Users)/${PATH_CHAR}+`, "g"),
+  // WSL drive mount — a drive root in POSIX spelling, same defect.
+  new RegExp(`(?<![A-Za-z0-9])/mnt/[A-Za-z]/${PATH_CHAR}*`, "g"),
+];
+const toolManagedLineNos = (lines) => {
+  const inside = new Set();
+  for (let i = 0; i < lines.length; i++) {
+    const name = lines[i].trim().match(BLOCK_BEGIN)?.[1];
+    if (name === undefined) continue;
+    const end = lines.findIndex((l, j) => j > i && l.trim() === `<!-- END:${name} -->`);
+    if (end === -1) continue;
+    for (let j = i; j <= end; j++) inside.add(j);
+    i = end;
+  }
+  return inside;
+};
+for (const f of files.filter((f) => SHIPPED_SURFACE.test(f))) {
+  const text = read(f);
+  // A binary payload (a diagram, a font) has no prose to judge, and random
+  // bytes match a drive letter often enough to matter. A NUL byte is the tell.
+  if (text.includes("\0")) continue;
+  const lines = text.split(/\r?\n/);
+  const skip = toolManagedLineNos(lines);
+  lines.forEach((line, i) => {
+    if (skip.has(i)) return;
+    // The classes nest: `C:/Users/someone/` is drive-rooted AND carries a
+    // `/Users/…` tail. One path is one defect, so a match starting inside
+    // an already-reported one is dropped — leftmost, longest wins.
+    let reportedTo = -1;
+    for (const m of MACHINE_PATH.flatMap((re) => [...line.matchAll(re)]).sort((a, b) => a.index - b.index)) {
+      if (m.index < reportedTo) continue;
+      reportedTo = m.index + m[0].length;
+      const hit = m[0].replace(/[.,;:]+$/, "");
+      add("medium", "machine-path", `${f}:${i + 1}`,
+        `\`${hit}\` is anchored to one machine's disk layout — shipped content must read true on any machine; use a home-relative (\`~/\`), repo-relative, or placeholder path`);
+    }
+  });
 }
 
 // ---------- static command drift (root AGENTS.md, ## Commands) ----------
