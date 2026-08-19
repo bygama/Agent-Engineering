@@ -45,7 +45,7 @@ Constraints (every step):
       not identical to it — AE adds its own earning test and budgets
       (`reference/context.md`). — accept:
       `grep -qi "aligned" README.md && node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
-- [ ] 5. `judgment` — EVALS FIRST: write `skills/ae-init/evals/eval-07.md`
+- [x] 5. `judgment` — EVALS FIRST: write `skills/ae-init/evals/eval-07.md`
       (## Query + ## Fixture + ## Expected behavior, checklist lines):
       UI-stack fixture → instantiated root AGENTS.md Gotchas gains ONE
       runtime-neutral browser line (prefer the runner's embedded/managed

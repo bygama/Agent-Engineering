@@ -490,6 +490,123 @@ Minor finding deferred to the lane gate (work-verify triage):
   consequence clause ("so the nearest file lands last"); standing alone
   it can read as root-takes-priority. Cheap same-length fix available.
 
+### Step 5 DONE — eval-07 written (evals before content, MAT-84)
+
+New `skills/ae-init/evals/eval-07.md` (82 lines): "fresh install on a UI
+repo — the browser gotcha". EVAL ONLY — `skills/ae-init/SKILL.md` and
+`docs/how-it-works/standard-lifecycle.md` are untouched; they are step 6,
+which implements the contract this file grades.
+
+Shape (house style, checked against evals 01-06): `Origin failure:`
+preamble + `## Query` + `## Fixture` + `## Expected behavior` with
+checklist lines, no fenced blocks (no eval in the repo uses one), wrapped
+at the evals' house width (longest line 76 cols; the family's max is 81).
+
+The fixture is two runs on ONE machine that carries Playwright and
+chrome-devtools MCPs connected, in an Orca-managed worktree — the
+temptation is put in front of the agent on purpose, the way eval-05 puts
+the wrong live binding in front of the tracker question:
+
+- **Run A** — eval-01's fresh repo with a plain UI stack (components,
+  stylesheets, dev-server script): the signal step 1 already looks for,
+  the one that makes step 6 offer `DESIGN.md.template`. Run twice, offer
+  accepted then declined.
+- **Run B** — the same repo with the UI removed (CLI/library, no
+  rendering surface). No UI signal, so no DESIGN.md offer either.
+
+What the twelve graded items pin down (this is the interface step 6
+implements):
+
+- **The trigger** — exactly ONE Gotchas bullet, written on the strength of
+  step 1's UI detection alone; the same detection that gates the DESIGN.md
+  offer, never a second pass or a signal of its own.
+- **No question** — inferred while exploring and written, the way eval-04's
+  language split is; the interview stays gotchas / hard constraints /
+  compatibility (+ tracker when in play).
+- **The three clauses** of `reference/orca.md`'s browser criterion and
+  nothing else: prefer the runner's own embedded/app-managed browser; a
+  driven-browser MCP only for a capability that browser lacks (performance
+  traces, heap snapshots, a11y audits, device emulation); never from a
+  supervised child session — with the criterion's own "convenience, habit
+  and already-installed are not lacked capabilities" carried over.
+- **Runtime-neutral** — no runner, product or command named; writing `orca
+  goto/snapshot/click` into the generated file is the named regression.
+  Grounded in the repo's own split rather than an analogy:
+  `reference/orca.md:5-6` — artifacts and quality gates are runner-neutral
+  files, execution features are the runner's. The rule travels into the
+  repo; the command does not.
+- **Trigger, not answer** — declining the DESIGN.md offer changes nothing
+  about the bullet; the bullet is context ae-init writes, not an artifact
+  the owner opts into.
+- **Placement** — root AGENTS.md Gotchas, one bullet, one place: no browser
+  section, no `docs/` page, no repo skill, no per-tool command list, and no
+  Hard constraints entry (Gotchas holds non-inferable working facts; Hard
+  constraints stays for genuine safety rules, per
+  `templates/repo/AGENTS.md.template`'s own comments).
+- **Machine untouched** — no MCP installed, configured, disabled or probed;
+  the bullet is not a command, so step 4's verify-by-running does not apply.
+- **Budgets hold** — root AGENTS.md ≤60, pointer ≤3, agent-lint exits 0.
+- **Run B negatives** — no browser line anywhere (Gotchas, Hard
+  constraints, docs/) however many browser MCPs the machine carries, AND no
+  question, offer or final-report mention: friction on every non-UI install
+  is the regression that run exists to catch.
+- **Rest of the fresh-install contract unchanged** in both runs.
+
+Design notes: no verbatim example line is dictated — the eval grades the
+three clauses, the neutrality, and the placement, which is the phrasing
+interface step 6 owes. That follows eval-04 (grades the language gotcha's
+obligations, not its wording) rather than eval-05 (a canonical `Tracker:`
+format that genuinely is verbatim). Two clause-level citations were checked
+in the source before writing rather than restated from memory:
+`reference/orca.md:56-73` for the criterion (including the
+lacked-capabilities list and the owner-terminal/child split, which
+`skills/orchestrate/references/dispatch-child.md:84-91` states absolutely
+for children) and `reference/orca.md:5-6` for the runner-neutral/execution
+split that justifies dropping the commands.
+
+Acceptance:
+
+```
+$ test -f skills/ae-init/evals/eval-07.md && node tests/run-eval-checks.mjs
+ok   ae-audit: 4 evals well-formed
+ok   ae-init: 7 evals well-formed
+ok   loop-setup: 5 evals well-formed
+ok   orchestrate: 4 evals well-formed
+ok   shaping: 4 evals well-formed
+ok   using-ae: 4 evals well-formed
+ok   work-handoff: 6 evals well-formed
+ok   work-plan: 5 evals well-formed
+ok   work-run: 4 evals well-formed
+ok   work-verify: 6 evals well-formed
+ok   .claude/docs-sweep: 3 evals well-formed
+ok   .claude/release: 4 evals well-formed
+all eval checks passed
+EXIT=0
+```
+
+Other three gates re-run as insurance: `node scripts/agent-lint.mjs .
+--ignore tests,templates,global,examples` → "0 high, 0 medium, 0 low —
+PASS" (exit 0); `node tests/run-lint-tests.mjs` → "all 16 cases passed";
+`node tests/run-gen-tests.mjs` → "all gen cases passed".
+
+No `docs/how-it-works/` chapter update is owed by this step: nothing
+structural or behavioral changed yet — the eval states the contract, step 6
+implements it and narrates it in `standard-lifecycle.md` §Install in the
+same commit (the SPEC and PLAN put the chapter there, not here).
+
+Files changed: `skills/ae-init/evals/eval-07.md` (new, 82 lines);
+`work/mat-83-84-scale-polish/PLAN.md` (step 5 ticked).
+
+Concerns:
+
+- `run-eval-checks.mjs` is structural only (sections + one checklist line),
+  so the gate proves shape, not substance — same limitation the step-2
+  reviewer noted. The substantive check is the review read.
+- The eval asserts budgets hold with the bullet present; a two-physical-line
+  bullet is what that assumes. If step 6's phrasing runs longer, the budget
+  claim is what will bite first — that is the intended pressure, not a
+  defect of the eval.
+
 ## In progress
 
 ## Tried and failed
