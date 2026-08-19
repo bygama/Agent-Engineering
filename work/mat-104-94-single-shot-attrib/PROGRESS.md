@@ -73,15 +73,58 @@
   appears to be lane-finalization bookkeeping (cf. mat-100-101's closing
   commit "tick PLAN — all 5 steps approved"), not a per-step action.
 
+- Step 2 review (fresh in-session reviewer, verdict verbatim):
+  "### Spec compliance / ✅ Compliant — both required edits are present,
+  correctly placed, and both acceptance commands verified in a real run.
+  [...] **Step quality:** Approved — Both required edits are correctly
+  worded, correctly placed relative to the named anchors, and
+  independently verified against the exact acceptance commands (grep
+  counts and lint exit code all confirmed by direct execution, not just
+  trusted from PROGRESS.md)." Minor (deferred, likely no-action): the
+  runners.md paragraph is one sentence wrapping to 4 physical lines —
+  "1-2 lines" read as "briefly"; reviewer says not worth blocking on.
+
+- Step 3: parent-side guidance + docs chapter, same commit.
+  `skills/orchestrate/SKILL.md` step 6 gains a new paragraph ("A
+  degenerate `worker_done` is neither idle nor a FAIL") inserted between
+  the existing "The verdict is the PASS/FAIL line..." paragraph and the
+  "FAIL sends the findings back..." paragraph: a placeholder body
+  (`--subject "t" --body "t"`) burns the dispatch's single worker_done
+  shot; a still-advancing transcript rules out step 5's idle signature
+  (which needs a *stopped* cadence) and a placeholder isn't a PASS/FAIL
+  line either, so it isn't a FAIL; diagnose with `worker-read --dispatch
+  <id>`, ack the placeholder as noise, hold for the follow-up; the real
+  verdict arrives inside Orca's rejected-worker_done wrapper quoting the
+  original body verbatim, and that quoted body routes on like any
+  accepted PASS/FAIL body once it reaches the lane.
+  `docs/how-it-works/execution.md`'s stage-6 narration gains the parallel
+  paragraph after the existing stall-clock paragraph and before stage 7's
+  paragraph, narrating both sides explicitly — the seat's single-shot
+  channel (never test-fire it; escape the body properly and send once)
+  and the parent's handling (idle-vs-FAIL disambiguation via the
+  transcript, `worker-read`, the rejected-worker_done wrapper as valid
+  evidence) — consistent with step 1's eval-03 wording (the graded
+  behavior) and the wording already shipped in
+  `skills/orchestrate/references/reviewer.md` (step 2).
+  Acceptance: `node tests/run-eval-checks.mjs` exits 0 (13 skills' evals
+  well-formed); `grep -c 'worker-read' skills/orchestrate/SKILL.md` = 4
+  (≥ 2 required); `grep -ci 'single-shot' docs/how-it-works/execution.md`
+  = 1 (≥ 1 required). Also confirmed (not required by this step's
+  acceptance, but cheap and relevant since step 6 needs it too): `node
+  scripts/agent-lint.mjs . --ignore tests,templates,global,examples` →
+  "0 high, 0 medium, 0 low — PASS". Files changed:
+  `skills/orchestrate/SKILL.md`, `docs/how-it-works/execution.md`.
+
 ## In progress
 
 ## Tried and failed
 
 ## Next
 
-- work-run the PLAN, step 3 (parent-side guidance in
-  `skills/orchestrate/SKILL.md` step 6 + `docs/how-it-works/
-  execution.md` stage-6 narration, same commit).
+- work-run the PLAN, step 4 (MAT-94 classification: diff
+  `skills/shaping/SKILL.md` against upstream `brainstorming` and
+  `skills/skill-authoring/SKILL.md` against upstream `writing-skills`;
+  classify with evidence in DECISIONS.md).
 
 ## Verification
 

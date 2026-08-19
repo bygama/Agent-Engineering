@@ -195,6 +195,21 @@ The verdict is the PASS/FAIL line in the reviewer's `worker_done` **body**;
 body — an `--outcome succeeded` review that found blocking problems is a
 FAIL for the lane.
 
+**A degenerate `worker_done` is neither idle nor a FAIL.** A reviewer
+that test-fires the channel with a placeholder body (`--subject "t"
+--body "t"`) burns that dispatch's one shot — `worker_done` is
+single-shot per dispatch (`skills/orchestrate/references/reviewer.md`).
+If its transcript keeps advancing after that send, step 5's idle
+signature (a stopped cadence *and* a flat transcript) does not fire, so
+this isn't idle either — and a placeholder is not a PASS/FAIL line, so
+it isn't a FAIL. Diagnose with `worker-read --dispatch <id>`, ack the
+placeholder as noise from a failed send, and hold for the follow-up. The
+real verdict then arrives inside Orca's rejected-worker_done wrapper,
+quoting the original body verbatim — once that quoted body reaches the
+lane (via `worker-read` or pasted in by hand), route on it like any
+accepted PASS/FAIL body, never discounted for arriving through the
+rejection wrapper instead of a clean `worker_done`.
+
 FAIL sends the findings back to the **same** child — same worktree, same
 agent terminal, a new Task on it — never a fresh child for a lane that
 already has one:

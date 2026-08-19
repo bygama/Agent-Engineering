@@ -293,6 +293,26 @@ worktree, then `task-update --status ready`, then a fresh seat — the same
 fix-loop mechanism stage 5 points at an idle child, pointed here at a
 reviewer instead.
 
+Stage 6 carries one more failure mode the diagram can't draw, and it has
+two sides. On the seat side: a `worker_done` channel is single-shot per
+dispatch (`skills/orchestrate/references/reviewer.md`), so a placeholder
+body sent to test whether the channel parses — `--subject "t" --body
+"t"` — burns that one shot before the real verdict ever goes out; the
+fix is procedural, not a retry — escape the body properly (a file plus
+`--body "$(cat file)"`, no backticks) and send once. On the parent side,
+that failure surfaces as a `worker_done` whose body is a placeholder,
+from a reviewer whose transcript keeps advancing — and the transcript is
+what tells the two loop-backs apart: stage 5's idle signature needs a
+*stopped* cadence, so a still-advancing transcript rules idle out, and a
+placeholder is not a PASS/FAIL line, so it isn't a FAIL either. The
+parent diagnoses with `worker-read`, acks the placeholder as noise from
+a failed send, and holds for the follow-up. The real verdict then
+arrives inside Orca's rejected-worker_done wrapper, quoting the original
+body verbatim — once that quoted body reaches the lane (via
+`worker-read` or pasted in by hand), it routes exactly like any accepted
+PASS/FAIL body, never discounted for arriving through the rejection
+wrapper instead of a clean `worker_done`.
+
 Stage 7's ordering is easy to miss: the
 rebase and re-gate happen *before* the merge, inside the child, not
 after — a PASS earned against a stale `main` is not a PASS against the
