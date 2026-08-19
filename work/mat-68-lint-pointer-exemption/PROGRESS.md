@@ -293,6 +293,15 @@ Exit code: 1 ✓ (no matches)
 **Files changed (fix):** `skills/ae-audit/references/checklist.md` (line 43
 simplified, one clause, cites lint without restating grammar).
 
+**Step 3 re-review (fix round 1, 2026-08-19):** finding ADDRESSED — the
+parenthetical grammar restatement is gone, the note is one clause citing
+the lint. No new breakage, no out-of-scope observations. Step 3 closes
+Approved after one fix round (initial review: ✅ spec-compliant on both
+rewordings and the file-wide per-app retirement — reviewer compared both
+rows against `reference/context.md`'s Budgets table and nesting section
+directly, no drift; the sole Important finding was the grammar
+restatement, fixed above).
+
 ## Notes
 
 - docs/how-it-works survey (brief item 4): `standard-lifecycle.md` is the
