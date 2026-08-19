@@ -16,8 +16,9 @@
   `skills/skill-authoring/evals/eval-01..04` per SPEC §4 — each eval's
   `## Expected behavior` checklist derived from an observed baseline
   failure, never an imagined one — accept: `node
-  tests/run-eval-checks.mjs` exits 0 and reports `skill-authoring: 4
-  evals well-formed`; F01 command green
+  tests/run-eval-checks.mjs` exits 0; F01 command green (the runner
+  skips a skill dir until its SKILL.md exists, so the `skill-authoring:
+  4 evals well-formed` line is S2's acceptance, not S1's)
 - [ ] S2 (judgment): `skills/skill-authoring/SKILL.md` — GREEN, the
   minimum that passes S1's four eval checklists, house register.
   Carries the RED-GREEN-REFACTOR cycle, the match-the-form-to-the-
