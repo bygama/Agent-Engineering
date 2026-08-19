@@ -204,9 +204,16 @@ order.
 
 ### The 8-stage dispatch cycle
 
-Binding the Run (`run-current` / `run-create` / `run-use`) happens once
-per parent session, before any lane exists. What repeats, once per lane,
-is this cycle:
+What makes a session the parent is its **seat** — its checkout being the
+repo's main worktree — and not a binding it already holds. The binding is
+per terminal, so every fresh terminal starts without one; a rule that
+demanded it first would be circular, requiring as a precondition what is
+really the parent's own first action, and the sessions it wrongly demoted
+would run M+ work inline in the owner's checkout (`skills/using-ae`'s role
+rule, MAT-85). So binding the Run (`run-current` / `run-create` /
+`run-use`) is that first action, once per parent session, before any lane
+exists — arriving unbound is the normal case, not a demotion. What repeats,
+once per lane, is this cycle:
 
 ```mermaid
 sequenceDiagram
