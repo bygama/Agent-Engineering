@@ -1,7 +1,7 @@
 # ADR-008: Orca-first orchestration
 
 Date: 2026-08-18
-Status: Accepted <!-- Amends ADR-002 (XL fan-out mandate → orchestrate) and ADR-004 (adds orchestrate as an L executor option); amends SPEC Decision 7 -->
+Status: Accepted <!-- Amends ADR-002 (XL fan-out mandate → orchestrate) and ADR-004 (adds orchestrate as an L executor option); amends SPEC Decision 7 --> <!-- role-rule consequence below superseded by MAT-85 (2026-08-19): parenthood comes from the seat (main worktree), not from a bound Run — see `skills/using-ae/SKILL.md` -->
 
 ## Context
 

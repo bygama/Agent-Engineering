@@ -67,9 +67,9 @@ DECISIONS ruling 2). One step = one commit = one dispatch.
    DECISIONS ruling 2 — the "Use in a Run-bound parent session" clause
    becomes the main-worktree seat, keeping the description's what+when form
    (`reference/skills.md`). SPEC §4.
-   Acceptance: `git diff main -- skills/orchestrate/SKILL.md | grep -E
-   '^[-+].*orca orchestration run-(current|create|use)'` exits 1 (no command
-   line added or removed) AND `node scripts/agent-lint.mjs . --ignore
+   Acceptance: `git diff main...HEAD -- skills/orchestrate/SKILL.md | grep
+   -E '^[-+].*orca orchestration run-(current|create|use)'` exits 1 (no
+   command line added or removed) AND `node scripts/agent-lint.mjs . --ignore
    tests,templates,global,examples` exits 0.
 
 5. [judgment] `docs/how-it-works/execution.md`, §"The 8-stage dispatch
@@ -80,8 +80,8 @@ DECISIONS ruling 2). One step = one commit = one dispatch.
    unbound is the normal case — using the step-2 vocabulary. SPEC §5; the
    repo's same-change docs constraint is what this step satisfies.
    Acceptance: `grep -q "main worktree" docs/how-it-works/execution.md`
-   exits 0 AND `git diff --name-only main -- docs/how-it-works/ | grep -q
-   standard-lifecycle` exits 1.
+   exits 0 AND `git diff --name-only main...HEAD -- docs/how-it-works/ |
+   grep -q standard-lifecycle` exits 1.
 
 6. [mechanical] Gate sweep: run all four gates, confirm no do-not-touch
    file appears in the diff, and record the command evidence in
@@ -89,6 +89,6 @@ DECISIONS ruling 2). One step = one commit = one dispatch.
    Acceptance: `node scripts/agent-lint.mjs . --ignore
    tests,templates,global,examples` · `node tests/run-lint-tests.mjs` ·
    `node tests/run-gen-tests.mjs` · `node tests/run-eval-checks.mjs` all
-   exit 0, AND `git diff --name-only main | grep -E
+   exit 0, AND `git diff --name-only main...HEAD | grep -E
    '^(README\.md|reference/tracker\.md|CHANGELOG\.md|skills/ae-init/|docs/how-it-works/standard-lifecycle\.md|\.claude/skills/docs-sweep/)'`
    exits 1.
