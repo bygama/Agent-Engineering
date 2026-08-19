@@ -73,3 +73,14 @@ this check instead *skips* the lines inside matched
 finding line numbers stay true to the file as written. The header invariant
 in `scripts/agent-lint.mjs` ("Only the pointer check strips") is amended in
 the same change.
+
+## 2026-08-19 — Handoff: lane records survive the PR; terminal close is the parent's
+
+work-handoff's close default removes the lane folder, but this repo's
+convention for dispatched children is that the parent terminal-closes lane
+records after merge (main history: d0ac9e3 "chore(lanes): terminal close —
+MAT-89/92 and MAT-91/88 lane records"), and this dispatch's report path
+points the parent at work/mat-99-lint-path-portability/PROGRESS.md while
+the PR is held open for its review wave. So this handoff finalizes and
+commits the lane state and leaves the folder in place; removal belongs to
+the parent's terminal close.
