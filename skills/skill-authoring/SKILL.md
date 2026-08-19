@@ -1,6 +1,6 @@
 ---
 name: skill-authoring
-description: Builds and revises skills by the RED-GREEN-REFACTOR cycle for documentation — a fresh-context baseline run before any content, the minimum content that fixes the observed failure, then re-tests that close the loopholes — and matches the guidance's form to the failure class it must fix. Use when creating a skill, changing an existing skill's behavior, or when a shipped skill is not landing and its wording needs testing before it ships again.
+description: Builds and revises skills from evidence: what an agent actually does without the skill decides what the skill teaches, and the class of failure decides what form the guidance takes. Use when creating a skill, when changing an existing skill's behavior, or when a shipped skill is not landing and its wording needs testing before it ships again.
 ---
 
 # skill-authoring
@@ -40,8 +40,9 @@ skill-authoring progress:
 ### 1. RED — the baseline
 
 **A baseline is a run you perform now, not logs you must already
-have.** Dispatch a fresh-context agent at a realistic version of the
-task with no skill present, and read what it produces. "There are no
+have.** Dispatch a fresh-context agent — a *probe* — at a realistic
+version of the task with no skill present, and read what it produces;
+a baseline is one or more probes. "There are no
 session logs" and "nobody has recorded this failing" are the normal
 starting state — they are the reason to run the probe, never grounds to
 skip it.
@@ -78,7 +79,8 @@ pick itself.
 incentive ("make it self-contained"), an agent negotiates with "don't
 X". In head-to-head wording tests, the prohibition arm produced clearly
 more of the unwanted content than the recipe arm — and trended worse
-than the no-guidance control. A recipe leaves nothing to negotiate: the
+than the no-guidance control (source: superpowers' `writing-skills`
+wording tests, here and below). A recipe leaves nothing to negotiate: the
 output matches the stated shape or it doesn't.
 
 Two rules, whichever form you pick:
@@ -112,28 +114,27 @@ Decline it with the diagnosis and the alternative: run a probe, and it
 gets written from what the probe shows. Edit what the failure touches;
 do not rewrite the file around it.
 
-One rule the law does not carry: a description states **what + when**,
-never a step-by-step workflow summary. A summarized workflow becomes
-the shortcut agents take instead of reading the body — a description
-naming two review stages produced one review; removing the summary
-produced both.
+One clause the law does not carry (`reference/skills.md` already sets
+what + when): **never a step-by-step workflow summary.** A summarized
+workflow becomes the shortcut agents take instead of reading the body —
+a description naming two review stages produced one review, and
+removing the summary produced both (source: superpowers'
+`writing-skills` wording tests).
 
 ### 5. Micro-test the wording
 
 Full pressure scenarios are the final gate, but they are slow per
 iteration. Test the wording first:
 
-- One fresh-context sample per call; system prompt = the realistic
-  context the guidance will live in.
 - **Always include a no-guidance control.** A with-guidance re-run
   scored against a checklist is not a test — without the control arm
   you cannot tell guidance from regression to the mean.
-- 5+ reps per variant. Single samples lie.
-- Read every flagged match by hand. Template echoes and quoted
-  counter-examples masquerade as hits.
 - **Variance is a metric.** Five different interpretations across five
   reps means the wording isn't binding — tighten the form before adding
   words.
+
+Reps, sampling and how to read the matches:
+`references/testing-with-subagents.md`.
 
 ### 6. REFACTOR — until the runs converge
 
@@ -181,6 +182,5 @@ your missing sentence or proof the problem is prominence, not content
   shows", never a bare no.
 - The cycle binds edits exactly as it binds new skills. Any change to a
   skill's behavior is a change under test.
-- Pure reference skills (API surfaces, syntax tables) have no rule to
-  violate: test retrieval, not compliance
-  (`references/testing-with-subagents.md`).
+- Skill type decides what "failing" even means; a pure reference skill
+  has no rule to violate (`references/testing-with-subagents.md`).

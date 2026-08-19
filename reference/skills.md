@@ -74,9 +74,6 @@ methodology skills live in the personal library (`bygama/skills`,
 junctioned); a complementary skill that becomes load-bearing for the
 standard moves upstream into AE.
 
-Removed skills keep their name only in ADRs, CHANGELOG, closed lanes
-and `examples/`; this living reference is the one that updates.
-
 ## Composing with process-skill suites
 
 `using-ae` is the always-loaded entry point (SessionStart): it carries
@@ -115,6 +112,8 @@ over the same information is permanent friction.
 | `test-driven-development` | `bygama/skills`' `testing-first` | personal library |
 | `skills/fan-out` (AE's own, removed) | `skills/orchestrate` | ADR-008 — its no-Orca manual procedure survives as orchestrate's fallback |
 
-Every row reads the same way: the suite stays installed, nothing is
-disabled, and the superseded skill is the explicit fallback where no AE
-standard is present. Supersession redirects the chain, never deletes it.
+Supersession redirects a chain, never deletes the thinking. Suite rows:
+superpowers stays installed, and the superseded skill is the explicit
+fallback where no AE standard is present. `bygama/skills` rows are
+junctioned globally — they apply wherever that library is, AE or not.
+`fan-out` is the exception: AE's own, removed, no fallback anywhere.

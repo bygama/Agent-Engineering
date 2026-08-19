@@ -39,6 +39,9 @@ length is the requester's idea, with no observation behind it.
       one home, and a copy is a second source of truth that drifts.
       Points at `reference/skills.md` instead.
 - [ ] The refusals arrive as a diagnosis plus the alternative in the
-      same breath, never a bare no.
+      same breath, never a bare no. (Observed, as the standard to
+      meet: the agent that declined the restate-the-law request quoted
+      "law with two homes drifts", surveyed how sibling skills cite it,
+      named the exact future drift, and shipped a pointer instead.)
 - [ ] Does not rewrite or reorganize the parts of `work-verify` that
       the observed failure never touched.

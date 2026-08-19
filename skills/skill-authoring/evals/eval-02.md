@@ -40,6 +40,12 @@ for the model to learn".
       required shape.
 - [ ] Appends no nuance clause ("keep it short unless the worker needs
       more") to the recipe; a genuine exception is expressed as its own
-      conditional on an observable predicate.
+      conditional on an observable predicate. (Not from this baseline —
+      sourced from superpowers' `writing-skills` wording tests, where
+      one appended nuance clause took a winning recipe from consistent
+      to noisy.)
 - [ ] The verification plan includes a no-guidance control arm, not
       only a with-guidance re-run scored against a checklist.
+      (Observed: the baseline agent proposed re-running 3-5 agents WITH
+      its new guidance and scoring them against a checklist, and never
+      re-ran the control.)
