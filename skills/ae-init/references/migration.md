@@ -132,3 +132,14 @@ stable line's layout.
   UI repos may take the runtime-neutral browser gotcha (ae-init adds
   it on the next init/migration). Pointers hosting a fenced
   tool-managed block are now lint-clean as-is.
+- **1.4.1** (2026-08-19) — self-found fixes from four orchestration
+  waves: `skills/skill-authoring` (the eleventh skill), using-ae's
+  reference-path resolution rule, two new lint checks (entry-skill cap,
+  fenced tool-managed blocks), the dispatch template's in-session
+  reviewer clarification and heartbeat cadence, Orca-as-ledger, and
+  machine-absolute paths off shipped surfaces. Migrating up: restamp —
+  skills are machine-global and nothing inside an installed repo must
+  change. Two optional pickups: a pointer file hosting a fenced
+  tool-managed block is now lint-clean as-is, and repos whose AGENTS.md
+  cites a command path outside the repo now get a context note instead
+  of a failure.

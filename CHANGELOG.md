@@ -29,6 +29,69 @@ and keep their former name for traceability; repos still stamped with an
 old name are "behind, not broken" — `agent-audit` flags them,
 `agent-init` migrates them.
 
+## [1.4.1] — 2026-08-19
+
+Everything here was found by the standard running itself: four
+orchestration waves in one day surfaced eleven defects in their own
+scaffolding, and this release closes them. PATCH per ADR-007 — fixes
+and incremental capability, no milestone designated.
+
+### Added
+
+- **`skill-authoring`** (`skills/skill-authoring/`, the eleventh
+  skill): the METHOD for building skills from evidence —
+  RED-GREEN-REFACTOR where the baseline is a run you perform now, the
+  form matched to the failure class, micro-tests with a mandatory
+  no-guidance control. The law stays in `reference/skills.md`, which
+  gains the supersession table. With it, no suite skill remains in
+  daily use.
+- **Reference-path resolution** (`skills/using-ae/`): AE skills cite
+  `reference/…`; the entry skill now states how that resolves from any
+  repo — the skill's link-resolved location, then a local clone, then
+  the public repo, and if none is reachable, say so instead of
+  inventing. The junction trap (a `..` walk from an installed skill
+  lands in `~/.claude`, not the standard) is named in the red flags.
+- **Two checks for laws that had none**: the always-loaded entry
+  skill's 80-line cap (whose number existed nowhere in the standard
+  until this release wrote it into `reference/skills.md`), and
+  fenced tool-managed blocks in pointer files.
+
+### Changed
+
+- **The dispatch template stops producing false refusals.** "No
+  grandchildren" now names both sides — orchestration workers
+  forbidden, the child's own in-session reviewers REQUIRED at their
+  tiers — and forces attempt-then-classify: a rule you read is not a
+  refusal, a refusal is what the runtime did once you tried. Three of
+  four children in one wave had stopped at their verification gate on
+  the old wording.
+- **Heartbeats gain a cadence** (~10 minutes even when the phase does
+  not change) and the parent gains the idle diagnosis it lacked: an
+  established cadence that stops, plus a transcript that has not
+  advanced, is an idle child — and the remedy is a Task to its
+  terminal, since a finished turn cannot read mail.
+- **Orca is named as the ledger**, with its real field names verified
+  by running the commands (`task_title`, not the `title` an operator
+  once guessed), plus the red flag that produced a parallel id ledger
+  in the wild: keeping ids in files instead of rereading them.
+- **A child needing custom runner argv** may use the two-step launch,
+  with its provenance cost measured and stated rather than lost
+  silently.
+- **Filling dispatch specs at wave scale is expected to be
+  mechanical**, and the generation must fail on any surviving
+  placeholder; the template gains an optional `[REPO_CONSTRAINTS]`
+  slot.
+
+### Fixed
+
+- `cmd-drift` no longer fails a repo for a cited command path that
+  leaves the repo (correct in the owner's checkout and in CI, absent
+  from a worktree) — it reports the context-dependence and keeps
+  failing genuine in-repo drift.
+- Machine-absolute paths are gone from shipped surfaces: three skills
+  cite the resolution rule instead, and the loop templates carry the
+  placeholder the operator fills.
+
 ## [1.4.0] — 2026-08-19
 
 **AE at scale** — the owner-designated milestone (ADR-007): the
