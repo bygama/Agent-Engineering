@@ -67,6 +67,38 @@ passed"; `node tests/run-eval-checks.mjs` → "all eval checks passed".
 
 Files changed: `reference/tracker.md` (+87 / −145).
 
+### Step 1 fix — verified JSON path re-attributed to its real object
+
+Review finding (Important) accepted: the compression had pulled
+`workspace.name` under `result.meta.resolved`, where the on-machine
+observation never put it. The pre-trim text recorded two locations —
+`result.meta.resolved`'s `workspaceName`/`workspaceId` on reads, and
+`workspace.name` on a list row — and tracker.md is the only file in the repo
+carrying these paths, under a "(verified on-machine 2026-08-18)" stamp.
+
+Changed (`reference/tracker.md`, the before-any-write paragraph): the
+negative clause now reads "never the display fields
+`workspaceName`/`workspaceId` under `result.meta.resolved`, or a list row's
+`workspace.name` (verified on-machine 2026-08-18)" — the two objects are
+distinct again, matching the pre-trim observation. The paragraph tail was
+re-wrapped so the fix costs no line ("same contract when" → "same when",
+"so nothing to compare. Absence degrades cleanly." → "nothing to compare —
+absence degrades cleanly."); no other content touched, Minor findings left
+for the lane gate.
+
+Acceptance re-run:
+
+```
+$ wc -l < reference/tracker.md
+120
+$ [ $(wc -l < reference/tracker.md) -le 120 ] && grep -q "second connector" reference/tracker.md \
+  && grep -q "belongs to a team" reference/tracker.md \
+  && node scripts/agent-lint.mjs . --ignore tests,templates,global,examples
+agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-83-84-scale-polish
+0 high, 0 medium, 0 low — PASS
+EXIT=0
+```
+
 Concerns:
 
 - The file lands at exactly 120 — the budget is met with zero margin, so

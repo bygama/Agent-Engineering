@@ -79,15 +79,15 @@ resolve the declaration governing the file by walking UP from it (nearest
 workspace and team), then compare the live binding on the workspace slug in a
 resolved issue's `url` (`linear.app/<slug>/issue/…`): `result.issue.url` on
 reads, `result.issues[n].url` per list row — never the display fields
-`workspaceName`/`workspaceId` or `workspace.name` under `result.meta.resolved`
-(verified on-machine 2026-08-18). **Mismatch → NO write**: state it plainly —
-declared workspace, resolved workspace, tracker NOT updated — then emit the
-exact operation (command + payload) for the operator to run from a correctly
-bound session; same contract when the binding will not resolve at all (fresh or
-empty workspace, erroring read). Nothing lands in the wrong workspace silently.
-With no full `Tracker:` line above the file the rule is inert — a
-`Tracker-project:` line alone names no workspace, so nothing to compare.
-Absence degrades cleanly.
+`workspaceName`/`workspaceId` under `result.meta.resolved`, or a list row's
+`workspace.name` (verified on-machine 2026-08-18). **Mismatch → NO write**:
+state it plainly — declared workspace, resolved workspace, tracker NOT updated
+— then emit the exact operation (command + payload) for the operator to run
+from a correctly bound session; same when the binding will not resolve at all
+(fresh or empty workspace, erroring read). Nothing lands in the wrong workspace
+silently. With no full `Tracker:` line above the file the rule is inert: a
+`Tracker-project:` line alone names no workspace, nothing to compare — absence
+degrades cleanly.
 
 ## Without Orca
 
