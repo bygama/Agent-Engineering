@@ -8,7 +8,7 @@ SPEC approved by the parent with one scope extension (DECISIONS ruling 2).
 - [x] 1. Fixtures + self-test cases (red on `pointer-fenced`)
 - [x] 2. `stripToolManagedBlocks` in the pointer check (all green)
 - [x] 3. Checklist rows: exemption clause + nesting-law rewording
-- [ ] 4. standard-lifecycle.md + reference/context.md one-clause notes
+- [x] 4. standard-lifecycle.md + reference/context.md one-clause notes
 - [ ] 5. Gate sweep with evidence
 
 ## Evidence
@@ -301,6 +301,50 @@ rewordings and the file-wide per-app retirement — reviewer compared both
 rows against `reference/context.md`'s Budgets table and nesting section
 directly, no drift; the sole Important finding was the grammar
 restatement, fixed above).
+
+### Step 4 — standard-lifecycle.md + reference/context.md one-clause notes (2026-08-19)
+
+Added one-clause tool-managed block exemption notes to both:
+
+1. **`docs/how-it-works/standard-lifecycle.md`** (lines 42-46): Appended
+   exemption note to the CLAUDE.md pointer bullet explaining that a fenced
+   tool-managed block does not count against the line budget, with the lint's
+   `pointer-shape` check settling what qualifies as one (SPEC §4).
+
+2. **`reference/context.md`** (lines 51-54): Added exemption note at the end
+   of the pointer section, same wording, citing the lint as the authority —
+   aligns law with check per single-definition discipline (SPEC §5,
+   DECISIONS ruling 2).
+
+Both notes follow the step 3 wording pattern exactly: one clause, no
+restating marker grammar, lint cited as the settlement mechanism.
+
+**Acceptance commands and output:**
+
+```
+$ grep -il "tool-managed" docs/how-it-works/standard-lifecycle.md reference/context.md
+docs/how-it-works/standard-lifecycle.md
+reference/context.md
+```
+
+Exit code: 0 ✓
+
+```
+$ node scripts/agent-lint.mjs . --ignore tests,templates,global,examples
+agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-68-lint-pointer-exemption
+0 high, 0 medium, 0 low — PASS
+```
+
+Exit code: 0 ✓
+
+**Files changed:**
+- `docs/how-it-works/standard-lifecycle.md` (lines 42-46, added 4-line note)
+- `reference/context.md` (lines 51-54, added 2-line note)
+
+**Concerns:** none. The two notes form a complete set: `standard-lifecycle.md`
+enumerates the pointer rule comprehensively, `reference/context.md` establishes
+the budget law, each surface now declares the exemption with uniform citation to
+the lint.
 
 ## Notes
 
