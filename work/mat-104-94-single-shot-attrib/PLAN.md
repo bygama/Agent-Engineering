@@ -21,7 +21,7 @@
 
 ## Steps
 
-- [ ] 1. [judgment] Evals first — `skills/orchestrate/evals/eval-03.md`
+- [x] 1. [judgment] Evals first — `skills/orchestrate/evals/eval-03.md`
   gains the degenerate-worker_done assertions BEFORE any content edit:
   (a) a degenerate worker_done (placeholder body, e.g. `--subject "t"
   --body "t"`) from a seat whose transcript still advances is neither
@@ -33,7 +33,7 @@
   PASS/FAIL body. — accept: `node tests/run-eval-checks.mjs` exits 0
   AND `grep -c 'worker-read' skills/orchestrate/evals/eval-03.md` ≥ 1
 
-- [ ] 2. [judgment] Seat-side warning, single definition —
+- [x] 2. [judgment] Seat-side warning, single definition —
   `skills/orchestrate/references/reviewer.md`'s fenced brief (near its
   "Reporting your verdict" section) gains: worker_done is SINGLE-SHOT
   per dispatch — never test-fire the channel with a placeholder; if a
@@ -47,7 +47,7 @@
   `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
   exits 0
 
-- [ ] 2b. [judgment] Seat reads in place (parent directive
+- [x] 2b. [judgment] Seat reads in place (parent directive
   msg_58ffdcfc9878, see DECISIONS.md) —
   `skills/orchestrate/references/reviewer.md`'s fenced brief: the
   seat's worktree is ALREADY checked out on the lane branch at launch;
@@ -64,7 +64,7 @@
   `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
   exits 0
 
-- [ ] 3. [judgment] Parent-side guidance + docs chapter, same commit
+- [x] 3. [judgment] Parent-side guidance + docs chapter, same commit
   (house rule: behavior change updates the affected chapter) —
   `skills/orchestrate/SKILL.md` step 6 gains: a degenerate worker_done
   (placeholder body) from a seat whose transcript still advances is
@@ -79,7 +79,7 @@
   `grep -c 'worker-read' skills/orchestrate/SKILL.md` ≥ 2 AND
   `grep -ci 'single-shot' docs/how-it-works/execution.md` ≥ 1
 
-- [ ] 4. [judgment] MAT-94 classification, evidence first — diff
+- [x] 4. [judgment] MAT-94 classification, evidence first — diff
   `skills/shaping/SKILL.md` against upstream `brainstorming` and
   `skills/skill-authoring/SKILL.md` against upstream `writing-skills`
   (superpowers 6.3.0 cache at `C:/Users/mateo/.claude/plugins/cache/`
@@ -95,7 +95,7 @@
   `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
   exits 0
 
-- [ ] 5. [judgment] Stance rule in `reference/skills.md` — the porting
+- [x] 5. [judgment] Stance rule in `reference/skills.md` — the porting
   guidance gains 2-4 lines: on every port, diff against upstream;
   substantial portions carry the upstream MIT notice per file;
   idea-only rewrites record their classification in the lane. The file
@@ -106,7 +106,7 @@
   `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
   exits 0
 
-- [ ] 6. [mechanical] Full gate suite + lane bookkeeping current
+- [x] 6. [mechanical] Full gate suite + lane bookkeeping current
   (PROGRESS.md truthful, DECISIONS.md carries every ruling and both
   classifications). — accept: all four commands exit 0:
   `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` ·
