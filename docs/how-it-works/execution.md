@@ -284,8 +284,9 @@ two-step launch (`worktree create` → `terminal create` → `terminal
 wait` → `worker-start --terminal`). Either opencode seat takes it: the
 dialogue's default ratón chispeante (muse spark 1.2 contributor) and
 the ballena (deepseek v4 flash) it names beside it differ in argv, not
-in how they launch — `reference/runners.md` registers both, and the
-skill reads either off it rather than restating them.
+in how they launch — `reference/runners.md` registers both; the skill
+shows the default's argv with that citation and reads the alternative's
+off it rather than duplicating them.
 
 Stage 6 also runs a clock the diagram doesn't draw: an opencode TUI
 reviewer — ratón or ballena — cannot heartbeat, so stage 5's cadence
