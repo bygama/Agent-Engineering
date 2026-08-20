@@ -24,7 +24,7 @@
 
 ## Steps
 
-- [ ] 1. [judgment] Falsehood check FIRST (so any needed eval change
+- [x] 1. [judgment] Falsehood check FIRST (so any needed eval change
   precedes content): read `skills/orchestrate/SKILL.md` step 6 (incl.
   the dispatch-dialogue default at step 3),
   `skills/orchestrate/evals/eval-03.md`, and
