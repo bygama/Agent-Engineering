@@ -362,11 +362,47 @@
 
 ## Next
 
-(All 6 steps complete. Lane finalization → work-verify / work-handoff.)
+(Nothing pending in this lane. Closed via work-handoff 2026-08-19: M
+DoD PASS on record below, PLAN fully ticked, stacked PR open with base
+`bygama/mat-100-101-ballena-auto` — left OPEN deliberately for the
+parent's review wave; the parent merges, never this worker. Lane folder
+kept on the branch per the sibling-lane precedent: the parent's
+reviewer reads SPEC/PLAN/DECISIONS/PROGRESS from the lane path.)
 
 ## Verification
 
 <!-- PASS evidence only, written by work-verify (newest on top); the close
      handoff refuses to close a lane without a current PASS block here. -->
+
+### 2026-08-19 — M DoD — PASS
+- L1 static: `node scripts/agent-lint.mjs . --ignore
+  tests,templates,global,examples` → exit 0 ("0 high, 0 medium, 0 low
+  — PASS")
+- L2 behavioral: `node tests/run-lint-tests.mjs` → exit 0 ("all 20
+  cases passed"); `node tests/run-gen-tests.mjs` → exit 0 ("all gen
+  cases passed"); `node tests/run-eval-checks.mjs` → exit 0 ("all eval
+  checks passed", 13 skills incl. orchestrate 5 evals well-formed)
+- L3 end-to-end: n/a: single-surface markdown/skill-text change — no
+  executable cross-component flow; the eval-structure suite is the
+  executable check for the changed surfaces (decision recorded here)
+- Fresh-context review (in-session subagent, capable tier, no shared
+  context; ran all 4 gates + all 10 per-step acceptance checks itself,
+  HEAD 811702b): "**PASS** — all four repo gates exit 0 on my own run
+  ('0 high, 0 medium, 0 low — PASS', 'all 20 cases passed', 'all gen
+  cases passed', 'all eval checks passed') and all ten per-step
+  acceptance checks meet their thresholds on my own greps, with the
+  file-ownership constraint clean ('NONE — clean'), the
+  evals-before-content order confirmed per commit, and both MAT-94
+  classifications independently re-verified verbatim against the
+  superpowers 6.3.0 cache. The five Minor findings are bookkeeping and
+  pre-existing drift; none blocks handoff." Minors: PLAN checkboxes to
+  tick at handoff; DECISIONS upstream line counts off by one (fixed
+  post-review, counts corrected to 250/679); n-gram aggregates on
+  trust (disposition confirmed right — quoted runs verified);
+  reference/skills.md TOC drift (pre-existing, deferred follow-up);
+  stance-rule paragraph placement (budget trade, recorded).
+- Adversarial review: n/a: M, not requested at dispatch — the parent
+  runs its own cross-model reviewer seat after worker_done (an
+  additional seat, per the dispatch brief, not this rung).
 
 <!-- First read of every session. If it isn't here, it didn't happen. -->

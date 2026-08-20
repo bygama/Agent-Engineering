@@ -34,8 +34,9 @@
 - 2026-08-19 — MAT-94 step 4, upstream source: the superpowers 6.3.0
   cache IS present at
   `C:/Users/mateo/.claude/plugins/cache/claude-plugins-official/superpowers/6.3.0/skills/`
-  (dated 2026-08-12; `brainstorming/SKILL.md` 251 lines,
-  `writing-skills/SKILL.md` 680 lines). Both classifications below rest
+  (dated 2026-08-12; `brainstorming/SKILL.md` 250 lines,
+  `writing-skills/SKILL.md` 679 lines — counts corrected by the
+  fresh-context reviewer's `wc -l`). Both classifications below rest
   on a real diff against those files, not on port records. Method:
   case- and punctuation-insensitive word-n-gram overlap (n=4 and n=6),
   overlapping hits merged into maximal runs, then each run read by hand
