@@ -4,8 +4,13 @@
 
 ## Language
 
-- Chat in rioplatense Spanish; all technical artifacts in English (code,
-  comments, commits, branches, context files, docs).
+- Reply in the language of each prompt: Spanish prompt → rioplatense
+  Spanish; English prompt → English. Communication only — never changes
+  the artifact rules below.
+- All technical artifacts in English: code, comments, docs, commits,
+  branches, PR titles/bodies, context files.
+- User-facing product content (site copy, UI text) in Spanish, unless
+  the project's context says otherwise.
 
 ## Safety
 
@@ -33,8 +38,3 @@
   "claude"`; children detect their own env and repeat the rule.
 - Never start bare `claude.exe` from an Orca terminal — it resolves to the
   machine's ambient default (pegasuz), not to this session's account.
-- Never run a long-lived process as a background shell in an agent session
-  — blocks working→idle, dies with the session. Dev servers: own Orca
-  terminal tab (`orca terminal create --command "npm run dev"`); browsers:
-  Orca's embedded one (`orca goto/snapshot/click`) — Playwright/Chrome
-  MCPs only for lacked capabilities, from an owner terminal, not a child.
