@@ -9,6 +9,11 @@ issue: MAT-105
 
 ## What done looks like
 
+> **SUPERSEDED IN PART by the Amendment (2026-08-20), below.** Items 1
+> and 5 assert the old law (ballena default, dialogue wording
+> unchanged); the owner ruling inverted that. Where this section and
+> the Amendment disagree, the Amendment is the binding text.
+
 ### The seat, encoded in `reference/runners.md`
 
 Beside the ballena entry (the reviewer-seat TUI paragraphs — the
