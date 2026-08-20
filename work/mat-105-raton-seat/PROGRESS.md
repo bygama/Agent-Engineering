@@ -500,6 +500,140 @@ lines) is recorded for the A3 implementer: SKILL.md:73-74, :163, :376;
 references/reviewer.md:5; execution.md:184-185, 226, 247, 282, 286,
 321, 329; eval-03:10 stays (owner choice, valid under the new law).
 
+### Step A3 — orchestrate skill + narrating chapter under the amended law (judgment) — DONE
+
+Amendment step 3+4, one commit for all three files (house rule: the
+chapter updates in the same change). The A2 reviewer's carryover
+checklist drove the sweep and every listed line was addressed; the
+`grep -rn -i 'ballena'` re-run below shows what survives and why.
+
+**`skills/orchestrate/SKILL.md`** (five edits):
+
+- **Step 3, the dispatch dialogue (was :73-74).** The offered default is
+  now **1 ratón chispeante** ("the house name for the cross-family
+  reviewer seat that holds the default on cost, muse spark 1.2
+  contributor; several of them are ratones chispeantes"), and the
+  **ballena** (deepseek v4 flash) is named in the same question as the
+  alternative, "so neither seat is picked silently". That is exactly the
+  compound behavior eval-01:38-40 now grades — default offered AND
+  alternative named. The dialogue's shape is untouched: still one
+  question, still yes/no + how many + which model, still "never a silent
+  default" in the sentence above it.
+- **Step 6, the launch fork and snippet (was :163, :169, :175-177).**
+  The fork is no longer ballena-scoped ("an opencode seat needs custom
+  argv, so it takes the two-step launch — here at the dialogue's
+  default, the ratón chispeante"), and the `terminal create` line now
+  carries the ratón argv **verbatim as proven**: `opencode --auto -m
+  opencode-go/muse-spark-1.2-contributor`, keeping its
+  `# reference/runners.md` provenance comment. The ballena's launch
+  stays REACHABLE per A1's forward note — the paragraph under the fence
+  now reads "A ballena agreed at the dialogue takes the same four
+  commands with its own argv, and a machine without OpenCode Go auth
+  falls back to the ballena's no-auth free model — the seat changes, the
+  four commands do not. Every launch argv, `--auto` included, is read
+  off `reference/runners.md`, which registers both seats, never retyped
+  from memory." Single-definition discipline: the ballena's two argv
+  (Go default + no-auth fallback) are no longer duplicated here, they
+  are cited where A2 registered them, which is what keeps eval-03:31
+  gradeable.
+- **Stall clock (:185).** "A ballena reviewer cannot heartbeat" → "An
+  opencode TUI reviewer (ratón or ballena) cannot heartbeat" — the
+  generalize-don't-swap rule: the mechanic holds for any opencode TUI
+  seat, and eval-03:41 (fixture: a ballena) still grades against it.
+- **Fix-loop cost line (:230)** "pays a new ballena five times" → "pays
+  a new reviewer seat five times"; **teardown line (:264)** "a retained
+  ballena idles" → "a retained reviewer seat idles". Both are
+  seat-agnostic mechanics that ballena-scoping now misreads as the
+  default.
+- **Judgment note (:376).** "which is what the ballena default is for" →
+  "which is what the ratón chispeante default is for" — the line the
+  step named explicitly.
+
+**`skills/orchestrate/references/reviewer.md`** — the "(default 1
+ballena)" line at :5 inverted to "(default 1 ratón chispeante)", one
+rewrap of the sentence. Nothing inside the fenced brief changed: the
+template is seat-neutral by construction.
+
+**`docs/how-it-works/execution.md`** — falsehood check re-run under the
+new law across the whole chapter, then updated at every place it
+narrated the old default:
+
+- **Topology diagram (:184-185)**: `Reviewer / ballena` → `Reviewer /
+  ratón chispeante` on both reviewer nodes (the wave's default seat is
+  what the drawing should show).
+- **Sequence diagram (:226, :247, :249)**: participant renamed the same
+  way; the stage-6 `alt/else` label is now `else opencode seat (ratón
+  chispeante by default, or a ballena - no --model id)` — the fork is
+  CLI-enforced for any custom-argv seat, not for the ballena
+  specifically; the elided command shows `"opencode --auto -m ..."`,
+  matching the ratón's argv order.
+- **Launch-fork prose (:282)**: "while the ballena — custom argv" →
+  "while an opencode seat — custom argv", plus one new sentence naming
+  both seats and where their argv live: "Either opencode seat takes it:
+  the dialogue's default ratón chispeante (muse spark 1.2 contributor)
+  and the ballena (deepseek v4 flash) it names beside it differ in argv,
+  not in how they launch — `reference/runners.md` registers both, and
+  the skill reads either off it rather than restating them."
+- **Stall clock (:286)**: "a ballena reviewer cannot heartbeat" → "an
+  opencode TUI reviewer — ratón or ballena — cannot heartbeat".
+- **Stage-8 teardown (:321)**: "a retained ballena idles" → "a retained
+  reviewer seat idles".
+- **Stage-4 borrowed launch (:329)**: "borrows the ballena's launch from
+  stage 6" → "borrows the reviewer seat's two-step launch from stage 6".
+- **Untouched by judgment**: the 2026-08-16 portability-proof paragraph
+  (a dated record — opencode + `deepseek-v4-flash-free` completing
+  `f04-capitalize` is what actually ran), the "Runners" section (it
+  calls the runner "a free choice per row of the worker table" and
+  restates no default), and every other dated/evidence line. Paragraph
+  reflows in the touched paragraphs are whitespace-only.
+
+Out of scope and deliberately untouched: `reference/runners.md` (A2),
+the evals (A1 — eval-03:10's "picked '1 ballena'" is an owner CHOICE,
+valid under the new law), `CHANGELOG.md`, `docs/adrs/ADR-008` (dated
+record; ADR-008:38-43 still states the old default by its own date, as
+DECISIONS.md's amendment entry rules), and
+`docs/how-it-works/standard-lifecycle.md`.
+
+Acceptance (all four conditions, run on the final tree):
+
+- `grep -c 'ratón chispeante' skills/orchestrate/SKILL.md` → `3` (≥ 1)
+- `bash -c "! grep -rqi 'default 1 ballena' skills/orchestrate docs/how-it-works"`
+  → exit `0`
+- `grep -c 'ratón' docs/how-it-works/execution.md` → `6` (≥ 1)
+- `node tests/run-eval-checks.mjs` → `all eval checks passed`, exit 0
+
+Regression check (all four gates, final tree, chained with `&&`):
+`node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+→ `0 high, 0 medium, 0 low — PASS` · `node tests/run-lint-tests.mjs` →
+`all 20 cases passed` · `node tests/run-gen-tests.mjs` → `all gen cases
+passed` · `node tests/run-eval-checks.mjs` → `all eval checks passed`;
+the chain exited 0. SKILL.md is 386 lines (cap <500). Wrap check on the
+diff: no new prose line exceeds 78 columns; the three longer added lines
+are a mermaid node label, a mermaid `alt` label and the fenced
+`terminal create` command — all shorter than the lines they replaced.
+
+Surviving `ballena` mentions in the three files, each verified correct
+under the new law: SKILL.md:76 (the named alternative in the dialogue),
+:179 and :181 (the alternative's launch + the no-auth fallback that is
+the ballena's), :192 (generalized stall clock, "ratón or ballena");
+execution.md:247 (fork label naming both), :286 (the alternative named
+in prose), :291 (generalized stall clock).
+
+Files changed: `skills/orchestrate/SKILL.md`,
+`skills/orchestrate/references/reviewer.md`,
+`docs/how-it-works/execution.md` (repo content, one commit),
+`work/mat-105-raton-seat/PLAN.md` (A3 ticked), this file.
+
+Concerns: none blocking. Two for the reviewer's eye. (1) SKILL.md no
+longer spells out the ballena's two argv — it cites
+`reference/runners.md` instead. That is the step's own instruction
+(single-definition discipline) and A1's forward note is satisfied by the
+citation, but an agent grading eval-03:31 must now follow one hop to
+read those argv. (2) The `--auto` law is stated in SKILL.md as "Every
+launch argv, `--auto` included, is read off `reference/runners.md`"
+rather than repeated as a rule; runners.md:40-49 holds the rule and the
+MAT-91 evidence, so this is a pointer, not a lost claim.
+
 ## In progress
 
 ## Next

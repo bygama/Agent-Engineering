@@ -2,8 +2,8 @@
 
 **When to use:** orchestrate's review wave — after a child reports
 `worker_done` with its PR, the parent launches the dispatch dialogue's
-agreed reviewer(s) (default 1 ballena) against that same lane, read-only.
-Filled verbatim, never freehand (MAT-43 pattern).
+agreed reviewer(s) (default 1 ratón chispeante) against that same lane,
+read-only. Filled verbatim, never freehand (MAT-43 pattern).
 
 **How to fill:** three things — `[LANE_PATH]`, `[BRANCH]`, `[PR_URL]`.
 This is the lane's whole-diff gate, closer in shape to work-verify's
