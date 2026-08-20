@@ -41,6 +41,12 @@ default ("Default: **1 ballena** … deepseek v4 flash; several of them
 are ballenas") stays true: the ballena remains the default the dialogue
 offers, and the question it annotates already asks "which model?", so
 the parenthetical names the default rather than asserting a sole seat.
+The clause the ellipsis covers — "the house name for the cross-family
+reviewer seat" — is a role descriptor (which seat class the name
+belongs to), not a uniqueness claim: with the ratón encoded there are
+two seats of that class and the sentence still only names the default,
+so it survives unchanged (step-1 review minor #1, addressed at
+work-verify triage).
 Step 6's launch fork ("the ballena needs custom argv, so it takes the
 two-step launch"), the `-m opencode-go/deepseek-v4-flash --auto` block,
 the no-auth free-model fallback, the stall clock, the degenerate
@@ -95,3 +101,31 @@ opencode-go/muse-spark-1.2-contributor` instead of the ballena. Every
 seat in that wave was a ratón, so whichever of the two produced the
 event, "one ratón seat" is accurate; the cause (model vs CLI) stays
 unattributed exactly as the ticket records it.
+
+## 2026-08-19 — work-verify triage of the six deferred minors
+
+Rulings, one per finding (numbering as in PROGRESS.md):
+
+1. **Fixed at triage.** DECISIONS step-1 entry gains the sentence
+   naming the elided clause ("the house name for the cross-family
+   reviewer seat") and why it survives — role descriptor, not a
+   uniqueness claim.
+2. **Already fixed** when the step-1 verdict was recorded: PROGRESS.md
+   carries the `## In progress` / `## Next` headings.
+3. **Already addressed in step 2**: the `--auto` sentence was
+   generalized in the same edit that added the ratón (its review
+   confirmed the generalization as necessary, not scope creep).
+4. **Fixed at triage.** `reference/runners.md`'s `--auto` sentence now
+   reads "every opencode TUI reviewer launch" — the flag is opencode's;
+   the enumeration already bounded it, the adjective removes the
+   over-reach entirely.
+5. **No change.** The consent gotcha sits in the ratón block because
+   the SPEC dictated "NEXT to the launch command"; the text is written
+   opencode-wide ("one-time per machine/model") so its reach survives
+   its placement. A pointer from the ballena paragraph is polish a
+   later lane may add; not done here to keep the ballena stack
+   untouched beyond what coherence required.
+6. **No change.** No fallback is recorded for the ratón because none
+   is proven on this machine — inventing one would violate
+   verify-on-install, the exact ethos the registry enforces. Add only
+   when a no-auth Muse Spark route actually runs here.

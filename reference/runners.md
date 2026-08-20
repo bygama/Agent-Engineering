@@ -38,8 +38,9 @@ so it launches the bare TUI form — `opencode -m opencode-go/deepseek-v4-flash
 the headless form where the TUI form belongs leaves nothing to attach to,
 and vice versa.
 
-`--auto` is required on every TUI reviewer launch — the ballena's Go
-default and free fallback, and the ratón below — not a tip; the headless
+`--auto` is required on every opencode TUI reviewer launch — the
+ballena's Go default and free fallback, and the ratón below — not a
+tip; the headless
 `run` form above takes no `--auto`. Verified on this machine
 2026-08-19: `--auto` auto-approves permissions not explicitly denied;
 without it the reviewer hangs at a permission prompt nobody watches — a
