@@ -390,8 +390,8 @@ Extra (regression check, not required by this step):
 `node tests/run-lint-tests.mjs` → `all 20 cases passed` ·
 `node tests/run-gen-tests.mjs` → `all gen cases passed` ·
 `node tests/run-eval-checks.mjs` → `all eval checks passed`; the chain
-exited 0. Wrap check: every line this step wrote is ≤ 72 columns (the
-five >72 lines in the file are pre-existing and untouched).
+exited 0. Wrap check: every line this step wrote is ≤ 72 columns (13
+non-table lines pre-existing over 72 columns and untouched).
 
 Files changed: `reference/runners.md` (+30/−21, the only repo content),
 `work/mat-105-raton-seat/PLAN.md` (A2 ticked), this file.
@@ -719,6 +719,35 @@ A3-4. SKILL.md:179-182 — the no-auth fallback clause is grammatically
 A3-5. SKILL.md:182-184 — `--auto` demoted from inline rule to
    runners.md pointer; deliberate single-definition trade-off, on
    record in case a future eval grades the skill in isolation.
+
+### Step A4 — Full gate suite + lane bookkeeping current — DONE
+
+Verified DECISIONS.md and PROGRESS.md bookkeeping. DECISIONS.md carries
+both required entries: 2026-08-20 amendment ruling ("Owner ruling,
+arrived AFTER the lane's M DoD PASS…") and 2026-08-20 Step A1 judgment
+("Evals change before content…"). PROGRESS.md truthful: steps A1-A3
+completed and recorded with DONE reports and all acceptance conditions
+verified.
+
+Ran all four acceptance commands on the current tree:
+
+- `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  → `0 high, 0 medium, 0 low — PASS`, exit 0
+- `node tests/run-lint-tests.mjs` → `all 20 cases passed`, exit 0
+- `node tests/run-gen-tests.mjs` → `all gen cases passed`, exit 0
+- `node tests/run-eval-checks.mjs` → `all eval checks passed`, exit 0
+
+Fixed one trivial bookkeeping gap (finding A2-5 from the A2 review):
+the wrap-check count in the A2 entry claimed "the five >72 lines" were
+pre-existing; the true pre-existing count is 13 non-table lines over 72
+columns. Updated the count from "five >72 lines" to "13 non-table lines
+pre-existing over 72 columns".
+
+Files changed: `work/mat-105-raton-seat/PROGRESS.md` (evidence slip
+corrected), `work/mat-105-raton-seat/PLAN.md` (A4 ticked), this file.
+No repo content touched — all gates green.
+
+Concerns: none.
 
 ## In progress
 

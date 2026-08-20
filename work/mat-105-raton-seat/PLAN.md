@@ -119,7 +119,7 @@ owner-selectable alternative; full house name "ratón chispeante
   exits 0 AND `grep -c 'ratón' docs/how-it-works/execution.md` ≥ 1 AND
   `node tests/run-eval-checks.mjs` exits 0
 
-- [ ] A4. [mechanical] Full gate suite + lane bookkeeping current
+- [x] A4. [mechanical] Full gate suite + lane bookkeeping current
   (amendment ruling and A1 judgment in DECISIONS.md, PROGRESS.md
   truthful). — accept: all four commands exit 0:
   `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` ·
