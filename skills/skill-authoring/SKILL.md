@@ -187,7 +187,7 @@ your missing sentence or proof the problem is prominence, not content
 
 ## Attribution
 
-The failure-form table and its wording-test findings are adapted from
-the `writing-skills` skill in the **superpowers** project — MIT
-License, Copyright (c) 2025 Jesse Vincent. Additive: this file stays
-MIT (c) 2026 Mateo García (see `LICENSE`).
+The failure-form table, wording-test findings, and Core principle are
+adapted from the `writing-skills` skill in the **superpowers**
+project — MIT License, Copyright (c) 2025 Jesse Vincent. Additive:
+this file stays MIT (c) 2026 Mateo García (see `LICENSE`).

@@ -324,6 +324,38 @@
   ready for work-verify/work-handoff finalization." No findings at any
   severity.
 
+- Batched fix round: three Minor findings triaged from step reviews,
+  one commit.
+  1. `skills/orchestrate/evals/eval-03.md`:54 — "two-character
+     strings" (the eval's own placeholder body is one character)
+     tightened to "placeholder strings", per the step-1 reviewer's
+     suggested wording.
+  2. `skills/shaping/SKILL.md` Attribution — "The Red flags rows and
+     the HARD-GATE aphorism" reworded to "Two of the Red flags rows
+     and the HARD-GATE block", per the step-4 reviewer's minor (row 3
+     is house-original per DECISIONS.md; the upstream device is the
+     `<HARD-GATE>` block, tag included, not just its closing
+     aphorism). Notice stays 4 content lines.
+  3. `skills/skill-authoring/SKILL.md` Attribution — adapted-sections
+     list gained "and the Core principle" (DECISIONS.md records the
+     Core principle as restating upstream's `writing-skills` line;
+     the step-4 notice had omitted it). Reworded slightly for length
+     ("its wording-test findings, and the Core principle" →
+     "wording-test findings, and Core principle") to keep the notice
+     at 4 content lines under the added clause.
+  Acceptance, all confirmed by direct run:
+  - `node tests/run-eval-checks.mjs` → "all eval checks passed" (13
+    skills), exit 0.
+  - `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+    → "0 high, 0 medium, 0 low — PASS", exit 0.
+  - `grep -c 'two-character' skills/orchestrate/evals/eval-03.md` → 0.
+  - Both SKILL.md files' `## Attribution` sections re-read verbatim:
+    both still name superpowers, their respective upstream skill, and
+    MIT (c) 2025 Jesse Vincent.
+  Files changed: `skills/orchestrate/evals/eval-03.md`,
+  `skills/shaping/SKILL.md`, `skills/skill-authoring/SKILL.md`, this
+  file. No other file touched, per the fix round's constraints.
+
 ## In progress
 
 ## Tried and failed

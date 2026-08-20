@@ -51,7 +51,7 @@ failed send quotes the original PASS body verbatim in its own output.
       is read as neither an idle seat nor a FAIL: diagnoses with
       `worker-read`, acks the placeholder as noise from a failed send,
       and holds for the follow-up rather than guessing a verdict from
-      two-character strings.
+      placeholder strings.
 - [ ] Treats `worker_done` as single-shot per dispatch: no second event
       delivers the real verdict, so when it surfaces inside Orca's
       rejected-worker_done wrapper — quoting the original (backtick-heavy)
