@@ -57,10 +57,13 @@ launches the seat, it does not restate that rule.
 dialogue offers by default, launched by the two-step pattern above:
 `opencode --auto -m opencode-go/muse-spark-1.2-contributor`, bare TUI
 form, `terminal wait --for tui-idle`, then `worker-start --terminal`.
-Same `--auto` rationale as above, on the same read-only-seat condition.
-It holds the default on cost: two production reviews on this machine —
-the MAT-104 and MAT-94 waves, verified 2026-08-19, both PASS at ballena
-grade — for ~$0.01 all-in, against the ballena's price.
+OpenCode Go subscription auth, like the ballena's default; no Go auth ⇒
+the ballena's no-auth free fallback is the seat instead, since no
+no-auth Muse Spark route has run here. Same `--auto` rationale as above,
+on the same read-only-seat condition. It holds the default on cost: two
+production reviews on this machine — the MAT-104 and MAT-94 waves,
+verified 2026-08-19, both PASS at ballena grade — for ~$0.01 all-in,
+against the ballena's price.
 
 The **ballena** is the owner-selectable alternative, fully registered:
 `opencode -m opencode-go/deepseek-v4-flash --auto`, no-auth fallback

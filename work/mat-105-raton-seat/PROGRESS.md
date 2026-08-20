@@ -406,6 +406,47 @@ decomposition, so the AGENTS.md "update the affected chapter in the same
 change" constraint is satisfied at the A2+A3 commit pair, not by A2
 alone.
 
+#### Step A2 — fix round 1 (reviewer finding 1, Important)
+
+**Finding:** the new default seat had no documented no-auth path. The
+ratón's `opencode-go/` prefix is the OpenCode Go subscription — the same
+auth the table calls out for the ballena's default, and for which the
+ballena carries a documented fallback. After the inversion, a fresh
+machine reading the registry got a *default* it might not be able to
+launch, with the only no-auth path in the file belonging to the
+alternative.
+
+**Fix:** one clause in the ratón paragraph, directly after the argv and
+launch moves — "OpenCode Go subscription auth, like the ballena's
+default; no Go auth ⇒ the ballena's no-auth free fallback is the seat
+instead, since no no-auth Muse Spark route has run here." Three points
+of judgment inside the reviewer's wording:
+
+- No Muse Spark free model is invented — verify-on-install stands (the
+  same reason triage item 6 recorded no ratón fallback); the recovery is
+  the ballena's *proven* free fallback, and the trailing clause states
+  why the recovery is a different seat rather than a different model.
+- The fallback stays defined exactly once, in the ballena entry; the
+  ratón cites it.
+- The reviewer's example said "the ballena's no-auth free fallback
+  **below**"; the directional word was dropped. This step's own
+  deliverable was removing an ordering-dependent reference from the
+  `--auto` paragraph, so re-introducing one two paragraphs later would
+  undo it. "the ballena's no-auth free fallback" names the thing
+  uniquely — no above/below needed.
+
+Nothing else in the file was touched.
+
+Verification: `node scripts/agent-lint.mjs . --ignore
+tests,templates,global,examples` → `0 high, 0 medium, 0 low — PASS`,
+exit 0. Acceptance conditions still hold: `grep -c 'ratones
+chispeantes'` → `2`, `grep -ci 'default'` → `10` (was 9; the new clause
+adds one "default"). Wrap: every line of the rewrapped paragraph ≤ 72
+columns.
+
+Files changed: `reference/runners.md` (the ratón paragraph only), this
+file.
+
 ## In progress
 
 ## Next
