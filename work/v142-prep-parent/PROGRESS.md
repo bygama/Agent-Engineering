@@ -178,3 +178,48 @@ consent prompt required manual acceptance on a fresh seat (not covered
 by --auto — owner intervened live); one worker_done send printed
 "(no output)" and never registered — transcript verdict used per
 MAT-104's rule.
+
+## Round 3 — MAT-105 (raton chispeante seat + owner amendment)
+
+### Verdict r1, pre-amendment tree ffb5ac4 — raton ctx_97512a845637 (msg_e79d57e2085f)
+
+PASS — Lane work/mat-105-raton-seat on branch bygama/mat-105-raton-seat (PR #82 base bygama/mat-104-94-single-shot-attrib, OPEN, Closes MAT-105) withstands refutation: all four SPEC sub-deliverables land in reference/runners.md:59-75 and 98-105 with verbatim argv opencode --auto -m opencode-go/muse-spark-1.2-contributor, consent gotcha (DATA-COLLECTION, --auto does NOT cover, different prompt class, one-time per machine/model), (no output) known-behavior with single-shot citation and cause unattributed, and pairings are pluralization. Reran the lane's own DoD on the worktree: agent-lint 0 high 0 medium 0 low — PASS, lint-tests all 20 cases passed, gen-tests all gen cases passed, eval-checks all eval checks passed; lane diff c7eff52..HEAD touches only reference/runners.md plus lane folder (skills/orchestrate/SKILL.md, eval-03.md, docs/how-it-works/execution.md diff length 0) so owned-files and forbidden-files (CHANGELOG.md, AGENTS.md, global/, tests/) constraints hold, and the no-change judgment in DECISIONS.md is sound. No blocking defects; remaining items are low-severity polish already triaged in DECISIONS.md: forward reference 'and the ratón below' in the --auto sentence (runners.md:41-42), consent note scoped to ratón block though opencode-wide (deferred pointer), and SKILL.md/execution.md stall-clock prose being narrower than evidence (out of owned-files scope, noted for future lane).
+
+### Owner amendment (2026-08-20, post-verdict change of law)
+
+The owner ruled after r1's PASS: full house name "raton chispeante
+(pl. ratones chispeantes)" documented, and the seat becomes the
+DISPATCH-DIALOGUE DEFAULT for cost reasons (~$0.01/review), ballena
+the named alternative. Dispatched to the retained child as a fix-loop
+task (ctx_1a3ce2f7631e); encoded evals-first (eval-01 re-graded before
+content; eval-03 judged owner-CHOICE, untouched), five surfaces
+inverted in PR #82 amended in place.
+
+### Verdict r2, amended tree 1f70b5e — same raton, re-review task (msg_83f6656b5b57)
+
+PASS — Re-reviewed amended tree at 1f70b5e (git reset --hard origin/bygama/mat-105-raton-seat confirmed). Reran four gates on amended tree: agent-lint 0 high/0 medium/0 low — PASS, lint-tests all 20 cases passed, gen-tests all gen cases passed, eval-checks all eval checks passed; negative sweep grep -r 'default 1 ballena' over skills/orchestrate+docs/how-it-works returned no match and no broader 'ballena.*default|default.*ballena' survives except execution.md:247 alt-label naming both seats correctly. Commit order verified evals-first: 08665a3 (eval-01 graded to ratón chispeante default) precedes all content commits 9513df6/a659b79/3b6197d/b9b70d1; eval-03 untouched judgment sound — file contains no 'default' word, fixture 'picked 1 ballena recorded in Task spec' reads as owner CHOICE still selectable, all graded lines conditioned/scoped to that choice or to ballena's own forms. Diff c7eff52..HEAD limited to 5 permitted repo files (runners.md, SKILL.md, eval-01.md, reviewer.md, execution.md) plus lane folder; forbidden surfaces (CHANGELOG.md, AGENTS.md stamp, global/, tests/) empty. No blocking defects; deferred minors remain A3-2/3/4, A2-2, A1-2 and ADR-008 supersession marker (DECISIONS.md:158-175 follow-up lane), all non-blocking.
+
+Parent ruling: PASS accepted on the amended tree; deferred minors stay
+in the lane ledger (ADR-008 supersession marker noted for a docs-sweep
+or release lane). MAT-105 lane complete — PR #82, tip of the AE stack.
+
+## Merge wave + wave close (2026-08-20)
+
+Stacked order executed exactly as planned, parent-only, rebase-only:
+1. AE #77 merged → #80 rebased onto fresh main (--onto, old tip
+   f52e8f04 dropped), four gates green locally, retargeted, merged →
+   #82 rebased (old tip c7eff52a dropped), gates green, retargeted,
+   merged → #78 merged (disjoint, clean).
+2. skills #12 merged → #13 rebased in a TEMP worktree (main checkout's
+   owner-local CODE_OF_CONDUCT.md deletion untouched and verified
+   intact after), CI standard green, merged.
+3. Full-tree gates on AE main 731f9d8: 0/0/0 PASS · all 22 cases
+   (MAT-99's +2 live) · gen pass · eval checks pass.
+4. Remote lane-branch deletion rejected by the ruleset — branches
+   remain merged on origin; harmless.
+
+Shipped by this wave, all reviewed PASS: MAT-99, MAT-100, MAT-101,
+MAT-104, MAT-94, MAT-105 (+ the raton-default owner amendment).
+Terminal close: the five AE lane folders and this parent record are
+removed in this commit (finalize-then-remove; history is the record).
+Release 1.4.2 follows as its own lane.
