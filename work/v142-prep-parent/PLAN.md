@@ -25,3 +25,10 @@ Per lane: worker_done → ballena review PASS (fix loop cap 5) → PR left
 OPEN → worker released, worktree removed (branch lives on origin).
 No merges, no version bump, no CHANGELOG edit — the 1.4.2 release
 ritual owns those later.
+
+## Worker table — round 2 (2026-08-19, MAT-104 + MAT-94)
+
+| Lane | Tickets | Repo | Base branch (STACKED) | Task | Dispatch | Terminal | Reviewer |
+|---|---|---|---|---|---|---|---|
+| mat-104-94-single-shot-attrib | MAT-104 + MAT-94 (AE side) | Agent-Engineering | bygama/mat-100-101-ballena-auto (PR #77) | task_3246a87d8f34 | ctx_a7603d3badee | term_f3ed1d00 | 1 raton chispeante (--auto), ballena fallback |
+| mat-94-attribution-skills | MAT-94 (closes) | bygama/skills | bygama/mat-93-ask-for-help-leg (PR #12) | task_f2db1bbedd66 | ctx_629754eb8476 | term_84124b78 | 1 raton chispeante (--auto), ballena fallback |

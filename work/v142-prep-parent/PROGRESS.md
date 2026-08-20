@@ -131,3 +131,50 @@ New finding filed: MAT-104 (single-shot worker_done capability burned
 by a mangled first send). Review-seat stalls this wave: 1 (mat-93 r1),
 recovered by the encoded protocol; --auto prevented the known
 permission-prompt stall on all three seats.
+
+## Round 2 — review verdicts (verbatim)
+
+### Lane mat-104-94 — raton chispeante 1, ctx_b5f296bfeb2a (muse-spark-1.2-contributor)
+
+Delivery mechanics, on the record: the seat completed its review and
+ran the worker_done send, which printed "(no output)" and never
+registered in the ledger (dispatch stayed `ready|dispatched`). Per
+MAT-104's own rule — shipped in this very PR — the verdict evidence
+below is the seat's transcript captured verbatim via `worker-read`
+(and independently relayed by the owner from the seat's session):
+
+"Review complete. Verdict: PASS — all gates and per-step acceptance
+checks rerun clean on HEAD c7eff52, all seven SPEC items verified in
+place with correct commit ordering (evals-first), MAT-94
+classifications re-verified verbatim against the superpowers 6.3.0
+cache, and no forbidden files touched. Three minor non-blocking notes
+(runners.md wrap length, pre-existing TOC drift at 120/120, n-gram
+aggregates) — none warrants a fix loop."
+
+Full detail from the seat's summary: agent-lint 0/0/0 PASS,
+run-lint-tests 20/20, run-gen-tests pass, run-eval-checks 13 skills
+pass; single-shot warnings verified at reviewer.md:72, runners.md:52,
+SKILL.md:198 and execution.md; MAT-94 additive notices at
+shaping/SKILL.md:112 and skill-authoring/SKILL.md:188 verified
+verbatim against the cache; reference/skills.md at 120/120 with the
+trim documented.
+
+Parent ruling: PASS accepted; three Minors stay out of the fix loop.
+
+### Lane mat-94-attribution — raton chispeante 2, ctx_62889aeddd29 (msg_755e84ed4264)
+
+PASS — Lane work/mat-94-attribution-skills on branch bygama/mat-94-attribution-skills satisfies all 7 DoD gates and SPEC constraints; re-ran every cited verification and all exit clean on the live branch. What was done well: exhaustive diff-evidenced classification (D2/D3) with quoted verbatim runs and structural parallels against upstream v6.3.0, correct whole-file vs parts-only notices (4 files x 1 Copyright occurrence), byte-identical NOTICE MIT reproduction, fenced files untouched, and PR #13 base/body/CI correct. Remaining findings are Low severity only — 23 deferred minors already catalogued (step-1:5, step-2:6, step-3:4, step-4:4, step-5:3, fresh-review:+1) such as D2 Gate-1 fifth edit omission (work/mat-94-attribution-skills/DECISIONS.md:~88), two off-by-one upstream cites (D3 ~196->197, 240->241), Not-candidates bookkeeping leaks parked under excluded heading (DECISIONS.md:583), techniques.md dangling antecedent (skills/tracing-root-causes/references/techniques.md:10-12), and README technique-references breadth (README.md:66) — none verdict- or gate-changing; no Critical or Important defects found. Commands re-run: node agent-lint.mjs . => '0 high, 0 medium, 1 low — PASS' (pre-existing AGENTS.md:15); wc -l both SKILL.md=249 (<500); grep -c Copyright each file=1 (4/4); SELECT-STRING NOTICE Permission=>FOUND; NOTICE MIT dedented diff vs C:/Users/mateo/.claude/plugins/cache/claude-plugins-official/superpowers/6.3.0/LICENSE => IDENTICAL; git diff 4456c13..HEAD --name-only => 10 files only, LICENSE/CODE_OF_CONDUCT=0 lines touched, evals=0 lines; gh pr checks 13 => standard pass; PR base=bygama/mat-93-ask-for-help-leg, state OPEN, body contains Closes MAT-94.
+
+Parent ruling: PASS accepted; the 23 catalogued Low-severity minors
+stay in the lane's deferred ledger.
+
+## Round 2 close (2026-08-19/20)
+
+Both mice PASS. PRs deliberately left OPEN, stacked: AE #80 (base #77,
+Closes MAT-104 + Part of MAT-94), skills #13 (base skills#12, Closes
+MAT-94). Seat notes for the compatibility ticket: muse-spark launches
+clean to tui-idle with --auto; ONE-TIME opencode data-collection
+consent prompt required manual acceptance on a fresh seat (not covered
+by --auto — owner intervened live); one worker_done send printed
+"(no output)" and never registered — transcript verdict used per
+MAT-104's rule.
