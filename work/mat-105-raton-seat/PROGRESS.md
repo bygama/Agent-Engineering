@@ -808,7 +808,44 @@ numeric claim left unverified.
 
 ## Verification
 
-### 2026-08-19 — M DoD — PASS
+### 2026-08-20 — M DoD (amended tree, owner ruling 2026-08-20) — PASS
+
+- L1 static: `node scripts/agent-lint.mjs . --ignore
+  tests,templates,global,examples` → exit 0 (`0 high, 0 medium, 0 low —
+  PASS`)
+- L2 behavioral: `node tests/run-lint-tests.mjs` → exit 0 (`all 20
+  cases passed`) · `node tests/run-gen-tests.mjs` → exit 0 (`all gen
+  cases passed`) · `node tests/run-eval-checks.mjs` → exit 0 (`all eval
+  checks passed`); all nine PLAN acceptance greps (original 1-3 +
+  amendment A1-A4) at or above threshold, including the negative
+  `! grep -rqi 'default 1 ballena' skills/orchestrate docs/how-it-works`
+  → exit 0
+- L3 end-to-end: n/a: registry/skill/docs markdown only — no executable
+  flow crosses components (recorded as a decision, not an omission)
+- Fresh-context review (opus subagent, diff c7eff52..HEAD at 0a5b14d):
+  **PASS** — "all nine acceptance commands reproduce at or above
+  threshold on my own run (including the negative `bash -c \"! grep
+  -rqi 'default 1 ballena' skills/orchestrate docs/how-it-works\"` at
+  exit 0) and all four gates exit 0 (`0 high, 0 medium, 0 low — PASS`,
+  `all 20 cases passed`, `all gen cases passed`, `all eval checks
+  passed`), with `git diff --name-only c7eff52..HEAD` confined to the
+  five permitted repo files plus the lane folder. The one Important
+  finding is a stale range expression in a lane bookkeeping record, not
+  a defect in the shipped standard." The reviewer re-graded eval-03
+  line by line against the amended SKILL.md (all gradeable), verified
+  cross-surface consistency of the new law on all five surfaces, and
+  confirmed the ballena's registration fully intact. Its Important
+  finding (the pre-amendment Verification block's range expression)
+  is fixed in this same edit — block below now pinned to
+  `c7eff52..ffb5ac4` and labeled pre-amendment. Minors: ADR-008
+  supersession marker → follow-up for the release lane/docs-sweep
+  (recorded in DECISIONS.md); the rest were already deferred as A3-2,
+  A2-2, A1-2.
+- Adversarial review: n/a: M tier, not requested in-lane — the parent
+  runs its own cross-model reviewer after worker_done (an additional
+  seat, per the dispatch brief).
+
+### 2026-08-19 — M DoD — PASS (pre-amendment tree, at ffb5ac4)
 
 - L1 static: `node scripts/agent-lint.mjs . --ignore
   tests,templates,global,examples` → exit 0 (`0 high, 0 medium, 0 low —
@@ -822,7 +859,8 @@ numeric claim left unverified.
 - L3 end-to-end: n/a: single component — one registry markdown file
   (`reference/runners.md`) plus the lane folder; no executable flow
   crosses components (recorded as a decision, not an omission)
-- Fresh-context review (opus subagent, diff c7eff52..HEAD): **PASS** —
+- Fresh-context review (opus subagent, diff c7eff52..ffb5ac4 — the
+  pre-amendment tree this block certifies): **PASS** —
   "every DoD command reproduces on my own run at exit 0 (`0 high, 0
   medium, 0 low — PASS`, `all 20 cases passed`, `all gen cases passed`,
   `all eval checks passed`, and all four greps at or above threshold),

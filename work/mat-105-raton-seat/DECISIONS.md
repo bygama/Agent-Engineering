@@ -155,6 +155,25 @@ the never-touch list covers the first, and an ADR records the decision
 of its date; the new law supersedes it by owner directive, which this
 entry records.
 
+## 2026-08-20 — Amended-tree verification triage
+
+The amended tree's fresh-context review returned PASS with one
+Important finding and four minors. Rulings:
+
+- **Important — fixed at triage** (lane bookkeeping): the
+  pre-amendment Verification block's range expression
+  (`c7eff52..HEAD`) resolved to a tree that review never saw; pinned
+  to `c7eff52..ffb5ac4` and the block labeled "pre-amendment tree".
+- **ADR-008 supersession marker — follow-up, not this lane**: ADR-008
+  still states the old default with no `Status:`-line annotation. The
+  never-touch discipline for dated records held here; the repo's own
+  precedent (ADR-002/003/007 and ADR-008's existing MAT-85 marker) is
+  annotation, so the release lane or the next docs-sweep should add
+  "superseded on the reviewer default by the 2026-08-20 owner ruling
+  (MAT-105)". Recorded here so the need is tracked, not implied.
+- **A3-2 / A2-2 / A1-2** — already on the deferred-minors record;
+  unchanged.
+
 ## 2026-08-20 — Step A1: evals judged under the new law
 
 Evals change before content (house rule), so both orchestrate evals that
