@@ -667,6 +667,59 @@ and 36 columns.
 Files changed: `docs/how-it-works/execution.md` (the one sentence), this
 file.
 
+#### Step A3 review (fresh reviewer, opus) — verdict recorded verbatim
+
+> ### Spec compliance
+> ✅ Compliant
+>
+> **Step quality:** Approved
+> **Reasoning:** Every named requirement is implemented, all four
+> acceptance conditions and all four gates verify green on the current
+> tree, no forbidden file is touched, and the seat-agnostic
+> generalization is the right structural call rather than a mechanical
+> find-and-replace. The one Important finding is a single false clause
+> in the narrating chapter about how the skill it narrates is written —
+> worth a one-sentence fix, not a re-do.
+
+The reviewer re-graded eval-03 line by line against the amended
+SKILL.md (all graded lines PASS — the ballena fixture stays gradeable
+via the generalized stall clock and the runners.md citation) and swept
+for stranded references (none; ADR-008's old-default statement stands
+as a dated record, ruling in DECISIONS.md).
+
+Important finding (execution.md's argv-citation claim contradicted the
+skill) entered the fix loop — fix round 1 commit b9b70d1, scoped
+re-review verdict recorded verbatim:
+
+> ### Finding 1 (chapter's argv-citation claim)
+> **ADDRESSED** — The false clause ("the skill reads either off it
+> rather than restating them") is gone. The new text reads:
+> "`reference/runners.md` registers both; the skill shows the default's
+> argv with that citation and reads the alternative's off it rather
+> than duplicating them." This matches SKILL.md:169-176 [...].
+> `node scripts/agent-lint.mjs . --ignore
+> tests,templates,global,examples` → `0 high, 0 medium, 0 low — PASS`,
+> exit 0.
+>
+> ### New issues inside the fix's blast radius
+> None.
+
+Minor findings (deferred to work-verify's triage):
+
+A3-2. SKILL.md:76-77 — authoring instruction ("named in the same
+   question, so neither seat is picked silently") sits inside the
+   quoted dialogue question; move to prose below the block.
+A3-3. SKILL.md:73-75 — "the house name for the cross-family reviewer
+   seat that holds the default on cost" reads as a unique definite for
+   a two-member class; suggested "this machine's cheapest cross-family
+   reviewer seat".
+A3-4. SKILL.md:179-182 — the no-auth fallback clause is grammatically
+   parked in the ballena's sentence; a sentence break would remove the
+   fast-reader ambiguity.
+A3-5. SKILL.md:182-184 — `--auto` demoted from inline rule to
+   runners.md pointer; deliberate single-definition trade-off, on
+   record in case a future eval grades the skill in isolation.
+
 ## In progress
 
 ## Next
