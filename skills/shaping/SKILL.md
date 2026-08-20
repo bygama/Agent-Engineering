@@ -111,7 +111,7 @@ shaping neither re-tiers nor lets work-plan re-tier independently.
 
 ## Attribution
 
-The Red flags rows and the HARD-GATE aphorism are adapted from the
+Two of the Red flags rows and the HARD-GATE block are adapted from the
 `brainstorming` skill in the **superpowers** project — MIT License,
 Copyright (c) 2025 Jesse Vincent. Additive: this file stays MIT
 (c) 2026 Mateo García (see `LICENSE`).
