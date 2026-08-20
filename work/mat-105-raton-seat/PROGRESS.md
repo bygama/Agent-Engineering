@@ -231,3 +231,41 @@ tick — fixed in place by the controller when recording this verdict
 ## Tried and failed
 
 ## Verification
+
+### 2026-08-19 — M DoD — PASS
+
+- L1 static: `node scripts/agent-lint.mjs . --ignore
+  tests,templates,global,examples` → exit 0 (`0 high, 0 medium, 0 low —
+  PASS`)
+- L2 behavioral: `node tests/run-lint-tests.mjs` → exit 0 (`all 20
+  cases passed`) · `node tests/run-gen-tests.mjs` → exit 0 (`all gen
+  cases passed`) · `node tests/run-eval-checks.mjs` → exit 0 (`all eval
+  checks passed`); PLAN acceptance greps: `muse-spark-1.2-contributor`
+  → 1, `consent` → 1, `(no output)` → 1, `no-change` in DECISIONS → 5
+  (all ≥ 1)
+- L3 end-to-end: n/a: single component — one registry markdown file
+  (`reference/runners.md`) plus the lane folder; no executable flow
+  crosses components (recorded as a decision, not an omission)
+- Fresh-context review (opus subagent, diff c7eff52..HEAD): **PASS** —
+  "every DoD command reproduces on my own run at exit 0 (`0 high, 0
+  medium, 0 low — PASS`, `all 20 cases passed`, `all gen cases passed`,
+  `all eval checks passed`, and all four greps at or above threshold),
+  and the SPEC's own bars hold: `git diff --name-only c7eff52..HEAD`
+  lists only `reference/runners.md` plus the lane folder, the
+  orchestrate dialogue files are untouched with `Default: **1
+  ballena**` intact, and the one claim I could not check from the repo
+  — the ratón attribution of the '(no output)' event — is confirmed
+  verbatim by MAT-105's own description. The four findings are cosmetic
+  or out-of-scope follow-ups; none blocks handoff." Reviewer also
+  re-derived the step-1 no-change judgment independently and confirmed
+  the argv byte-identical to the ticket's. Its minor #1 (ragged reflow
+  at runners.md:41-44, a regression of the triage fix) was fixed after
+  the review — whitespace-only rejoin — and all four gates re-run green
+  on the final tree (this block's L1/L2 outputs are from that re-run).
+  Minors #2-#3 (execution.md stage-6 fork and SKILL.md:73 read narrower
+  than the evidence now supports) are the already-noted follow-up-lane
+  items — out of this lane's owned files; #4 was this very block,
+  pending at review time.
+- Adversarial review: n/a: M tier, not requested in-lane — the parent
+  runs its own cross-model reviewer after worker_done (an additional
+  seat, per the dispatch brief).

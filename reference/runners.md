@@ -40,15 +40,14 @@ and vice versa.
 
 `--auto` is required on every opencode TUI reviewer launch — the
 ballena's Go default and free fallback, and the ratón below — not a
-tip; the headless
-`run` form above takes no `--auto`. Verified on this machine
-2026-08-19: `--auto` auto-approves permissions not explicitly denied;
-without it the reviewer hangs at a permission prompt nobody watches — a
-78-minute live stall on the MAT-91 review, undiagnosable from the
-parent's seat (worker `ready`, terminal `running`, transcript EMPTY,
-`latestCursor: 0`). It is safe for THIS seat only because the filled
-`reviewer.md` forbids commit/push/merge and any file edit; the same flag
-on a WRITING seat is a different decision — not this one.
+tip; the headless `run` form above takes no `--auto`. Verified on this
+machine 2026-08-19: `--auto` auto-approves permissions not explicitly
+denied; without it the reviewer hangs at a permission prompt nobody
+watches — a 78-minute live stall on the MAT-91 review, undiagnosable
+from the parent's seat (worker `ready`, terminal `running`, transcript
+EMPTY, `latestCursor: 0`). It is safe for THIS seat only because the
+filled `reviewer.md` forbids commit/push/merge and any file edit; the
+same flag on a WRITING seat is a different decision — not this one.
 
 The reviewer's `worker_done` report is single-shot per dispatch, too —
 see `skills/orchestrate/references/reviewer.md`'s fenced brief
