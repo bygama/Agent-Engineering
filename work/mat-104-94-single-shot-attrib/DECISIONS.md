@@ -108,6 +108,30 @@
   upstream's sentences, and the file already cites them in-line as
   "(source: superpowers' `writing-skills` wording tests)". Notice goes
   in.
+- 2026-08-19 — Step 4 needs no eval change (evals-first ruling,
+  recorded post-hoc at work-verify triage per the step-4 review's
+  minor 3): the attribution notices and the DECISIONS classifications
+  grade nothing — no skill's eval asserts licensing text, and the two
+  SKILL.md bodies' graded behavior (shaping's dialogue gates,
+  skill-authoring's RED-GREEN discipline) is untouched by an appended
+  Attribution section. Same qualifier as the step-2b ruling: evals
+  change first only where graded behavior changes.
+- 2026-08-19 — Work-verify triage of the deferred step-review minors:
+  FIXED in commit cfc8581 — eval-03 "two-character strings" →
+  "placeholder strings" (step 1); shaping notice now names "two of the
+  Red flags rows and the HARD-GATE block" instead of over-attributing
+  all rows and under-naming the block (step 4 minor 1); skill-authoring
+  notice now includes the Core principle in its adapted-sections list
+  (step 4 minor 2). NO ACTION, recorded: step 2's "4 physical lines"
+  (one sentence, house wrap style); step 3's stylistic "Stage 6 ..."
+  paragraph-opener parallel and its acceptance-bar note; step 4's
+  n-gram aggregate counts (not reproducible from the repo — the quoted
+  runs, which carry the classification, were independently verified)
+  and the n-gram paraphrase blind spot (reinforcing example only).
+  FOLLOW-UP for the parent, out of lane scope: reference/skills.md:20
+  prescribes a table of contents for reference files >100 lines and the
+  120-line file itself has none — pre-existing drift (119 lines before
+  this lane), worth its own ticket if the owner wants it closed.
 - 2026-08-19 — Notice shape, both files: a 4-line `## Attribution`
   section at the end (upstream project, upstream skill, MIT (c) 2025
   Jesse Vincent), naming WHICH sections are adapted and restating that
