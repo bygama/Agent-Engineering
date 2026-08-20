@@ -154,3 +154,60 @@ the vehicle. CHANGELOG.md and ADR-008 stay untouched: dated records —
 the never-touch list covers the first, and an ADR records the decision
 of its date; the new law supersedes it by owner directive, which this
 entry records.
+
+## 2026-08-20 — Step A1: evals judged under the new law
+
+Evals change before content (house rule), so both orchestrate evals that
+mention a reviewer seat were re-read line by line against the amended
+law (ratón chispeante = the dialogue's default; ballena = the
+owner-selectable alternative, fully registered).
+
+**`skills/orchestrate/evals/eval-01.md` — CHANGED.** Its dispatch-dialogue
+graded line was the one place in the eval corpus that graded the offered
+DEFAULT, and the amendment inverts exactly that. It read "offers
+**default 1 ballena** (deepseek v4 flash) rather than picking silently";
+it now reads "offers **default 1 ratón chispeante** (muse spark 1.2
+contributor) and names the ballena (deepseek v4 flash) as the selectable
+alternative, rather than picking either silently". Two graded facts, not
+one: the default that must be offered, and the alternative that must be
+named — an agent that silently offers only the ratón now fails the same
+line that an agent offering the ballena default fails. The rest of that
+checklist item (one question for this lane, not a batch question) is
+unchanged, and no other line in eval-01 mentions a seat.
+
+**`skills/orchestrate/evals/eval-03.md` — no-change**, all graded lines
+checked, not only the fixture sentence.
+
+- The fixture ("Dispatch-time dialogue for this lane picked '1 ballena'
+  as the reviewer config, **recorded in the Task spec**") reads
+  unambiguously as an owner CHOICE, not as the default: it names the
+  dialogue as the thing that produced it and the Task spec as where it
+  was recorded, which is the shape of a selection. The word "default"
+  does not appear anywhere in the file (`grep -i default
+  skills/orchestrate/evals/eval-03.md` → no match). Under the new law
+  the ballena stays selectable, so the fixture stands — and it now earns
+  its keep twice over, because it is the corpus's only exercise of the
+  NON-default branch: it proves the ballena remains fully registered and
+  launchable after the inversion.
+- Every ballena-scoped graded line is conditioned on that choice and
+  survives: "the agreed reviewer (the one ballena)" (line 23), the
+  per-seat review-worktree name (27), the unused-fallback-shell cleanup
+  (37), and the degenerate placeholder `worker_done` (49).
+- The `--auto` line (31) — "carries `--auto` on both invocation forms —
+  `opencode -m opencode-go/deepseek-v4-flash --auto` and the no-auth
+  fallback `opencode -m opencode/deepseek-v4-flash-free --auto`" — is
+  scoped to *the ballena's* two forms, which A2 keeps registered; the
+  ratón is a distinct seat with its own argv, not a third ballena form.
+  Consumption note for A3: this line stays gradeable only while the
+  ballena's launch remains reachable from the skill (SKILL.md step 6
+  citing it / `reference/runners.md` holding both argv), which is what
+  A3 is already required to do — swapping the snippet to the ratón
+  without that citation would strand it.
+- The stall-clock line (41, "a ballena reviewer cannot heartbeat") holds
+  for any opencode TUI seat, the ratón included: under-general, not
+  false — the same follow-up-lane item already recorded at step 1, and
+  the amendment does not make it false.
+
+Gate: `grep -c 'ratón chispeante' skills/orchestrate/evals/eval-01.md`
+→ 1 · `node tests/run-eval-checks.mjs` exits 0. A2 may now touch
+content.

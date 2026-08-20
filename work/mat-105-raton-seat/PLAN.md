@@ -76,7 +76,7 @@ chispeante** (muse spark 1.2 contributor); the ballena is the named
 owner-selectable alternative; full house name "ratón chispeante
 (pl. ratones chispeantes)" documented at the runners.md seat entry.
 
-- [ ] A1. [judgment] EVALS FIRST — `evals/eval-01.md`'s dialogue graded
+- [x] A1. [judgment] EVALS FIRST — `evals/eval-01.md`'s dialogue graded
   line changes to grade the ratón chispeante default (muse spark 1.2
   contributor) with the ballena (deepseek v4 flash) as the named
   alternative; `evals/eval-03.md`'s fixture judged: "picked '1
