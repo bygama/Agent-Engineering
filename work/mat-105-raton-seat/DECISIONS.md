@@ -81,3 +81,17 @@ other mention (work-lifecycle.md, the adversarial rung) is a pointer at
 pairing to fall out of date.
 
 Gate: `node tests/run-eval-checks.mjs` exits 0 with no eval touched.
+
+## 2026-08-19 — Step 2 review ⚠️ adjudicated: "(no output)" seat WAS a ratón
+
+The step-2 reviewer flagged that `reference/runners.md` attributes the
+degenerate `worker_done` ("(no output)", never registered in the
+ledger) to "one ratón seat" while the SPEC says only "one seat's" —
+one notch more specific than the SPEC licensed. Adjudication: the
+attribution stands. MAT-105's ticket (the evidence source) states the
+entire round-2 review wave — both the MAT-104 seat (ctx_b5f296bfeb2a)
+and the MAT-94 seat (ctx_62889aeddd29) — ran with `opencode --auto -m
+opencode-go/muse-spark-1.2-contributor` instead of the ballena. Every
+seat in that wave was a ratón, so whichever of the two produced the
+event, "one ratón seat" is accurate; the cause (model vs CLI) stays
+unattributed exactly as the ticket records it.

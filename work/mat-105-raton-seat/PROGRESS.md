@@ -151,6 +151,39 @@ reference — the file already uses "the headless `run` form above" in the
 same sentence, so the pattern is house voice, but it does depend on the
 ratón paragraphs staying below that one.
 
+#### Step 2 review (fresh reviewer, opus) — verdict recorded verbatim
+
+> ### Spec compliance
+> ✅ Compliant — all four sub-deliverables landed in a single edit to
+> the one owned file, and all four acceptance conditions pass.
+>
+> **Step quality:** Approved
+> **Reasoning:** All four sub-deliverables are present, accurately
+> worded against the SPEC, and placed where the SPEC required; the one
+> edit beyond the literal step list (`--auto` generalization) is
+> necessary for the required citation to be coherent and stays inside
+> the owned file, and all four acceptance commands plus the three other
+> gate suites exit 0 on re-run. The only open item is confirming the
+> "(no output)" event really was a ratón seat, which cannot be settled
+> from this diff.
+
+Reviewer re-ran all four acceptance commands plus the three other
+suites — all green, PROGRESS claims verified truthful. The ⚠️ item
+(ratón attribution of the "(no output)" event) is adjudicated with
+ticket evidence in DECISIONS.md — attribution stands.
+
+Minor findings (deferred to work-verify's triage, never the fix loop):
+
+4. `runners.md:41` "every TUI reviewer launch" is broader than the
+   flag — `--auto` is an opencode flag; suggested "every opencode TUI
+   reviewer launch".
+5. Consent gotcha is opencode-wide but sits in the ratón block
+   (SPEC-dictated placement); optional four-word pointer from the
+   ballena launch paragraph would add reach.
+6. No fallback recorded for the ratón — correct under
+   verify-on-install (none proven); add only if a no-auth Muse Spark
+   route is proven later.
+
 ## In progress
 
 ## Next
