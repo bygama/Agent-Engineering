@@ -765,6 +765,41 @@ claim (no line this step wrote exceeds 72 columns). Lint rerun: exit 0.
 Files changed: `work/mat-105-raton-seat/PROGRESS.md` (A2 sentence only),
 this file.
 
+#### Step A4 review (fresh reviewer, sonnet) — verdict recorded verbatim
+
+> ### Spec compliance
+> ❌ Issues found
+>
+> **Step quality:** Needs fixes
+> **Reasoning:** The four gates all genuinely pass and the
+> DECISIONS/PLAN/PROGRESS structural claims are accurate, but the one
+> substantive thing this step was chartered to do — correct the A2-5
+> evidence slip to "the true count" — replaced an admittedly wrong
+> number ("five") with another number ("13") that I could not verify
+> and that contradicts my own direct recount (16, both currently and at
+> the point A2's edit landed). Since A4's whole purpose is bookkeeping
+> accuracy, this should be re-verified and corrected before closing the
+> step.
+
+Fix round 1 (commit df9a343) — scoped re-review verdict recorded
+verbatim:
+
+> ### Finding 1 (unverified wrap count)
+> **ADDRESSED** — The A2 entry now reads "the >72-column lines in the
+> file are all pre-existing — several, mostly source links and table
+> rows," dropping the unverified "13 non-table lines" claim while
+> keeping the verified load-bearing claim ("every line this step wrote
+> is ≤ 72 columns"); an A4 fix-round-1 note documents the change, and
+> `node scripts/agent-lint.mjs . --ignore
+> tests,templates,global,examples` re-run exits 0 (`0 high, 0 medium,
+> 0 low — PASS`).
+>
+> ### New issues inside the fix's blast radius
+> None.
+
+A4 closes Approved-after-fix: gates green, bookkeeping truthful, no
+numeric claim left unverified.
+
 ## In progress
 
 ## Next
