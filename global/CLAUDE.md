@@ -9,7 +9,7 @@
   the artifact rules below.
 - All technical artifacts in English: code, comments, docs, commits,
   branches, PR titles/bodies, context files.
-- User-facing product content (site copy, UI text) in Spanish, unless
+- User-facing product content (site copy, UI text, SEO metadata) in Spanish, unless
   the project's context says otherwise.
 
 ## Safety
