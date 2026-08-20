@@ -44,6 +44,11 @@ Orca's primitives rather than invented coordination.
   makes maker ≠ checker the default, not an opt-in: the child (Claude)
   and its reviewer are different model families unless the owner
   chooses otherwise.
+  *Amended 2026-08-20 (v1.4.2, MAT-105 owner amendment): the dialogue's
+  offered default is now 1 ratón chispeante
+  (`opencode-go/muse-spark-1.2-contributor`) for cost; the ballena
+  remains the owner-selectable alternative, and the cross-family
+  maker ≠ checker principle stands unchanged.*
 - **Fix loop, cap 5 → gate.** Review findings return to the *same*
   child (its terminal is retained, not released, until the lane
   settles). After 5 fix rounds without a PASS, the loop stops
