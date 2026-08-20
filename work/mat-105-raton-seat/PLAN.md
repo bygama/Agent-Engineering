@@ -38,7 +38,7 @@
   `grep -c 'no-change' work/mat-105-raton-seat/DECISIONS.md` ≥ 1 AND
   `node tests/run-eval-checks.mjs` exits 0
 
-- [ ] 2. [judgment] `reference/runners.md` gains the ratón chispeante
+- [x] 2. [judgment] `reference/runners.md` gains the ratón chispeante
   seat beside the ballena stack (after the single-shot paragraph), one
   coherent edit: (a) the seat — house name, verbatim launch argv
   `opencode --auto -m opencode-go/muse-spark-1.2-contributor`, same
