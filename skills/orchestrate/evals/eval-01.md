@@ -35,9 +35,10 @@ modules, needs a file that doesn't exist yet). No lane exists for it yet.
       that with `--deps` rather than dispatching both concurrently.
 - [ ] Before any `worker-start`, runs the dispatch dialogue with the
       owner: adversarial reviewers yes/no, how many, which model — offers
-      **default 1 ballena** (deepseek v4 flash) rather than picking
-      silently. One question for this lane (not a batch question — this
-      isn't XL).
+      **default 1 ratón chispeante** (muse spark 1.2 contributor) and
+      names the ballena (deepseek v4 flash) as the selectable alternative,
+      rather than picking either silently. One question for this lane
+      (not a batch question — this isn't XL).
 - [ ] The child-seat default (`--agent claude`, per `reference/runners.md`'s
       child-seat convention) does not grow the dialogue into a second
       question — the owner is asked about reviewers only; a different

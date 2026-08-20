@@ -224,6 +224,65 @@ Minor finding: the step-3 "Files changed" line omitted the PLAN.md
 tick — fixed in place by the controller when recording this verdict
 (lane bookkeeping accuracy, no repo content).
 
+### Step A1 — evals first under the amended law (judgment) — DONE
+
+Amendment step 1 (SPEC "Amendment", owner ruling 2026-08-20). Evals
+change before content, so both orchestrate evals that mention a reviewer
+seat were judged against the new law (ratón chispeante = the dialogue's
+default; ballena = the owner-selectable alternative).
+
+- **`skills/orchestrate/evals/eval-01.md` — CHANGED** (the only content
+  edit in this step). Its dispatch-dialogue graded line was the eval
+  corpus's only assertion of the offered DEFAULT, which the amendment
+  inverts. It now grades two facts instead of one: the offered default
+  is **1 ratón chispeante** (muse spark 1.2 contributor), and the
+  ballena (deepseek v4 flash) must be NAMED as the selectable
+  alternative — "rather than picking either silently". The rest of the
+  item (one question for this lane, not a batch question) is unchanged;
+  no other eval-01 line mentions a seat.
+- **`skills/orchestrate/evals/eval-03.md` — no-change**, with ALL graded
+  lines checked, not just the fixture sentence. The fixture ("picked '1
+  ballena' … recorded in the Task spec") reads as an owner CHOICE, not a
+  default — the word "default" does not occur anywhere in the file
+  (`grep -i default skills/orchestrate/evals/eval-03.md` → no match,
+  exit 1) — and the ballena stays selectable under the new law. Lines
+  23, 27, 37 and 49 are conditioned on that choice; line 31 is scoped to
+  the ballena's own two invocation forms (still registered); line 41's
+  stall clock is under-general, not false, exactly as step 1 recorded.
+  Per-line reasoning in DECISIONS.md.
+- Checked beyond the two named files: eval-02, eval-04 and eval-05
+  mention no seat at all (`grep -rn -i 'ballena|ratón|muse'
+  skills/orchestrate/evals/` hits only eval-01 and eval-03), so the
+  amendment reaches no other eval.
+
+One consumption note carried forward to A3, recorded in DECISIONS.md:
+eval-03's `--auto` graded line stays gradeable only while the ballena's
+launch argv remains reachable from the skill — which is what A3's
+"ballena's cited nearby per single-definition discipline" already
+requires; swapping SKILL.md step 6's snippet to the ratón WITHOUT that
+citation would strand that line.
+
+Acceptance (both conditions):
+
+- `grep -c 'ratón chispeante' skills/orchestrate/evals/eval-01.md` → `1`
+  (≥ 1)
+- `node tests/run-eval-checks.mjs` → `all eval checks passed`, exit 0
+
+Extra (regression check, not required by this step):
+`node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+→ `0 high, 0 medium, 0 low — PASS`, exit 0.
+
+Files changed: `skills/orchestrate/evals/eval-01.md` (the graded line —
+the only repo content touched), `work/mat-105-raton-seat/DECISIONS.md`
+(A1 judgment), `work/mat-105-raton-seat/PLAN.md` (A1 ticked), this file.
+No skill, reference or docs content touched — those are A2/A3.
+
+Concerns: none blocking. Worth the reviewer's eye: eval-01's line now
+grades a compound behavior (default offered AND alternative named); that
+is deliberate — under the new law an agent that offers the ratón while
+hiding the ballena is as wrong as one that still defaults to the
+ballena — but it is one checklist line carrying two failure modes.
+
 ## In progress
 
 ## Next
