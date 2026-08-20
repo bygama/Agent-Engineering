@@ -200,10 +200,29 @@ Ran all four acceptance commands:
 - `node tests/run-gen-tests.mjs` → `all gen cases passed`, exit 0
 - `node tests/run-eval-checks.mjs` → `all eval checks passed`, exit 0
 
-Files changed: this file only (PROGRESS.md updated with Step 3 report).
-No repo content touched — all gates green.
+Files changed: `work/mat-105-raton-seat/PLAN.md` (step 3 ticked), this
+file. No repo content touched — all gates green.
 
 Concerns: none.
+
+#### Step 3 review (fresh reviewer, sonnet) — verdict recorded verbatim
+
+> ### Spec compliance
+> ✅ Compliant — the diff ticks PLAN.md step 3, all four acceptance
+> commands re-run clean, and DECISIONS.md already carries both required
+> entries.
+>
+> **Step quality:** Approved
+> **Reasoning:** All four required gates were independently re-run and
+> exit 0 with outputs matching what's recorded, DECISIONS.md verifiably
+> carries the two required rulings, and the change stays entirely
+> inside owned lane files with no repo content touched — the one flaw
+> is a self-inconsistent "files changed" line that doesn't affect
+> substance.
+
+Minor finding: the step-3 "Files changed" line omitted the PLAN.md
+tick — fixed in place by the controller when recording this verdict
+(lane bookkeeping accuracy, no repo content).
 
 ## In progress
 
