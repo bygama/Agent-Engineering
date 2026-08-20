@@ -68,3 +68,60 @@
   `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` ·
   `node tests/run-lint-tests.mjs` · `node tests/run-gen-tests.mjs` ·
   `node tests/run-eval-checks.mjs`
+
+## Amendment steps (owner ruling 2026-08-20 — SPEC "Amendment" section)
+
+Constraints unchanged, plus: the offered default is now **1 ratón
+chispeante** (muse spark 1.2 contributor); the ballena is the named
+owner-selectable alternative; full house name "ratón chispeante
+(pl. ratones chispeantes)" documented at the runners.md seat entry.
+
+- [ ] A1. [judgment] EVALS FIRST — `evals/eval-01.md`'s dialogue graded
+  line changes to grade the ratón chispeante default (muse spark 1.2
+  contributor) with the ballena (deepseek v4 flash) as the named
+  alternative; `evals/eval-03.md`'s fixture judged: "picked '1
+  ballena'" stands only if it reads as an owner CHOICE recorded in the
+  Task spec (the ballena stays selectable under the new law) — if it
+  reads as the default, it changes here too, before any content; the
+  judgment lands in DECISIONS.md. — accept:
+  `grep -c 'ratón chispeante' skills/orchestrate/evals/eval-01.md` ≥ 1
+  AND `node tests/run-eval-checks.mjs` exits 0
+
+- [ ] A2. [judgment] `reference/runners.md` — invert the
+  default/alternative labels between the two seats (ratón = the
+  dispatch dialogue's default, cost-proven; ballena = the
+  owner-selectable alternative, fully registered); document the full
+  name "ratón chispeante (pl. ratones chispeantes)" at the seat entry;
+  fix the `--auto` paragraph's forward reference; re-scope the consent
+  note opencode-wide rather than ratón-only. Consumes A1's new graded
+  wording (the behavior the registry must match). — accept:
+  `grep -c 'ratones chispeantes' reference/runners.md` ≥ 1 AND
+  `grep -ci 'default' reference/runners.md` ≥ 1 AND
+  `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  exits 0
+
+- [ ] A3. [judgment] Orchestrate skill + narrating chapter, same commit
+  (house rule): `SKILL.md` step 3's offered default becomes 1 ratón
+  chispeante (muse spark 1.2 contributor), ballena the named
+  alternative; step 6's two-step launch snippet shows the ratón argv
+  verbatim (`opencode --auto -m opencode-go/muse-spark-1.2-contributor`)
+  with the ballena's launch cited nearby per single-definition
+  discipline (`reference/runners.md` holds both argv); every SKILL.md
+  line the new law falsifies updated (e.g. the judgment note naming
+  "the ballena default"); `references/reviewer.md`'s "(default 1
+  ballena)" line inverted; `docs/how-it-works/execution.md` re-checked
+  under the new law and updated wherever it narrates the dialogue
+  default or draws the ballena as THE wave seat (topology and stage-6
+  labels, the launch fork, the borrowed-launch paragraph), dated
+  records untouched. — accept:
+  `grep -c 'ratón chispeante' skills/orchestrate/SKILL.md` ≥ 1 AND
+  `bash -c "! grep -rqi 'default 1 ballena' skills/orchestrate docs/how-it-works"`
+  exits 0 AND `grep -c 'ratón' docs/how-it-works/execution.md` ≥ 1 AND
+  `node tests/run-eval-checks.mjs` exits 0
+
+- [ ] A4. [mechanical] Full gate suite + lane bookkeeping current
+  (amendment ruling and A1 judgment in DECISIONS.md, PROGRESS.md
+  truthful). — accept: all four commands exit 0:
+  `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` ·
+  `node tests/run-lint-tests.mjs` · `node tests/run-gen-tests.mjs` ·
+  `node tests/run-eval-checks.mjs`
