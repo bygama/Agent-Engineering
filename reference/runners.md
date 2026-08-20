@@ -38,9 +38,9 @@ so it launches the bare TUI form — `opencode -m opencode-go/deepseek-v4-flash
 the headless form where the TUI form belongs leaves nothing to attach to,
 and vice versa.
 
-`--auto` is required on both ballena launch commands — the Go default
-and the free fallback — not a tip; the headless `run` form above takes
-no `--auto`. Verified on this machine
+`--auto` is required on every TUI reviewer launch — the ballena's Go
+default and free fallback, and the ratón below — not a tip; the headless
+`run` form above takes no `--auto`. Verified on this machine
 2026-08-19: `--auto` auto-approves permissions not explicitly denied;
 without it the reviewer hangs at a permission prompt nobody watches — a
 78-minute live stall on the MAT-91 review, undiagnosable from the
@@ -53,6 +53,26 @@ The reviewer's `worker_done` report is single-shot per dispatch, too —
 see `skills/orchestrate/references/reviewer.md`'s fenced brief
 ("Reporting your verdict") for the send-once discipline; this file only
 launches the seat, it does not restate that rule.
+
+The ballena is the dispatch dialogue's default seat, not the only one.
+**Ratón chispeante** is this machine's second verified cross-family
+reviewer — `opencode --auto -m opencode-go/muse-spark-1.2-contributor`,
+picked by the owner per lane rather than offered by default, launched
+exactly like the ballena: bare TUI form, `terminal wait --for tui-idle`,
+then `worker-start --terminal`. Same `--auto` rationale as above, on the
+same read-only-seat condition. Verified 2026-08-19 across two production
+reviews — the MAT-104 and MAT-94 waves, both PASS at ballena grade.
+
+A fresh seat can stop at opencode's DATA-COLLECTION consent prompt,
+which `--auto` does NOT cover — a different prompt class from the
+permission prompts it auto-approves. Acceptance is manual and one-time
+per machine/model (the owner cleared it live on the MAT-94 seat); check
+it first when a new seat never reaches `tui-idle`.
+
+Known behavior, not a rule: one ratón seat's `worker_done` printed
+"(no output)" and never registered in the ledger — the verdict was read
+off the transcript rather than re-sent, the single-shot rule above
+holding wherever the verdict surfaces. Cause unattributed, model or CLI.
 
 "Verify on install" is a hard rule: no spawn command enters a worker table
 until it ran on the target machine (`--help` at minimum). Install gotcha:
@@ -81,9 +101,10 @@ machine-agnostic.
 reviewer from a **different model family than the maker** — same-family
 reviewers share the maker's blind spots. Pick from the table above,
 verify-on-install rule unchanged; on this machine the verified
-cross-family runner is opencode + DeepSeek (the portability-proof
-pairing). No second runner installed ⇒ the rung is declared NOT done,
-never approximated with a same-family reviewer.
+cross-family pairings are opencode + DeepSeek (the portability-proof
+pairing, the ballena) and opencode + Muse Spark (the ratón chispeante).
+No second runner installed ⇒ the rung is declared NOT done, never
+approximated with a same-family reviewer.
 
 ## The child seat
 
