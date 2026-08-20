@@ -287,15 +287,41 @@
   Files changed: `reference/skills.md`,
   `work/mat-104-94-single-shot-attrib/DECISIONS.md`.
 
+- Step 5 review (fresh in-session reviewer, verdict verbatim):
+  "### Spec compliance / ✅ Compliant [...] **Step quality:** Approved
+  — All three named acceptance commands and all constraint gates pass
+  on independent re-run, the added text is a faithful and well-placed
+  rendering of the required stance rule, and the trim is genuinely
+  redundant with reasoning correctly recorded in DECISIONS.md." Minor
+  (deferred follow-up note, pre-existing and out of this step's scope):
+  reference/skills.md:20 says reference files >100 lines start with a
+  table of contents, and the 120-line file has none — predates this
+  lane (119 lines going in).
+
+- Step 6: Full gate suite + lane bookkeeping. All four gate commands
+  confirmed passing:
+  - `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+    → "0 high, 0 medium, 0 low — PASS" (exit 0)
+  - `node tests/run-lint-tests.mjs` → "all 20 cases passed" (exit 0)
+  - `node tests/run-gen-tests.mjs` → "all gen cases passed" (exit 0)
+  - `node tests/run-eval-checks.mjs` → "all eval checks passed" (13 skills,
+    exit 0)
+  Verified DECISIONS.md carries all required rulings and both step-4
+  classifications: SPEC-approval, MAT-94 owner ruling, parent mid-flight
+  directive (step 2b), step 2b no-eval ruling, upstream-cache-present
+  entry, both step-4 classifications (shaping and skill-authoring),
+  notice-shape entry, and step-5 trim entry. No files required committing
+  (lane bookkeeping only, PROGRESS.md already truthful, DECISIONS.md
+  complete). No step-checkbox ticking or Verification block written (both
+  reserved for lane finalization / work-verify).
+
 ## In progress
 
 ## Tried and failed
 
 ## Next
 
-- work-run the PLAN, step 6 (full gate suite + lane bookkeeping;
-  already re-confirmed green during step 5, so this is mostly
-  bookkeeping and PLAN checkbox ticking).
+(All 6 steps complete. Lane finalization → work-verify / work-handoff.)
 
 ## Verification
 
