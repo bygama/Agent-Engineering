@@ -87,7 +87,7 @@ owner-selectable alternative; full house name "ratón chispeante
   `grep -c 'ratón chispeante' skills/orchestrate/evals/eval-01.md` ≥ 1
   AND `node tests/run-eval-checks.mjs` exits 0
 
-- [ ] A2. [judgment] `reference/runners.md` — invert the
+- [x] A2. [judgment] `reference/runners.md` — invert the
   default/alternative labels between the two seats (ratón = the
   dispatch dialogue's default, cost-proven; ballena = the
   owner-selectable alternative, fully registered); document the full

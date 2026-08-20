@@ -308,6 +308,104 @@ A1-3. SPEC's pre-amendment items asserted the old law without a
    superseded pointer — FIXED by the controller when recording this
    verdict (superseded marker added at "What done looks like").
 
+### Step A2 — `reference/runners.md` under the amended law (judgment) — DONE
+
+Amendment step 2. One coherent edit to `reference/runners.md` (the only
+repo file touched — no skill, eval or `docs/how-it-works/` change; those
+are A3). Four deliverables, plus one in-file coherence fix:
+
+- **Label inversion.** The ratón entry now opens the seat stack:
+  "**Ratón chispeante** (pl. ratones chispeantes) is the seat the
+  dispatch dialogue offers by default", and carries the cost rationale
+  as the REASON for the default — "It holds the default on cost: two
+  production reviews on this machine — the MAT-104 and MAT-94 waves,
+  verified 2026-08-19, both PASS at ballena grade — for ~$0.01 all-in,
+  against the ballena's price." The ballena gets its own paragraph
+  directly below: "The **ballena** is the owner-selectable alternative,
+  fully registered:" — nothing of its registration removed, argv
+  (`opencode -m opencode-go/deepseek-v4-flash --auto`), no-auth
+  fallback (`opencode -m opencode/deepseek-v4-flash-free --auto`), the
+  two-step launch, the `--auto` rationale and the portability-proof
+  evidence (free model 2026-08-16, Go model 2026-08-18) all present,
+  ending "The dialogue names it beside the default; the owner picks
+  between ratones chispeantes and ballenas at dispatch, never silently"
+  — the behavior A1's eval-01 line now grades (default offered AND
+  alternative named).
+- **Full house name** documented at the seat entry: singular in bold,
+  plural inline as `(pl. ratones chispeantes)`; the plural is also used
+  naturally in the dispatch sentence.
+- **Forward reference fixed.** The `--auto` law paragraph read "the
+  ballena's Go default and free fallback, and the ratón below" — an
+  enumeration that both asserted the old default and depended on
+  paragraph order. It now reads "on every opencode TUI reviewer launch
+  registered **here** — either seat, the ballena's no-auth fallback
+  included", which is ordering-neutral (no above/below), seat-neutral,
+  and still names the fallback the flag must carry. Its other reference
+  ("the headless `run` form above") is backward to the table and stays.
+  Both seat paragraphs cite the law ("Same `--auto` rationale as
+  above") — single definition, both seats citing it, per the step.
+- **Consent note re-scoped opencode-wide**: "Any opencode seat can stop
+  at opencode's DATA-COLLECTION consent prompt on a fresh machine or a
+  fresh model — ratón or ballena, the no-auth fallback included — and
+  `--auto` does NOT cover it…". Placement: immediately after the
+  ballena paragraph, i.e. directly under launch commands (the SPEC's
+  "NEXT to the launch command" bar) and now visibly after BOTH seats'
+  launches rather than inside the ratón block. This closes step-2
+  review minor #5 / triage item 5 properly, at the moment the law made
+  it in-scope.
+
+Two supporting moves the inversion required, both inside the owned file:
+
+- The two-invocation-forms paragraph used to carry the ballena's TUI
+  argv as the illustration ("so it launches the bare TUI form —
+  `opencode -m opencode-go/deepseek-v4-flash --auto`, no-auth fallback
+  …"). With the ballena no longer the default, hard-coding it there
+  would re-assert the old law and duplicate the argv. It is now
+  seat-neutral — "so it launches the seat the dispatch dialogue settled
+  on in its bare TUI form" — and each seat's argv is defined exactly
+  once, in its own entry (the ballena's argv is not lost, it moved into
+  its paragraph).
+- Table row (opencode, headless spawn): "(ballena default `-m
+  opencode-go/deepseek-v4-flash`…)" → "(the ballena's default …)". A
+  possessive; the parenthetical always meant the ballena's own Go/free
+  model pair, but after the inversion "ballena default" is exactly the
+  string a reader scanning for the seat default would misread. Three
+  characters, no claim changed.
+
+Untouched by judgment: "The adversarial seat" section's pairing
+sentence (lines 112-115) lists the ballena pairing first but attaches no
+default/alternative label to either — it enumerates verified
+cross-family pairings, which the amendment does not reorder; and the
+"(no output)" known-behavior line, whose "the single-shot rule above"
+reference stays backward under the new ordering.
+
+Acceptance (all three conditions):
+
+- `grep -c 'ratones chispeantes' reference/runners.md` → `2` (≥ 1)
+- `grep -ci 'default' reference/runners.md` → `9` (≥ 1)
+- `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  → `0 high, 0 medium, 0 low — PASS`, exit 0
+
+Extra (regression check, not required by this step):
+`node tests/run-lint-tests.mjs` → `all 20 cases passed` ·
+`node tests/run-gen-tests.mjs` → `all gen cases passed` ·
+`node tests/run-eval-checks.mjs` → `all eval checks passed`; the chain
+exited 0. Wrap check: every line this step wrote is ≤ 72 columns (the
+five >72 lines in the file are pre-existing and untouched).
+
+Files changed: `reference/runners.md` (+30/−21, the only repo content),
+`work/mat-105-raton-seat/PLAN.md` (A2 ticked), this file.
+
+Concerns: none blocking. Two for the reviewer's eye: (1) the ratón argv
+stays verbatim as proven (`--auto` before `-m`) while the ballena's
+reads `-m … --auto` — the asymmetry is deliberate, each is the argv
+actually run on this machine; (2) `docs/how-it-works/execution.md` and
+`skills/orchestrate/SKILL.md` still narrate the ballena as the default,
+which this commit makes false — that is A3's scope by the PLAN's own
+decomposition, so the AGENTS.md "update the affected chapter in the same
+change" constraint is satisfied at the A2+A3 commit pair, not by A2
+alone.
+
 ## In progress
 
 ## Next

@@ -22,7 +22,7 @@ runner-specific adapter file is ever created (the ban stands mid-fan-out).
 | Claude Code (`claude`) | `CLAUDE.md` → imports `AGENTS.md` via the pointer | native (SKILL.md) | `claude -p "<prompt>"` in the worktree | verified on this machine 2026-08-16 |
 | Codex CLI (`codex`) | `AGENTS.md` natively | none — point at the skill file | `codex exec "<prompt>"` | docs-cited; verify on install |
 | Gemini CLI (`gemini`) | `GEMINI.md` by default — set `contextFileName: "AGENTS.md"` in settings; never create a GEMINI.md adapter | none — point at the skill file | `gemini -p "<prompt>"` | docs-cited; verify on install |
-| opencode | `AGENTS.md` natively | own format — point at the skill file | `opencode run -m <provider/model> "<prompt>"` — one-shot prompts (ballena default `-m opencode-go/deepseek-v4-flash`, OpenCode Go subscription auth; no Go auth ⇒ fall back to `-m opencode/deepseek-v4-flash-free`, a no-auth free model via the opencode gateway) | free model verified on this machine 2026-08-16 — completed the portability-proof lane; Go model verified 2026-08-18 |
+| opencode | `AGENTS.md` natively | own format — point at the skill file | `opencode run -m <provider/model> "<prompt>"` — one-shot prompts (the ballena's default `-m opencode-go/deepseek-v4-flash`, OpenCode Go subscription auth; no Go auth ⇒ fall back to `-m opencode/deepseek-v4-flash-free`, a no-auth free model via the opencode gateway) | free model verified on this machine 2026-08-16 — completed the portability-proof lane; Go model verified 2026-08-18 |
 | Grok CLI (`grok`) | unverified | unverified | unverified | verify on install |
 | deepseek-harness (`dsh`) | `AGENTS.md` | unverified | unverified | dev preview, breaking changes announced — zero coupling by decision; verify on install |
 
@@ -30,16 +30,15 @@ opencode has two invocation forms, not one. The table's headless spawn is
 `opencode run -m <provider/model> "<prompt>"` — it runs one prompt to
 completion and exits, the shape a child dispatch or a fan-out worker
 needs. Orchestrate's reviewer seat needs an interactive session instead,
-so it launches the bare TUI form — `opencode -m opencode-go/deepseek-v4-flash
---auto`, no-auth fallback `opencode -m opencode/deepseek-v4-flash-free
---auto` — no `run`, no prompt argument — waits for it (`terminal wait
---for tui-idle`), then attaches the Task to the already-running terminal
+so it launches the seat the dispatch dialogue settled on in its bare TUI
+form — no `run`, no prompt argument — waits for it (`terminal wait --for
+tui-idle`), then attaches the Task to the already-running terminal
 (`worker-start --terminal`). Same binary, two launches, two jobs — using
 the headless form where the TUI form belongs leaves nothing to attach to,
 and vice versa.
 
-`--auto` is required on every opencode TUI reviewer launch — the
-ballena's Go default and free fallback, and the ratón below — not a
+`--auto` is required on every opencode TUI reviewer launch registered
+here — either seat, the ballena's no-auth fallback included — not a
 tip; the headless `run` form above takes no `--auto`. Verified on this
 machine 2026-08-19: `--auto` auto-approves permissions not explicitly
 denied; without it the reviewer hangs at a permission prompt nobody
@@ -54,20 +53,30 @@ see `skills/orchestrate/references/reviewer.md`'s fenced brief
 ("Reporting your verdict") for the send-once discipline; this file only
 launches the seat, it does not restate that rule.
 
-The ballena is the dispatch dialogue's default seat, not the only one.
-**Ratón chispeante** is this machine's second verified cross-family
-reviewer — `opencode --auto -m opencode-go/muse-spark-1.2-contributor`,
-picked by the owner per lane rather than offered by default, launched
-exactly like the ballena: bare TUI form, `terminal wait --for tui-idle`,
-then `worker-start --terminal`. Same `--auto` rationale as above, on the
-same read-only-seat condition. Verified 2026-08-19 across two production
-reviews — the MAT-104 and MAT-94 waves, both PASS at ballena grade.
+**Ratón chispeante** (pl. ratones chispeantes) is the seat the dispatch
+dialogue offers by default, launched by the two-step pattern above:
+`opencode --auto -m opencode-go/muse-spark-1.2-contributor`, bare TUI
+form, `terminal wait --for tui-idle`, then `worker-start --terminal`.
+Same `--auto` rationale as above, on the same read-only-seat condition.
+It holds the default on cost: two production reviews on this machine —
+the MAT-104 and MAT-94 waves, verified 2026-08-19, both PASS at ballena
+grade — for ~$0.01 all-in, against the ballena's price.
 
-A fresh seat can stop at opencode's DATA-COLLECTION consent prompt,
-which `--auto` does NOT cover — a different prompt class from the
-permission prompts it auto-approves. Acceptance is manual and one-time
-per machine/model (the owner cleared it live on the MAT-94 seat); check
-it first when a new seat never reaches `tui-idle`.
+The **ballena** is the owner-selectable alternative, fully registered:
+`opencode -m opencode-go/deepseek-v4-flash --auto`, no-auth fallback
+`opencode -m opencode/deepseek-v4-flash-free --auto`, the same two-step
+launch, the same `--auto` rationale. It is the portability-proof
+pairing — the free model completed that lane here 2026-08-16, the Go
+model verified 2026-08-18 — and the grade the ratón is measured
+against. The dialogue names it beside the default; the owner picks
+between ratones chispeantes and ballenas at dispatch, never silently.
+
+Any opencode seat can stop at opencode's DATA-COLLECTION consent prompt
+on a fresh machine or a fresh model — ratón or ballena, the no-auth
+fallback included — and `--auto` does NOT cover it: a different prompt
+class from the permission prompts it auto-approves. Acceptance is manual
+and one-time per machine/model (the owner cleared it live on the MAT-94
+seat); check it first when a new seat never reaches `tui-idle`.
 
 Known behavior, not a rule: one ratón seat's `worker_done` printed
 "(no output)" and never registered in the ledger — the verdict was read
