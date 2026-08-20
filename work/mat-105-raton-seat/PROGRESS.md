@@ -634,6 +634,39 @@ launch argv, `--auto` included, is read off `reference/runners.md`"
 rather than repeated as a rule; runners.md:40-49 holds the rule and the
 MAT-91 evidence, so this is a pointer, not a lost claim.
 
+#### Step A3 — fix round 1 (reviewer finding, Important)
+
+**Finding:** `docs/how-it-works/execution.md:287-288` asserted something
+its own skill contradicts — "`reference/runners.md` registers both, and
+the skill reads **either** off it rather than restating them". SKILL.md
+does not read either off it: its fenced snippet restates the ratón's
+argv verbatim (what A3 required), and only the ballena's argv is read
+off runners.md. A reader following the sentence to SKILL.md would find a
+hardcoded argv where the chapter promised a citation.
+
+**Fix:** the claim narrowed to what is true, one sentence, execution.md
+only — "…differ in argv, not in how they launch — `reference/runners.md`
+registers both; the skill shows the default's argv with that citation
+and reads the alternative's off it rather than duplicating them." This
+is exactly the asymmetry the step's own instruction created (ratón argv
+verbatim, ballena's cited), now narrated as such: the citation on the
+snippet line is still named, so the chapter does not undersell the
+provenance comment either.
+
+Nothing else in the file was touched; SKILL.md and reviewer.md are
+unchanged from the A3 commit.
+
+Verification: `node scripts/agent-lint.mjs . --ignore
+tests,templates,global,examples` → `0 high, 0 medium, 0 low — PASS`,
+exit 0 · `node tests/run-eval-checks.mjs` → `all eval checks passed`,
+exit 0. A3's acceptance still holds: `grep -c 'ratón'
+docs/how-it-works/execution.md` → `6`, and the sentence adds no
+`default 1 ballena` string. Wrap: the three rewritten lines are 69, 71
+and 36 columns.
+
+Files changed: `docs/how-it-works/execution.md` (the one sentence), this
+file.
+
 ## In progress
 
 ## Next
