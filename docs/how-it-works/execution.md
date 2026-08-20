@@ -181,8 +181,8 @@ flowchart TB
     P -->|worker-start --task<br/>--worktree new-child| C1["Child 1<br/>work/&lt;slug-1&gt; lane"]
     P -->|worker-start --task<br/>--worktree new-child| C2["Child 2<br/>work/&lt;slug-2&gt; lane"]
     P -.->|XL: more children,<br/>--deps queues file overlap| C3["Child N"]
-    C1 -->|worker-start, read-only<br/>worktree cut from lane branch| B1["Reviewer / ballena<br/>different model family"]
-    C2 -->|worker-start, read-only| B2["Reviewer / ballena"]
+    C1 -->|worker-start, read-only<br/>worktree cut from lane branch| B1["Reviewer / ratón chispeante<br/>different model family"]
+    C2 -->|worker-start, read-only| B2["Reviewer / ratón chispeante"]
     B1 -.->|worker_done body:<br/>PASS or FAIL| P
     B2 -.->|worker_done body:<br/>PASS or FAIL| P
     C1 -->|PR opened, never merged| MAIN(["main"])
@@ -223,7 +223,7 @@ sequenceDiagram
     participant O as Owner
     participant P as Parent (orchestrator)
     participant C as Child worktree
-    participant R as Reviewer / ballena
+    participant R as Reviewer / ratón chispeante
     participant M as main
 
     P->>P: 1. tier gate — S stops here, M+ continues
@@ -244,9 +244,9 @@ sequenceDiagram
     deactivate C
     alt reviewer selectable with --model (Claude, Codex, Cursor ids)
         P->>R: 6. worker-start --task --model &lt;id&gt;<br/>one-step launch
-    else ballena (deepseek v4 flash - no --model id)
+    else opencode seat (ratón chispeante by default, or a ballena - no --model id)
         P->>R: 6. worktree create --base-branch &lt;lane-branch&gt;
-        P->>R: terminal create --command "opencode -m ... --auto"
+        P->>R: terminal create --command "opencode --auto -m ..."
         P->>R: terminal wait --for tui-idle
         P->>R: worker-start --terminal &lt;handle&gt;<br/>two-step launch
     end
@@ -278,20 +278,24 @@ the parent's) — and on an idle child, below — and `6` on a FAIL
 capped at five rounds before an owner gate replaces the loop with a
 decision). Stage 6's launch also forks for a reason the CLI enforces,
 not a stylistic one: `--model` only accepts Claude, Codex, and Cursor
-ids, so a `--model`-selectable reviewer starts in one call while the
-ballena — custom argv, no such id — takes the four-command two-step
-launch (`worktree create` → `terminal create` → `terminal wait` →
-`worker-start --terminal`).
+ids, so a `--model`-selectable reviewer starts in one call while an
+opencode seat — custom argv, no such id — takes the four-command
+two-step launch (`worktree create` → `terminal create` → `terminal
+wait` → `worker-start --terminal`). Either opencode seat takes it: the
+dialogue's default ratón chispeante (muse spark 1.2 contributor) and
+the ballena (deepseek v4 flash) it names beside it differ in argv, not
+in how they launch — `reference/runners.md` registers both, and the
+skill reads either off it rather than restating them.
 
-Stage 6 also runs a clock the diagram doesn't draw: a ballena reviewer
-cannot heartbeat, so stage 5's cadence signature — a stopped cadence plus
-a flat transcript — can never fire for it. It is watched against a
-threshold instead: 20-45 minutes is a normal review, and 75+ minutes with
-an empty orchestration transcript and `latestCursor: 0` is a stall, never
-a slow review. Recovery is `worker-stop`, then removing the review
-worktree, then `task-update --status ready`, then a fresh seat — the same
-fix-loop mechanism stage 5 points at an idle child, pointed here at a
-reviewer instead.
+Stage 6 also runs a clock the diagram doesn't draw: an opencode TUI
+reviewer — ratón or ballena — cannot heartbeat, so stage 5's cadence
+signature — a stopped cadence plus a flat transcript — can never fire
+for it. It is watched against a threshold instead: 20-45 minutes is a
+normal review, and 75+ minutes with an empty orchestration transcript
+and `latestCursor: 0` is a stall, never a slow review. Recovery is
+`worker-stop`, then removing the review worktree, then `task-update
+--status ready`, then a fresh seat — the same fix-loop mechanism stage 5
+points at an idle child, pointed here at a reviewer instead.
 
 Stage 6 carries one more failure mode the diagram can't draw, and it has
 two sides. On the seat side: a `worker_done` channel is single-shot per
@@ -318,7 +322,7 @@ rebase and re-gate happen *before* the merge, inside the child, not
 after — a PASS earned against a stale `main` is not a PASS against the
 `main` the PR is about to land on. And stage 8 is not optional
 housekeeping: the reviewer's own dispatch and worktree are decommissioned
-right alongside the child's — a retained ballena idles exactly as
+right alongside the child's — a retained reviewer seat idles exactly as
 expensively as a retained child.
 
 Stage 4's dispatch arrow is drawn at its default shape, not its only one.
@@ -326,25 +330,25 @@ The default is a **stock runner** — `--agent claude`, or `--model` /
 `--effort` when the seat wants a different one — and it is the default
 because the one-step dispatch is what records the child's provenance. A
 child that genuinely needs argv those three flags cannot express (a
-wrapper binary, custom flags) borrows the ballena's launch from stage 6:
-`worktree create` → `terminal create --command` → `terminal wait` →
-`worker-start --terminal`. That is legitimate for children too — but it
-is a named exception, not a second default, and the reason is visible in
-the dispatch record rather than a matter of taste. Measured on this
-repo's own Run, one dispatch each way: the worktree comes back `reused`
-instead of `created_child`, `setup` reads `not_applicable` (so
-`--setup run` has to move onto the `worktree create`),
-`resource.ownershipState` flips from `user_owned` to `external` — which
-makes teardown at stage 8 the parent's manual job — and `--model` /
-`--effort` are rejected outright alongside `--terminal`, so the model
-choice leaves the record and lives in argv nothing reads back. Read
-together, those four say one thing: the two-step moves the child's birth,
-its setup, its teardown and its runner out of the ledger and into the
-parent's memory. Hence the three conditions on taking it — the argv
-reason recorded at dispatch, the fallback shell closed as a required
-step, and the cost known rather than traded away silently. None of that
-is stage 4's *own* pair of calls above — `worker-start` plus the Linear
-binding is on every dispatch, stock runner or not.
+wrapper binary, custom flags) borrows the reviewer seat's two-step
+launch from stage 6: `worktree create` → `terminal create --command` →
+`terminal wait` → `worker-start --terminal`. That is legitimate for
+children too — but it is a named exception, not a second default, and
+the reason is visible in the dispatch record rather than a matter of
+taste. Measured on this repo's own Run, one dispatch each way: the
+worktree comes back `reused` instead of `created_child`, `setup` reads
+`not_applicable` (so `--setup run` has to move onto the `worktree
+create`), `resource.ownershipState` flips from `user_owned` to
+`external` — which makes teardown at stage 8 the parent's manual job —
+and `--model` / `--effort` are rejected outright alongside `--terminal`,
+so the model choice leaves the record and lives in argv nothing reads
+back. Read together, those four say one thing: the two-step moves the
+child's birth, its setup, its teardown and its runner out of the ledger
+and into the parent's memory. Hence the three conditions on taking it —
+the argv reason recorded at dispatch, the fallback shell closed as a
+required step, and the cost known rather than traded away silently.
+None of that is stage 4's *own* pair of calls above — `worker-start`
+plus the Linear binding is on every dispatch, stock runner or not.
 
 Stage 5 loops back a second way, and it is the one the diagram alone
 would let you miss. The rolling wait's rule — a timeout is a

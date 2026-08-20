@@ -100,7 +100,7 @@ owner-selectable alternative; full house name "ratón chispeante
   `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
   exits 0
 
-- [ ] A3. [judgment] Orchestrate skill + narrating chapter, same commit
+- [x] A3. [judgment] Orchestrate skill + narrating chapter, same commit
   (house rule): `SKILL.md` step 3's offered default becomes 1 ratón
   chispeante (muse spark 1.2 contributor), ballena the named
   alternative; step 6's two-step launch snippet shows the ratón argv

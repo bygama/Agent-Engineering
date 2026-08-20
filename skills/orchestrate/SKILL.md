@@ -70,8 +70,11 @@ stages, not lanes: run them as one lane instead.
 born, never a silent default:
 
 > Adversarial reviewers for this lane — yes/no, how many, which model?
-> Default: **1 ballena** (the house name for the cross-family reviewer
-> seat, deepseek v4 flash; several of them are ballenas).
+> Default: **1 ratón chispeante** (the house name for the cross-family
+> reviewer seat that holds the default on cost, muse spark 1.2
+> contributor; several of them are ratones chispeantes). The
+> alternative is the **ballena** (deepseek v4 flash) — named in the
+> same question, so neither seat is picked silently.
 
 One question per lane; at XL one per batch, with a per-lane override.
 Record the answer in the Task spec — it is what the review wave dispatches
@@ -160,21 +163,25 @@ nowhere to go. Fill `references/reviewer.md` verbatim (`[LANE_PATH]`,
 `[BRANCH]`, `[PR_URL]`), one Task per agreed reviewer, each on its own
 read-only worktree cut from the lane branch. A reviewer whose model is
 selectable with `--model` (Claude, Codex, Cursor ids) starts in one call;
-the ballena needs custom argv, so it takes the two-step launch:
+an opencode seat needs custom argv, so it takes the two-step launch —
+here at the dialogue's default, the ratón chispeante:
 
 ```bash
 orca worktree create --name <slug>-review-<seat> --base-branch <lane-branch> \
   --parent-worktree active --setup run --json
 orca terminal create --worktree id:<review_worktree_id> \
-  --command "opencode -m opencode-go/deepseek-v4-flash --auto" --json   # reference/runners.md
+  --command "opencode --auto -m opencode-go/muse-spark-1.2-contributor" --json   # reference/runners.md
 orca terminal wait --terminal <handle> --for tui-idle --timeout-ms 60000 --json
 orca orchestration worker-start --task <review_task_id> --terminal <handle> --json
 ```
 
 `<seat>` numbers each reviewer (`r1`, `r2`, …) so N>1 agreed reviewers
-never collide on one worktree name. No OpenCode Go auth on the machine ⇒
-same launch with `-m opencode/deepseek-v4-flash-free --auto`, the no-auth
-fallback (`reference/runners.md`). The two-step create can leave an
+never collide on one worktree name. A ballena agreed at the dialogue
+takes the same four commands with its own argv, and a machine without
+OpenCode Go auth falls back to the ballena's no-auth free model — the
+seat changes, the four commands do not. Every launch argv, `--auto`
+included, is read off `reference/runners.md`, which registers both
+seats, never retyped from memory. The two-step create can leave an
 unused fallback startup shell behind; where it does, closing it is a
 **required step**, not advice — confirm that shell is actually unused
 first (`orca terminal list --worktree <sel> --json` shows both), then
@@ -182,13 +189,14 @@ first (`orca terminal list --worktree <sel> --json` shows both), then
 for the full recipe). Never close it blindly, never leave it running
 as debris.
 
-**Review-seat stall clock.** A ballena reviewer cannot heartbeat, so step
-5's cadence rule cannot reach it — it is watched against a threshold
-instead: 20-45 minutes is a normal review; 75+ minutes with an empty
-orchestration transcript and `latestCursor: 0` is a stall, never a slow
-review. Recovery: `worker-stop`, then remove the review worktree, then
-`task-update --status ready`, then launch a fresh seat — never left
-waiting past the threshold, never nursed on the same stalled seat.
+**Review-seat stall clock.** An opencode TUI reviewer (ratón or ballena)
+cannot heartbeat, so step 5's cadence rule cannot reach it — the seat is
+watched against a threshold instead: 20-45 minutes is a normal review;
+75+ minutes with an empty orchestration transcript and `latestCursor: 0`
+is a stall, never a slow review. Recovery: `worker-stop`, then remove
+the review worktree, then `task-update --status ready`, then launch a
+fresh seat — never left waiting past the threshold, never nursed on the
+same stalled seat.
 
 The verdict is the PASS/FAIL line in the reviewer's `worker_done` **body**;
 `--outcome` reports only whether the review itself finished. Route on the
@@ -227,10 +235,10 @@ the same way the fix returned to the child: retain its terminal at the
 verdict with `worker-retain --dispatch <id>`, then `worker-start --task
 <re_review_task_id> --terminal <handle> --worktree <selector>` once it
 has re-fetched the branch. Cutting a fresh `<slug>-review-<seat>`
-worktree per round pays a new ballena five times to reread one lane.
-Minor findings never enter the loop — they are deferred to the lane's
-work-verify triage. At the cap the owner decides, through a gate rather
-than a nudge:
+worktree per round pays a new reviewer seat five times to reread one
+lane. Minor findings never enter the loop — they are deferred to the
+lane's work-verify triage. At the cap the owner decides, through a gate
+rather than a nudge:
 
 ```bash
 orca orchestration gate-create --task <task_id> --question "<what is still open>" \
@@ -261,11 +269,10 @@ spawned goes — the child's dispatch and its worktree, and every reviewer
 dispatch with its `<slug>-review-<seat>` worktree:
 `orca orchestration worker-release --dispatch <id> --json`, then
 `orca worktree rm --worktree <selector>` — an idle agent on a merged lane
-is debris (`reference/orca.md`), and a retained ballena idles exactly as
-expensively as the child. The child closed its own lane (work-handoff)
-before reporting;
-the parent records the merge, the reviewer verdicts, and every ruling in
-its own PROGRESS.
+is debris (`reference/orca.md`), and a retained reviewer seat idles
+exactly as expensively as the child. The child closed its own lane
+(work-handoff) before reporting; the parent records the merge, the
+reviewer verdicts, and every ruling in its own PROGRESS.
 
 ## Several children at once (XL)
 
@@ -373,7 +380,7 @@ The automation is what is missing here. The discipline is not.
   never reviews it, and the parent that merges built neither.
 - The reviewer seat is the one place a different model family pays
   (`reference/runners.md`) — a same-family reviewer inherits the maker's
-  blind spots, which is what the ballena default is for.
+  blind spots, which is what the ratón chispeante default is for.
 - After compaction, trust the artifacts over recollection:
   `orca orchestration task-list --brief --json`, each lane's PROGRESS, and
   `git log` — never what a child said three hours ago.
