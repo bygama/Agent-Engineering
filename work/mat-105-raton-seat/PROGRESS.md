@@ -184,6 +184,27 @@ Minor findings (deferred to work-verify's triage, never the fix loop):
    verify-on-install (none proven); add only if a no-auth Muse Spark
    route is proven later.
 
+### Step 3 — Full gate suite + lane bookkeeping current — DONE
+
+Verified PROGRESS.md and DECISIONS.md bookkeeping: PROGRESS.md truthful
+with Steps 1 and 2 completed and recorded; DECISIONS.md carries the
+SPEC-approval ruling (2026-08-19 — SPEC approval, parent ruling) and the
+step-1 judgments (2026-08-19 — Step 1: falsehood check re-verified at
+execution).
+
+Ran all four acceptance commands:
+
+- `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+  → `0 high, 0 medium, 0 low — PASS`, exit 0
+- `node tests/run-lint-tests.mjs` → `all 20 cases passed`, exit 0
+- `node tests/run-gen-tests.mjs` → `all gen cases passed`, exit 0
+- `node tests/run-eval-checks.mjs` → `all eval checks passed`, exit 0
+
+Files changed: this file only (PROGRESS.md updated with Step 3 report).
+No repo content touched — all gates green.
+
+Concerns: none.
+
 ## In progress
 
 ## Next

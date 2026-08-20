@@ -62,7 +62,7 @@
   `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
   exits 0
 
-- [ ] 3. [mechanical] Full gate suite + lane bookkeeping current
+- [x] 3. [mechanical] Full gate suite + lane bookkeeping current
   (PROGRESS.md truthful, DECISIONS.md carries the SPEC-approval ruling
   and the step-1 judgments). — accept: all four commands exit 0:
   `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` ·
