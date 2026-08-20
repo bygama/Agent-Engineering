@@ -29,6 +29,63 @@ and keep their former name for traceability; repos still stamped with an
 old name are "behind, not broken" — `agent-audit` flags them,
 `agent-init` migrates them.
 
+## [1.4.2] — 2026-08-20
+
+The completion of the set 1.4.1 left open, plus what shipping it taught:
+every item was dispatched through orchestrate, reviewed cross-model, and
+the wave itself minted the release's newest capability — a second,
+cheaper reviewer seat that earned the default. PATCH per ADR-007 —
+fixes and incremental capability, no milestone designated.
+
+### Added
+
+- `agent-lint` check `machine-path`: machine-anchored absolute paths
+  (drive-rooted, POSIX user-home, WSL mounts) fail the lint on shipped
+  surfaces — `skills/`, `reference/`, `templates/`, `global/`,
+  `loops/` — with records, `examples/`, and fenced tool-managed blocks
+  exempt; the enforcement MAT-91's manual cleanup had no check for.
+  Self-test suite grows 20 → 22. (MAT-99)
+- The **ratón chispeante** reviewer seat (`opencode --auto -m
+  opencode-go/muse-spark-1.2-contributor`) registered in
+  `reference/runners.md` beside the ballena, proven over two
+  production reviews at ballena grade (~$0.01 each), with its one-time
+  data-collection consent gotcha stated at the launch command.
+  (MAT-105)
+- Review-seat stall clock in orchestrate step 6 and `execution.md`: a
+  seat that cannot heartbeat gets a threshold — 20-45 min observed
+  normal, 75+ min with an empty transcript is a stall — and the
+  recovery recipe (fence, remove worktree, task back to ready, fresh
+  seat). (MAT-100)
+- Single-shot `worker_done` law in the reviewer template and runners:
+  never test-fire the channel; a mangled send burns the dispatch's one
+  report, and Orca's rejected-worker_done wrapper quoting the original
+  body is valid verdict evidence. Review seats are also barred from
+  creating their own checkouts — the worktree is already on the lane
+  branch. (MAT-104)
+- Attribution stance in `reference/skills.md`'s steal guidance: on
+  every port, diff against upstream — substantial expression carries a
+  per-file upstream MIT notice, idea-only rewrites record their
+  classification; `skills/shaping` and `skills/skill-authoring` carry
+  their evidence-classified notices. (MAT-94)
+
+### Changed
+
+- The ballena launch commands carry `--auto` as law, not advice — a
+  permission prompt on an unwatched TUI is indistinguishable from a
+  hung reviewer; safe for this seat because the reviewer brief is
+  read-only. (MAT-100)
+- The dispatch dialogue's offered default is now **1 ratón
+  chispeante** for cost, with the ballena as the owner-selectable
+  alternative — eval-01 re-graded before the content changed. (MAT-105,
+  owner amendment)
+
+### Fixed
+
+- The fallback-shell rule no longer contradicts itself across three
+  files: the two-step launch CAN leave an unused startup shell (it did
+  on some launches and not others, live), and the closing command now
+  sits where the requirement is stated. (MAT-101)
+
 ## [1.4.1] — 2026-08-19
 
 Everything here was found by the standard running itself: four
