@@ -283,6 +283,31 @@ is deliberate — under the new law an agent that offers the ratón while
 hiding the ballena is as wrong as one that still defaults to the
 ballena — but it is one checklist line carrying two failure modes.
 
+#### Step A1 review (fresh reviewer, opus) — verdict recorded verbatim
+
+> ### Spec compliance
+> ✅ **Compliant.**
+>
+> **Step quality:** Approved
+> **Reasoning:** Both acceptance conditions pass on this checkout, the
+> eval-01 wording genuinely fails the old ballena default while also
+> failing a ratón-only offer, and the eval-03 no-change ruling is argued
+> line by line with grep evidence I independently confirmed. The three
+> minor items are wording precision and forward-looking record-keeping —
+> none blocks A2.
+
+Minor findings (deferred to work-verify's triage):
+
+A1-1. DECISIONS/PROGRESS "no other line in eval-01 mentions a seat" is
+   imprecise (eval-01:42-43 child seat, :86 cross-model seat) — meant
+   claim: "no other line names a reviewer seat by house name".
+A1-2. After A1 the corpus grades the ballena's launch in detail
+   (eval-03, fixture-conditioned) but nothing grades the ratón's launch
+   — a coverage judgment to state explicitly (or defer to A3's review).
+A1-3. SPEC's pre-amendment items asserted the old law without a
+   superseded pointer — FIXED by the controller when recording this
+   verdict (superseded marker added at "What done looks like").
+
 ## In progress
 
 ## Next
