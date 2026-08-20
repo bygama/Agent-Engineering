@@ -390,8 +390,9 @@ Extra (regression check, not required by this step):
 `node tests/run-lint-tests.mjs` → `all 20 cases passed` ·
 `node tests/run-gen-tests.mjs` → `all gen cases passed` ·
 `node tests/run-eval-checks.mjs` → `all eval checks passed`; the chain
-exited 0. Wrap check: every line this step wrote is ≤ 72 columns (13
-non-table lines pre-existing over 72 columns and untouched).
+exited 0. Wrap check: every line this step wrote is ≤ 72 columns (the
+>72-column lines in the file are all pre-existing — several, mostly
+source links and table rows).
 
 Files changed: `reference/runners.md` (+30/−21, the only repo content),
 `work/mat-105-raton-seat/PLAN.md` (A2 ticked), this file.
@@ -748,6 +749,21 @@ corrected), `work/mat-105-raton-seat/PLAN.md` (A4 ticked), this file.
 No repo content touched — all gates green.
 
 Concerns: none.
+
+#### Step A4 — fix round 1 (reviewer finding, Important)
+
+**Finding:** the A2-5 evidence-slip fix replaced "five >72 lines" with an
+unverified number "13 non-table lines"; reviewer recount gives 16 on
+current tree (or 13 only if source-link lines excluded by unstated
+methodology).
+
+**Fix:** A2 wrap-check sentence now uses non-numeric description ("the
+>72-column lines in the file are all pre-existing — several, mostly
+source links and table rows") while preserving the verified load-bearing
+claim (no line this step wrote exceeds 72 columns). Lint rerun: exit 0.
+
+Files changed: `work/mat-105-raton-seat/PROGRESS.md` (A2 sentence only),
+this file.
 
 ## In progress
 
