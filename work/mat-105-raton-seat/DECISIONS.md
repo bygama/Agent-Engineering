@@ -129,3 +129,28 @@ Rulings, one per finding (numbering as in PROGRESS.md):
    is proven on this machine — inventing one would violate
    verify-on-install, the exact ethos the registry enforces. Add only
    when a no-auth Muse Spark route actually runs here.
+
+## 2026-08-20 — Owner-directive change of law, post-verdict (amendment)
+
+Owner ruling, arrived AFTER the lane's M DoD PASS, relayed by the
+parent as a fix-loop task on this same lane (task_4aec4ac8b7c6): the
+house name is documented in full — singular "ratón chispeante", plural
+"ratones chispeantes" — and the seat BECOMES THE DEFAULT the dispatch
+dialogue offers, for cost reasons (two production reviews at ~$0.01 vs
+the ballena's price). The ballena stays fully registered as the
+owner-selectable alternative; the owner chooses between ratones
+chispeantes and ballenas at dispatch.
+
+This inverts what the lane originally encoded (ballena default, ratón
+alternative) and falsifies text the original falsehood check correctly
+judged TRUE under the old law — the check was right then; the law
+changed. Consequences: evals first (eval-01's dialogue graded line;
+eval-03's fixture judged choice-vs-default), then runners.md label
+inversion + full-name documentation + two in-scope polish items, then
+SKILL.md/reviewer.md/execution.md under the re-run falsehood check.
+The prior PASS stays on record for the pre-amendment tree (commit
+ffb5ac4); the amended tree gets its own verification. PR #82 remains
+the vehicle. CHANGELOG.md and ADR-008 stay untouched: dated records —
+the never-touch list covers the first, and an ADR records the decision
+of its date; the new law supersedes it by owner directive, which this
+entry records.

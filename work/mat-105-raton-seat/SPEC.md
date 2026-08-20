@@ -94,3 +94,45 @@ slugs/branches require ASCII. SPEC approval settles this choice.
 - PR body carries `Closes MAT-105`. The PR is left OPEN for the
   parent's review — the missing merge is not a stall.
 - All artifacts in English.
+
+## Amendment — owner ruling 2026-08-20 (post-verdict change of law)
+
+The owner inverted the default AFTER the lane's M DoD PASS: the **ratón
+chispeante becomes the default** the dispatch dialogue offers, for cost
+reasons (two production reviews at ~$0.01 vs the ballena's price); the
+ballena stays fully registered as the owner-selectable alternative. The
+house name is documented in full — singular "ratón chispeante", plural
+"ratones chispeantes". This makes text FALSE that the original
+falsehood check correctly judged true under the old law. The prior PASS
+remains on record for the pre-amendment tree; the re-review runs on the
+amended one. PR #82 stays the vehicle and is amended.
+
+Amendment scope, evals first:
+
+1. `skills/orchestrate/evals/eval-01.md` — the dialogue graded line
+   changes to grade the ratón chispeante default (muse spark 1.2
+   contributor) with the ballena (deepseek v4 flash) as the named
+   alternative, BEFORE any content edit. `evals/eval-03.md`'s fixture
+   is judged the same way: "picked '1 ballena'" stands only if it
+   reads as an owner CHOICE (valid under the new law — the ballena
+   stays selectable); if it reads as the default, it changes first
+   too.
+2. `reference/runners.md` — invert the default/alternative labels
+   between the two seats; document the full name "ratón chispeante
+   (pl. ratones chispeantes)" at the seat entry; in-scope polish now
+   included: fix the forward reference at the `--auto` paragraph and
+   re-scope the consent note as opencode-wide rather than ratón-only.
+3. `skills/orchestrate/SKILL.md` — step 3's offered default becomes
+   1 ratón chispeante (muse spark 1.2 contributor), ballena the named
+   alternative; step 6's two-step launch snippet shows the ratón argv
+   with the ballena's cited nearby (single-definition discipline);
+   every SKILL.md line the new law falsifies updated;
+   `references/reviewer.md`'s "(default 1 ballena)" line inverted.
+4. `docs/how-it-works/execution.md` — falsehood check re-run under the
+   new law; updated wherever it narrates the dispatch dialogue or
+   names the ballena as the default/representative wave seat; dated
+   records stay untouched. Same-commit with the SKILL.md change
+   (house rule: behavior change updates the affected chapter).
+5. All four gates exit 0; PR #82 updated (body already carries
+   `Closes MAT-105`); `CHANGELOG.md` and ADRs stay untouched (dated
+   records — the never-touch list and the ADR's nature both hold).
