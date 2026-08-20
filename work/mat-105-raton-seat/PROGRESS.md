@@ -447,6 +447,59 @@ columns.
 Files changed: `reference/runners.md` (the ratón paragraph only), this
 file.
 
+#### Step A2 review (fresh reviewer, opus) — verdict recorded verbatim
+
+> ### Spec compliance
+> ✅ Compliant
+>
+> **Step quality:** Approved
+> **Reasoning:** All four deliverables land with the acceptance
+> verified independently and every gate green, the inversion loses
+> nothing of the ballena's registration (argv, fallback, two-step
+> launch, both evidence dates, portability-proof record all confirmed
+> against `HEAD~1`), and the single-definition and ordering fixes are
+> real improvements rather than shuffles. The one should-fix — the new
+> default seat's unstated Go-auth requirement and missing no-auth path
+> — is a one-clause addition that A3's pass over the same law can
+> absorb.
+
+Important finding 1 (no-auth path for the default seat) entered the
+fix loop — fix round 1 commit a659b79, scoped re-review verdict
+recorded verbatim:
+
+> ### Finding 1 (no-auth path for the default seat)
+> **ADDRESSED** — The fix inserts one clause after the ratón's
+> argv/launch line [...] names the ratón's auth requirement, points the
+> no-auth recovery at the ballena's proven fallback [...] rather than
+> inventing an unproven Muse Spark free model, and the fallback command
+> itself is still defined exactly once in the ballena entry. [...] no
+> new ordering-dependent reference. `node scripts/agent-lint.mjs .
+> --ignore tests,templates,global,examples` → `0 high, 0 medium, 0 low
+> — PASS`, exit 0.
+>
+> ### New issues inside the fix's blast radius (only if real)
+> None found.
+
+Minor findings (deferred to work-verify's triage):
+
+A2-2. The ~$0.01 figure carries no verification stamp and "the
+   ballena's price" is never quantified — stamp it like the file's
+   other facts, or state it as an ordering.
+A2-3. The two-invocation-forms paragraph lost its only concrete TUI
+   argv and leans on "the dispatch dialogue" (an orchestrate concept);
+   suggested "launches the chosen seat (registered below)".
+A2-4. The two-step pattern is enumerated in the pattern paragraph AND
+   re-listed in the ratón entry, while the ballena entry only cites it
+   — asymmetric; drop the re-listing or declare it deliberate.
+A2-5. PROGRESS wrap-check count ("five >72 lines") is wrong (13
+   non-table lines pre-exist over 72 cols); the load-bearing claim (no
+   NEW line over 72) was verified true — fix or drop the number.
+
+The reviewer's carryover checklist for A3 (surviving ballena-as-default
+lines) is recorded for the A3 implementer: SKILL.md:73-74, :163, :376;
+references/reviewer.md:5; execution.md:184-185, 226, 247, 282, 286,
+321, 329; eval-03:10 stays (owner choice, valid under the new law).
+
 ## In progress
 
 ## Next
