@@ -132,6 +132,13 @@ stable line's layout.
   UI repos may take the runtime-neutral browser gotcha (ae-init adds
   it on the next init/migration). Pointers hosting a fenced
   tool-managed block are now lint-clean as-is.
+- **1.4.2** (2026-08-20) — the 1.4.2 completion set: the machine-path
+  lint check, the ratón chispeante reviewer seat (now the dispatch
+  dialogue's default), the review-seat stall clock, the single-shot
+  worker_done law, the fallback-shell fix, and the port-attribution
+  stance. Migrating up: restamp. The new lint check only fires on
+  repos that vendor `skills/`, `reference/`, `templates/`, `global/`
+  or `loops/` directories — typical consumers carry none of them.
 - **1.4.1** (2026-08-19) — self-found fixes from four orchestration
   waves: `skills/skill-authoring` (the eleventh skill), using-ae's
   reference-path resolution rule, two new lint checks (entry-skill cap,
