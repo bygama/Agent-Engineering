@@ -842,7 +842,30 @@
     slack to absorb a review fix — a fix that needs words has to buy them
     elsewhere in the same paragraph.
 
+- 2026-08-20 — **PLAN step 8 REVIEWED → Approved, no Critical/Important,
+  no fix round.** Fresh reviewer (sonnet). Verdict verbatim:
+  `reviews/step-08-review.md`. This step executed the parent's **Ruling A**.
+  **Spec compliance: ✅ Compliant** · **Step quality: Approved.**
+  It confirmed the operational contract survived intact (cite the line if
+  present; re-run only if absent), that the pointer's promise is kept —
+  `reference/global-layer.md:52-91` really does carry a wiring recipe —
+  and that Ruling A's "neutral or shorter" was met exactly: both the old
+  and the new paragraph occupy 4 lines, and the file is 120 lines before
+  and after, "genuinely neutral, not just under the cap by luck".
+  It also judged the claim's truth to have **improved**: the old sentence
+  asserted as fact that a hook "already injected" the line on any machine
+  with the layer installed — true only because this repo used to ship the
+  hook. The new conditional framing is the accurate claim now that hook
+  wiring is documented as optional.
+  Deferred Minor (not looped, for work-verify's triage): `reference/orca.md:28-29`
+  uses the pronoun "it" where the old text said "the line". The reviewer
+  resolved it correctly and called it "not a real ambiguity", but noted
+  spelling it out costs zero lines.
+
+
 ## In progress
+
+- PLAN step 9.
 
 - PLAN step 8.
 
