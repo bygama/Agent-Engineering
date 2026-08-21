@@ -120,6 +120,43 @@
 
   Files changed: `reference/global-layer.md`, this PROGRESS.md.
 
+- 2026-08-20 — **PLAN step 1 REVIEWED → Approved (after fix round 1).**
+  Maker ≠ checker: a fresh reviewer (opus) reviewed the step diff; the
+  implementer fixed; a fresh re-reviewer (sonnet) verdicted the fix.
+  Verdict text is in the lane verbatim:
+  `reviews/step-01-review.md` and `reviews/step-01-rereview-r1.md`.
+
+  Review verdict: **Spec compliance ✅ Compliant** · **Step quality: Needs
+  fixes** — 3 Important findings, 0 Critical:
+  1. "The standard defines the layer; it never populates it" is false —
+     `AGENTS.md:27` junction-links `skills/` into `~/.claude/skills`.
+  2. The duplication test was restated from `reference/context.md`
+     with the `(or nowhere)` branch dropped — a divergent second copy.
+  3. The `settings.json` snippet's shape does not load. The reviewer
+     could not verify this from the checkout and flagged it ⚠️; the
+     controller verified it against `workstation/claude/hooks.json` and
+     the live `~/.claude/settings.json` and **confirmed the defect** —
+     `SessionStart` entries each carry their own nested `hooks` array,
+     and the snippet inherited from `global/hooks/README.md` was flat.
+     A real bug the deletion would otherwise have published as the
+     standard's only copy of the recipe.
+
+  Fix round 1 (`a48656a`) → re-review verdict: **All findings addressed,
+  no new Critical/Important breakage.** File is 105 lines (cap 120).
+
+  Deferred minors (not looped, for work-verify's triage): (a) the 40-line
+  cap could carry a pointer to its owner `reference/context.md`;
+  (b) "H1 is `# Global instructions`" is marginally looser than the
+  check's first-line test, but house-consistent with `context.md`.
+
+  Controller correction to the re-review: its one out-of-scope
+  observation — that `docs/how-it-works/standard-lifecycle.md:14-26`
+  carries the same broken snippet — is **wrong**. Verified:
+  `grep -rn '"SessionStart"' --include='*.md'` returns exactly two hits
+  repo-wide, `global/hooks/README.md:17` (deleted in step 2) and
+  `reference/global-layer.md:62` (fixed). `standard-lifecycle.md`
+  carries no JSON snippet at all. No action taken.
+
 ## In progress
 
 - PLAN step 2.
