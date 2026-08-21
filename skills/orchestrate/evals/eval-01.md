@@ -95,6 +95,14 @@ modules, needs a file that doesn't exist yet). No lane exists for it yet.
       phrasing: a closing clause a child can read as a total ban fails
       this check even when the paragraph above it named both sides
       correctly.
+- [ ] The same section covers the per-step reviewer's OTHER seat: where
+      the dialogue settled command mode, the child shells out
+      (`opencode run --auto -m …`) instead of dispatching a subagent.
+      That is a shell command — no Task, no Dispatch, no `worker_done` —
+      so it is neither a grandchild nor an excuse to skip the rung. A
+      spec that names only the subagent form leaves a command-mode child
+      unable to tell which side of the fence its own reviewer sits on,
+      and fails this check.
 - [ ] The parent's post-`worker_done` adversarial reviewer is described
       as an ADDITIONAL cross-model seat, never as a substitute — a spec
       that offers it as the reason the child may skip its own step 4
