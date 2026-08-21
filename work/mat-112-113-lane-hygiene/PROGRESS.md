@@ -296,9 +296,102 @@ issue: MAT-112, MAT-113
   sweep is an addition that chapter may want to mention — it falsifies
   nothing there today.
 
+- **Step 4 review — Approved (engine: sigiloso, command mode,
+  `opencode/x-preview-f-free`, first-choice seat).** Verdict verbatim:
+  "### Spec compliance / ✅ Compliant — the diff adds exactly what Step
+  4 asked: a pre-open sweep inside work-plan's step 0
+  (`skills/work-plan/SKILL.md:66-102`), gated before `work/<slug>/`
+  creation in either mode, MERGED-criterion via `git branch --merged
+  main` / PR state, refusal until work-handoff closes, with **the next
+  ticket is not a close** carried verbatim […] ### Assessment /
+  **Step quality:** Approved / **Reasoning:** The sweep text satisfies
+  every eval-07/eval-08 checklist line with mechanically-checkable,
+  correctly-scoped prose placed where a session will actually hit it
+  pre-open, matches the skill's voice, stays far under the 500-line cap
+  (247), and contradicts nothing else in the skill or standard; both
+  acceptance gates re-ran green independently." Minor (deferred to
+  work-verify's triage): the frontmatter `description` enumerates three
+  refusals but not the new merged-lane refusal — a stale triggering
+  surface, candidate for the step-7 sweep or a small follow-up commit.
+
+- **Step 5 [MAT-113] work-handoff eval (before content) — DONE.** Added
+  `skills/work-handoff/evals/eval-07.md` ("batch close — 'at the end of
+  the run' never comes"), in the house shape read off eval-01..06:
+  `# Eval 07: <phrase>` title, an `Origin failure:` note (the eval-05
+  precedent) carrying the field evidence verbatim from SPEC — Pegasuz,
+  2026-08-20, ~40-ticket marathon, 32 lane folders left in `work/`,
+  every one verified and merged — then `## Query` (the owner's words,
+  single beat, as eval-01/03/04 do), `## Fixture` (checkout state in
+  prose) and `## Expected behavior` (9 `- [ ]` lines, ≤72 cols, one
+  judgment per line — the granularity of eval-03's 9-line checklist).
+
+  The scenario is deliberately mid-marathon, not end-of-marathon: ticket
+  12 of ~40, `work/mat-207-…/` gate-satisfied (PASS block current, PR
+  merged, tree green), three earlier merged lanes already deferred under
+  the same plan, two lanes genuinely in flight. That fixture makes the
+  checklist able to separate the three populations the judgment needs:
+  the lane to close now, the accumulated debt, and live concurrency.
+
+  Checklist encodes: refuse the deferral and close now (the gate is
+  already satisfied, nothing to wait for); state the reason on its own
+  terms — in a marathon the end never comes — not as a rule citation;
+  no substitute accepted (TODO, PROGRESS note, reminder, "sweep them
+  tomorrow" is not a close, and none is offered as a compromise); the
+  three deferred merged lanes named as debt with the same per-lane fix,
+  never one sweep commit deleting four folders; per-lane close shape
+  preserved (finalize commit, then folder removal) with the gate
+  re-checked per lane, so one batch cannot carry a single verdict for
+  four; in-flight lanes untouched (debt, never concurrency); close
+  pinned to the merge — no open-PR lane closed, no early merge proposed
+  to make one closable; the card+tracker step still runs per close
+  (pace is not an excuse to skip evidence); and WIP=1 — the seat does
+  not pass to ticket 13 with the close owed, with the debt named exactly
+  if the owner holds the line.
+
+  Complementarity with the work-plan side (step 3) without duplication:
+  work-plan's eval-07/08 gate the OPEN (a merged-but-present folder
+  refuses the next lane); this one gates the DEFERRAL (the close happens
+  at this ticket's merge, not queued for a later sweep). The shared
+  doctrine appears once on each side in the terms of that side — the
+  work-plan refusal line "the next ticket is not a close" is not reused
+  here; the last checklist line reaches the other side only as a
+  consequence (the debt named for the next open to hit).
+
+  Acceptance command, exit 0 (work-handoff now at 7 evals):
+
+  ```
+  $ node tests/run-eval-checks.mjs
+  ...
+  ok   work-handoff: 7 evals well-formed
+  ok   work-plan: 8 evals well-formed
+  ...
+  all eval checks passed
+  EXIT: 0
+  ```
+
+  Also ran `node scripts/agent-lint.mjs . --ignore tests,templates,examples`
+  as a sanity check (not this step's acceptance): exit 0,
+  `0 high, 0 medium, 0 low — PASS`.
+
+  Files changed: `skills/work-handoff/evals/eval-07.md` (new), plus this
+  PROGRESS.md entry. `skills/work-handoff/SKILL.md` deliberately
+  untouched — the red-flag row is step 6, evals-before-content is repo
+  law. Nothing under `.claude/skills/`, `templates/` or `reference/`
+  touched. The step-4 review entry above rides in the same commit —
+  controller-authored, uncommitted when this step started, preserved
+  rather than reverted.
+
+  Concerns: none. Note for step 6: the checklist pins wording the
+  red-flag row must support — the refusal argued as "in a marathon the
+  end never comes" (not as a cited rule), the batch refused *without* a
+  TODO/note compromise, the per-lane close shape (finalize-then-remove,
+  gate re-checked per lane) surviving the marathon pace, in-flight lanes
+  explicitly out of scope, and the existing WIP=1 judgment note being
+  the hook the last checklist line leans on.
+
 ## In progress
 
-- PLAN steps 5-7 pending — work-run dispatch continues at step 5.
+- PLAN steps 6-7 pending — work-run dispatch continues at step 6.
 
 ## Next
 
