@@ -1051,7 +1051,39 @@
   surface, so there is nothing for step 11's repo-wide sweep to expect from
   it beyond the DECISIONS.md entry already present.
 
+- 2026-08-20 — **PLAN step 10 REVIEWED → Approved, no Critical/Important,
+  no fix round.** Fresh reviewer (sonnet). Verdict verbatim:
+  `reviews/step-10-review.md`. This step produced **no repo change** — its
+  whole output is the recorded judgment, so the judgment is what was
+  reviewed.
+  **Spec compliance: ✅ Compliant** · **Step quality: Approved.**
+  The reviewer re-derived the verdict independently and confirmed the
+  `examples/` fence held (no `examples/` path anywhere in the diff; the
+  file is byte-for-byte unchanged). Crucially it checked the ONE claim
+  with a real dependency on this repo — that workstation's CI runs this
+  standard's lint, job `standard`, in `.github/workflows/verify.yml` —
+  against the actual file in the local clone: the job exists, checks out
+  `bygama/Agent-Engineering` and runs `node standard/scripts/agent-lint.mjs
+  repo`. It also confirmed `scripts/agent-lint.mjs` is untouched by this
+  lane, so the invocation contract workstation's CI depends on did not
+  shift underneath it.
+
+  **Second workstation-side drift for the parent's wave close (reviewer's
+  Minor, out of scope here):** `examples/machine-config/README.md` says
+  workstation's root `AGENTS.md` has "9 real gotchas"; at the commit this
+  lane pinned (`22f3619`) that section has **10**. Not caused by this
+  lane, and `examples/` are authoring-time snapshots whose staleness is by
+  design — but it is live-linked prose, so it belongs in the same
+  workstation-side sweep already absorbing the `claude/README.md` drift.
+  The reviewer noted the implementer skipped checking workstation's
+  numeric claims against the clone it had available, while crediting that
+  its scoping ("did the deletion falsify this file?") was a defensible
+  reading of the step's mandate.
+
+
 ## In progress
+
+- PLAN step 11.
 
 ## Tried and failed
 
