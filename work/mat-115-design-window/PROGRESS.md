@@ -1048,6 +1048,60 @@ high, 0 medium, 0 low`), so no SKILL.md content change was needed
 beyond the descriptive comment — the STOP-and-report-NEEDS_CONTEXT
 condition in the dispatch brief did not trigger.
 
+### Step 8 fix round — re-wrap the un-re-wrapped paragraph (Minor, polish)
+
+**What was re-wrapped.** Step 8's insertion into the design-first
+bullet left one stub line, `count. PLAN.md starts only`, sandwiched
+between two full-width lines instead of being folded into them. The
+whole paragraph (from `` `scripts/agent-lint.mjs`'s work-lanes section
+reads... `` through `...already over.`) is re-wrapped greedy, to the
+same ~70-char width the rest of the bullet already uses. No word,
+punctuation, or marker text changed — only where the line breaks fall.
+
+**The literal proof command printed a diff, not nothing — corrected
+here rather than silently forced.** `git diff -w -- skills/work-plan/SKILL.md`
+does **not** print nothing after this fix; it still prints a full hunk.
+Verified this is `git diff -w`'s own limitation, not leftover content
+drift: `-w`/`--ignore-all-space` ignores whitespace *within* a line but
+still diffs *line-by-line* — when a re-wrap moves a word across an
+original line boundary (which any fix for a stub line necessarily
+does), the two lines' non-whitespace content differs, so `-w` cannot
+suppress the hunk. Confirmed on a two-line synthetic repo before
+trusting this reading, and confirmed no combination of `-w`, `-b`,
+`--ignore-blank-lines` collapses it either. The correct proof for a
+pure reflow is to strip **all** whitespace including newlines from both
+revisions and diff those, which is empty:
+
+```
+$ diff <(git show HEAD~1:skills/work-plan/SKILL.md | tr -s '[:space:]' ' ') \
+       <(cat skills/work-plan/SKILL.md | tr -s '[:space:]' ' ')
+$ echo $?
+0
+```
+
+(no output — the two revisions are identical once every run of
+whitespace, including line breaks, is collapsed to one space, i.e. the
+change is provably whitespace-only.)
+
+**Gate command, full output:**
+
+```
+$ node scripts/agent-lint.mjs . --ignore tests,templates,examples && node tests/run-lint-tests.mjs && node tests/run-gen-tests.mjs && node tests/run-eval-checks.mjs
+agent-lint <repo root>
+0 high, 0 medium, 0 low — PASS
+...
+all 25 cases passed
+...
+all gen cases passed
+...
+all eval checks passed
+$ echo $?
+0
+```
+
+Commit: `4ed5718 style(work-plan): re-wrap the design-first paragraph
+after step 8's edit`.
+
 ## In progress
 
 - work-run executing PLAN steps 1-7 in order. All seven steps done.
