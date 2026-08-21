@@ -308,6 +308,91 @@ issue: MAT-115
   since `tests/` is excluded from the self-lint; not re-run here as a gate
   (step 6 owns the full gate sweep).
 
+- **Step 3 review — command-mode sigiloso (`opencode/x-preview-f-free`,
+  chain position 1, no degradation), verdict verbatim:**
+
+  > ### Spec compliance
+  >
+  > **Compliant** — every element of the step lands as specified, and each
+  > high-risk claim was verified against the checkout, not just the diff:
+  >
+  > 1. **Marker byte-for-byte** (highest-risk line): compared
+  > `tests/fixtures/lane-window-ok/work/demo-lane/PROGRESS.md`
+  > programmatically against the SPEC "The marker" string — exact substring
+  > match, pure ASCII (no em dash, no smart quotes). Identical to the PLAN
+  > interface block.
+  > 2. **Near-miss precision**: directory listing confirms
+  > `lane-window-near-miss` holds exactly one lane (`work/demo-lane/`). Its
+  > STATE line drifts on two independent axes — em dash for the comma, word
+  > reorder — and programmatic check confirms the exact marker is **not** a
+  > substring. Any `lane missing PLAN.md` it emits can only be that lane's.
+  > 3. **Otherwise lint-clean**: ran the suite — `lane-window-ok`'s complete
+  > finding set is `{lane-incomplete}` alone. No stamp-shape, pointer-shape,
+  > budget, or structure noise, so today's red is attributable to exactly
+  > the state the lane exists to prove, and step 4 can only turn it green by
+  > learning the window.
+  > 4. **Red in exactly one case**: full suite run shows `1/24 cases failed`
+  > — only `design-first approval window lane passes without PLAN.md`; all
+  > 23 others `ok`, including both negatives. Acceptance command verbatim:
+  > exit 0.
+  > 5. **`scripts/agent-lint.mjs` absent** from the diff entirely — only
+  > `tests/fixtures/*` and `tests/run-lint-tests.mjs` touched.
+  >
+  > [...] I confirmed the harness already implements `expectMatch`
+  > (tests/run-lint-tests.mjs:265-267), so the assertions are live, not
+  > silent no-ops. Direct lint of `lanes-bad` shows the spec-only lane
+  > introduced no unasserted finding codes, and `lane missing PROGRESS.md`
+  > is uniquely spec-only's (`Bad_Slug` produces only the PLAN.md one) — the
+  > pin attributes correctly.
+  >
+  > ### Issues
+  >
+  > #### Critical (Must Fix)
+  > None.
+  >
+  > #### Important (Should Fix)
+  > None.
+  >
+  > #### Minor (Nice to Have)
+  >
+  > 1. **tests/run-lint-tests.mjs:142 — `lane missing PLAN.md` is
+  > ambiguously attributed in `lanes-bad`.** Both `Bad_Slug` and
+  > `spec-only` emit it, so that half of the `expectMatch` proves less than
+  > the other half. This is exactly what the PLAN prescribed (and the case
+  > comment honestly names the PROGRESS.md message as the precise pin), so
+  > no action in this step — noting only that if the harness ever grows
+  > per-lane scoping, that half could tighten.
+  >
+  > ### Assessment
+  > **Step quality:** Approved
+  > **Reasoning:** All five judged requirements verified with direct
+  > evidence — byte-exact ASCII marker, single-lane near-miss free of the
+  > exact string, provably otherwise-clean fixtures, a red isolated to
+  > precisely one case with only the expected finding code, and the linter
+  > untouched. The negatives are pinned with message-level assertions the
+  > harness genuinely enforces, and the red-before-green transcript is on
+  > record in the lane's PROGRESS.md.
+
+  **Controller response.** Approved, no fix round. The single Minor is the
+  PLAN's own deliberate tradeoff, already named in the PLAN's interface
+  block ("`lane-window-near-miss` holds exactly one lane, so any
+  `lane missing PLAN.md` the fixture emits can only be that lane's") — the
+  precise pin for the SPEC-only lane is the PROGRESS.md message, and the
+  PLAN.md half is corroboration, not the assertion. No harness change is
+  bought for it in this lane.
+
+  **The red, on record, before the check learns anything:**
+
+  ```
+  $ node tests/run-lint-tests.mjs
+  ok   malformed lanes fail
+  FAIL design-first approval window lane passes without PLAN.md
+  ok   near-miss marker text does not exempt a lane
+  1/24 cases failed
+  $ echo $?
+  1
+  ```
+
 ## In progress
 
 - work-run executing PLAN steps 1-6 in order. Steps 1-3 done; steps 4-6
