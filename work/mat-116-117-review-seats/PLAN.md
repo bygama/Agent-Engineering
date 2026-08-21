@@ -60,7 +60,7 @@ after step 9, covering both.
 
 ## Steps
 
-- [ ] **1. `reference/runners.md` — register the seats and the laws**
+- [x] **1. `reference/runners.md` — register the seats and the laws**
   (MAT-116 item 1, all seven parts of SPEC §1): the sigilosos entry
   (Ox Alpha verified, Big Pickle named-unverified), the free-ratón
   entry, the command-mode recipe, the `--auto` law extended to run-mode
@@ -75,7 +75,7 @@ after step 9, covering both.
   goes with it. *(judgment · per-step)*
   accept: `grep -q 'sigiloso' reference/runners.md && grep -q 'x-preview-f-free' reference/runners.md && grep -q 'opencode run --auto' reference/runners.md && grep -q 'muse-spark-1.2-contributor-free' reference/runners.md && ! grep -q -- '-m opencode/deepseek-v4-flash-free' reference/runners.md && ! grep -q 'takes no `--auto`' reference/runners.md && node scripts/agent-lint.mjs . --ignore tests,templates,examples` — exit 0
 
-- [ ] **2. `skills/work-run/evals/` — evals FIRST for work-run**
+- [x] **2. `skills/work-run/evals/` — evals FIRST for work-run**
   (SPEC §6): the reviewer-mode knob (command mode is a shell command,
   not an orchestration worker; sigiloso default; the liveness check
   before relying on the model; the degradation chain on a dead model)
