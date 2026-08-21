@@ -264,3 +264,62 @@ sigiloso down, this lane's own gate now also ran there, so the parent's
 seat is no longer model-independent from the lane gate. The parent may
 want to pick a different id for real independence — this lane cannot make
 that call for it, only surface it.
+
+## 2026-08-21 — PASS REVOKED: a lane that merely QUOTES the marker is exempted
+
+**The finding.** The in-session Claude fresh-context reviewer (whose report
+arrived late, after the runner seat had already returned PASS) raised an
+Important finding neither runner seat looked for:
+`scripts/agent-lint.mjs`'s marker test is a whole-file substring match, so
+a lane that merely *quotes* the marker — in a command transcript, a
+blockquote, a fenced block — is exempted from needing PLAN.md even though
+it is not in the approval window at all.
+
+**Confirmed real, reproduced by the controller.** A throwaway AE repo whose
+single lane holds SPEC.md, no PLAN.md, and a PROGRESS.md whose only
+occurrence of the marker is inside a fenced command transcript
+(`$ grep -q 'STATE: ...' skills/work-plan/SKILL.md`), with the prose
+explicitly saying the lane is NOT in the window:
+
+```
+$ node scripts/agent-lint.mjs <that repo>
+0 high, 0 medium, 0 low — PASS
+$ echo $?
+0
+```
+
+It should have fired `lane missing PLAN.md`. The reviewer also showed the
+sharper version: this repo's own lane files, copied into a temp repo with
+PLAN.md deleted, PASS as well — because this lane's PROGRESS.md quotes the
+marker six times in its review transcripts.
+
+**Why this is Important and not Minor.** SPEC's stated invariant — "Long
+enough to never collide. No lane writes this sentence by accident" — is
+already false on this repo's own tree. The class of lane most likely to
+quote the marker is a lane working on the marker, i.e. exactly the lanes
+this repo will keep opening.
+
+**Ruling.** `work-verify`'s findings triage is explicit: confirmed real ->
+the PASS is revoked, fix, re-verify from step 3. The earlier PASS is struck
+and does not ship. The fix is anchoring, not a new invariant: the marker
+must be the CONTENT of a line — optional leading whitespace and an optional
+`- `/`* ` bullet, then the marker, then nothing but whitespace — which is
+exactly how `skills/work-plan/SKILL.md` instructs writing it, and which no
+transcript, blockquote or inline-code mention can satisfy.
+
+**Also fixed in the same step (Minor, but it makes a recorded claim true).**
+`tests/run-lint-tests.mjs`'s near-miss case pins only the finding CODE,
+while two recorded verdicts in this lane say both negatives are pinned with
+message-level assertions. One `expectMatch` line reconciles the record with
+the code and survives anyone adding a second lane to that fixture.
+
+**Not a defect (recorded so it is not re-litigated).** The reviewer's
+Minor 3 notes the branch passes through commits where one leg exists
+without the other (`0d2e6d3`, `a1aa348`). That is mandated by
+evals-before-content and fixtures-before-check; the SPEC's DoD is scoped to
+the PR, and this repo merges rebase-only by choice.
+
+**Already fixed before the finding arrived.** The reviewer's Important 2 —
+step 6's removal instruction shipped with no eval behind it — was true of
+the tree it reviewed and was closed by step 7 (`848b089` amends eval-05
+with the removal assertion, before `65150b9` moves the rule).
