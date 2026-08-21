@@ -436,6 +436,95 @@ issue: MAT-115
   constraint that fixtures are the spec this step must satisfy without
   editing them.
 
+- **Step 4 review — command-mode sigiloso (`opencode/x-preview-f-free`,
+  chain position 1, no degradation), briefed adversarially because this is
+  the lane's only diff that relaxes a shipped check. Verdict verbatim:**
+
+  > ### Spec compliance
+  >
+  > Compliant — every requirement of step 4 is implemented, nothing extra,
+  > nothing misunderstood. Verified against SPEC §5 and the four acceptance
+  > gates (all exit 0, run just now).
+  >
+  > **Adversarial checks performed:**
+  >
+  > 1. **Lane-shape enumeration** (scripts/agent-lint.mjs:249-256). [...]
+  > Every shape:
+  >    - (a) SPEC only, no PROGRESS → `hasProgress=false`, window
+  >      unreachable → **both findings fire** (SPEC §4 pinned case holds)
+  >    - (b) PROGRESS without marker, no PLAN → fires `lane missing PLAN.md`
+  >      only
+  >    - (c) PROGRESS with marker, no PLAN → PLAN finding skipped — the one
+  >      exemption
+  >    - (d) marker + PLAN present → clean, same as before
+  >    - (e) no lane files → slug never enters the map, silent, unchanged
+  >    - (f) PLAN present, PROGRESS absent → `hasProgress=false` → fires
+  >      `lane missing PROGRESS.md`
+  >
+  >    No shape stopped firing except (c). Code, severity (`medium`) and
+  >    message text are untouched for all others — the loop restructure is
+  >    behavior-preserving when `inApprovalWindow` is false.
+  >
+  > 2. **Marker byte-for-byte**: extracted the constant via regex from
+  > agent-lint.mjs and substring-tested it against
+  > `skills/work-plan/SKILL.md`, the SPEC, and PLAN.md — all match; 89
+  > chars, zero non-ASCII bytes. No drift between legs.
+  > 3. **Paired comment** (agent-lint.mjs:226-228): names
+  > `skills/work-plan/SKILL.md` by path, says "change both together", sits
+  > directly above the constant — same shape as the `ENTRY_SKILL_CAP`
+  > precedent at lines 211-215.
+  > 4. **Crash safety**: [...] `read()` is short-circuited behind
+  > `hasProgress`, so it only runs on a regular file confirmed to exist at
+  > walk time. Residual risk: an unreadable (EACCES) PROGRESS.md would throw
+  > — but that matches the script's existing unguarded-read convention
+  > everywhere else [...] so it introduces no new fragility class.
+  > 5. **`tests/` absent from the diff**: confirmed [...] Fixtures untouched.
+  > 6. **Anchoring**: whole-file substring over PROGRESS.md only. Quotes of
+  > the marker in a lane's SPEC/DECISIONS/PLAN cannot exempt anything — only
+  > PROGRESS.md is read. [...] line-start anchoring would break the shipped
+  > `- STATE: …` bullet form. Right call.
+  >
+  > ### Issues
+  >
+  > #### Critical (Must Fix)
+  > None.
+  >
+  > #### Important (Should Fix)
+  > None.
+  >
+  > #### Minor (Nice to Have)
+  >
+  > - **scripts/agent-lint.mjs:251** — an EACCES-unreadable PROGRESS.md
+  > would crash the lint where the work-lanes section previously did no I/O.
+  > Consistent with the script's convention everywhere else, and a lint
+  > crash is loud rather than silently wrong, so this is polish [...] Fine
+  > to defer.
+  >
+  > ### Assessment
+  > **Step quality:** Approved
+  > **Reasoning:** The relaxation is scoped to exactly one state with two
+  > independent guards, the marker is byte-identical across both legs
+  > (verified, ASCII-only), all six lane shapes behave as the SPEC pins
+  > them, and all four acceptance gates exit 0 with the new positive and
+  > near-miss cases demonstrably exercised.
+
+  **Controller response.** Approved, no fix round. The Minor (EACCES read)
+  goes to work-verify's triage with a controller lean toward WONTFIX: every
+  other read in `scripts/agent-lint.mjs` is unguarded, so a `try/catch` here
+  alone would make this one call site inconsistent with the file's
+  convention without removing the class of failure. Recorded, not dropped.
+
+  **Red → green, the same suite, one commit apart:**
+
+  ```
+  before (18231cd): FAIL design-first approval window lane passes without PLAN.md
+                    1/24 cases failed                                   exit 1
+  after  (44438e6): node tests/run-lint-tests.mjs                       exit 0
+                    node scripts/agent-lint.mjs . --ignore tests,templates,examples  exit 0
+                    node tests/run-gen-tests.mjs                        exit 0
+                    node tests/run-eval-checks.mjs                      exit 0
+  ```
+
 ## In progress
 
 - work-run executing PLAN steps 1-6 in order. Steps 1-4 done; steps 5-6
