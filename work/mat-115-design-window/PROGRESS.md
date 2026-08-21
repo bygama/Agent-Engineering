@@ -1196,6 +1196,63 @@ after step 8's edit`.
 
 ## Verification
 
+### 2026-08-21 — M DoD — PASS
+
+- **L1 static:** `node --check scripts/agent-lint.mjs` -> exit 0;
+  `node scripts/agent-lint.mjs . --ignore tests,templates,examples` ->
+  exit 0 (`0 high, 0 medium, 0 low — PASS`)
+- **L2 behavioral:** `node tests/run-lint-tests.mjs` -> exit 0
+  (`all 25 cases passed`); `node tests/run-gen-tests.mjs` -> exit 0
+  (`all gen cases passed`); `node tests/run-eval-checks.mjs` -> exit 0
+  (`all eval checks passed`); the CLI runs against a target other than the
+  repo root: `node scripts/agent-lint.mjs tests/fixtures/v2-clean` -> exit 0
+- **L3 end-to-end:** required, not n/a — this change crosses the SKILL that
+  WRITES the marker and the CHECK that READS it. Driver at
+  `scratchpad/e2e-driver.mjs` extracts the marker FROM
+  `skills/work-plan/SKILL.md` (never retyped) and drives the shipped check
+  against throwaway repos outside this checkout: A window open -> exit 0;
+  B paraphrased marker -> exit 1 `lane missing PLAN.md`; C SPEC-only ->
+  exit 1 BOTH messages; D window closed -> exit 0. `ALL 4 E2E FLOWS PASSED`,
+  exit 0.
+- **Fresh-context review:** PASS — ratón chispeante on the TUI seat
+  (`opencode --auto -m opencode/muse-spark-1.2-contributor-free`, a fresh
+  session with no history of this lane), which ran all six gates, built
+  FIVE throwaway repos itself, and re-verified the revoked defect (case E,
+  the marker only inside a fenced transcript) now correctly exits 1. Its
+  verdict: *"All six DoD commands exit 0 [...] end-to-end A-E all assert
+  correctly (notably E now FAILs as intended, confirming the anchoring
+  fix), marker coupling and lifecycle-aware check are exact, and no
+  forbidden paths were touched."* No Critical, no Important. Full verdict
+  text is in this file's step-8 section and in the reviewer's own written
+  report.
+- **Adversarial review:** scheduled by the parent orchestrator after
+  `worker_done` (1 ratón chispeante on the free id, per the dispatch
+  brief) — an ADDITIONAL cross-model seat, not a substitute for the rung
+  above, which ran.
+
+**Seat history, recorded because a fallen-through review must never look
+like a first-choice one.** Steps 1-5 were reviewed by the command-mode
+sigiloso (`opencode/x-preview-f-free`). It died mid-lane (two
+`[server_error] Upstream response was not valid JSON`, then a hard timeout
+on a one-line probe), so step 6 fell through to the free ratón. Both free
+seats later recovered, then the headless `run` form began timing out with
+empty output on long briefs — twice, 20 and 40 minutes. The owner ruled
+(2026-08-21) that TUI ratones should be used instead of headless seats
+while `run` is buggy, and steps 8 and the final lane gate were bought
+that way: `orca terminal create --command "opencode --auto -m
+opencode/muse-spark-1.2-contributor-free"`, driven with `orca terminal
+send/wait/read`. That is a terminal, not an orchestration worker — no
+Task, no Dispatch, no `worker_done` authority.
+
+**The PASS this replaces.** An earlier PASS was RECORDED AND REVOKED: the
+in-session Claude fresh-context reviewer reported late with a confirmed
+Important finding (a lane that merely QUOTES the marker was exempted from
+needing PLAN.md), the controller reproduced it on this repo's own lane
+files, and `work-verify`'s triage was applied as written — PASS revoked,
+fixed in step 8 fixture-first, re-verified from layer 1. The full ruling is
+in DECISIONS.md, 2026-08-21, "PASS REVOKED".
+
+
 <!-- PASS evidence only, written by work-verify (newest on top); the close
      handoff refuses to close a lane without a current PASS block here. -->
 
