@@ -267,6 +267,15 @@ for (const [slug, contents] of lanes) {
       add("medium", "lane-incomplete", `work/${slug}/`, `lane missing ${required}`);
   }
 }
+// A lane in the design-first approval window still COUNTS toward this
+// total, same as any other lane folder — the check measures accumulation,
+// never validity (SPEC "interplay judgment", MAT-112). Threshold N=5,
+// strict: an XL lane's children live in their own worktrees, so a single
+// checkout legitimately holds very few lanes at once — 5 concurrent lanes
+// here is already generous, and the finding is MEDIUM, a nudge to close.
+if (lanes.size > 5)
+  add("medium", "lane-accumulation", "work/",
+    `work/ holds ${lanes.size} lanes — work/ is ephemeral; close finished lanes (work-handoff close removes the folder, history preserves it)`);
 for (const name of ["SPEC.md", "PLAN.md", "PROGRESS.md", "DECISIONS.md"])
   if (files.includes(name))
     add("medium", "lane-location", name, "work artifact at repo root — it belongs in work/<slug>/");
