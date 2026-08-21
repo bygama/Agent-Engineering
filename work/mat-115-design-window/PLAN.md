@@ -160,8 +160,12 @@ here.
 - [ ] **6. Gate sweep + the lane's own invariants**
   (SPEC §7 and Definition of done): the four gates, plus machine proof
   of the three claims the SPEC makes about the shape of the change — the
-  marker lives in exactly two shipped sites (`skills/` and `scripts/`,
-  fixtures and lane files excluded), `scripts/agent-lint.mjs` names its
-  paired site by path, and no forbidden path moved in the whole branch
-  diff. *(integration · per-step)*
-  accept: `node scripts/agent-lint.mjs . --ignore tests,templates,examples && node tests/run-lint-tests.mjs && node tests/run-gen-tests.mjs && node tests/run-eval-checks.mjs && test $(grep -rl 'STATE: design-first approval window, waiting for owner approval of SPEC.md before PLAN.md' skills scripts | wc -l) -eq 2 && grep -q 'skills/work-plan/SKILL.md' scripts/agent-lint.mjs && test $(git diff --name-only main...HEAD -- CHANGELOG.md AGENTS.md README.md reference examples templates .claude | wc -l) -eq 0` — all exit 0
+  marker lives in exactly two **source-of-truth** sites
+  (`skills/work-plan/SKILL.md` and `scripts/agent-lint.mjs`),
+  `scripts/agent-lint.mjs` names its paired site by path, and no forbidden
+  path moved in the whole branch diff. The count excludes `evals/`,
+  fixtures and lane files: an eval that quotes the marker to assert what
+  "verbatim" means is an assertion *about* the two sites, not a third one
+  (step 1 review finding, adjudicated in DECISIONS.md 2026-08-21).
+  *(integration · per-step)*
+  accept: `node scripts/agent-lint.mjs . --ignore tests,templates,examples && node tests/run-lint-tests.mjs && node tests/run-gen-tests.mjs && node tests/run-eval-checks.mjs && test $(grep -rl --exclude-dir=evals 'STATE: design-first approval window, waiting for owner approval of SPEC.md before PLAN.md' skills scripts | wc -l) -eq 2 && grep -q 'skills/work-plan/SKILL.md' scripts/agent-lint.mjs && test $(git diff --name-only main...HEAD -- CHANGELOG.md AGENTS.md README.md reference examples templates .claude | wc -l) -eq 0` — all exit 0

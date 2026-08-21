@@ -63,6 +63,67 @@ issue: MAT-115
   0
   ```
 
+- **Step 1 review — command-mode sigiloso (`opencode/x-preview-f-free`,
+  chain position 1, no degradation), verdict verbatim:**
+
+  > ### Spec compliance
+  > Compliant — eval-05.md:38-48 implements exactly what the step requires:
+  > amended in place (not duplicated), existing design-first assertions
+  > untouched (diff context lines confirm), companion assertion added for the
+  > same-turn PROGRESS.md write with the marker quoted in full under
+  > `## In progress`, PLAN-absence re-asserted against the new artifact, and
+  > the direct-mode negative placed correctly inside the (b) group. Marker
+  > verified byte-for-byte via `cat -A`: pure ASCII, no em dash, exact match
+  > to SPEC's fixed string. Acceptance command run: exit 0, all 13 eval
+  > suites green ("work-plan: 6 evals well-formed"). Repo-wide grep confirms
+  > the marker currently lives only in eval-05.md — no leakage into
+  > unintended sites.
+  >
+  > ### Issues
+  > #### Critical (Must Fix)
+  > None.
+  >
+  > #### Important (Should Fix)
+  > - **PLAN.md:166 (step 6 acceptance) vs this step's required content** —
+  > step 6's gate counts files matching the marker under `skills`+`scripts`
+  > and demands `-eq 2`. Once steps 2 and 4 land, three files will match:
+  > `skills/work-plan/SKILL.md`, `skills/work-plan/evals/eval-05.md` (this
+  > step, which the PLAN itself mandates quote the marker in full), and
+  > `scripts/agent-lint.mjs`. The final gate is unsatisfiable as written.
+  > Risk named, check made: repo-wide grep run (above) confirming eval-05.md
+  > will be a third match site. Fix: this is a plan defect, not a defect in
+  > this diff — route to the parent as an ask to amend step 6's accept (e.g.
+  > exclude `evals/` from the grep path, since the intent "two
+  > source-of-truth sites" means SKILL.md and agent-lint.mjs; the eval is an
+  > assertion *about* the sites, not a site). No change to eval-05.md is
+  > warranted.
+  >
+  > #### Minor (Nice to Have)
+  > - eval-05.md:56-57 — the truncated prose reference
+  > `` `STATE: design-first approval window...` `` re-types a partial marker
+  > rather than pointing at the block above. Harmless today (full quote is 12
+  > lines up), but a future editor skimming could mistake the truncated form
+  > for the string. Could read "the marker quoted above" instead.
+  >
+  > ### Assessment
+  > **Step quality:** Approved
+  > **Reasoning:** The diff implements every element of the step —
+  > amendment-not-duplication, preserved assertions, verbatim full-quote
+  > marker (byte-verified ASCII), and the direct-mode negative — and its
+  > acceptance gate exits 0. The one Important finding is an arithmetic
+  > conflict in PLAN step 6's future gate caused by this step's mandated eval
+  > quote; it requires a parent decision on the plan, not any change to this
+  > step's output.
+
+  **Controller response.** Approved, no fix round. The Important finding is
+  a defect in this lane's own PLAN, not in the diff, and it resolves against
+  the SPEC without a parent ask: the SPEC's phrase is "two **source-of-truth**
+  sites", and an eval that quotes the marker to assert what "verbatim" means
+  is an assertion about those sites, not a third one. Step 6's acceptance is
+  amended to exclude `evals/` from the count (DECISIONS.md, 2026-08-21) —
+  a correction to the gate's spelling, not to its claim. The Minor finding
+  is recorded as deferred for work-verify's triage.
+
 ## In progress
 
 - work-run executing PLAN steps 1-6 in order. Step 1 done; steps 2-6
