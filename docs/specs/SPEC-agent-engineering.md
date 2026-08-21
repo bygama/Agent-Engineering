@@ -207,6 +207,12 @@ Agent-Engineering/
     └── plans/                   # dated implementation plans
 ```
 
+*Amended 2026-08-20 (v1.4.2, MAT-111): the `global/` entry in the tree above is the record
+of the target state as designed; that directory no longer exists in this repo. The owner's
+personal `~/.claude` layer is canonical in `bygama/workstation`, and the layer's doctrine —
+what belongs in it, the runner-generic SessionStart wiring recipe, the workstation pointer —
+lives in `reference/global-layer.md`.*
+
 ## Skills (behavior contracts)
 
 - **agent-init (P1).** Explores the repo, asks only what it cannot infer (profile, gotchas,
@@ -271,6 +277,12 @@ convention when `issue:` present. Self-test fixtures extend `tests/`.
   clone retired. Evals first. Accept: a fresh repo can `agent-init` to v2 and pass
   `agent-audit`; a v1 repo migrates cleanly; dogfooding passes (including how-it-works
   coverage); the old repo no longer exists anywhere referenced.
+  *Amended 2026-08-20 (v1.4.2, MAT-111): the `global/` port this phase performed has been
+  undone — `global/` was removed from this repo. The personal `~/.claude` layer is canonical
+  in `bygama/workstation` (its own repo, a consumer of this standard and never a dependency
+  of it); what the standard keeps is the doctrine, in `reference/global-layer.md`. The phase
+  entry above stands as written: the port did happen, and P1's acceptance was met at the
+  time.*
 - **P2 — usage skills.** work-verify + work-handoff. Accept: an M-tier task runs end-to-end
   under the standard with evidence-gated completion and clean handoff (Linear-linked case
   included).
