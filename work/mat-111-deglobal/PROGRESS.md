@@ -1403,7 +1403,57 @@
 
   Files changed: this PROGRESS.md only.
 
+- 2026-08-20 — **PLAN step 11 REVIEWED → Approved (after fix round 1).**
+  Fresh reviewer (sonnet), fix, fresh re-reviewer (haiku). Verdict text
+  verbatim: `reviews/step-11-review.md` and
+  `reviews/step-11-rereview-r1.md`.
+
+  Review verdict: **Spec compliance ✅ Compliant** · **Step quality: Needs
+  fixes** — 2 Important, 0 Critical. Crucially, the reviewer **re-ran all
+  four gates itself rather than trusting the transcript** and got
+  byte-identical output: 0/0/0 PASS, 22 lint-test cases, 7 gen cases, 13
+  eval-check groups, all exit 0. That is independent confirmation of the
+  lane's gate evidence, not a second copy of the same claim.
+  It spot-checked the classification adversarially where hiding is
+  easiest — bucket 3 — and confirmed `skills/ae-init/references/migration.md:140`
+  and `docs/how-it-works/standard-lifecycle.md:172` genuinely narrate
+  `SHIPPED_SURFACE`, a path-class check, rather than claiming this repo
+  carries a `global/`. It verified Rulings B and C verbatim against the
+  actual files, and confirmed step 11 changed only PROGRESS.md.
+  It independently confirmed the UNCLASSIFIED finding
+  (`skills/ae-audit/evals/eval-03.md`) is real on both counts and that
+  reporting-not-editing was correct.
+
+  The 2 Important findings were both about the accuracy of the evidence
+  record itself, not about a missed classification:
+  1. The headline count was wrong — "21/21 files classified" where the
+     grep returns **22**. No coverage gap (the grouped bucket-4 row
+     expands to 13, plus 9 listed rows = 22), but it is the number the
+     step asks a reader to trust.
+  2. Two lines were dropped from the second grep's enumeration despite a
+     claim to have read every line: `scripts/agent-lint.mjs:354` (the
+     `SHIPPED_SURFACE` regex — "global" with no trailing slash, so it
+     falls in the bare-`global` grep) and
+     `skills/ae-audit/references/checklist.md:41`. Both harmless in
+     substance; the overstated exhaustiveness was the defect.
+
+  Fix round 1 (`1545a40`) → re-review verdict: **All findings addressed,
+  no new Critical/Important breakage.** The corrected entry now shows
+  per-bucket arithmetic (4+2+3+13 = 22) so the count is independently
+  verifiable rather than asserted, names both dropped lines with their
+  classification, and carries a record-honesty note that step 11's own
+  commit message (`a1150c3`) still holds the superseded count and cannot
+  be edited retroactively.
+
+  Controller's note on the count: 22 is a moment-in-time number — the
+  lane's `reviews/` directory gains a file per reviewed step, so the
+  bucket-4 total keeps rising as the lane closes. The per-bucket
+  arithmetic is what makes the classification checkable, not the total.
+
+
 ## In progress
+
+- PLAN step 12 (parent's fence-lift ruling).
 
 ## Tried and failed
 
