@@ -228,8 +228,9 @@ sequenceDiagram
 
     P->>P: 1. tier gate — S stops here, M+ continues
     P->>P: 2. lane -> Task (--deps queues file overlap)
-    P->>O: 3. dispatch dialogue - reviewers? how many? which model?
-    O-->>P: answer recorded in the Task spec
+    P->>O: 3. dispatch dialogue - BOTH seats: per-step reviewer<br/>(mode + model) and adversarial (how many? which model?)
+    O-->>P: both answers recorded in the Task spec
+    P->>P: 3. guardrail: at least one cross-family gate<br/>per lane, else reject and re-ask
     P->>C: 4. worker-start --task --worktree new-child
     P->>C: 4. worktree set --linear-issue &lt;KEY&gt;<br/>separate call, bound at birth
     activate C
@@ -282,11 +283,30 @@ ids, so a `--model`-selectable reviewer starts in one call while an
 opencode seat — custom argv, no such id — takes the four-command
 two-step launch (`worktree create` → `terminal create` → `terminal
 wait` → `worker-start --terminal`). Either opencode seat takes it: the
-dialogue's default ratón chispeante (muse spark 1.2 contributor) and
-the ballena (deepseek v4 flash) it names beside it differ in argv, not
-in how they launch — `reference/runners.md` registers both; the skill
-shows the default's argv with that citation and reads the alternative's
-off it rather than duplicating them.
+dialogue's default ratón chispeante (muse spark 1.2 contributor, at its
+free id while the free windows last) and the ballena (deepseek v4 flash)
+it names beside it differ in argv, not in how they launch —
+`reference/runners.md` registers both; the skill shows the default's
+argv with that citation and reads the alternative's off it rather than
+duplicating them. A seat whose model has been retired or throttled walks
+that file's degradation chain rather than blocking the wave — which is
+not hypothetical: the ballena's old no-auth free id stopped existing,
+and only the file knew.
+
+Stage 3 is where the two seats are settled, and it settles **both** at
+once. The **per-step reviewer** runs inside the child's own work-run —
+mode (`subagent` or `command`) and model — and defaults to the
+command-mode sigiloso; the **adversarial reviewer** runs here in the
+parent after `worker_done` and defaults to one ratón chispeante. Asking
+about them together is what makes the third arrow above possible: the
+parent can check, before the child is born, that the lane has **at least
+one cross-family gate**. The child is Claude by convention, so a Claude
+per-step seat with a Claude adversarial seat — or with none at all —
+would leave a lane whose maker and every checker share one family's blind
+spots. Both are rejected and re-asked. The owner can still choose that
+lane, but only by saying so explicitly, and the words go into the Task
+spec verbatim: the escape exists, and it cannot be reached by drifting
+into it (`docs/adrs/ADR-008-orchestration.md`, amended 2026-08-21).
 
 Stage 6 also runs a clock the diagram doesn't draw: an opencode TUI
 reviewer — ratón or ballena — cannot heartbeat, so stage 5's cadence

@@ -145,7 +145,7 @@ after step 9, covering both.
   *(judgment · per-step)*
   accept: `grep -q 'cross-family gate' skills/orchestrate/SKILL.md && grep -q 'x-preview-f-free' skills/orchestrate/SKILL.md && grep -q 'muse-spark-1.2-contributor-free' skills/orchestrate/SKILL.md && node scripts/agent-lint.mjs . --ignore tests,templates,examples && node tests/run-eval-checks.mjs` — exit 0
 
-- [ ] **8. `docs/adrs/ADR-008-orchestration.md` — amendment note only**
+- [x] **8. `docs/adrs/ADR-008-orchestration.md` — amendment note only**
   (SPEC §3): an italic amendment note in the file's own established
   style, dated 2026-08-21, on the "Dispatch-time reviewer question"
   bullet — naming the two-seat dialogue, the cross-family guardrail and
@@ -155,7 +155,7 @@ after step 9, covering both.
   records. *(judgment · grouped)*
   accept: `grep -q '2026-08-21' docs/adrs/ADR-008-orchestration.md && grep -q 'cross-family gate' docs/adrs/ADR-008-orchestration.md && grep -q 'MAT-116' docs/adrs/ADR-008-orchestration.md && grep -q 'opencode/deepseek-v4-flash-free' docs/adrs/ADR-008-orchestration.md` — exit 0
 
-- [ ] **9. `docs/how-it-works/` — make the chapters true again**
+- [x] **9. `docs/how-it-works/` — make the chapters true again**
   (SPEC §7): `execution.md`'s stage-3 sequence line and its surrounding
   narration now describe a two-seat dialogue, and the no-auth-fallback
   narration moves to the live id; `work-lifecycle.md`'s "Each step gets

@@ -136,3 +136,47 @@ step's diff goes to the sigiloso before the step is recorded DONE.
 
 Recorded rather than assumed, because it is a deviation from work-run's
 default shape and the parent should see it stated, not inferred.
+
+## 2026-08-21 — `docs/how-it-works/` judgments, chapter by chapter
+
+The house hard constraint updates the affected chapter in the same
+change. "Affected" is decided per chapter, and the verdict is recorded
+whether or not the file moved.
+
+**`execution.md` — CHANGED.** Stage 3 of the 8-stage dispatch cycle read
+"dispatch dialogue - reviewers? how many? which model?", a one-seat
+description this lane falsifies. The sequence line now names both seats
+and adds the guardrail beat; new narration under the diagram explains
+why asking together is what makes the cross-family check possible before
+the child is born, and the launch-fork paragraph picks up the free-id
+default and the degradation chain.
+
+**`work-lifecycle.md` — CHANGED.** Two claims went false. "Each step
+gets a fresh-context review (maker ≠ checker)" is not true under
+`grouped`; the paragraph now separates what is invariant (fresh context,
+maker ≠ checker) from what the plan now chooses (how often, and who),
+carries the MAT-111/MAT-110 cost evidence in one sentence, and says why
+grouping is safe — nothing downstream of the review moved. work-plan's
+own paragraph gains the review class beside interfaces and acceptance.
+
+**`architecture.md` — NO CHANGE.** Its work-run sentence (line 98)
+describes "a fresh implementer subagent per step, the lane as its entire
+context package". That is the **implementer**, which this lane does not
+touch: the reviewer seat is what became configurable. The sentence reads
+true as written.
+
+**`standard-lifecycle.md` — NO CHANGE.** Its only relevant lines (29-30)
+enumerate the work-cycle skills by name and cite ADR-006 for shaping's
+place in the order. The order did not change and no skill was added or
+removed.
+
+**`integrations.md` — NO CHANGE.** Its "review" mentions are the GitHub
+plane's PR review (line 5) and the tracker's `in-review` workspace status
+(line 86). Neither is the in-lane reviewer seat; both stay true.
+
+**`README.md` — NO CHANGE.** The chapter index rows for
+`work-lifecycle.md` and `execution.md` describe those chapters at the
+level of "the lane lifecycle" and "the parent/child dispatch cycle,
+review wave" — review classes and reviewer seats live inside both of
+those, so neither row went false. Rewriting an index row to name every
+concept a chapter gained is drift, not maintenance.

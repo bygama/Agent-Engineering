@@ -584,3 +584,77 @@ fall-through. Two passes: FAIL, PASS.** Verdicts verbatim:
 Step 7 closes Approved at fix round 1/5. No deferred minors. The
 reviewer's out-of-diff item (a) — ADR-008's dated amendment note — is
 step 8, next.
+
+### Steps 8-9 — the `grouped` block — DONE (ONE review pass)
+
+The lane's only contiguous `grouped` run, reviewed once at its
+boundary on the combined diff and both PLAN lines — this lane applying
+MAT-117's machinery to itself.
+
+**Step 8 — `docs/adrs/ADR-008-orchestration.md`:** an italic
+"Amended again 2026-08-21 (MAT-116 owner amendment)" note on the
+existing Dispatch-time-reviewer-question bullet. The bullet, the
+2026-08-20 note, and the `deepseek-v4-flash-free` line at 93 all stay
+as written — dated records.
+
+**Step 9 — `docs/how-it-works/`:** `execution.md` (stage-3 sequence
+lines + new narration on why both seats are asked together) and
+`work-lifecycle.md` (the falsified per-step-review claim split into
+what is invariant and what the plan now chooses). Four chapters judged
+and recorded NO CHANGE in DECISIONS.md with the reason for each:
+`architecture.md`, `standard-lifecycle.md`, `integrations.md`,
+`README.md`.
+
+Acceptance exit 0 for both steps (step 8's four greps; step 9's three
+greps + `agent-lint` PASS).
+
+**Review engine: FELL THROUGH — third occurrence.** The sigiloso read
+the brief, the diff, the ADR, all six how-it-works chapters,
+`reference/runners.md` and all three touched SKILL.md files, then ended
+without emitting a report. Chain position 2, the **free ratón
+(`opencode/muse-spark-1.2-contributor-free`)**, produced the verdict.
+The pattern across the lane is consistent: the sigiloso returns
+normally on light-to-medium briefs and silently ends on the heaviest
+ones (steps 4, 5 and 8-9 — the three briefs that ask it to read the
+most files).
+
+Verdict verbatim (free ratón):
+
+> → Read skills/work-run/SKILL.md
+> ```
+> VERDICT: PASS
+> ```
+>
+> ### Spec compliance
+> ✅ Compliant — `docs/adrs/ADR-008-orchestration.md:49-66`, `docs/how-it-works/execution.md:231-233,283-309`, `docs/how-it-works/work-lifecycle.md:118-164`, `work/mat-116-117-review-seats/DECISIONS.md:140-182` satisfy SPEC §§3,7 and the `grouped` review class (PLAN steps 8-9), with the house hard constraint honoured in the same change.
+>
+> ### Strengths
+> - ADR-008 amendment is additive and style-faithful: original `Dispatch-time reviewer question` bullet `docs/adrs/ADR-008-orchestration.md:38-46` and `*Amended 2026-08-20` note `docs/adrs/ADR-008-orchestration.md:47-51` untouched; new `*Amended again 2026-08-21` note `docs/adrs/ADR-008-orchestration.md:52-66` in same italic style names both seats, guardrail, recorded-override escape, states `maker ≠ checker` unchanged, cites `reference/runners.md`; dated `deepseek-v4-flash-free` at `docs/adrs/ADR-008-orchestration.md:107` retained as record per SPEC out-of-scope rule.
+> - `execution.md:231-233` sequenceDiagram correctly replaces one-seat `reviewers? how many? which model?` with two-seat `BOTH seats: per-step reviewer<br/>(mode + model) and adversarial (how many? which model?)` plus new `P->>P: 3. guardrail: >=1 cross-family gate per lane,<br/>else reject and re-ask`; surrounding narration `docs/how-it-works/execution.md:283-309` moves no-auth fallback to live id and cites degradation chain — no live `-m opencode/deepseek-v4-flash-free` spawn target left.
+> - `work-lifecycle.md:118-164` corrects the falsified universal claim: invariant `fresh-context, maker ≠ checker` separated from variable `how often` (`per-step`/`grouped`/`covered-by-batch` with contiguity rule and cost evidence MAT-111/MAT-110) and `who` (subagent vs `opencode run --auto` command-mode, cross-family, degradation chain, `grouped` safe because lane gate + adversarial seat unchanged); work-plan paragraph `docs/how-it-works/work-lifecycle.md:118-124` gains review class beside interfaces/role hints.
+> - Four NO-CHANGE judgments verified independently and recorded `work/mat-116-117-review-seats/DECISIONS.md:162-182` whether or not file moved, as SPEC §7 requires; each rationale is accurate (see findings).
+>
+> ### Findings
+> #### Critical
+> None.
+>
+> #### Important
+> None — no stale one-seat dialogue, universal `Each step gets...` claim, retired `free` id as spawn target, or subagent-only reviewer remains in live surfaces; `architecture.md:98`, `standard-lifecycle.md:28-31`, `integrations.md:5,85-86`, `README.md:14-16` indeed contain no lane-reviewer claim that this lane falsified.
+>
+> #### Minor
+> - `docs/how-it-works/execution.md:231-233` — `>=` inside sequenceDiagram label is valid but relies on mermaid treating `>` after the `:` as literal; alternative `&gt;=` would be more defensive. No parse break observed; leave as is unless linting the diagram.
+> - `work/mat-116-117-review-seats/DECISIONS.md:162-182` — line-number citations (e.g., `architecture.md line 98`, `standard-lifecycle.md 29-30`) are approximate after insertions but still locate the claim; not a defect, just note the numbers drift with edits.
+>
+> ### Assessment
+> **Step quality:** Approved
+> **Reasoning:** Grouped steps 8-9 together make the two changed chapters true, amend the ADR without rewriting it, and correctly judge the four unchanged chapters with explicit DECISIONS record; Mermaid remains valid, no live surface uses the dead `opencode/deepseek-v4-flash-free` id, and no over-duplication of skill-owned detail.
+>
+
+**Minor 1 taken, not deferred:** the reviewer flagged `>=` inside a
+mermaid sequenceDiagram label as parse-risky. Swapped for "at least
+one" — a literal word substitution that removes the risk and reads
+better; no re-review bought for it.
+
+**Deferred minor (1):** M6 — DECISIONS.md's line-number citations for
+the four NO-CHANGE chapters drift as those files are edited. Not a
+defect; the claims are still locatable.
