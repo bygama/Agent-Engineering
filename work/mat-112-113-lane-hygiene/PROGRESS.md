@@ -206,9 +206,99 @@ issue: MAT-112, MAT-113
   folder itself — the SKILL.md text must satisfy both, plus eval-08's
   requirement that the sweep never nudges toward an early merge.
 
+- **Step 3 review — Approved (engine: sigiloso, command mode,
+  `opencode/x-preview-f-free`, first-choice seat).** Verdict verbatim:
+  "### Spec compliance / ✅ Compliant […] ### Assessment /
+  **Step quality:** Approved / **Reasoning:** Both evals translate the
+  owner-confirmed scenarios into observable, mechanically-checkable
+  expectations that encode every binding judgment (MERGED-not-verified,
+  pending-not-debt, never-forces-a-merge, in-progress untouched, the
+  refusal line) without touching skill content, and the acceptance gate
+  independently re-ran green." Reviewer independently re-ran
+  `node tests/run-eval-checks.mjs` (exit 0, work-plan: 8 evals
+  well-formed). Minor notes (deferred, no fix loop): (a) eval-08
+  hardcodes "MEDIUM" for the lane-accumulation nudge — accepted
+  coupling, the contract is parent-ratified in this same lane; (b)
+  cosmetic italics in eval-07 — tone drift only.
+
+- **Step 4 [MAT-113] work-plan pre-open sweep — DONE.** Added the sweep
+  to `skills/work-plan/SKILL.md` inside step 0 — the pre-open gate
+  position, since step 1 is where `work/<slug>/SPEC.md` (and the
+  design-first `PROGRESS.md` marker) get written in either mode. The
+  step-0 lead becomes **0. Qualify, then sweep.**, the workflow
+  checklist's item 0 gains `+ pre-open sweep (a MERGED lane whose
+  folder persists refuses until work-handoff closes it)`, and a prose
+  block plus five italic-lead bullets follow the existing refusal list.
+  Deliberately did NOT renumber the steps into a new step for the
+  sweep: `scripts/agent-lint.mjs`'s design-window comment cites
+  "skills/work-plan/SKILL.md step 1" and the skill cross-references
+  step numbers eight times, so renumbering would falsify surfaces this
+  step is fenced out of.
+
+  Text coverage against the step-3 evals — eval-07: sweep runs before
+  `work/<slug>/` is created ("before SPEC.md, before PROGRESS.md, in
+  either mode"), never deferred to a cleanup pass or left for the owner
+  to remember; detection mechanical (`git branch --merged main` / PR
+  state, "never PROGRESS.md prose, a ticked PLAN, or a 'this one looks
+  finished' judgment"); the folder is named with its merge evidence;
+  the refusal carries **the next ticket is not a close** verbatim and
+  rejects the "we'll clean it up later" open; in-progress lanes
+  untouched ("The rule punishes debt, never concurrency"); trigger is
+  the merged folder, not the headcount, with `lane-accumulation` named
+  as a separate count-based MEDIUM nudge never folded into a blanket
+  "too many lanes" stop; work-plan deletes nothing and hands the close
+  to work-handoff "instead of improvising a `rm`"; the lanes open in
+  the same session once the close lands ("a gate on debt, not a
+  standing veto on new work"). eval-08: "MERGED, not verified" is its
+  own bullet — a verified lane with an OPEN PR awaiting its decided
+  turn is pending, never blocks, the sweep proposes no merge and never
+  nudges toward merging early, merge order stays the parent's/owner's
+  call, and "a stacked wave (B rebased on A) survives the open
+  untouched"; no folder is deleted or proposed for deletion; the
+  refusal is scoped to the folders that actually merged and "names the
+  rest as fine in the same breath, says MERGED-versus-verified is what
+  separated them". The Judgment note listing the house refusal pattern
+  now enumerates the merged-lane refusal alongside the other three.
+
+  Acceptance commands, both exit 0:
+
+  ```
+  $ node tests/run-eval-checks.mjs
+  ...
+  ok   work-plan: 8 evals well-formed
+  ...
+  all eval checks passed
+  EXIT: 0
+
+  $ node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  agent-lint <repo root>
+  0 high, 0 medium, 0 low — PASS
+  EXIT: 0
+  ```
+
+  Sanity checks beyond this step's acceptance: `node
+  tests/run-lint-tests.mjs` (exit 0, all 27 cases) and `node
+  tests/run-gen-tests.mjs` (exit 0). SKILL.md is 247 lines (cap <500);
+  every inserted line wraps at ≤72 cols — the only long lines in the
+  file are the pre-existing frontmatter description, the design-window
+  marker, and prose that predates this step.
+
+  Files changed: `skills/work-plan/SKILL.md` (checklist item 0, the
+  step-0 lead, the sweep block, one Judgment-note line), plus this
+  PROGRESS.md entry. Nothing under `.claude/skills/`, `templates/` or
+  `reference/` touched. The step-3 review entry above rides in the same
+  commit — controller-authored, uncommitted when this step started,
+  preserved rather than reverted.
+
+  Concerns: none. Note for step 7 (docs sweep):
+  `docs/how-it-works/work-lifecycle.md` narrates work-plan's modes and
+  the lane lifecycle but does not enumerate its checklist steps, so the
+  sweep is an addition that chapter may want to mention — it falsifies
+  nothing there today.
+
 ## In progress
 
-- PLAN steps 4-7 pending — work-run dispatch continues at step 4.
+- PLAN steps 5-7 pending — work-run dispatch continues at step 5.
 
 ## Next
 
