@@ -335,3 +335,78 @@ Verdict verbatim (free ratón):
   but not unified.
 - M5: `eval-03.md` (XL parent plan) could say outright that a parent
   plan carries no review classes, since it carries no executable steps.
+
+### Step 5 — `skills/work-plan` content (classes + harder [batch]) — DONE
+
+Acceptance exit 0 (three greps + `agent-lint` PASS + eval-checks).
+
+**Review engine: FELL THROUGH again on the first pass.** Sigiloso
+(`opencode/x-preview-f-free`) read the brief, the SPEC, the diff, all
+three work-plan evals and both work-run surfaces, then **ended without
+emitting a report** — the same failure mode as step 4, second
+occurrence. Chain position 2, the **free ratón
+(`opencode/muse-spark-1.2-contributor-free`)**, produced the round-1
+verdict. The scoped re-review then ran on the sigiloso again and
+returned normally, so the failure is per-invocation, not a dead model.
+
+#### Round 1 — PASS (engine: free ratón, chain position 2)
+
+> → Read skills/work-plan/evals/eval-04.md
+> → Read skills/work-run/SKILL.md
+> ```
+> VERDICT: PASS
+> ```
+>
+> ### Spec compliance
+> ✅ Compliant — `skills/work-plan/SKILL.md` implements `work/mat-116-117-review-seats/SPEC.md:167-186` (section 4) as diff `scratchpad/step5.diff` shows. Three classes `per-step`/`grouped`/`covered-by-batch` beside existing role hints, required on every step (unlike role hints optional per plan), `per-step` floor never overridable downward, `[batch]` hardened to requirement with `MAT-111 ran 9 steps where ~5 were right` evidence, workflow checklist updated, XL exemption added. No missing, extra, or misunderstood requirement detected against the binding authority.
+>
+> ### Strengths
+> - `skills/work-plan/SKILL.md:3` frontmatter now `role hints, and a review class on every step` — fixes the exact stale-description class of defect that failed the previous step of this lane.
+> - `skills/work-plan/SKILL.md:35-36` checklist `class every step for review` matches SPEC workflow requirement verbatim.
+> - `skills/work-plan/SKILL.md:138-144` batch rule upgraded from soft `Several small... become ONE` to `Same-shape steps are ONE step... This is a requirement, not an option, and it binds even when the design listed the files separately: MAT-111 ran 9 steps...` — satisfies harder `[batch]` + MAT-111 evidence.
+> - `skills/work-plan/SKILL.md:140-159` review-class block is complete: required-vs-optional contrast, three-class table, rework-cost source, floor, contiguity, planning-error for lone `grouped`.
+> - `skills/work-plan/SKILL.md:181-183` `The XL parent plan (step 2) carries no review classes, because it carries no executable steps` resolves the `every step carries a class` vs `step 2 produces NO executable steps` contradiction.
+> - Consumer agreement verified against `skills/work-run/SKILL.md:88-105`: identical class names, `per-step` floor, `grouped` = one pass per contiguous group, `covered-by-batch` = nothing extra, contiguity as contiguous run, classless fallback `per-step`.
+>
+> ### Findings
+> #### Critical
+> None.
+>
+> #### Important
+> None. All 8 `skills/work-plan/evals/eval-06.md:20-48` checkboxes have direct SKILL.md backing; amended `eval-01.md:32-35` and `eval-04.md:32-34` lines are covered (code steps `per-step`, `[batch]` entry `covered-by-batch`).
+>
+> #### Minor
+> - `skills/work-plan/SKILL.md:140-143` states `A review class on every step, beside the role hint` but does not prescribe the literal PLAN-line notation (`class: per-step` vs `per-step` vs `review: ...`). `skills/work-run/SKILL.md:89-90` reads it `off the step's PLAN line beside its role hint`. `eval-06.md:45-47` expects `same notation on every step, consistently`. Coverage is semantic (every step + beside hint) not syntactic; low risk — work-run's reader is tolerant — but an explicit `write it as ...` example would close the loop.
+> - `skills/work-plan/SKILL.md:152-154` lists `per-step` non-overridable as `by the owner, by this skill, or by the controller`, while `SPEC.md:171-172` lists `by the owner, by the plan's author, not to save a pass`. Semantically equivalent (`this skill` = plan's author, `controller` covers `to save a pass`), but verbatim SPEC trio is not mirrored; polish to `not by the owner, not by the plan's author, not to save a pass (including the controller)` would be exact.
+>
+> ### Assessment
+> **Step quality:** Approved
+> **Reasoning:** Diff satisfies every line of SPEC section 4, passes line-by-line eval-06/eval-01/eval-04 coverage, producer/consumer agree on names/floor/contiguity/group, and stale-claim + XL-contradiction risks are resolved; remaining items are polish on notation phrasing.
+>
+
+#### Round 2 (fix: the PLAN-line notation + the SPEC's non-override trio) — PASS (engine: sigiloso)
+
+Minor 1 was worth taking rather than deferring: without a prescribed
+notation, every plan would invent its own and work-run's reader would
+have to guess which half of the parenthetical is the class. Minor 2
+rode along.
+
+> → Read work/mat-116-117-review-seats/PLAN.md
+> **Minor 1 — ADDRESSED.** `skills/work-plan/SKILL.md:151-155` now prescribes the literal PLAN-line notation: one trailing parenthetical, role first — `*(judgment · per-step)*`, `*(mechanical · covered-by-batch)*` — class alone (`*(per-step)*`) when the plan uses no role hints, and "One form on every step of the plan." That is the syntactic coverage eval-06 expects ("same notation on every step, consistently") and exactly what work-run reads (`skills/work-run/SKILL.md:89-90`, "off the step's PLAN line beside its role hint").
+>
+> **Minor 2 — ADDRESSED.** `skills/work-plan/SKILL.md:157-160`: "`per-step` is a floor, mandatory and not overridable downward — not by the owner, not by the plan's author, and not to save a pass at execution time." Full trio, mirroring the SPEC.
+>
+> ### NEW BREAKAGE
+>
+> - **Notation vs. work-run and the live PLAN:** match. work-run reads the class off the PLAN line beside the role hint; the prescribed form delivers precisely that. Every step of `work/mat-116-117-review-seats/PLAN.md` already uses the identical form, down to the middle dot — `*(judgment · per-step)*` (PLAN.md:75, 100, 120…), `*(integration · per-step)*` (:175), `*(judgment · grouped)*` (:155, 168) — and the Constraints block declares it "the notation this lane is introducing" (PLAN.md:27-28). No defect.
+> - **Contradiction with optional role hints:** none. The notation paragraph explicitly handles the no-role-hint plan (class alone, SKILL.md:153-154), preserving the "optional per plan" status stated at :135; "one form on every step" governs consistency within a plan, not the choice of whether to carry hints.
+> - **Stale claims:** swept the whole file post-change — frontmatter (:3), checklist item 5 (:35-36), step-5 heading (:122), the class table (:145-149), and the judgment notes (:184-189) are mutually coherent, and the new XL exemption note (:187-189) correctly scopes the every-step rule away from parent plans. One candidate examined and cleared: the standalone-refusal enrichment list at :52 ("constraints block, named interfaces, role hints") omits review classes, but it illustrates *optional* enrichments and is not falsified by classes being mandatory — pre-existing text, not new breakage.
+>
+> None.
+>
+> ```
+> VERDICT: PASS
+> ```
+>
+
+Step 5 closes Approved at fix round 1/5. No deferred minors.

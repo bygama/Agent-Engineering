@@ -110,7 +110,7 @@ after step 9, covering both.
   is amended rather than duplicated. *(judgment · per-step)*
   accept: `grep -rq 'review class' skills/work-plan/evals/ && grep -rq 'covered-by-batch' skills/work-plan/evals/ && grep -rq 'MAT-111' skills/work-plan/evals/ && node tests/run-eval-checks.mjs` — exit 0
 
-- [ ] **5. `skills/work-plan` content — review classes + harder [batch]**
+- [x] **5. `skills/work-plan` content — review classes + harder [batch]**
   (MAT-117 item 4, SPEC §4): the three classes defined beside the
   existing role hints in step 5, **required on every step** (unlike
   role hints, which stay optional per plan) because work-run reads the
