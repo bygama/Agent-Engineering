@@ -25,7 +25,8 @@ Copy this checklist and tick items off:
 ```
 Work-plan progress:
 - [ ] 0. Qualify (S refuses; standalone document refuses; no design +
-      uncertainty refuses; check shape)
+      uncertainty refuses; check shape) + pre-open sweep (a MERGED
+      lane whose folder persists refuses until work-handoff closes it)
 - [ ] 1. Pick the mode (design-first writes SPEC.md + PROGRESS.md's
       marker and stops; direct writes SPEC.md + PLAN.md together); read
       the input, note any global constraint
@@ -37,8 +38,8 @@ Work-plan progress:
 - [ ] 6. Write work/<slug>/PLAN.md
 ```
 
-**0. Qualify.** Three refusals, one shape check — never a bare "no",
-always the alternative in the same breath:
+**0. Qualify, then sweep.** Three refusals, one shape check — never a
+bare "no", always the alternative in the same breath:
 
 - *S-tier ask*: no plan, no lane. Ceremony is the one-line DoD plus
   the repo's existing verify command, nothing more
@@ -61,6 +62,44 @@ always the alternative in the same breath:
   An XL design — work that cannot fit one lane — produces ONLY the
   parent plan (step 2); it never gets a flat list of executable steps
   at the parent level.
+
+The same step sweeps the checkout. **Before creating `work/<slug>/`** —
+before SPEC.md, before PROGRESS.md, in either mode — check every folder
+already in `work/` against main/master (`git branch --merged main`, or
+the PR's state). A lane whose work is MERGED and whose folder is still
+there is debt: work-handoff's close, the commit that *removes the lane
+folder*, never ran. Name that folder and the evidence it merged, and
+refuse to open until the close lands — **the next ticket is not a
+close**. Opening anyway under a "we'll clean it up later" note is the
+failure this sweep exists to prevent, and so is leaving the sweep for
+the owner to remember or deferring it to a later cleanup pass.
+
+- *MERGED, not verified.* A verified lane whose PR is still OPEN,
+  waiting its turn in a decided merge order, is pending — not debt —
+  and never blocks an open. The sweep proposes no merge to clear the
+  way and never nudges toward merging early: merge order is the
+  parent's/owner's call, and a stacked wave (B rebased on A) survives
+  the open untouched.
+- *Mechanical evidence only.* `branch --merged` or PR state decides
+  it — never PROGRESS.md prose, a ticked PLAN, or a "this one looks
+  finished" judgment.
+- *In-progress lanes are untouched.* They are not debt, never get
+  listed as a problem beside the merged one, and are never proposed for
+  closing or deletion — deleting a live lane loses the next session's
+  state. The rule punishes debt, never concurrency.
+- *The trigger is the merged folder, not the headcount.* One merged
+  folder blocks a checkout holding few lanes; many live lanes with none
+  merged block nothing. `agent-lint`'s `lane-accumulation` finding is a
+  separate, count-based MEDIUM nudge — never fold the two into one
+  blanket "too many lanes" stop.
+- *Route the close, never perform it.* work-plan deletes nothing:
+  closing is work-handoff's, per-lane, at that ticket's merge. So the
+  refusal is scoped to the folders that actually merged, names the rest
+  as fine in the same breath, says MERGED-versus-verified is what
+  separated them, and hands the close to work-handoff instead of
+  improvising a `rm` — then the requested lanes open in the same
+  session once it lands. A gate on debt, not a standing veto on new
+  work.
 
 **1. Pick the mode, then read the input.** Two ways in, chosen by what
 already exists before this skill runs:
@@ -196,8 +235,8 @@ here the same as at step 2 — not restated per step.)
   mode: once for the parent (step 2), and again inside each worker's
   own lane once that worker is spawned.
 - A refusal is a diagnosis plus an alternative in the same response,
-  never a bare no — the S-tier, standalone-document, and no-design
-  refusals above are the pattern for any future one. Refusing to
+  never a bare no — the S-tier, standalone-document, no-design and
+  merged-lane refusals above are the pattern for any future one. Refusing to
   downgrade a `per-step` class is the same shape: say which steps could
   not be grouped and why, in the same breath as the ones that could.
 - The XL parent plan (step 2) carries no review classes, because it
