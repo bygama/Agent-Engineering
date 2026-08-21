@@ -1174,7 +1174,7 @@
 
   ### Repo-wide grep for `global/` as a path — every hit classified
 
-  `grep -rln 'global/' --exclude-dir=.git .` returns 21 files (raw
+  `grep -rln 'global/' --exclude-dir=.git .` returns 22 files (raw
   `grep -rn` returns ~120 lines; classified by file below, since almost
   every file's hits share one verdict — line-level exceptions called out
   where the verdict differs within a file).
@@ -1192,7 +1192,14 @@
   | `skills/ae-init/references/migration.md:140` | 3. Lint's consumer-repo class | "The new lint check only fires on repos that vendor `skills/`, `reference/`, `templates/`, `global/` or `loops/` directories — typical consumers carry none of them." Names the vendored-dir class exactly as this step's brief anticipated. |
   | `work/mat-111-deglobal/{SPEC,PLAN,DECISIONS,PROGRESS}.md`, `work/mat-111-deglobal/reviews/step-{01,02,03,05,06,07,08,09,10}-review.md` | 4. This lane's own records | Everything under `work/mat-111-deglobal/`. |
 
-  21/21 files classified. **Zero files land in bucket 5 from this grep.**
+  22/22 files classified — bucket 1: 4 (`CHANGELOG.md`, the two
+  `docs/plans/*` files, `docs/specs/SPEC-agent-engineering.md`); bucket 2:
+  2 (`.claude/skills/docs-sweep/references/patterns.md`,
+  `skills/using-ae/evals/eval-03.md`); bucket 3: 3
+  (`docs/how-it-works/standard-lifecycle.md`, `scripts/agent-lint.mjs`,
+  `skills/ae-init/references/migration.md`); bucket 4: 13 (4 lane files +
+  9 `reviews/step-*-review.md`). 4+2+3+13 = 22, matching the grep exactly.
+  **Zero files land in bucket 5 from this grep.**
 
   ### Second grep for bare `global` (no slash) — catching prose, not paths
 
@@ -1215,11 +1222,25 @@
      ships, or owns a `global/` directory — and found none; every sentence
      describes the `~/.claude` layer as doctrine or as an installed
      artifact on some other machine/repo.
+     **Correction (fix round 1): `scripts/agent-lint.mjs:354` —
+     `const SHIPPED_SURFACE = /^(skills|reference|templates|global|loops)\//;`
+     — was missed in the first pass.** It surfaces in this second grep
+     rather than the first because "global" sits between two `|`
+     characters in the regex alternation, never followed by a literal
+     `/`. It is the code the `:326` comment (already classified bucket 3
+     in the first-grep table) describes — same fact, same file, same
+     reasoning, just the declaration rather than the comment above it.
   2. **Pre-existing, unrelated to this lane's `global/`** —
      `reference/context.md` (`Global ~/.claude/CLAUDE.md`, `# Global
      instructions`, "Global vs repo placement" — the content-detected
      canon doctrine, a different file than the deleted `global/CLAUDE.md`
-     and never pointing at it), `reference/harness.md:62` and
+     and never pointing at it), **`skills/ae-audit/references/checklist.md:41`
+     — "Global exception | `~/.claude`-style file (H1 `# Global
+     instructions`) ≤40 lines, own canon | medium" — missed in the first
+     pass, added in fix round 1; same content-detected canon doctrine as
+     `reference/context.md`, a different file from the unclassified
+     `skills/ae-audit/evals/eval-03.md` below**,
+     `reference/harness.md:62` and
      `reference/runners.md:106` (both describe `~/.claude` generically,
      same as context.md), `reference/skills.md:117` ("junctioned
      globally" — adverb, unrelated), `skills/ae-init/references/migration.md`
@@ -1299,7 +1320,7 @@
   ### Verdict
 
   All four gates green, individually and chained, exit 0 every time. Every
-  one of the ~120 `global/`-as-path hits across 21 files is accounted for
+  one of the ~120 `global/`-as-path hits across 22 files is accounted for
   in buckets 1-4; zero unclassified from that grep. The second, broader
   grep for bare `global` surfaces exactly one genuine problem outside the
   lane's own records — `skills/ae-audit/evals/eval-03.md` — reported above,
@@ -1310,6 +1331,77 @@
   a fenced surface, not residue from this lane's own edits.
 
   Files changed: this PROGRESS.md only. No repo surface edited.
+
+- 2026-08-20 — **PLAN step 11 FIX round 1.** Fresh reviewer independently
+  re-ran all four gates and got **identical output to the block above,
+  all exit 0** — a second, independent confirmation worth having in the
+  lane, not just a repeat of the first run. It also confirmed both the
+  bucket-2/bucket-3 classifications and the UNCLASSIFIED finding hold
+  under adversarial spot-check, and that report-only (not editing
+  `skills/ae-audit/evals/eval-03.md`) was the right call — the parent has
+  since ruled it gets fixed as a new step 12.
+
+  Two Important findings, both about the accuracy of the evidence record
+  itself, not about any repo surface — fixed in this PROGRESS.md only,
+  no repo surface touched:
+
+  1. **File count was wrong: "21/21" / "21 files", should be 22.**
+     `grep -rln 'global/' --exclude-dir=.git .` returns 22 files, not 21 —
+     confirmed by recount. Nothing was missing from the classification
+     table itself: the grouped bucket-4 row (4 lane files + 9
+     `reviews/step-*-review.md` = 13) plus the 9 individually-listed
+     bucket 1/2/3 rows (4+2+3) already summed to 22; the "21" was an
+     arithmetic slip in the summary line, not a coverage gap. Fixed at
+     all three occurrences (the intro count, the "N/N files classified"
+     line — now with the per-bucket arithmetic spelled out so it can be
+     checked without re-deriving it — and the Verdict's file count).
+  2. **Two lines in the second (bare-`global`) grep were never named,
+     despite the claim to have "read every remaining line."**
+     `scripts/agent-lint.mjs:354` (`const SHIPPED_SURFACE =
+     /^(skills|reference|templates|global|loops)\//;` — "global" sits
+     between two `|`, never followed by a literal `/`, so it correctly
+     falls in the second grep, not the first) and
+     `skills/ae-audit/references/checklist.md:41` ("Global exception |
+     `~/.claude`-style file (H1 `# Global instructions`) ≤40 lines, own
+     canon | medium") were both silently dropped from the enumeration.
+     Both are substantively harmless — accurate, untouched descriptions
+     of the content-detected global-CLAUDE canon check or its enforcing
+     regex, the same underlying facts as lines already classified
+     correctly elsewhere — so there was no live defect in the repo, only
+     a gap between the claim and what was actually enumerated. Added
+     both explicitly, each placed by what it actually says rather than
+     mechanically: `:354` is the code the already-bucket-3-classified
+     `:326` comment describes (same file, same fact, same reasoning), so
+     it is called out as that pairing rather than folded into class 1's
+     "written by this lane" list, which it does not belong to; `checklist.md:41`
+     is filed under class 2 alongside `reference/context.md`, the file
+     the finding itself named as the matching precedent.
+
+  **Record-honesty note, not a further fix:** commit `a1150c3` (this
+  step's original DONE entry) carries the wrong "21" count in its diff and
+  cannot be retroactively edited — a new commit cannot rewrite history
+  that already merged into this branch's log. Flagging it here so a later
+  reader of `a1150c3`'s diff against this corrected text does not read the
+  disagreement as a fresh, unexplained error: the commit is the
+  since-corrected count, this entry is the correction.
+
+  Re-ran the full chained accept after the edits (PROGRESS.md-only change,
+  no repo surface touched, so no behavior could have shifted — run anyway
+  since the step's whole claim is gate evidence):
+
+  ```
+  $ node scripts/agent-lint.mjs . --ignore tests,templates,examples \
+      && node tests/run-lint-tests.mjs \
+      && node tests/run-gen-tests.mjs \
+      && node tests/run-eval-checks.mjs
+  0 high, 0 medium, 0 low — PASS
+  all 22 cases passed
+  all gen cases passed
+  all eval checks passed
+  COMBINED_EXIT=0
+  ```
+
+  Files changed: this PROGRESS.md only.
 
 ## In progress
 
