@@ -389,9 +389,106 @@ issue: MAT-112, MAT-113
   explicitly out of scope, and the existing WIP=1 judgment note being
   the hook the last checklist line leans on.
 
+- **Step 5 review — Approved (engine: sigiloso, command mode,
+  `opencode/x-preview-f-free`, first-choice seat).** Verdict verbatim:
+  "### Spec compliance / ✅ Compliant — the diff adds exactly what Step
+  5 asked. New `skills/work-handoff/evals/eval-07.md` […] encodes the
+  mid-marathon deferral ('I'll close them all at the end of the run',
+  ticket 12 of ~40), the refused batch, and per-lane close at each
+  ticket's merge; `SKILL.md` untouched (step 6 owns content —
+  evals-before-content honored). […] ### Assessment / **Step quality:**
+  Approved / **Reasoning:** The eval encodes the SPEC §5 binding
+  judgment with observable, mechanically-checkable expectations in the
+  exact house shape, complements rather than duplicates the work-plan
+  sweep evals, and its acceptance gate re-ran green independently."
+  Reviewer independently re-ran the eval gate (exit 0, work-handoff: 7
+  evals well-formed). Minor (deferred to work-verify's triage):
+  eval-07.md:40-47 leaves ambiguous whether the three debt lanes must
+  be closed this session or merely named — a one-clause sharpening
+  candidate.
+
+- **Step 6 [MAT-113] work-handoff red-flag row — DONE.** Added a
+  `## Red flags` section to `skills/work-handoff/SKILL.md` between step
+  7 (Report) and `## Judgment notes` — the house position and shape read
+  off `skills/work-run`, `skills/orchestrate` and `skills/shaping`
+  (`| Thought | Reality |`, quoted first-person temptation on the left,
+  terse judgment on the right, no prose lead). Four rows: the mandated
+  one plus three distilled from doctrine the skill already states.
+
+  The mandated row, verbatim: `| "I'll close them all at the end of the
+  run" | In a marathon the end never comes. Close is per-lane, at each
+  ticket's merge — never a batch sweep. |` — the Reality cell carries
+  the SPEC §5 judgment in the required terms.
+
+  The three supporting rows exist because the mandated row alone cannot
+  carry eval-07's checklist, and each is a distillation with an anchor
+  in the current SKILL.md — no invented doctrine: (a) *"One sweep commit
+  can remove all four folders"* ⇒ the per-lane gate and the
+  finalize-then-remove shape ("one verdict never covers four lanes"),
+  anchored in step 1's gate ("current for the final state of the work")
+  and step 5's close; (b) *"A TODO in PROGRESS holds the close until
+  later"* ⇒ only the removing commit closes a lane, a note leaves the
+  folder and the debt where they were, anchored in step 5 ("no orphan
+  `work/` directory survives") and the opening "Everything else is a
+  fake close"; (c) *"Those other lanes are lying around too, sweep them
+  in"* ⇒ an in-flight lane exits by pause, its folder survives, only a
+  merged lane whose folder persists is debt and no merge is rushed to
+  make one closable — anchored in step 5's pause ("deleting a live lane
+  loses the next session's state") and this lane's MERGED-not-verified
+  criterion.
+
+  Coverage of the step-5 eval-07 checklist: the deferral is refused and
+  the reason is argued on its own terms, not as a cited rule (row 1); no
+  substitute is offered — TODO, note, reminder (row 2); the deferred
+  merged lanes get the same per-lane fix, never one sweep commit for
+  four (row 2, plus row 1's "never a batch sweep"); per-lane close shape
+  with the gate re-checked per lane (row 2); in-flight lanes untouched
+  and never counted as debt (row 4); close pinned to the merge, no early
+  merge to make a lane closable (rows 1 and 4). The remaining two lines
+  ride on text already in the skill and deliberately not duplicated:
+  card + tracker per close is step 6 of the workflow, and WIP=1 is the
+  existing third Judgment note — untouched, since the last checklist
+  line leans on it exactly as step 5's note anticipated.
+
+  Acceptance commands, both exit 0:
+
+  ```
+  $ node tests/run-eval-checks.mjs
+  ...
+  ok   work-handoff: 7 evals well-formed
+  ok   work-plan: 8 evals well-formed
+  ...
+  all eval checks passed
+  EXIT: 0
+
+  $ node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  agent-lint <repo root>
+  0 high, 0 medium, 0 low — PASS
+  EXIT: 0
+  ```
+
+  Sanity checks beyond this step's acceptance: `node
+  tests/run-lint-tests.mjs` (exit 0, all 27 cases) and `node
+  tests/run-gen-tests.mjs` (exit 0). SKILL.md is 133 lines (`skill-size`
+  cap <500); no line-length rule applies to skill tables — the house
+  tables in work-run/orchestrate carry cells of the same width.
+
+  Files changed: `skills/work-handoff/SKILL.md` (+9 lines: the section
+  heading, the header pair, four rows, blank lines), plus this
+  PROGRESS.md entry. Nothing under `.claude/skills/`, `templates/` or
+  `reference/` touched; `evals/eval-07.md` untouched (step 5 owns it).
+  The step-5 review entry above rides in the same commit —
+  controller-authored, uncommitted when this step started, preserved
+  rather than reverted.
+
+  Concerns: none. Note for step 7 (docs sweep): the frontmatter
+  `description` is unchanged — it describes when to invoke the skill and
+  the red-flag section adds no new trigger, unlike work-plan's new
+  refusal (the step-4 review's deferred note).
+
 ## In progress
 
-- PLAN steps 6-7 pending — work-run dispatch continues at step 6.
+- PLAN steps 6-7 pending — work-run dispatch continues at step 7.
 
 ## Next
 

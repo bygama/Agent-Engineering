@@ -114,6 +114,15 @@ the write.
 commit hash, and exactly what the tracker received — or the emitted calls
 if nothing did.
 
+## Red flags
+
+| Thought | Reality |
+|---|---|
+| "I'll close them all at the end of the run" | In a marathon the end never comes. Close is per-lane, at each ticket's merge — never a batch sweep. |
+| "One sweep commit can remove all four folders" | Each lane closes at its own gate: the finalize commit first, then the commit that removes THAT lane's folder. One verdict never covers four lanes. |
+| "A TODO in PROGRESS holds the close until later" | Only the commit that removes the folder closes a lane. A note about a close leaves the folder — and the debt — exactly where they were. |
+| "Those other lanes are lying around too, sweep them in" | A lane still in flight exits by pause, not close; its folder survives. Only a merged lane whose folder persists is debt, and no merge is rushed to make one closable. |
+
 ## Judgment notes
 
 - Refusal output is a list of blockers with file/line, not a lecture: the
