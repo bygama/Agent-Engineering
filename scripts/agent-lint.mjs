@@ -228,6 +228,18 @@ for (const f of files.filter((f) => basename(f) === "SKILL.md")) {
 // and waits for owner approval, before PLAN.md exists — change both together.
 const DESIGN_WINDOW_MARKER =
   "STATE: design-first approval window, waiting for owner approval of SPEC.md before PLAN.md";
+// The marker must be the CONTENT of a line, not merely present anywhere in
+// PROGRESS.md: optional leading whitespace, an optional `- `/`* ` bullet,
+// the marker, then nothing but trailing whitespace — the exact shape
+// skills/work-plan/SKILL.md instructs writing it in. A quote inside a
+// fenced command transcript, a blockquote, or inline code shares the same
+// characters but never this shape, so it must not exempt a lane that is
+// not actually in the window (fresh-context review, MAT-115).
+const DESIGN_WINDOW_MARKER_LINE = new RegExp(
+  `^\\s*(?:[-*] )?${DESIGN_WINDOW_MARKER.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*$`,
+);
+const declaresDesignWindow = (text) =>
+  text.split(/\r?\n/).some((line) => DESIGN_WINDOW_MARKER_LINE.test(line));
 const laneFiles = files.filter((f) => f.startsWith("work/"));
 const lanes = new Map();
 for (const f of laneFiles) {
@@ -248,7 +260,7 @@ for (const [slug, contents] of lanes) {
   // required unconditionally, so a lane without it is never in the window.
   const hasProgress = contents.includes("PROGRESS.md");
   const inApprovalWindow =
-    hasProgress && read(`work/${slug}/PROGRESS.md`).includes(DESIGN_WINDOW_MARKER);
+    hasProgress && declaresDesignWindow(read(`work/${slug}/PROGRESS.md`));
   for (const required of ["PLAN.md", "PROGRESS.md"]) {
     if (required === "PLAN.md" && inApprovalWindow) continue;
     if (!contents.includes(required))
