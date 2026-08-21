@@ -211,3 +211,23 @@ skipped; only the count in the prose was wrong.
 that names it, never by rewriting the record. Found by the step-5
 command-mode reviewer, which counted the list against the step's own
 file list.
+
+## 2026-08-21 — step 6's reviewer seat fell through to chain position 2
+
+**Choice.** Step 6's per-step review was bought from **free raton**
+(`opencode/muse-spark-1.2-contributor-free`) rather than the lane's
+settled seat, the sigiloso `opencode/x-preview-f-free`.
+
+**Why.** The sigiloso returned `Error: Upstream request failed:
+[server_error] Upstream response was not valid JSON`, exit 1, on two
+consecutive attempts with the identical prompt — a dead seat, not a
+disagreement. `reference/runners.md` makes falling through the chain
+normal operation rather than an incident, on one condition: the step
+records which engine produced its verdict, so a fallen-through review is
+never indistinguishable from a first-choice one. That is recorded in
+PROGRESS.md beside the verdict itself.
+
+**What did NOT change.** Steps 1-5 were all reviewed by the sigiloso at
+chain position 1, and the cross-family property holds for step 6 too —
+both seats are opencode-gateway models, not Claude, so maker != checker
+stays cross-family across every step of this lane.
