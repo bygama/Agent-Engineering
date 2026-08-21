@@ -1,6 +1,6 @@
 ---
 name: work-run
-description: Executes one lane's PLAN step-by-step with a fresh subagent per step — the lane (SPEC, PLAN, PROGRESS, DECISIONS) is the entire context package, with a per-step review, a capped fix loop, and rulings recorded in the lane. Use when a work/<slug>/ lane with several PLAN steps should be executed in this session — the recommended default for L lanes, available for M, and inside an XL worker's own lane. Not for S tasks (no lane) and never for parallel work across lanes (that is orchestrate).
+description: Executes one lane's PLAN step-by-step with a fresh runner per step — the lane (SPEC, PLAN, PROGRESS, DECISIONS) is the entire context package, with reviews scaled by each step's review class and bought from either seat (in-session subagent or command-mode runner), a capped fix loop, and rulings recorded in the lane. Use when a work/<slug>/ lane with several PLAN steps should be executed in this session — the recommended default for L lanes, available for M, and inside an XL worker's own lane. Not for S tasks (no lane) and never for parallel work across lanes (that is orchestrate).
 ---
 
 # work-run
@@ -21,9 +21,10 @@ Copy this checklist and tick items off:
 
 ```
 Work-run progress:
-- [ ] 0. Qualify (lane exists, several steps, subagents available)
-- [ ] 1. Read the lane; resume from PROGRESS
-- [ ] 2. Per step: dispatch → report → review → fix loop → record → release
+- [ ] 0. Qualify (lane exists, several steps, a reviewer seat available)
+- [ ] 1. Read the lane; resume from PROGRESS; settle the reviewer mode
+- [ ] 2. Per step: dispatch → report → review (per its class) → fix loop
+      → record → release
 - [ ] 3. Last step lands → work-verify (the lane gate)
 - [ ] 4. work-handoff + surface every ruling
 ```
@@ -42,11 +43,19 @@ Work-run progress:
 - *No subagent capability on this runner*: work-run is never mandatory
   (the standard is runtime-neutral). Fall back to executing the SAME
   lane inline under the SAME ceremony: PLAN steps in order, acceptance
-  per step, PROGRESS updated. Never simulate a dispatch.
+  per step, PROGRESS updated. Never simulate a dispatch. A missing
+  subagent does not cost the lane its reviews: where a command-mode
+  runner is registered (`reference/runners.md`), the reviewer seat still
+  exists. Only when the runtime has neither — no subagents and no
+  registered runner — is a review rung declared NOT done, and then
+  explicitly, never quietly.
 
 **1. Read the lane.** PROGRESS first — resume at the first step without
 a DONE report; never re-dispatch a completed step. Note SPEC (the
-binding authority) and standing rulings in DECISIONS.
+binding authority) and standing rulings in DECISIONS. Settle the
+**reviewer mode** here, once, from what the lane already carries (the
+dispatch dialogue's answer in the Task spec, or a DECISIONS ruling) —
+not per step, and not by inheriting whichever seat the last lane used.
 
 **2. The step loop.** For each PLAN step:
 
@@ -74,7 +83,56 @@ acceptance command, appends its report to PROGRESS.md, and returns only
 gets the step's diff as a file (generated from git into session
 scratch, never committed), the PLAN step, and the SPEC, composed from
 `references/step-reviewer.md`. Both verdicts required: spec compliance
-AND quality.
+AND quality. Two knobs decide the seat — **how often** and **who** —
+and neither is the controller's mood.
+
+*How often: the review class.* Read it off the step's PLAN line beside
+its role hint; `work-plan` writes one on every step.
+
+| Class | What the step buys |
+|---|---|
+| `per-step` | its own dedicated fresh reviewer, before the next step is dispatched |
+| `grouped` | ONE pass at the end of its contiguous group — the group's combined diff plus every PLAN line in it |
+| `covered-by-batch` | nothing extra: the `[batch]` entry's single review already covers the sweep |
+
+`per-step` is **mandatory and never overridable downward** — not to save
+a pass, not because the diff looks small, not because the last three
+reviews came back clean. Upgrading is always free: a `grouped` step whose
+diff turns out risky takes its own review, with the reason recorded. A
+group is the contiguous run of same-class steps the PLAN drew, not a
+window the controller resizes. **A PLAN with no classes at all** — every
+lane planned before they existed — executes as if every step were
+`per-step`; a missing class is never permission to group.
+
+*Who: the reviewer mode.* `subagent` or `command`, settled once at step 1:
+
+- `subagent` — a fresh in-session subagent, the seat this rung has
+  always used.
+- `command` — the controller shells out to a registered runner,
+  `opencode run --auto -m <provider/model> "<prompt>"`
+  (`reference/runners.md`), and reads the verdict off stdout. **That is
+  a shell command, not an orchestration worker**: no Task, no Dispatch,
+  no `worker_done` authority, nothing a child could be mistaken for. The
+  no-grandchildren fence is untouched, and a controller refusing a
+  command-mode review on that theory has misread it.
+
+**Default when available: command-mode sigiloso** for per-step reviews
+(owner ruling) — a cross-family seat at a fraction of a subagent's cost,
+so maker ≠ checker gets stronger, not weaker. Nothing settled the mode
+⇒ take that default and keep going: never stall the run to ask, and
+never start at a paid id, which the economics rule calls a bug rather
+than a cautious choice. The step **verifies its
+seat responds before relying on it**, and a seat that returns nothing
+falls through `reference/runners.md`'s degradation chain instead of
+blocking the step. Record which engine produced each verdict: a
+fallen-through review must be visible, never indistinguishable from a
+first-choice one, and a missing verdict is never an Approved step.
+
+Whatever the mode, the prompt is composed from
+`references/step-reviewer.md`, the seat is read-only on the checkout, and
+both verdicts are required. What the class and the mode do NOT change:
+the fix loop below, its cap, work-verify's lane gate, and the adversarial
+seat — that late coverage is exactly what makes `grouped` safe.
 
 *Fix loop, cap of 5.* One fix dispatch + one scoped re-review per
 round. Rounds 1-3 resume the same implementer with the findings
@@ -126,6 +184,10 @@ owner's behalf are never silent.
 | "Steps 2 and 3 are independent, run both" | WIP=1 inside a lane. Independent lanes' worth of work → orchestrate. |
 | "Paste the last report so the next subagent has background" | The lane is the background. PROGRESS already carries it. |
 | "Skip the review, the acceptance command passed" | Acceptance proves the step ran; review proves it's the SPEC's step. Both. |
+| "This per-step step is tiny — group it with the next two" | `per-step` is not overridable downward. Group what the PLAN marked `grouped`, nothing else. |
+| "No class on these steps, so one pass at the end is fine" | A missing class means `per-step` for every step, never permission to group. |
+| "Shelling out to another model births a grandchild" | Command mode is a shell command: no Task, no Dispatch, no `worker_done`. The fence is about workers. |
+| "The sigiloso returned nothing — record it Approved and move on" | A missing verdict is not a verdict. Walk the chain (`reference/runners.md`) and record which engine ruled. |
 | "One more round past the cap will converge" | Past 5 the failure is structural. Adjudicate and record the ruling. |
 | "No subagents here, so relax the ceremony" | The fallback is the same lane inline, same ceremony. Nothing downgrades. |
 
