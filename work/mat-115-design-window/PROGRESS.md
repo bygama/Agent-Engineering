@@ -393,9 +393,52 @@ issue: MAT-115
   1
   ```
 
+- **Step 4 — `scripts/agent-lint.mjs`, `lane-incomplete` becomes
+  lifecycle-aware** (PLAN step 4): in the work-lanes section, right above
+  the existing lane-collection loop, defined `DESIGN_WINDOW_MARKER` as a
+  module constant — same pattern as `ENTRY_SKILL_CAP` above it (a comment
+  naming the paired site, then the const) — carrying the exact marker
+  string and a `change both together` comment naming
+  `skills/work-plan/SKILL.md` step 1 as the site that writes it. In the
+  per-lane loop, `hasProgress` and `inApprovalWindow` are computed once
+  per lane (`inApprovalWindow` reads `work/<slug>/PROGRESS.md` via the
+  existing `read()` helper and checks the marker is a substring), then
+  the `required` loop over `["PLAN.md", "PROGRESS.md"]` skips only the
+  `PLAN.md` iteration when `inApprovalWindow` is true — `PROGRESS.md`'s
+  own iteration is never skipped, so a lane without PROGRESS.md still
+  fires both findings (SPEC §5, DoD item 2). Code, severity and message
+  text (`add("medium", "lane-incomplete", ...)`) are byte-identical to
+  before for every other lane; only the loop's control flow gained one
+  `continue`. `tests/` was not touched.
+
+  ```
+  $ node tests/run-lint-tests.mjs
+  ok   ... (24 cases)
+  ok   design-first approval window lane passes without PLAN.md
+  ok   near-miss marker text does not exempt a lane
+  ok   malformed lanes fail
+  all 24 cases passed
+  $ node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-115-design-window
+  0 high, 0 medium, 0 low — PASS
+  $ node tests/run-gen-tests.mjs
+  all gen cases passed
+  $ node tests/run-eval-checks.mjs
+  ... all eval checks passed
+  $ echo $?
+  0
+  ```
+
+  Step 3's red case (`design-first approval window lane passes without
+  PLAN.md`) is now `ok` — 24/24 cases pass, up from 1/24 failing. `git
+  diff --stat` confirms only `scripts/agent-lint.mjs` changed (14
+  insertions, 1 deletion), nothing under `tests/`, matching the
+  constraint that fixtures are the spec this step must satisfy without
+  editing them.
+
 ## In progress
 
-- work-run executing PLAN steps 1-6 in order. Steps 1-3 done; steps 4-6
+- work-run executing PLAN steps 1-6 in order. Steps 1-4 done; steps 5-6
   remain.
 
 ## Tried and failed

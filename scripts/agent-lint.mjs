@@ -223,6 +223,11 @@ for (const f of files.filter((f) => basename(f) === "SKILL.md")) {
 }
 
 // ---------- work lanes ----------
+// design-first lanes (skills/work-plan/SKILL.md step 1) write this exact
+// marker into PROGRESS.md at the SPEC step, while the lane holds SPEC.md
+// and waits for owner approval, before PLAN.md exists — change both together.
+const DESIGN_WINDOW_MARKER =
+  "STATE: design-first approval window, waiting for owner approval of SPEC.md before PLAN.md";
 const laneFiles = files.filter((f) => f.startsWith("work/"));
 const lanes = new Map();
 for (const f of laneFiles) {
@@ -238,9 +243,17 @@ for (const f of laneFiles) {
 for (const [slug, contents] of lanes) {
   if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(slug))
     add("low", "lane-slug", `work/${slug}/`, "lane slug is not kebab-case");
-  for (const required of ["PLAN.md", "PROGRESS.md"])
+  // PLAN.md is not required for exactly one state: PROGRESS.md is present and
+  // declares the design-first approval window. PROGRESS.md itself stays
+  // required unconditionally, so a lane without it is never in the window.
+  const hasProgress = contents.includes("PROGRESS.md");
+  const inApprovalWindow =
+    hasProgress && read(`work/${slug}/PROGRESS.md`).includes(DESIGN_WINDOW_MARKER);
+  for (const required of ["PLAN.md", "PROGRESS.md"]) {
+    if (required === "PLAN.md" && inApprovalWindow) continue;
     if (!contents.includes(required))
       add("medium", "lane-incomplete", `work/${slug}/`, `lane missing ${required}`);
+  }
 }
 for (const name of ["SPEC.md", "PLAN.md", "PROGRESS.md", "DECISIONS.md"])
   if (files.includes(name))
