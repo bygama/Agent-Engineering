@@ -157,9 +157,35 @@
   `reference/global-layer.md:62` (fixed). `standard-lifecycle.md`
   carries no JSON snippet at all. No action taken.
 
-## In progress
+- 2026-08-20 — **PLAN step 2 DONE.** Deleted `global/` directory entirely,
+  including all four files: `global/CLAUDE.md`, `global/hooks/README.md`,
+  `global/hooks/orca-probe.ps1`, `global/hooks/using-ae.ps1`. The global-layer
+  doctrine has been relocated to `reference/global-layer.md` (step 1). The
+  personal machine configuration is now canonical in `bygama/workstation`.
 
-- PLAN step 2.
+  Deletion method: `git rm -r global` to stage removal as a rename-free
+  deletion.
+
+  Accept command and output:
+
+  ```
+  $ test ! -e global && node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  agent-lint <repo root>
+  0 high, 0 medium, 0 low — PASS
+  EXIT=0
+  ```
+
+  Commit: `cf42408` — refactor(global): remove global directory — relocated to
+  reference/global-layer.md
+
+  Files changed: 4 files deleted (CLAUDE.md, hooks/README.md, orca-probe.ps1,
+  using-ae.ps1).
+
+  Concerns: none. This is a mechanical step. No lint findings after deletion.
+  All live surfaces that named `global/` paths are being repointed in steps
+  3–10.
+
+## In progress
 
 ## Tried and failed
 
