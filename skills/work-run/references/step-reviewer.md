@@ -4,10 +4,32 @@
 an implementer reports DONE, a fresh reviewer (never the implementer)
 checks the step's diff before the controller moves on.
 
-**How to fill:** exactly three inputs — `[DIFF_FILE]`, `[STEP_PLAN_LINE]`,
-`[SPEC_PATH]`. The diff file is generated from git into session scratch
-and never committed. This is a step-scoped gate, not the lane's final
-review — that's `lane-reviewer.md`, dispatched later by work-verify.
+**How to fill:** three inputs in `subagent` mode — `[DIFF_FILE]`,
+`[STEP_PLAN_LINE]`, `[SPEC_PATH]` — plus a fourth, `[WORKTREE_ROOT]`, in
+`command` mode, where the seat has no ambient checkout and must be told
+which one to read. The diff file is generated from git into session
+scratch and never committed. This is a step-scoped gate, not the lane's
+final review — that's `lane-reviewer.md`, dispatched later by
+work-verify.
+
+**Both reviewer modes fill this same template** (work-run SKILL.md step
+2). In `subagent` mode the filled prompt is the subagent's prompt. In
+`command` mode it is the prompt of a one-shot runner invocation —
+`opencode run --auto -m <provider/model> "<prompt>"`,
+`reference/runners.md` — so write the filled text to a session scratch
+file and point the invocation at it rather than pushing kilobytes
+through argv, where shell quoting mangles it. That seat has tools and no
+ambient checkout, which is why `[WORKTREE_ROOT]` exists and why the
+read-only rule is stated to it as a constraint it is bound by, never as
+a description of a sandbox it does not have. Everything else — the
+inputs, both required verdicts, the calibration — is identical.
+
+**A grouped review fills it once for the whole group** (`grouped` class):
+`[DIFF_FILE]` is the group's combined diff, `[STEP_PLAN_LINE]` carries
+every PLAN line in the group in order, and `[STEP_NUMBER]` is the group's
+range (`3-5`). One seat, one verdict, all of the group's steps in scope —
+read the template's singular "one step's implementation" as "the work
+under review", which is the group.
 
 ```
 Subagent (general-purpose):
@@ -38,8 +60,11 @@ Subagent (general-purpose):
     code outside the diff only to evaluate a concrete risk you can
     name, and name both the risk and what you checked in your report.
 
-    Your review is read-only on this checkout. Do not mutate the
-    working tree, the index, HEAD, or branch state in any way.
+    The checkout under review is [WORKTREE_ROOT].
+
+    Your review is read-only on that checkout — a rule you are bound by,
+    not a sandbox you are inside. Do not mutate the working tree, the
+    index, HEAD, or branch state in any way.
 
     ## You do not dispatch subagents
 
@@ -100,11 +125,17 @@ Subagent (general-purpose):
 
 **Placeholders:**
 - `[MODEL]` — REQUIRED: chosen per work-run's model-by-role
-- `[STEP_NUMBER]` — the PLAN step id under review
+- `[STEP_NUMBER]` — the PLAN step id under review; a range (`3-5`) for a
+  grouped review
 - `[STEP_PLAN_LINE]` — REQUIRED: the same PLAN line the implementer got
+  (every line in the group, in order, for a grouped review)
 - `[SPEC_PATH]` — REQUIRED: path to the lane's SPEC.md
 - `[DIFF_FILE]` — REQUIRED: path to the step's diff package (git-generated
   scratch file, never committed)
+- `[WORKTREE_ROOT]` — REQUIRED in `command` mode only: the absolute path
+  of the checkout the seat must read. A subagent already has it, so in
+  `subagent` mode delete that template line rather than leaving an
+  unfilled bracket in the prompt
 
 **Reviewer returns:** spec-compliance verdict (✅/❌/⚠️), Strengths, Issues
 (Critical/Important/Minor with file:line), quality verdict (Approved |
