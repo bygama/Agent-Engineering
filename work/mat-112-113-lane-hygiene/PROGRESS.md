@@ -132,9 +132,83 @@ issue: MAT-112, MAT-113
 
   Concerns: none.
 
+- **Step 2 review — Approved (engine: sigiloso, command mode,
+  `opencode/x-preview-f-free`, first-choice seat).** Verdict verbatim:
+  "### Spec compliance / ✅ Compliant / Every binding-contract element
+  is present in `scripts/agent-lint.mjs`: code `lane-accumulation`,
+  severity `medium`, strict threshold `lanes.size > 5`, anchor `work/`,
+  and a message byte-for-byte identical to the PLAN constraint […]
+  ### Assessment / **Step quality:** Approved / **Reasoning:** The
+  check implements the binding contract exactly (code, severity, strict
+  threshold, anchor, verbatim message) with both required judgments
+  recorded at point-of-use, and both acceptance gates were
+  independently re-run to exit 0 against fixtures consumed unchanged
+  from step 1." Reviewer independently re-ran both gates (27/27, exit
+  0; self-lint PASS, exit 0). Minor note (deferred, no fix loop): bare
+  `5` literal vs a named constant — cosmetic, PLAN-bound N, skipped
+  under smallest-coherent-change.
+
+- **Step 3 [MAT-113] work-plan evals (before content) — DONE.** Added
+  `skills/work-plan/evals/eval-07.md` ("pre-open sweep — merged debt
+  blocks, in-progress lanes don't", owner scenario [a]) and
+  `eval-08.md` ("stacked wave — an open PR is pending, not debt", owner
+  scenario [b]), both in the house shape read off eval-01..06:
+  `# Eval NN: <phrase>` title, `## Query` (owner's words, split
+  `(a)`/`(b)` where the scenario has two beats, as eval-02/eval-05 do),
+  `## Fixture` (the checkout state in prose), `## Expected behavior`
+  (8-9 `- [ ]` lines, 72-col wrap, one judgment per line).
+
+  eval-07 encodes scenario [a]: four lanes, `work/mat-101-cache/`
+  merged-but-present, three live. Checklist requires the sweep to run
+  before `work/<slug>/` is created; mechanical detection
+  (`git branch --merged` / PR state, never PROGRESS prose); the merged
+  lane named specifically; refusal until it is closed carrying the line
+  "the next ticket is not a close"; the three in-progress lanes
+  untouched (debt, never concurrency); the trigger being the merged
+  folder and not the headcount (four lanes sit under the
+  `lane-accumulation` threshold, so the two legs cannot be conflated);
+  work-plan routing to work-handoff instead of deleting anything
+  itself; and the lanes opening in the same session once the close
+  lands (a gate, not a veto), delivered in the house refusal shape.
+
+  eval-08 encodes scenario [b] as two beats: (a) five verified lanes
+  with open PRs in a decided merge order ⇒ opens freely, proposes no
+  merge, does not reorder or collapse the stack, deletes nothing, and
+  does not convert five folders into a blanket "too many lanes" stop;
+  (b) after the first PR merges and its folder persists ⇒ that one
+  blocks, scoped to itself, with the other four named as fine in the
+  same breath. The closing line requires the MERGED-versus-verified
+  distinction to be stated, so the criterion is visible.
+
+  Acceptance command, exit 0 (work-plan now at 8 evals):
+
+  ```
+  $ node tests/run-eval-checks.mjs
+  ...
+  ok   work-plan: 8 evals well-formed
+  ...
+  all eval checks passed
+  EXIT: 0
+  ```
+
+  Also ran `node scripts/agent-lint.mjs . --ignore tests,templates,examples`
+  as a sanity check (not this step's acceptance): exit 0,
+  `0 high, 0 medium, 0 low — PASS`.
+
+  Files changed: `skills/work-plan/evals/eval-07.md`,
+  `skills/work-plan/evals/eval-08.md` (both new), plus this PROGRESS.md
+  entry. `skills/work-plan/SKILL.md` deliberately untouched — the sweep
+  content is step 4, evals-before-content is repo law.
+
+  Concerns: none. Note for step 4: the eval-07 checklist pins the
+  refusal wording "the next ticket is not a close" and pins that
+  work-plan routes the close to work-handoff rather than deleting the
+  folder itself — the SKILL.md text must satisfy both, plus eval-08's
+  requirement that the sweep never nudges toward an early merge.
+
 ## In progress
 
-- PLAN steps 3-7 pending — work-run dispatch continues at step 3.
+- PLAN steps 4-7 pending — work-run dispatch continues at step 4.
 
 ## Next
 
