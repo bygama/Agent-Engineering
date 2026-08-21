@@ -26,9 +26,9 @@ Copy this checklist and tick items off:
 Work-plan progress:
 - [ ] 0. Qualify (S refuses; standalone document refuses; no design +
       uncertainty refuses; check shape)
-- [ ] 1. Pick the mode (design-first writes SPEC.md and stops; direct
-      writes SPEC.md + PLAN.md together); read the input, note any
-      global constraint
+- [ ] 1. Pick the mode (design-first writes SPEC.md + PROGRESS.md's
+      marker and stops; direct writes SPEC.md + PLAN.md together); read
+      the input, note any global constraint
 - [ ] 2. XL shape? → parent plan only, stop after step 2
 - [ ] 3. Constraints block (if the design imposes one)
 - [ ] 4. Draft steps: one commit, one concern, executable acceptance
@@ -68,9 +68,18 @@ already exists before this skill runs:
 - *design-first* (default: the requirements emerged from a
   conversation, or no SPEC.md exists yet): write the lane's SPEC.md
   from the settled design, then STOP — ask the owner to approve the
-  SPEC explicitly, the same turn does not also shape PLAN.md. PLAN.md
-  starts only once that approval is on record, in a later turn, back
-  at this same step.
+  SPEC explicitly, the same turn does not also shape PLAN.md. The same
+  turn **does** write `work/<slug>/PROGRESS.md`, under `## In progress`,
+  carrying this marker verbatim:
+
+  ```
+  STATE: design-first approval window, waiting for owner approval of SPEC.md before PLAN.md
+  ```
+
+  `scripts/agent-lint.mjs`'s work-lanes section reads this exact string
+  to recognize the window — change both together. PLAN.md starts only
+  once that approval is on record, in a later turn, back at this same
+  step.
 - *direct* (the owner states the requirements are settled, or a
   tracker issue stands in as the spec): write SPEC.md and PLAN.md in
   one pass — one approval gate at the end, covering both files
@@ -167,7 +176,9 @@ steps buys a group of one and is a planning error.
 **6. Save.** Write PLAN.md to `work/<slug>/PLAN.md`; SPEC.md (step 1,
 either mode) goes to `work/<slug>/SPEC.md` — the lane's own files, the
 standard's location, never a suite's default folder or a standalone
-document elsewhere.
+document elsewhere. In design-first mode, saving PLAN.md ends the
+approval window: remove the marker line from `PROGRESS.md` the same
+turn, so the file does not go on declaring a wait that is already over.
 
 ## Judgment notes
 
