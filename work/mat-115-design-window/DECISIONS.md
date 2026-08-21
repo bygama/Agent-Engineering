@@ -124,3 +124,24 @@ carries a truncated prose reference `STATE: design-first approval
 window...` twelve lines below the full quote. It cannot match the gate's
 grep and cannot mislead the check; the reviewer's suggestion to replace
 it with "the marker quoted above" is a polish item.
+
+## 2026-08-21 — `templates/repo/work/PROGRESS.md.template` stays unchanged
+
+**Choice.** The empty PROGRESS.md scaffold every lane starts from is not
+touched by this lane.
+
+**Why.** The marker describes a transient state — the design-first
+approval window — not a property of every lane. Both modes start from
+the same empty scaffold today; baking the marker (or a commented-out
+version of it) into the template would write a false state into every
+direct-mode lane's PROGRESS.md from the moment it is created, since
+direct mode never enters the window the marker declares. The template
+is also outside this lane's touched-paths list (PLAN.md's constraints
+block: `templates/` is a never-touch path — concluding it must change
+would be an ask to the parent, not a unilateral edit), and nothing in
+implementing step 2 turned up a reason it must change: the marker line
+is written by `skills/work-plan/SKILL.md` directly into
+`work/<slug>/PROGRESS.md` at the SPEC step, not copied from the
+template. Matches SPEC's "Out of scope, deliberately" position exactly;
+recorded here per PLAN step 2's instruction to land the judgment
+whichever way the implementer lands.

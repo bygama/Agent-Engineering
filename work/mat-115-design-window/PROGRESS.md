@@ -124,9 +124,55 @@ issue: MAT-115
   a correction to the gate's spelling, not to its claim. The Minor finding
   is recorded as deferred for work-verify's triage.
 
+- **Step 2 — `skills/work-plan/SKILL.md` amended, design-first writes
+  PROGRESS.md** (PLAN step 2): step 1's design-first bullet now says the
+  same turn that writes SPEC.md **also** writes
+  `work/<slug>/PROGRESS.md` under `## In progress`, carrying the marker
+  verbatim, followed by a `change both together` line naming
+  `scripts/agent-lint.mjs`'s work-lanes section as the site that reads
+  the same string. The direct bullet is untouched. Two more spots
+  corrected so the file stops contradicting itself: the workflow
+  checklist's step 1 line (was "design-first writes SPEC.md and
+  stops"; now names the PROGRESS.md marker too), and step 6's "Save"
+  line, which said nothing about the marker ever being removed — it now
+  states that saving PLAN.md in design-first mode ends the window and
+  the marker line comes out of PROGRESS.md the same turn. The direct
+  bullet stays as written, per SPEC. Recorded in DECISIONS.md: the
+  judgment on `templates/repo/work/PROGRESS.md.template` is to leave it
+  unchanged — the marker is a transient state only design-first lanes
+  enter, and baking it into the shared scaffold would write a false
+  state into every direct-mode lane from creation.
+
+  ```
+  $ grep -q 'STATE: design-first approval window, waiting for owner approval of SPEC.md before PLAN.md' skills/work-plan/SKILL.md && echo MARKER_OK
+  MARKER_OK
+  $ grep -q 'change both together' skills/work-plan/SKILL.md && echo CBT_OK
+  CBT_OK
+  $ grep -q 'scripts/agent-lint.mjs' skills/work-plan/SKILL.md && echo PATH_OK
+  PATH_OK
+  $ grep -q 'PROGRESS.md.template' work/mat-115-design-window/DECISIONS.md && echo TEMPLATE_OK
+  TEMPLATE_OK
+  $ node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-115-design-window
+  0 high, 0 medium, 0 low — PASS
+  $ node tests/run-eval-checks.mjs
+  ... all eval checks passed
+  $ echo $?
+  0
+  ```
+
+  (Lint reports 0/0/0 PASS here rather than the earlier `lane missing
+  PLAN.md` MEDIUM: this lane's own PLAN.md already exists by this point
+  in the session, so its approval window is long over — the marker's
+  reproduction of MAT-115 was captured live back at the SPEC step, above.)
+  Also re-ran `node tests/run-lint-tests.mjs` (22/22 `ok`) and
+  `node tests/run-gen-tests.mjs` (7/7 `ok`) as a sanity check beyond this
+  step's own accept command; both exit 0, confirming step 2 didn't
+  disturb the suites steps 3-4 will extend next.
+
 ## In progress
 
-- work-run executing PLAN steps 1-6 in order. Step 1 done; steps 2-6
+- work-run executing PLAN steps 1-6 in order. Steps 1-2 done; steps 3-6
   remain.
 
 ## Tried and failed
