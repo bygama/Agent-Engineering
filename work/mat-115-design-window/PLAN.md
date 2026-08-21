@@ -85,7 +85,7 @@ here.
 
 ## Steps
 
-- [ ] **1. `skills/work-plan/evals/` — evals FIRST for the skill leg**
+- [x] **1. `skills/work-plan/evals/` — evals FIRST for the skill leg**
   (SPEC §1): `eval-05.md` owns the two modes, so it is amended rather
   than duplicated. Its existing design-first assertions stay true and
   gain their companion — the same turn that writes SPEC.md **also**
@@ -97,7 +97,7 @@ here.
   what "verbatim" means. *(judgment · per-step)*
   accept: `grep -q 'STATE: design-first approval window, waiting for owner approval of SPEC.md before PLAN.md' skills/work-plan/evals/eval-05.md && grep -q 'direct' skills/work-plan/evals/eval-05.md && node tests/run-eval-checks.mjs` — exit 0
 
-- [ ] **2. `skills/work-plan/SKILL.md` — design-first writes PROGRESS.md**
+- [x] **2. `skills/work-plan/SKILL.md` — design-first writes PROGRESS.md**
   (SPEC §2): step 1's design-first bullet gains the PROGRESS.md write
   and quotes the marker in full, with the paired `change both together`
   comment naming `scripts/agent-lint.mjs` as the site that must move
@@ -113,7 +113,7 @@ here.
   *(judgment · per-step)*
   accept: `grep -q 'STATE: design-first approval window, waiting for owner approval of SPEC.md before PLAN.md' skills/work-plan/SKILL.md && grep -q 'change both together' skills/work-plan/SKILL.md && grep -q 'scripts/agent-lint.mjs' skills/work-plan/SKILL.md && grep -q 'PROGRESS.md.template' work/mat-115-design-window/DECISIONS.md && node scripts/agent-lint.mjs . --ignore tests,templates,examples && node tests/run-eval-checks.mjs` — exit 0
 
-- [ ] **3. `tests/` — fixtures FIRST, and the new case must go RED**
+- [x] **3. `tests/` — fixtures FIRST, and the new case must go RED**
   (SPEC §3 and §4): build `tests/fixtures/lane-window-ok/` (an otherwise
   lint-clean AE fixture repo — pointer `CLAUDE.md`, stamped `AGENTS.md`
   — whose single lane holds `SPEC.md` plus a `PROGRESS.md` carrying the
@@ -131,7 +131,7 @@ here.
   lines into PROGRESS.md. *(judgment · per-step)*
   accept: `node tests/run-lint-tests.mjs 2>&1 | grep -q '^FAIL design-first approval window lane passes without PLAN.md' && node tests/run-lint-tests.mjs 2>&1 | grep -q '^ok   near-miss marker text does not exempt a lane' && node tests/run-lint-tests.mjs 2>&1 | grep -q '^ok   malformed lanes fail'` — exit 0 (the suite itself is RED here, by design)
 
-- [ ] **4. `scripts/agent-lint.mjs` — `lane-incomplete` becomes lifecycle-aware**
+- [x] **4. `scripts/agent-lint.mjs` — `lane-incomplete` becomes lifecycle-aware**
   (SPEC §5): in the work-lanes section, define the marker once as a
   module constant beside `ENTRY_SKILL_CAP`'s pattern, carrying the
   paired `change both together` comment that names
@@ -144,7 +144,7 @@ here.
   fixtures. *(judgment · per-step)*
   accept: `node tests/run-lint-tests.mjs && node scripts/agent-lint.mjs . --ignore tests,templates,examples && node tests/run-gen-tests.mjs && node tests/run-eval-checks.mjs` — all exit 0
 
-- [ ] **5. `docs/how-it-works/` — the chapter that went false**
+- [x] **5. `docs/how-it-works/` — the chapter that went false**
   (SPEC §6): `work-lifecycle.md` describes design-first as writing
   "SPEC.md alone" and stopping — false as of step 2 — so that sentence
   is corrected to name the PROGRESS.md write and the declared state, and
@@ -157,7 +157,7 @@ here.
   *(judgment · per-step)*
   accept: `! grep -q 'writes SPEC.md alone' docs/how-it-works/work-lifecycle.md && grep -q 'design-first approval window' docs/how-it-works/work-lifecycle.md && grep -q 'how-it-works' work/mat-115-design-window/DECISIONS.md && node scripts/agent-lint.mjs . --ignore tests,templates,examples` — exit 0
 
-- [ ] **6. Gate sweep + the lane's own invariants**
+- [x] **6. Gate sweep + the lane's own invariants**
   (SPEC §7 and Definition of done): the four gates, plus machine proof
   of the three claims the SPEC makes about the shape of the change — the
   marker lives in exactly two **source-of-truth** sites
@@ -170,7 +170,7 @@ here.
   *(integration · per-step)*
   accept: `node scripts/agent-lint.mjs . --ignore tests,templates,examples && node tests/run-lint-tests.mjs && node tests/run-gen-tests.mjs && node tests/run-eval-checks.mjs && test $(grep -rl --exclude-dir=evals 'STATE: design-first approval window, waiting for owner approval of SPEC.md before PLAN.md' skills scripts | wc -l) -eq 2 && grep -q 'skills/work-plan/SKILL.md' scripts/agent-lint.mjs && test $(git diff --name-only main...HEAD -- CHANGELOG.md AGENTS.md README.md reference examples templates .claude | wc -l) -eq 0` — all exit 0
 
-- [ ] **7. The window ends at every tier — triaged fix from the reviews**
+- [x] **7. The window ends at every tier — triaged fix from the reviews**
   (Minors raised independently by the step-2 command-mode review and the
   work-verify fresh-context review): this lane made the marker's WRITE
   unconditional in `skills/work-plan/SKILL.md` step 1, but left its
@@ -186,7 +186,7 @@ here.
   *(judgment · per-step)*
   accept: `grep -q 'design-first approval window' docs/how-it-works/work-lifecycle.md && node scripts/agent-lint.mjs . --ignore tests,templates,examples && node tests/run-lint-tests.mjs && node tests/run-gen-tests.mjs && node tests/run-eval-checks.mjs && test $(grep -rl --exclude-dir=evals 'STATE: design-first approval window, waiting for owner approval of SPEC.md before PLAN.md' skills scripts | wc -l) -eq 2 && test $(git diff --name-only main...HEAD -- CHANGELOG.md AGENTS.md README.md reference examples templates .claude | wc -l) -eq 0` — all exit 0
 
-- [ ] **8. The marker must be a LINE, not a substring — confirmed finding**
+- [x] **8. The marker must be a LINE, not a substring — confirmed finding**
   (fresh-context review, Important 1; reproduced by the controller and
   recorded in DECISIONS.md 2026-08-21): `scripts/agent-lint.mjs` matches
   the marker anywhere in `PROGRESS.md`, so a lane that merely quotes it —

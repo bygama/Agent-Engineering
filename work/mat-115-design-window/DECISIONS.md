@@ -323,3 +323,29 @@ the PR, and this repo merges rebase-only by choice.
 step 6's removal instruction shipped with no eval behind it — was true of
 the tree it reviewed and was closed by step 7 (`848b089` amends eval-05
 with the removal assertion, before `65150b9` moves the rule).
+
+## 2026-08-21 — the lane folder SURVIVES this close (repo convention beats the default)
+
+**Choice.** `work-handoff`'s close path deletes the lane folder by default.
+This close keeps it.
+
+**Why.** The skill itself allows it — "a repo convention may prefer
+archiving over deletion" — and this repo's convention is visible in three
+independent places:
+
+- `work/mat-111-deglobal/` and `work/mat-116-117-review-seats/` are both
+  present at `main`, each already carrying a `work-verify` PASS block. A
+  child that deleted its own lane on close would have removed those too.
+- `origin/chore/lane-sweep-111-116-117` exists: the owner sweeps merged
+  lanes in a dedicated branch, after merge, in batches.
+- This worker's dispatch brief names
+  `--report-path work/mat-115-design-window/PROGRESS.md` as the artifact
+  the parent reads. Deleting it would point the parent at a file that no
+  longer exists, and would strip the lane's evidence — including the
+  revoked-PASS ruling and every reviewer verdict — out of the PR the parent
+  is about to review.
+
+**So the close is a close in every other sense** — verification gated,
+debris swept, PROGRESS truthful, PLAN ticked, card and tracker synced — and
+the lane folder is left for the owner's sweep, which is where deletion
+belongs in this repo.
