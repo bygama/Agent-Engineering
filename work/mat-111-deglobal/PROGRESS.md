@@ -279,6 +279,74 @@
   2026-08-16 dates. A blanket bump would have been a falsified record.
 
 
+- 2026-08-20 — **PLAN step 5 DONE.** `README.md`: the directory table's
+  `global/` row removed, and the replication section's seed paragraphs
+  repointed at `reference/global-layer.md` with workstation named as the
+  owner's canonical personal instance. Two regions, nothing else touched.
+
+  1. **Directory table (~line 37) — row removed, not replaced.** The
+     table's own promise decides it: "Each directory answers exactly one
+     question", and `global/` is no longer a directory of this repo. A
+     replacement row would have had to name a *file*
+     (`reference/global-layer.md`), which the table's framing does not
+     admit. The question the row asked is not orphaned: the doctrine now
+     lives in `reference/`, which the table's first row already covers
+     ("what is the standard, and why?"), and the replication section
+     carries the explicit pointer. No other row moved.
+  2. **Replication section (~289-308) — three paragraphs.** The
+     SessionStart paragraph keeps its shape (injection is optional, the
+     skill still triggers by description) and its last sentence repoints:
+     the wiring recipe now "lives at
+     [`reference/global-layer.md`](reference/global-layer.md)". Note the
+     wording change is not only the path — the old text promised "the hook
+     script plus the settings entry"; this repo no longer ships a hook
+     script, so the new text promises the settings entry and the rules that
+     keep it working on any runner, which is exactly what the reference
+     file carries. The `global/CLAUDE.md`-as-a-seed paragraph is gone with
+     its "strip the owner-specific lines" warning — there is no seed left
+     to strip — replaced by a pointer paragraph that says the rest of the
+     layer is argued in that same file and that a lived-in personal config
+     is not something a standard can ship. Per the brief, the pointer
+     points: it does not restate `reference/global-layer.md`'s doctrine
+     (no table of what goes in, no 40-line canon spelled out here).
+  3. **Closing claim re-checked.** "None of this depends on any other
+     repo." still reads TRUE after the edit: all three install ways use
+     only this repo's files, and the wiring recipe is now in this repo's
+     `reference/`. The workstation sentence also had to change on its own
+     merits — it claimed a real `~/.claude` "built by applying `global/`
+     end to end", which is false the moment `global/` is gone. It now
+     reads as the owner's canonical personal instance, "kept in its own
+     repo precisely so the standard need not carry it — worth reading as a
+     worked example, never a dependency." Canonical for the personal
+     layer, and explicitly not a dependency, in the same sentence.
+
+  Accept command and output:
+
+  ```
+  $ ! grep -q 'global/CLAUDE.md\|global/hooks' README.md \
+      && grep -q 'reference/global-layer.md' README.md \
+      && node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-111-deglobal
+  0 high, 0 medium, 0 low — PASS
+  EXIT=0
+  ```
+
+  After the edit `grep -n 'global' README.md` returns exactly two lines,
+  both intended: the `reference/global-layer.md` link and the phrase "the
+  global instructions you end up with are yours to write". No `global/`
+  path survives in the file. Diff: 14 insertions, 15 deletions, confined
+  to the two regions.
+
+  Commit: `<filled below>` — docs(global): README — drop the `global/`
+  row, repoint the machine-layer section
+
+  Files changed: `README.md`, this PROGRESS.md.
+
+  Concerns: none blocking. One note for step 11's sweep: README's
+  Architecture mermaid never had a `GLB` node (that is
+  `docs/how-it-works/architecture.md`, step 6), so nothing diagram-side was
+  left behind here.
+
 ## In progress
 
 - PLAN step 5.
