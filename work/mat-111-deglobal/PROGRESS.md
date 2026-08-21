@@ -370,6 +370,120 @@
   `reference/orca.md` and `loops/` have no rows either. Discoverability
   from the table alone is slightly lower than before.
 
+- 2026-08-20 — **PLAN step 6 DONE.** `docs/how-it-works/architecture.md`:
+  the `GLB` mermaid node deleted, the arrowless-node paragraph rewritten,
+  the `### global/` directory section removed, and the explanation it owed
+  the reader rehomed in `### reference/`. Four regions, +18/-15.
+
+  **The judgment the brief asked for, both halves the same answer: the node
+  and the section are removed, not rewritten — and what they explained is
+  rehomed rather than dropped.**
+
+  The reasoning is the section's own promise. "What each directory answers"
+  is a list of *this repo's directories*, one question each; `global/` is
+  not a directory any more, so an entry there would be a heading for
+  nothing. Same for the diagram: it is a directory-level map, and a box
+  labelled with a path that does not exist is simply false — the brief's
+  "do not preserve a node just to avoid changing the picture" is exactly
+  the trap. Nor could either be *repointed* at `reference/global-layer.md`:
+  that is a file inside `reference/`, which both the diagram's `REF` node
+  and the `### reference/` section already cover. A second box for one file
+  inside another box would be false in a new way. This matches step 5's
+  call on README's directory table (row removed, not replaced), so the two
+  surfaces now answer the question the same way.
+
+  What made removal safe rather than a silent drop is that the deletion
+  improves the picture instead of merely shrinking it. `reference/` is
+  *"the standard: 1 doc per layer"* — the global layer is a layer, so its
+  doc belongs there by the diagram's own rule. The old node was an orphan
+  precisely because this repo carried machine content; with the content
+  gone, the layer stops being an exception and joins the map properly.
+  That is what the new post-diagram paragraph says.
+
+  Regions, in file order:
+
+  1. **Intro, line 7 — a fourth region, not on the brief's list of three.**
+     "Everything else — fixtures, global-layer content — exists to keep
+     those five honest" went false with this change: the global layer's
+     content is now `reference/global-layer.md`, i.e. *inside* the first
+     verb (**defines** the standard), so it is no longer "everything else".
+     Fixed by deleting the false item only: "— fixtures above all —".
+     Flagged explicitly because the brief said three regions and said not
+     to touch anything else; I judged a sentence *made false by this exact
+     structural change* to be inside the step rather than outside it, since
+     the house rule this step exists to satisfy is that the chapter is true
+     after the change. It is a two-word deletion and a one-word revert if
+     the controller disagrees. It does not carry `global/` and so was
+     invisible to the acceptance grep.
+  2. **The `GLB` node (was line 25) — deleted.** No other node or arrow
+     touched; the mermaid block still parses (five nodes, four arrow lines).
+  3. **The post-diagram paragraph (was 31-33) — rewritten, not deleted.**
+     The old text explained why one node had no arrow. The new text
+     explains where the layer went and what genuinely stays outside the
+     chain: the layer is on the map *inside* `reference/` as one document
+     (`reference/global-layer.md`); what no arrow reaches is any machine's
+     actual `~/.claude` content, which a personal repo owns and installs.
+     The following sentence's "sits outside the flow **too**" still has a
+     referent, which it would have lost on a plain deletion.
+  4. **`### global/` (was 132-139) — removed**, and its question rehomed
+     into `### reference/`: `global layer` added to the doc enumeration
+     (which had been incomplete since step 1 created the file), plus one
+     paragraph that *points* — it names what `global-layer.md` answers
+     ("what belongs in `~/.claude`?"), that the canon is enforced by
+     content rather than by path, and that the wiring recipe is there,
+     without restating any of the doctrine, per the brief. It opens on the
+     reason it exists at all — "a reader may come looking for a directory
+     and find only a file" — and closes on workstation as the author's
+     instance, "a consumer of this standard, never a dependency of it",
+     wording aligned with `reference/global-layer.md`'s own closing section
+     and with step 5's README sentence.
+
+  Untouched as instructed: `### examples/` (its "machine-config entry that
+  points at the living public consumer (workstation)" is still true), and
+  every other section. No prose restyled.
+
+  Accept command and output:
+
+  ```
+  $ ! grep -q 'global/' docs/how-it-works/architecture.md \
+      && grep -q 'global-layer.md' docs/how-it-works/architecture.md
+  ACCEPT_EXIT=0
+  ```
+
+  All four gates re-run after the edit (not required by the step's accept,
+  run anyway because the chapter carries links the lint resolves):
+
+  ```
+  $ node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-111-deglobal
+  0 high, 0 medium, 0 low — PASS
+  LINT=0  LINT_TESTS=0  GEN_TESTS=0  EVAL_CHECKS=0
+  ```
+
+  After the edit `grep -in 'global' docs/how-it-works/architecture.md`
+  returns exactly three lines, all intended: the two
+  `global-layer.md` pointers and `global layer` in the reference
+  enumeration. No `global/` path survives.
+
+  Files changed: `docs/how-it-works/architecture.md`, this PROGRESS.md.
+
+  Concerns, none blocking:
+  - Region 1 is the one to review first — it is the only edit outside the
+    three regions the brief named. Stated above rather than made quietly.
+  - `reference/global-layer.md` is cited in backticks, not as a relative
+    markdown link. That is this chapter's house style for reference docs
+    (`reference/context.md`, `reference/memory.md`, … in "The six layers"
+    are all bare backticks); ADR and sibling-chapter links are the only
+    real links. A link would also have been safe for the grep —
+    `reference/global-layer.md` contains no `global/` substring, since
+    `global` is followed by `-`.
+  - The `### reference/` enumeration line is 123 chars and was already
+    ragged before this step (118 chars); adding `global layer,` pushed it
+    slightly. Rewrapping it would have restyled untouched prose, so I left
+    the wrap as the file had it.
+  - Lane bookkeeping, not mine to change: `## In progress` below still
+    lists both "PLAN step 6" and a stale "PLAN step 5" left by the previous
+    step. Both are now DONE. Left for the controller rather than edited.
 
 ## In progress
 

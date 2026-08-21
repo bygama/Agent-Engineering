@@ -4,7 +4,7 @@ One repo, five verbs. Agent-Engineering **defines** the standard
 (`reference/`), **installs** it in consuming repos (`templates/`),
 **replicates and applies** it day to day (`skills/`), **enforces** its
 mechanical subset (`scripts/`), and **explains** itself (`docs/`). Everything
-else — fixtures, global-layer content — exists to keep those five honest.
+else — fixtures above all — exists to keep those five honest.
 
 The repo is also its own first consumer: the root `AGENTS.md` carries the
 same version stamp, obeys the same budgets, and must pass the same audit it
@@ -22,15 +22,17 @@ flowchart LR
     SCR["scripts/agent-lint<br/>mechanical checks"] -->|backs| SK
     TST["tests/<br/>fixtures + self-tests"] -->|proves| SCR
     DOCS["docs/how-it-works<br/>living explanation"] -.->|explains| REF & SK & TPL & SCR
-    GLB["global/<br/>~/.claude layer content"]
 ```
 
 Read the arrows as dependencies of meaning: skills argue from the reference
 docs, templates embody them, the lint automates the part of the argument
 that needs no judgment, and the fixtures prove the lint tells the truth.
-`global/` carries no arrow on purpose — it feeds no consumer inside this
-repo; a separate machine-setup mechanism applies its content straight to
-`~/.claude`, outside the dependency chain the arrows trace. `docs/how-it-works/`
+The `~/.claude` layer is on this map too, inside `reference/`: it is a
+layer of the standard like any other, so it gets one document
+(`reference/global-layer.md`) and no box of its own. What no arrow reaches
+is any machine's actual `~/.claude` content — that is one person's, so a
+personal repo owns it and installs it from there, outside the dependency
+chain the arrows trace. `docs/how-it-works/`
 sits outside the flow too, on the other side: it explains all of it — which is
 why every structural change must touch it too.
 
@@ -42,11 +44,21 @@ Live and complete: every layer of the standard has its document.
 
 One document per layer — context, memory, harness, verification, task
 tiers, loops, graphs-and-reducers — plus cross-cutting docs (principles,
-orca, tracker, runners, design-md, skill authoring). Each file is a distillation, not a mirror: ≤120 lines, a
+global layer, orca, tracker, runners, design-md, skill authoring). Each file is a distillation, not a mirror: ≤120 lines, a
 source-and-date header citing the public material it condenses, and only the
 claims we are prepared to enforce. When new guidance appears in the world,
 it enters the repo here first; templates and checks follow only if the
 guidance changes what we install or verify.
+
+One of those is worth naming here, because a reader may come looking for a
+directory and find only a file. `global-layer.md` answers "what belongs in
+`~/.claude`?" — the doctrine, the ≤40-line canon the lint enforces by
+content rather than by path, and the runner-generic SessionStart wiring
+recipe. It is the only layer whose content lives on a machine instead of in
+a repo, and the standard documents it without shipping any of it: whose
+machine gets which lines is a personal repo's business. The author's is
+[bygama/workstation](https://github.com/bygama/workstation) — a consumer of
+this standard, never a dependency of it.
 
 ### `templates/repo/` — what gets installed in a consuming repo?
 
@@ -128,15 +140,6 @@ list schema. The split matters — the lint never argues, the audit never
 counts. Keeping the mechanical subset in code makes it cheap to run
 everywhere (pre-commit, CI, inside `ae-audit`) and keeps the judgment
 calls where judgment lives, in the skill.
-
-### `global/` — what belongs in the global layer?
-
-Live since AE/2.0.
-
-Canonical content for `~/.claude` (the user-level context that applies
-across repos). This repo owns the *content*; a separate machine-setup
-mechanism applies it. Nothing here is edited in place on a machine — it is
-edited here, then installed.
 
 ### `loops/` — what runs on a cadence in this repo?
 
