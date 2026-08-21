@@ -157,7 +157,13 @@ rounds, escalating model) whatever the class or the seat, and rulings
 land in `DECISIONS.md` — the skill's own doc owns the fix-loop and
 role-hint detail. Grouping is safe precisely because nothing downstream
 of it moved: the lane gate and the adversarial seat below still see
-every line. work-run is
+every line. That safety is borrowed, not intrinsic — it is the late
+cross-family coverage doing the work, which is why the dispatch dialogue
+refuses to leave a lane without a cross-family gate
+([execution.md](execution.md)). A lane that grouped heavily *and* took
+the owner's explicit zero-cross-family override would have a correct
+paper trail and a real blind spot; the override is deliberately hard to
+reach for that reason. work-run is
 never mandatory: a runner without subagents executes the same steps
 inline under the same ceremony, and parallel implementers inside one lane
 are refused — parallelism between lanes belongs to orchestrate

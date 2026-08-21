@@ -658,3 +658,127 @@ better; no re-review bought for it.
 **Deferred minor (1):** M6 — DECISIONS.md's line-number citations for
 the four NO-CHANGE chapters drift as those files are edited. Not a
 defect; the claims are still locatable.
+
+### Step 10 — full gate sweep + integration review — DONE
+
+**All four gates, run in this worktree:**
+
+```
+node scripts/agent-lint.mjs . --ignore tests,templates,examples  → 0 high, 0 medium, 0 low — PASS (exit 0)
+node tests/run-lint-tests.mjs                                    → all 22 cases passed (exit 0)
+node tests/run-gen-tests.mjs                                     → all gen cases passed (exit 0)
+node tests/run-eval-checks.mjs                                   → all eval checks passed (exit 0)
+```
+
+**No live surface points a seat at the dead id.** Two mentions of
+`opencode/deepseek-v4-flash-free` survive — `reference/runners.md:126`
+and `skills/orchestrate/evals/eval-03.md:37` — and both exist to say
+it is retired. Zero `-m opencode/deepseek-v4-flash-free` spawn targets.
+
+**Evals precede content, per skill, inside this lane:**
+
+```
+work-run     c545b79 test → 34896c4 test → 24b0438 feat
+work-plan    5c0c5e8 test → 9ed48ae feat
+orchestrate  a69a8a5 test → d38a9b5 test → c9c3a7b test → 48cedb5 feat
+```
+
+**Review engine: free ratón for the integration pass
+(`opencode/muse-spark-1.2-contributor-free`), sigiloso for the scoped
+re-review (`opencode/x-preview-f-free`).** The integration brief was
+the heaviest of the lane — a 1176-line whole-lane diff plus every
+touched surface — so it went to the seat that has held up on heavy
+briefs rather than being sent to fail first.
+
+#### Round 1 — PASS (integration, free ratón)
+
+> → Read work/mat-116-117-review-seats/PLAN.md
+> → Read reference/runners.md
+> → Read skills/work-run/SKILL.md
+> → Read skills/work-plan/SKILL.md
+> → Read skills/orchestrate/SKILL.md
+> → Read docs/adrs/ADR-008-orchestration.md
+> → Read docs/how-it-works/execution.md
+> → Read docs/how-it-works/work-lifecycle.md
+> ```
+> VERDICT: PASS
+> ```
+>
+> ### Spec compliance
+> ✅ Compliant — all seven SPEC sections present in the diff; no scope creep beyond the brief; dated records (`ADR-008:93`, `execution.md:497`, `docs/plans/*`) correctly left as records while every live spawn target was repointed; `work-verify` correctly untouched per §Out of scope.
+>
+> ### Strengths
+> - `reference/runners.md` as single registry obeyed: economics rule, degradation chain, `--auto` law and command form live in one place; every consumer cites (`reference/runners.md`) rather than re-deriving. Chain order `sigiloso → free ratón → paid Go → Claude subagent` verbatim in SPEC §1, `reference/runners.md:96-103` and `work-run/eval-05:978` only.
+> - Producer/consumer contract matches: `work-plan/SKILL.md:152-155` defines trailing parenthetical `*(role · class)*` or `*(class)*` alone with `per-step` floor never downgradable; `work-run/SKILL.md:89-105` reads it off the PLAN line and executes exactly `per-step=dedicated`, `grouped=one pass at contiguous boundary with combined diff`, `covered-by-batch=nothing extra`, falling back to `per-step` for classless plans. Evals `work-plan/eval-06` and `work-run/eval-06` encode the same table.
+> - Cross-file review vocabulary locked: three classes, two modes `subagent|command`, sigiloso/Ox Alpha `opencode/x-preview-f-free`, ratón `opencode/muse-spark-1.2-contributor-free`, ballena `opencode-go/deepseek-v4-flash`, command form `opencode run --auto -m <provider/model> "<prompt>"` one-shot vs TUI `opencode --auto -m …` + `terminal wait` + `worker-start --terminal`. Every default now offered at free variant per `reference/runners.md:63-70`.
+> - Guardrail in positive form everywhere: `skills/orchestrate/SKILL.md:99-115`, `docs/adrs/ADR-008-orchestration.md:9-23` italic amendment, `docs/how-it-works/execution.md:231-233` diagram plus `execution.md:296-309` narration, `skills/orchestrate/evals/eval-06` — all state "at least one cross-family gate per lane", reject both `Claude+Claude` and `Claude-per-step + no adversarial`, owner override only by explicit verbatim Task-spec record.
+>
+> ### Findings
+> #### Critical
+> None.
+>
+> #### Important
+> None.
+>
+> #### Minor
+> - `skills/work-run/SKILL.md:89` — `Read it off the step's PLAN line beside its role hint` implies a role hint is always present; `skills/work-plan/SKILL.md:152-155` allows `*(per-step)*` alone when no hints are used. A hintless plan is valid per producer but the consumer wording could cause a literal reader to treat `*(per-step)*` as malformed. Fix: `Read it off the step's trailing parenthetical, beside the role hint when present` and cite the class-alone form.
+> - `reference/runners.md:25` headless spawn cell and `skills/work-run/SKILL.md:112` restate the full `opencode run --auto -m …` argv verbatim (cited, but restated). This is spec-mandated, but remains the one duplication that can drift if a flag ever changes — mitigated by the parenthetical citations, but keep the cite and avoid adding variants without updating the registry.
+> - `docs/how-it-works/work-lifecycle.md:160` — grouping safety stated as "nothing downstream moved: lane gate and adversarial seat still see every line." True, but the late coverage presupposes the guardrail was satisfied at dispatch; a zero-cross-family lane that was explicitly overridden is safe only by that override record — worth naming explicitly to avoid reading grouping as safe even without a cross-family gate.
+>
+> ### Assessment
+> **Step quality:** Approved
+> **Reasoning:** Whole-lane integration is coherent: vocabulary, degradation chain, economics rule and command form are cited consistently; writer/reader contract for review classes aligns; stale `deepseek-v4-flash-free` spawn survives only as named retired id; SPEC §§1-7 are fully covered and how-it-works chapters carry no falsified claim.
+>
+> **What remains weak:** The riskiest property as shipped is exactly what makes the lane cheap — the free window. Every default now races a clock: Ox Alpha and the free ratón are explicitly "for a limited time" and the degradation chain is law precisely because the top id can vanish without notice while the Go fallback silently becomes paid. The standard is correct to make falling through normal operation and to require recording which engine ruled, but a future agent following the text verbatim will still land on cost if nobody re-probes the Zen list and retires the dead id in `reference/runners.md` promptly; the file is the only place that knows. The guardrail and the `grouped` knob compound this: both are safe only because late cross-family coverage still runs — if a lane were both grouped heavily and allowed to reach the explicit zero-cross-family override, the paper trail would be correct and the blind-spot risk would still be real.
+>
+
+#### Round 2 (fix: the notation contract + borrowed-safety clause) — PASS (sigiloso)
+
+> 8403fc0 feat(work-run): release finished runners in the step loop
+> d6325b6 test(work-run): eval-01 expects released runners in the step loop
+> 52988b0 docs(mat-55): sweep remaining living surfaces from fan-out to orchestrate
+> 9ebb781 test(shaping): add shaping's four evals and reroute superseded ones (MAT-45 H1)
+> 156fd1b docs(work-run): point dispatch/review/fix-loop clauses at their templates
+> 5dc42e3 feat(skills): dispatch templates — implementer, step-reviewer, re-reviewer, lane-reviewer
+> 91f98cf test(work-run,work-verify): pin dispatch-template composition in evals
+> c5eb379 rename(skills): relay -> work-run — mechanical sweep
+> d96db88 test(work-plan): eval-05 pins the two-mode split (S6)
+> bac4da8 test(work-plan): evals first — shaping, refusal, XL, interfaces/batching/roles
+> rg: The term 'rg' is not recognized as a name of a cmdlet, function, script file, or executable program.
+> Check the spelling of the name, or if a path was included, verify that the path is correct and try again.
+>
+> ✱ Grep "evals change before|eval-first|eval change" in work/mat-116-117-review-seats · 1 match
+> → Read work/mat-116-117-review-seats/PROGRESS.md [offset=470]
+> → Read work/mat-116-117-review-seats/PLAN.md
+> All context gathered. Let me run the repo's self-lint (read-only) to confirm the fix introduces no structural violation.
+>
+> $ node scripts/agent-lint.mjs . --ignore tests,templates,examples
+> agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-116-117-review-seats
+> 0 high, 0 medium, 0 low — PASS
+>
+> **Minor 1 — ADDRESSED.** `skills/work-run/SKILL.md:89-92` now reads the class off "the step's trailing parenthetical — beside the role hint where the plan uses hints, `*(judgment · per-step)*`, and alone where it does not, `*(per-step)*`." Both notational forms are named, so the class-alone plan is no longer readable as malformed. This matches `skills/work-plan/SKILL.md:151-155` term for term: trailing parenthetical, role first, class alone when the plan uses no hints.
+>
+> **Minor 3 — ADDRESSED.** `docs/how-it-works/work-lifecycle.md:161-167`: "That safety is borrowed, not intrinsic — it is the late cross-family coverage doing the work, which is why the dispatch dialogue refuses to leave a lane without a cross-family gate ([execution.md](execution.md)). A lane that grouped heavily *and* took the owner's explicit zero-cross-family override would have a correct paper trail and a real blind spot; the override is deliberately hard to reach for that reason." That is precisely the scenario the finding named, with the enforcement point cited.
+>
+> **Minor 2 — agreed, correctly left alone.** The argv restatement is spec-mandated (PLAN steps 1/7 acceptance greps) and carries its runners.md citation; nothing to act on.
+>
+> ### NEW BREAKAGE
+>
+> None.
+>
+> - **work-run wording vs work-plan's notation paragraph:** agree. Same mechanism (one trailing parenthetical), same role-first order, identical example forms down to the middle dot (`skills/work-plan/SKILL.md:152-154`).
+> - **vs `skills/work-run/evals/eval-06.md`:** agree. Eval-06:24 expects reading the class off the PLAN line; its fixtures (:11-16) all use the hint+class form the new sentence describes first; the hintless-plan case eval exercises (`old-lane-42`, hints but no classes) is still handled by the unchanged no-classes-at-all paragraph (`SKILL.md:105-107`). Nothing in the eval presupposes a hint.
+> - **work-lifecycle sentence vs `execution.md`:** no contradiction. The guardrail is execution.md:233 ("at least one cross-family gate per lane, else reject and re-ask"); the escape is :306-309 (owner chooses explicitly, words in the Task spec verbatim, "cannot be reached by drifting into it"). The relative link target exists and the form matches the file's two existing `[execution.md](execution.md)` links (:45, :170).
+> - **Overstatement:** none. "A real blind spot" mirrors execution.md's own "maker and every checker share one family's blind spots"; "deliberately hard to reach" is a fair gloss of reject-and-re-ask plus verbatim recording; "correct paper trail" matches the verbatim-in-Task-spec rule.
+> - **Eval-first constraint:** checked — no eval diff accompanies this skill-content touch, but the governing expectation was already pinned by the committed `skills/work-plan/evals/eval-06.md:45-47` ("so work-run can read both without guessing", commit 5c0c5e8, predating this content change). No eval needed changing; ordering holds.
+> - **Stale-claim sweep:** remaining "beside its/the role hint" phrasings (`work-plan/SKILL.md:140`, work-plan evals 04/32 and 06/22) are producer-side statements whose fixtures all use hints — not falsified by this consumer-side fix. Lane PLAN comment and PROGRESS quotes are records. Self-lint: PASS (0/0/0).
+>
+> ```
+> VERDICT: PASS
+> ```
+>
+
+Step 10 closes Approved at fix round 1/5. Minor 2 (the argv
+restatement in `reference/runners.md:25` and `work-run/SKILL.md`) was
+deliberately left: it is SPEC-mandated and carries its citation. The
+re-reviewer agreed.
