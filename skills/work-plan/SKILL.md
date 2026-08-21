@@ -76,16 +76,16 @@ already exists before this skill runs:
   STATE: design-first approval window, waiting for owner approval of SPEC.md before PLAN.md
   ```
 
-  `scripts/agent-lint.mjs`'s work-lanes section reads this exact string
-  as the content of its own line (only leading whitespace and an
-  optional `- `/`* ` bullet allowed around it) to recognize the window
-  — change both together, a quote inside prose or a transcript does not
-  count. PLAN.md starts only
-  once that approval is on record, in a later turn, back at this same
-  step. Whichever tier that later turn takes — step 6's M/L plan or
-  step 2's XL parent plan — saving PLAN.md there ends the window: the
-  marker line comes out of `PROGRESS.md` the same turn, so the file
-  does not go on declaring a wait that is already over.
+  `scripts/agent-lint.mjs`'s work-lanes section reads this exact
+  string as the content of its own line (only leading whitespace and
+  an optional `- `/`* ` bullet allowed around it) to recognize the
+  window — change both together, a quote inside prose or a transcript
+  does not count. PLAN.md starts only once that approval is on record,
+  in a later turn, back at this same step. Whichever tier that later
+  turn takes — step 6's M/L plan or step 2's XL parent plan — saving
+  PLAN.md there ends the window: the marker line comes out of
+  `PROGRESS.md` the same turn, so the file does not go on declaring a
+  wait that is already over.
 - *direct* (the owner states the requirements are settled, or a
   tracker issue stands in as the spec): write SPEC.md and PLAN.md in
   one pass — one approval gate at the end, covering both files
