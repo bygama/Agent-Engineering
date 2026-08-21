@@ -86,8 +86,10 @@ scratch, never committed), the PLAN step, and the SPEC, composed from
 AND quality. Two knobs decide the seat — **how often** and **who** —
 and neither is the controller's mood.
 
-*How often: the review class.* Read it off the step's PLAN line beside
-its role hint; `work-plan` writes one on every step.
+*How often: the review class.* Read it off the step's trailing
+parenthetical — beside the role hint where the plan uses hints,
+`*(judgment · per-step)*`, and alone where it does not, `*(per-step)*`.
+`work-plan` writes one on every step.
 
 | Class | What the step buys |
 |---|---|

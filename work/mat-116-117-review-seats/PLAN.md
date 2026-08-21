@@ -168,7 +168,7 @@ after step 9, covering both.
   *(judgment · grouped)*
   accept: `grep -q 'per-step reviewer' docs/how-it-works/execution.md && grep -q 'review class' docs/how-it-works/work-lifecycle.md && grep -q 'how-it-works' work/mat-116-117-review-seats/DECISIONS.md && node scripts/agent-lint.mjs . --ignore tests,templates,examples` — exit 0
 
-- [ ] **10. Full gate sweep + no live surface on the dead id**
+- [x] **10. Full gate sweep + no live surface on the dead id**
   (SPEC Verification): the four gates, plus proof that no live
   (non-record) surface still names `opencode/deepseek-v4-flash-free` and
   that each skill's eval commit precedes its content commit.
