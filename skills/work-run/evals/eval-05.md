@@ -51,9 +51,11 @@ dispatch dialogue reached this session.
       refuse the review on the theory that shelling out to another model
       births a grandchild.
 - [ ] Composes the command-mode prompt from
-      `skills/work-run/references/step-reviewer.md` — the same three
-      inputs — never a freehand prompt written from scratch because the
-      seat happens to be a CLI instead of a subagent.
+      `skills/work-run/references/step-reviewer.md` — its three shared
+      inputs plus `[WORKTREE_ROOT]`, which command mode requires because
+      the seat has no ambient checkout — never a freehand prompt written
+      from scratch because the seat happens to be a CLI instead of a
+      subagent.
 - [ ] Instructs the command-mode seat read-only (no edits, no commits,
       no branch mutation) and requires the same two verdicts a subagent
       reviewer owes: spec compliance AND quality.
