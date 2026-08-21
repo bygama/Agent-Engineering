@@ -290,3 +290,33 @@ different class of change.
 Executed as **PLAN step 12**, added after the ruling. The house rule
 "evals change before content on every revision" is satisfied trivially:
 only an eval changes, no skill content.
+
+## 2026-08-20 — Accepted debt: `ae-audit` eval-03's directory enumeration is still incomplete
+
+Surfaced by step 12's reviewer, **not** by the step's own implementer,
+whose report said "Concerns: none" while holding both the enumeration
+and `architecture.md`'s section list. Recording it here so it is not
+silently lost — the reporting gap is the finding, the enumeration is the
+debt.
+
+`skills/ae-audit/evals/eval-03.md:20` now reads "(reference, templates,
+skills, scripts, tests, docs)". Two real top-level directories with
+current chapters under `docs/how-it-works/` are still missing from it:
+`loops/` (`architecture.md:144`) and `examples/` (`architecture.md:152`).
+`work/` is a third top-level directory with a chapter of its own
+(`work-lifecycle.md`), by the pre-existing convention step 6's reviewer
+noted.
+
+**Pre-existing, not this lane's damage.** The pre-lane string
+"(reference, templates, skills, scripts, global, tests, docs)" never
+listed `loops` or `examples` either. The parent's fence-lift ruling
+authorized exactly two lines — the `global` falsehood this lane caused,
+plus the one-word `AGENTS.md:14` restoration — so widening the
+enumeration here would have exceeded the ruling. **Correctly left
+unedited.**
+
+Consequence if never fixed: a self-audit run following this eval checks
+how-it-works coverage for six directories and silently skips three that
+have chapters. It under-reports; it does not produce a false finding the
+way the `global` entry would have. Worth a ticket in the MAT-114 class,
+the parent's call.
