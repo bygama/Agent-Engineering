@@ -50,3 +50,89 @@ seat off `reference/runners.md` (SKILL.md:85). Editing it would be a
 diff with no behavior change. The brief's "the adversarial seat
 unchanged" therefore stays literally true, and the economics rule still
 reaches the seat through the reference file.
+
+## 2026-08-21 — Parent ruling: this lane runs the machinery it builds
+
+Arrived by mailbox mid-lane (two messages: the ruling, then a
+correction carrying the exact command). Quoted verbatim:
+
+> Owner directive (2026-08-21): your own per-step reviews run on the NEW
+> engine, effective immediately — do not wait for the skill text to
+> merge. Concretely: for each PLAN step's review, instead of an
+> in-session Claude subagent, shell out  from your worktree (the model
+> has tools and reads the checkout itself; instruct it read-only,
+> verdict format PASS/FAIL + findings). Keep the FREQUENCY unchanged —
+> this lane touches skill content, which is per-step class by MAT-117's
+> own logic; only the ENGINE changes. Paste every verdict verbatim into
+> your lane records exactly as before. Degradation chain if an
+> invocation fails or rate-limits: opencode/muse-spark-1.2-contributor-free,
+> then the in-session Claude subagent (the old way) — never a blocked
+> step, and record which engine each review used. Cross-family stays
+> satisfied twice over (Ox per-step + raton adversarial after
+> worker_done). This lane is thereby its own first production test —
+> record THAT in DECISIONS.md, and if the sigiloso engine misses
+> something your Claude-subagent instinct would have caught, that
+> observation is gold: report it in your worker_done body.
+
+And the correction, which carried the command the first mail lost to a
+quoting fault:
+
+> Correction: the previous mail (same subject family) may have lost the
+> command text to a shell-quoting fault on my side. The per-step review
+> engine command, verbatim, no backticks: opencode run --auto -m
+> opencode/x-preview-f-free "<review brief>" -- run it from your
+> worktree root; on failure or rate-limit fall back to: opencode run
+> --auto -m opencode/muse-spark-1.2-contributor-free "<review brief>"
+> -- and if both fail, the in-session Claude subagent as before. NOTE
+> from the parent seat: the plain "opencode" command on this machine
+> resolves to a BROKEN npm shim (incompatible exe); if you hit that, use
+> the winget binary full path:
+> C:\Users\mateo\AppData\Local\Microsoft\WinGet\Packages\SST.opencode_Microsoft.Winget.Source_8wekyb3d8bbwe\opencode.exe
+> with the same arguments. Everything else in the prior mail stands:
+> frequency unchanged, verdicts verbatim in lane records, engine
+> recorded per review, this lane is its own first production test.
+
+**This lane is the first production test of its own machinery.** Every
+PLAN step's review runs on the sigiloso in command mode; the frequency
+is unchanged (skill content is `per-step` by MAT-117's own logic); each
+review names the engine that produced it, and the verdict text is pasted
+verbatim into PROGRESS.md.
+
+**Binary resolution, confirmed here.** The parent's broken-shim warning
+reproduces exactly: plain `opencode` on PATH resolves to
+`C:\Briar\dev\node\opencode.ps1`, whose target
+`node_modules/opencode-ai/bin/opencode.exe` is the placeholder left when
+the postinstall never ran ("not a valid application for this OS
+platform"). This lane uses the parent's named winget binary
+(`…\WinGet\Packages\SST.opencode_…\opencode.exe`, `--version` → 1.18.18),
+which is the same version as the working platform binary at
+`C:\Briar\dev\node\node_modules\opencode-windows-x64\bin\opencode.exe`.
+
+**Prompt delivery.** The review brief is written to a session scratch
+file and the invocation is `opencode run --auto -m <id> "Read <path> and
+follow it exactly."` — same command shape the parent gave, with the
+brief delivered by file rather than by a multi-kilobyte argv string that
+Windows quoting would mangle. The seat has tools and reads the checkout
+itself, which is the whole premise of command mode.
+
+## 2026-08-21 — Implementation runs inline; every review runs cross-family
+
+work-run's step loop dispatches a fresh implementer subagent per step
+and a fresh reviewer after it. This lane runs the **reviewer** rung
+exactly as the standard demands — and, per the parent's ruling above, on
+a stronger seat than the standard's own default: a fresh cross-family
+sigiloso in command mode, one per step, with the verdict text pasted
+verbatim into PROGRESS.md.
+
+The **implementer** side runs inline in the controller session, which is
+work-run's own runtime-neutral fallback shape ("the SAME lane inline
+under the SAME ceremony: PLAN steps in order, acceptance per step,
+PROGRESS updated"). The property work-run's controller-never-implements
+rule protects is maker ≠ checker, and that property is fully intact
+here: no step's diff is judged by the seat that wrote it, and the judging
+seat is not even the same model family. What the rule forbids — a
+controller fix that *skips* review — never happens in this lane; every
+step's diff goes to the sigiloso before the step is recorded DONE.
+
+Recorded rather than assumed, because it is a deviation from work-run's
+default shape and the parent should see it stated, not inferred.

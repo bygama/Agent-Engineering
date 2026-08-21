@@ -265,7 +265,10 @@ node tests/run-eval-checks.mjs
 
 Plus, as lane-specific evidence:
 
-- No live (non-record) surface names `opencode/deepseek-v4-flash-free`.
+- No live (non-record) surface names `opencode/deepseek-v4-flash-free`
+  **as a spawn target** — i.e. no `-m opencode/deepseek-v4-flash-free`
+  survives outside a dated record. Naming the id to state that it is
+  retired is the opposite of the bug and is required, not forbidden.
 - Every skill this lane touches has its evals modified in a commit that
   precedes the commit modifying its content.
 - `docs/how-it-works/` carries no claim this lane falsified, and every
