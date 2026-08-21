@@ -1528,4 +1528,89 @@
 <!-- PASS evidence only, written by work-verify (newest on top); the close
      handoff refuses to close a lane without a current PASS block here. -->
 
+### 2026-08-20 — M-tier DoD — PASS
+
+Tier re-checked before verifying (ratchet): still **M** — 12 steps, one
+lane, one PR, no new flows and no crossed modules. Step 12 was added
+mid-lane by a parent ruling, which lengthens the lane without changing
+its tier.
+
+- **L1 static:** `node scripts/agent-lint.mjs . --ignore tests,templates,examples`
+  → exit 0 (`0 high, 0 medium, 0 low — PASS`). Note the NEW ignore form —
+  dropping `global` is part of what this lane changed.
+- **L2 behavioral:** `node tests/run-lint-tests.mjs` → exit 0
+  (`all 22 cases passed`, including `ok global-layer CLAUDE.md passes its
+  own canon` — the content-detected canon check still covered by
+  `tests/fixtures/global-layer` after the directory's deletion);
+  `node tests/run-gen-tests.mjs` → exit 0 (`all gen cases passed`);
+  `node tests/run-eval-checks.mjs` → exit 0 (`all eval checks passed`).
+  All 12 PLAN acceptance commands → exit 0.
+- **L3 end-to-end:** cross-component by construction — this lane edited
+  the CI workflow, `AGENTS.md`'s documented command, `CONTRIBUTING.md`'s
+  gate block, `loops/self-audit.md`'s gate contract and `ae-audit`'s eval,
+  which must all agree. So the gates were executed **as extracted from
+  each file**, never retyped:
+  - `.github/workflows/gates.yml` — all 4 `run:` lines extracted and
+    executed → exit 0 each; CI-SEQUENCE FAIL FLAG=0.
+  - `AGENTS.md` `## Commands`, `CONTRIBUTING.md` fenced block,
+    `loops/self-audit.md` `## Gate`, `skills/ae-audit/evals/eval-03.md`
+    — every `node ...` command extracted and executed → exit 0 each.
+  - **Agreement check:** `grep -ohP 'agent-lint\.mjs \. --ignore [a-z,]+'`
+    across all five files → `5  agent-lint.mjs . --ignore tests,templates,examples`.
+    One canonical string, five sources, zero drift. This is the property
+    the lane existed to preserve.
+- **Fresh-context review:** **PASS** — verdict text verbatim in
+  `reviews/lane-fresh-context-review.md`. It ran every gate and all 12
+  acceptance commands itself, and did three things beyond the brief:
+  (a) **proved the deletion lossless byte-for-byte** — extracted the
+  three deleted files from `4da691f` and diffed them against the live
+  workstation clone: identical on every functional line, differing only
+  in the `Canonical:` header MAT-110 repointed; (b) **confirmed the debt
+  has a real owner** by pulling MAT-114 from Linear rather than trusting
+  the citation; (c) **found that step 1's fix corrected a latent bug** —
+  the deleted `global/hooks/README.md` shipped a FLAT hook snippet that
+  Claude Code does not load, and the new doc publishes the nested shape
+  that the live `~/.claude/settings.json` actually uses.
+  It also independently re-derived the three known-weak acceptance
+  commands (steps 4, 7, 10) and found each passes for a defensible
+  reason rather than by accident — most decisively confirming
+  `scripts/agent-lint.mjs:325-326` carries the same "five surfaces a
+  consumer receives" phrasing that step 7 declined to edit.
+  Fence audit: `git diff --name-only 4da691f..c40adf9 -- skills/ tests/
+  examples/ .claude/ CHANGELOG.md docs/plans/` returns exactly one path,
+  `skills/ae-audit/evals/eval-03.md`, with exactly the two authorized
+  lines. `AGENTS.md:3` still `Standard: AE/1.4.2`; `CHANGELOG.md`
+  diffstat 0.
+  **Critical: none. Important: none.** Four Minors, all handoff hygiene
+  or cosmetics — carried below.
+- **Adversarial review:** **n/a at this rung** — M tier, and the owner
+  did not request it here. NOT skipped: the parent recorded at dispatch
+  that **1 ratón chispeante cross-family reviewer** runs after
+  `worker_done`. That is an additional seat, not a substitute for the
+  fresh-context rung above, which did run.
+
+**Minors carried out of verification (none block):**
+1. `PLAN.md`'s 12 boxes are unticked while PROGRESS records all 12 DONE —
+   work-handoff ticks them in the close commit.
+2. **The workstation report must name TWO lines, not one.** Beyond
+   `claude/README.md:32`'s stale attribution, `:52-54` is an
+   *instruction*: "`claude/CLAUDE.md` here is a synced copy; its
+   canonical source is `Agent-Engineering/global/CLAUDE.md`. Edit there
+   first, copy here, then re-run the installer." Controller verified it
+   directly. It is worse than a stale pointer — it tells a reader to
+   edit a file this merge deletes, and it contradicts workstation's own
+   `claude/CLAUDE.md` header, which MAT-110 already repointed to say
+   workstation is canonical. Both lines go to the parent.
+3. Step 9's acceptance carries a no-op third conjunct
+   (`git diff --stat <file>` exits 0 against a clean tree regardless) —
+   same class as the steps 7 and 10 weaknesses already documented. The
+   step's real evidence is the `MAT-111` count of 2 and the date grep,
+   both confirmed.
+4. `docs/how-it-works/architecture.md:32,47` exceed the chapter's ~78-col
+   prose wrap. `docs/how-it-works/` is explicitly outside the length
+   budgets and the lint is green — style only.
+
+**Verdict: PASS.** Ready for work-handoff.
+
+
 <!-- First read of every session. If it isn't here, it didn't happen. -->
