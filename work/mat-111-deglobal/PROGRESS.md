@@ -1081,9 +1081,237 @@
   reading of the step's mandate.
 
 
-## In progress
+- 2026-08-20 — **PLAN step 11 DONE. Full gate sweep + no live `global/`
+  path left.** *(integration — verification only, no repo file changed
+  except this PROGRESS.md)*
 
-- PLAN step 11.
+  ### The four gates, individually
+
+  ```
+  $ node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-111-deglobal
+  0 high, 0 medium, 0 low — PASS
+  EXIT=0
+  ```
+
+  ```
+  $ node tests/run-lint-tests.mjs
+  ok   v2-clean repo passes
+  ok   bloated canonical AGENTS.md fails
+  ok   per-tool adapters fail
+  ok   read order + broken link fail
+  ok   v1-style repo drifts (pointer + stamp)
+  ok   pointer-fenced repo passes (fenced tool-managed block exempted)
+  ok   pointer-unfenced repo still fails (unfenced extra content over budget)
+  ok   pointer-unclosed repo still fails (unmatched BEGIN is not an exemption)
+  ok   cross-repo sibling path reports low, does not fail the lint
+  ok   in-repo path that no longer exists still fails the lint
+  ok   entry skill exactly at the always-loaded cap passes
+  ok   entry skill one line over the always-loaded cap fails
+  ok   malformed lanes fail
+  ok   invalid feature list fails
+  ok   global-layer CLAUDE.md passes its own canon
+  ok   clean DESIGN.md passes
+  ok   drifted/undated DESIGN.md fails
+  ok   dangling-ref/ungenerated DESIGN.md fails
+  ok   DESIGN.md with mode groups passes
+  ok   kitchen-sink composite fires the planted set
+  ok   machine-anchored paths on shipped surfaces fail (all three classes)
+  ok   machine-anchored paths in dated records + a fenced block pass
+  all 22 cases passed
+  EXIT=0
+  ```
+
+  ```
+  $ node tests/run-gen-tests.mjs
+  ok   fixture parses without errors
+  ok   tailwind4 output matches design.tokens.css
+  ok   cssvars output matches expected-cssvars.css
+  ok   dangling reference is reported
+  ok   modes fixture parses without errors
+  ok   modes tailwind4 output matches design.tokens.css
+  ok   modes cssvars output matches expected-cssvars.css
+  all gen cases passed
+  EXIT=0
+  ```
+
+  ```
+  $ node tests/run-eval-checks.mjs
+  ok   ae-audit: 5 evals well-formed
+  ok   ae-init: 8 evals well-formed
+  ok   loop-setup: 6 evals well-formed
+  ok   orchestrate: 5 evals well-formed
+  ok   shaping: 4 evals well-formed
+  ok   skill-authoring: 5 evals well-formed
+  ok   using-ae: 7 evals well-formed
+  ok   work-handoff: 6 evals well-formed
+  ok   work-plan: 5 evals well-formed
+  ok   work-run: 4 evals well-formed
+  ok   work-verify: 6 evals well-formed
+  ok   .claude/docs-sweep: 3 evals well-formed
+  ok   .claude/release: 4 evals well-formed
+  all eval checks passed
+  EXIT=0
+  ```
+
+  ### The exact accept line, chained, from the repo root
+
+  ```
+  $ node scripts/agent-lint.mjs . --ignore tests,templates,examples \
+      && node tests/run-lint-tests.mjs \
+      && node tests/run-gen-tests.mjs \
+      && node tests/run-eval-checks.mjs
+  [all four blocks above, in order]
+  COMBINED_EXIT=0
+  ```
+
+  Also re-confirmed the two mechanical facts step 2/step 4 established, since
+  a sweep step should not take them on faith: `test ! -e global` at the repo
+  root exits 0 (no top-level `global/` directory), and `grep -rl
+  'tests,templates,global,examples' --exclude-dir=.git . | grep -v
+  '^./work/mat-111-deglobal/'` returns nothing (no live surface outside the
+  lane's own records still carries the pre-lane ignore string). Both PASS.
+
+  ### Repo-wide grep for `global/` as a path — every hit classified
+
+  `grep -rln 'global/' --exclude-dir=.git .` returns 21 files (raw
+  `grep -rn` returns ~120 lines; classified by file below, since almost
+  every file's hits share one verdict — line-level exceptions called out
+  where the verdict differs within a file).
+
+  | File | Bucket | Why |
+  |---|---|---|
+  | `CHANGELOG.md` (:44, :177, :390) | 1. Dated record | Release history, never rewritten. |
+  | `docs/plans/2026-08-16-agent-engineering-p0-foundation.md` (:139, :378) | 1. Dated record | `docs/plans/*`, frozen. |
+  | `docs/plans/2026-08-16-agent-engineering-p1-standard-core.md` (:149, :154, :155, :404, :405) | 1. Dated record | `docs/plans/*`, frozen. |
+  | `docs/specs/SPEC-agent-engineering.md` (:196, :273 — original tree/phase text; :210, :280-281 — this lane's own amendment notes) | 1. Dated record | SPEC.md item 4 names this exact file as the dated record amended in the ADR-008 style (step 9); the tree line and P1 sentence are untouched (`git diff` on this file is insertion-only, verified by step 9), the amendment notes are the sanctioned way to keep a dated record honest without rewriting it. |
+  | `.claude/skills/docs-sweep/references/patterns.md:48` | 2. Fenced, ruled to stay | Ruling C, verbatim: `` `reference/verification.md` and `global/` carry no tier enumerations — by design, not by omission. `` Matches DECISIONS.md's Ruling C exactly; parent said leave it, next docs-sweep corrects it. |
+  | `skills/using-ae/evals/eval-03.md` (:5, :10, :35) | 2. Fenced, ruled to stay | Ruling B, verbatim: Query runs `global/hooks/using-ae.ps1`, Fixture cites `global/hooks/orca-probe.ps1`, closing note says both don't exist yet. Matches DECISIONS.md's Ruling B exactly; accepted debt owned by MAT-114. |
+  | `docs/how-it-works/standard-lifecycle.md:172` | 3. Lint's consumer-repo class | The five-surface sentence, step 7's upheld reading (ii): narrates `SHIPPED_SURFACE`, a path-class check, not this repo's own directories. Re-verified unedited since step 7. |
+  | `scripts/agent-lint.mjs:326` | 3. Lint's consumer-repo class | `SHIPPED_SURFACE`'s comment — "the five surfaces a consumer receives — skills/, reference/, templates/, global/, loops/". File is on the PLAN's never-touch list; confirmed untouched. |
+  | `skills/ae-init/references/migration.md:140` | 3. Lint's consumer-repo class | "The new lint check only fires on repos that vendor `skills/`, `reference/`, `templates/`, `global/` or `loops/` directories — typical consumers carry none of them." Names the vendored-dir class exactly as this step's brief anticipated. |
+  | `work/mat-111-deglobal/{SPEC,PLAN,DECISIONS,PROGRESS}.md`, `work/mat-111-deglobal/reviews/step-{01,02,03,05,06,07,08,09,10}-review.md` | 4. This lane's own records | Everything under `work/mat-111-deglobal/`. |
+
+  21/21 files classified. **Zero files land in bucket 5 from this grep.**
+
+  ### Second grep for bare `global` (no slash) — catching prose, not paths
+
+  `grep -rin 'global' --exclude-dir=.git . | grep -v 'global/'` returns 82
+  lines (one is `./.git:1`, the worktree's own gitdir pointer, not repo
+  content — discarded). Read every remaining line. All fall into one of
+  three harmless classes, none of which asserts this repo ships or owns a
+  `global/` directory:
+
+  1. **Accurate current doctrine**, written or confirmed by this lane's own
+     earlier steps — `AGENTS.md:27` ("This repo keeps only the doctrine
+     (`reference/global-layer.md`)"), `README.md:295,300`,
+     `docs/how-it-works/architecture.md:32,47,54`,
+     `docs/how-it-works/standard-lifecycle.md:23,26`,
+     `reference/global-layer.md` (the file's own name and H1),
+     `reference/orca.md:26,29,114` (step 8's rewrite),
+     `reference/memory.md:56`, `scripts/agent-lint.mjs:13,143,145,147,149`
+     (the content-detected canon check, untouched by design). Checked each
+     for the one thing that would matter — a claim that *this repo* has,
+     ships, or owns a `global/` directory — and found none; every sentence
+     describes the `~/.claude` layer as doctrine or as an installed
+     artifact on some other machine/repo.
+  2. **Pre-existing, unrelated to this lane's `global/`** —
+     `reference/context.md` (`Global ~/.claude/CLAUDE.md`, `# Global
+     instructions`, "Global vs repo placement" — the content-detected
+     canon doctrine, a different file than the deleted `global/CLAUDE.md`
+     and never pointing at it), `reference/harness.md:62` and
+     `reference/runners.md:106` (both describe `~/.claude` generically,
+     same as context.md), `reference/skills.md:117` ("junctioned
+     globally" — adverb, unrelated), `skills/ae-init/references/migration.md`
+     (:100,111,114,119,124,148 — "machine-global" describing junctioned
+     skills, a different concept), `skills/work-plan/{SKILL.md,evals/eval-01.md}`
+     ("global constraint" — generic English, a PLAN-shaping term of art,
+     unrelated), `tests/fixtures/adapters/AGENTS.md:14` ("Never use global
+     variables" — a deliberately-bad fixture, programming-term usage, and
+     under `tests/` which the lint ignores anyway),
+     `tests/run-lint-tests.mjs:143-144` (the `global-layer` *fixture name*,
+     `tests/fixtures/global-layer/`, confirmed still on disk and still
+     exercising the content-detected canon check — unrelated to the
+     deleted directory), `docs/plans/*` and `docs/specs/SPEC-agent-engineering.md:214,283`
+     (dated records / this lane's amendment notes, bucket 1 again).
+  3. **`skills/ae-audit/evals/eval-03.md:14,20` — see UNCLASSIFIED finding
+     below.** The one line in this second grep that is not obviously
+     harmless.
+
+  ### UNCLASSIFIED finding — reported, NOT edited
+
+  **`skills/ae-audit/evals/eval-03.md`** (lines 14 and 20) fits none of the
+  five buckets. Quoting the file as it stands, untouched by this lane or
+  any prior step:
+
+  > - [ ] Runs the self-lint exactly as documented in AGENTS.md
+  >       (`node scripts/agent-lint.mjs . --ignore tests,templates,global`) and
+  >       reports its outcome verbatim.
+  > ...
+  > - [ ] Additionally checks **how-it-works coverage**: every top-level directory
+  >       (reference, templates, skills, scripts, global, tests, docs) and every
+  >       skill has a current section/chapter under `docs/how-it-works/`; flags
+  >       any that is missing or contradicts the current tree (drift).
+
+  Why it is unclassified rather than filed under an existing bucket:
+
+  - **Not Ruling B or C.** Those name `skills/using-ae/evals/eval-03.md`
+    and `.claude/skills/docs-sweep/references/patterns.md` specifically —
+    two different files. This is `skills/ae-audit/evals/eval-03.md`, a
+    third file the SPEC's own survey (section 6, "Surfaces that go stale
+    behind a fence — open rulings") never listed, and no DECISIONS.md
+    entry or PROGRESS.md step mentions it — confirmed by grepping
+    `ae-audit/evals/eval-03` across every lane file: zero hits before this
+    step.
+  - **Not a dated record.** It is an active eval under `## Expected
+    behavior`, not a historical log; nothing marks it superseded.
+  - **Not the lint's consumer-repo class.** It doesn't narrate
+    `SHIPPED_SURFACE` or a vendored-dir check — it tells an agent what
+    command to run *in this repo* and what directories to expect *in this
+    repo's own tree*.
+  - **Not this lane's own record.** It lives under `skills/`, not
+    `work/mat-111-deglobal/`.
+
+  It is also independently stale in a way none of this lane's steps
+  touched: its quoted ignore string, `--ignore tests,templates,global`
+  (no `,examples`), is an even older form than the pre-lane baseline this
+  lane replaced (`tests,templates,global,examples`) — it predates
+  `examples` being added to the ignore list at all, so it was already
+  wrong before this lane started. Two independent falsehoods now, both
+  live: (a) it claims to run the command "exactly as documented in
+  AGENTS.md", but `AGENTS.md:14` documents
+  `--ignore tests,templates,examples` — neither the old nor the new form
+  matches what it quotes; (b) it lists `global` as one of the top-level
+  directories how-it-works coverage should check, and that directory no
+  longer exists.
+
+  **Not edited**, per this step's mandate (report, do not fix) and because
+  `skills/` content is on the PLAN's never-touch list. No gate catches
+  it — `tests/run-eval-checks.mjs` checks eval structure only (Query +
+  Expected behavior + ≥1 checklist line), never resolves a command or a
+  path — so it is silent debt, not a failing check. Flagged prominently
+  for the parent: this file needs a fix, ticketed and applied outside this
+  lane (the natural home looks like the same class of follow-up as
+  MAT-114, since `ae-audit`'s own eval quoting a dead command is the same
+  shape of problem Ruling B already named for a sibling skill — but that
+  is the parent's call, not this step's).
+
+  ### Verdict
+
+  All four gates green, individually and chained, exit 0 every time. Every
+  one of the ~120 `global/`-as-path hits across 21 files is accounted for
+  in buckets 1-4; zero unclassified from that grep. The second, broader
+  grep for bare `global` surfaces exactly one genuine problem outside the
+  lane's own records — `skills/ae-audit/evals/eval-03.md` — reported above,
+  left unedited. SPEC's Verification clause, read with reviewer Minor 3's
+  correction from step 7 ("no live surface asserts this repo HAS a
+  `global/` directory"), holds for every surface this lane was scoped to
+  touch; the one exception found is a pre-existing, out-of-scope defect on
+  a fenced surface, not residue from this lane's own edits.
+
+  Files changed: this PROGRESS.md only. No repo surface edited.
+
+## In progress
 
 ## Tried and failed
 
