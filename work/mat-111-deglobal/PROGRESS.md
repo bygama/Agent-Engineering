@@ -749,6 +749,99 @@
   long unwrapped line, already logged as step 6's M1.
 
 
+- 2026-08-20 — **PLAN step 8 DONE.** `reference/orca.md`: the probe
+  paragraph at `:26-29` repointed. Ruling A applied literally — the dead
+  `global/hooks/orca-probe.ps1` citation is gone, both halves of the
+  operational instruction survive, and a reader who wants to wire such a
+  hook is sent to `reference/global-layer.md`, which carries the
+  SessionStart recipe (`:52-91`). One paragraph, 4 lines out and 4 lines
+  in; nothing else in the file touched, no untouched prose restyled.
+
+  **Line count: 120 before, 120 after** — the file was at its cap with no
+  headroom, so the replacement had to be line-for-line neutral. It is:
+  `git diff --stat` reads `4 insertions(+), 4 deletions(-)`, and the diff
+  hunk is confined to those four lines. Wrap width kept at ≤72 chars, the
+  file's own.
+
+  Was:
+
+  > On machines with the global layer installed, a session-start hook
+  > (`global/hooks/orca-probe.ps1`) already injected the result as an
+  > `ORCA: available|unavailable` context line — citing that line satisfies
+  > step 0; re-run the probe only when the line is absent.
+
+  Now:
+
+  > Where the global layer wires a session-start probe hook, its result
+  > already arrived as an `ORCA: available|unavailable` context line —
+  > citing that line satisfies step 0; re-run the probe only when it is
+  > absent. The wiring recipe is in `reference/global-layer.md`.
+
+  Two things changed and one did not, deliberately:
+
+  1. **The dead path became a generic description.** "a session-start
+     hook (`global/hooks/orca-probe.ps1`)" → "a session-start probe
+     hook" — the behavior is real and still worth documenting (this
+     session's own context carries such a line), only the script this
+     repo used to ship is gone.
+  2. **The opening clause states a condition instead of asserting the
+     hook exists.** "On machines with the global layer installed, … already
+     injected" presumed the layer ships a probe hook; after step 2 the
+     standard ships none, and `reference/global-layer.md:85-87` states the
+     hook is optional in general. "Where the global layer wires a
+     session-start probe hook, its result already arrived" is true on a
+     machine that has one and vacuous on a machine that does not — which
+     is exactly what the next clause ("re-run the probe only when it is
+     absent") already assumed. Same register as the sibling surfaces
+     rewritten earlier in this lane (`README.md:289-295`,
+     `architecture.md:56-58`, `standard-lifecycle.md:23` "can wire").
+  3. **The instruction is unchanged in substance**: cite the line if it is
+     there, re-run the probe if it is not. "the line" → "it" is the only
+     wording move, made to buy the characters the new pointer needed.
+
+  Accept command and output, run from the repo root:
+
+  ```
+  $ ! grep -q 'global/hooks' reference/orca.md \
+      && test $(grep -c '' reference/orca.md) -le 120 \
+      && node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-111-deglobal
+  0 high, 0 medium, 0 low — PASS
+  ACCEPT_EXIT=0  lines=120
+  ```
+
+  The other three gates re-run anyway (not required by this step's accept):
+
+  ```
+  LINT_TESTS=0  GEN_TESTS=0  EVAL_CHECKS=0
+  ```
+
+  Files changed: `reference/orca.md` (4 lines), this PROGRESS.md.
+
+  Concerns, none blocking:
+  - `reference/orca.md:114` still reads "machine policy in the global
+    layer (`~/.claude/CLAUDE.md`), never a repo". Left as written and
+    flagged rather than edited: it names the *layer* and the machine file,
+    not a `global/` path in this repo, and it stays true after the
+    deletion — spawn-command inheritance is machine policy, which
+    `reference/global-layer.md:35` files under layer content and
+    workstation now owns. It carries no `global/` substring, so it was
+    invisible to the accept grep either way. Step 11's sweep should expect
+    this hit and classify it as the layer's name, not as residue.
+  - The mutual pointer is intentional, not drift: `global-layer.md:55-56`
+    cites `reference/orca.md` as the probe whose result a hook injects,
+    and this paragraph now points back for the wiring. Step 1 recorded it
+    as the PLAN's stated interface.
+  - `reference/global-layer.md` is cited in backticks, not as a markdown
+    link — the same form the dead `global/hooks/orca-probe.ps1` citation
+    used, and this file's house style throughout. The lint's broken-link
+    check therefore never covered either; the target's existence was
+    verified by reading it.
+  - **Zero headroom left.** The file sits at exactly 120. Any later step
+    that adds a line here fails this step's own accept, and there is no
+    slack to absorb a review fix — a fix that needs words has to buy them
+    elsewhere in the same paragraph.
+
 ## In progress
 
 - PLAN step 8.
