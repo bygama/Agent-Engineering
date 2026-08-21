@@ -622,10 +622,53 @@ issue: MAT-115
   judged, not four"). Minor 2 goes to work-verify's triage with the other
   deferred items.
 
+- **Step 6 — gate sweep + the lane's own invariants.** Pure verification,
+  no source changes: the four gates plus the three machine-checked
+  invariants the SPEC makes about the shape of the change, all against
+  the state steps 1-5 already left behind.
+
+  ```
+  $ node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-115-design-window
+    0 high, 0 medium, 0 low — PASS
+  $ node tests/run-lint-tests.mjs
+  ... (24 cases) ...
+  all 24 cases passed
+  $ node tests/run-gen-tests.mjs
+  ... all gen cases passed
+  $ node tests/run-eval-checks.mjs
+  ... all eval checks passed
+  ```
+
+  Invariant proofs (DECISIONS.md 2026-08-21, "step 6's marker count
+  excludes `evals/`"):
+
+  ```
+  $ grep -rl --exclude-dir=evals 'STATE: design-first approval window, waiting for owner approval of SPEC.md before PLAN.md' skills scripts
+  skills/work-plan/SKILL.md
+  scripts/agent-lint.mjs
+  $ grep -n 'skills/work-plan/SKILL.md' scripts/agent-lint.mjs
+  226:// design-first lanes (skills/work-plan/SKILL.md step 1) write this exact
+  $ git diff --name-only main...HEAD -- CHANGELOG.md AGENTS.md README.md reference examples templates .claude
+  (empty)
+  ```
+
+  Marker lives in exactly the two source-of-truth sites named by PLAN.md's
+  interface block (`skills/work-plan/SKILL.md`, `scripts/agent-lint.mjs`);
+  `evals/eval-05.md`'s verbatim quote does not count toward that total
+  (excluded by `--exclude-dir=evals`, per the step-1 review finding
+  adjudicated in DECISIONS.md); `agent-lint.mjs` names its paired site by
+  path; and no forbidden path (`CHANGELOG.md`, `AGENTS.md`, `README.md`,
+  `reference/`, `examples/`, `templates/`, `.claude/`) moved anywhere in
+  the branch diff against `main`. The full acceptance command, chained
+  exactly as PLAN.md states it, exits 0.
+  - Files touched: none (verification only).
+  - No concerns: every gate and every invariant is green against the
+    lane's existing state; nothing needed papering over.
+
 ## In progress
 
-- work-run executing PLAN steps 1-6 in order. Steps 1-5 done; step 6
-  remains.
+- work-run executing PLAN steps 1-6 in order. All six steps done.
 
 ## Tried and failed
 
