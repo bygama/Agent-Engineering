@@ -1491,7 +1491,30 @@
   repo's state after the global/ deletion.
 
 
+- 2026-08-20 — **PLAN step 12 REVIEWED → Approved, no fix round.** Fresh
+  reviewer (sonnet). Verdict verbatim: `reviews/step-12-review.md`.
+  **Spec compliance: ✅ Compliant** · **Step quality: Approved.**
+  The parent's fence-lift conditions were checked one by one and all
+  held: scope verified **at the commit level, not just the diff** —
+  `1 file changed, 2 insertions(+), 2 deletions(-)`, nothing else under
+  `skills/`, `skills/ae-audit/SKILL.md` untouched; line 14 now
+  **byte-identical** to `AGENTS.md:14` including the `.` before
+  `--ignore`, so the eval's own claim to run the command "exactly as
+  documented in AGENTS.md" is true for the first time; line 20's `global`
+  removal matches the ruling's stated cause; eval structure intact; gates
+  re-run independently, exit 0.
+  **One Important finding, a reporting gap rather than a defect in the
+  work:** the enumeration is still incomplete — `loops/` and `examples/`
+  are real top-level directories with chapters under `docs/how-it-works/`
+  and appear in neither the old nor the new string. Pre-existing, outside
+  the ruling's two-line authorization, correctly left unedited — but the
+  implementer reported "Concerns: none" while holding both lists. Recorded
+  as accepted debt in DECISIONS.md rather than reworked.
+
+
 ## In progress
+
+- work-verify.
 
 ## Tried and failed
 
