@@ -170,6 +170,85 @@ issue: MAT-115
   step's own accept command; both exit 0, confirming step 2 didn't
   disturb the suites steps 3-4 will extend next.
 
+- **Step 2 review — command-mode sigiloso (`opencode/x-preview-f-free`,
+  chain position 1, no degradation), verdict verbatim:**
+
+  > ### Spec compliance
+  >
+  > **Compliant** — both halves of the step land as specified, with one
+  > provenance warning:
+  >
+  > - **Marker byte-for-byte**: verified programmatically — SKILL.md:76,
+  > eval-05.md:43, SPEC.md:71 and DECISIONS.md:13 all contain the identical
+  > string `STATE: design-first approval window, waiting for owner approval
+  > of SPEC.md before PLAN.md`, ASCII-only (no U+2014, no drift). Not a
+  > paraphrase.
+  > - **Checklist line 1** (SKILL.md:29-31): corrected [...] consistent with
+  > the body. **Step 6 Save line** (SKILL.md:179-181): corrected so the file
+  > doesn't contradict itself. **Direct bullet** (SKILL.md:83-86):
+  > unchanged, no marker acquired. Verified.
+  > - **Warning:** [the DECISIONS.md entry] is absent from the diff file —
+  > the diff contains only the SKILL.md hunk. I read DECISIONS.md directly
+  > because the accept criteria grep it; the entry exists in the checkout,
+  > is content-compliant [...] Flagging so the controller knows the diff
+  > artifact doesn't cover the whole step.
+  > - **Gates**: agent-lint → 0 findings, exit 0; run-eval-checks → all
+  > suites well-formed (work-plan: 6 evals), exit 0.
+  >
+  > ### Issues
+  >
+  > #### Critical (Must Fix)
+  > None.
+  >
+  > #### Important (Should Fix)
+  > None.
+  >
+  > #### Minor (Nice to Have)
+  >
+  > 1. **skills/work-plan/SKILL.md:114,179-181 — marker removal is
+  > unreachable for XL design-first lanes.** The removal rule lives in step
+  > 6, but line 114 scopes steps 3-6 to M/L; an XL design-first parent lane
+  > writes the marker at step 1 and the parent PLAN.md at step 2, so a
+  > literal reading leaves the marker stale permanently. Small rot by
+  > construction (the SPEC deliberately defers stale-marker policing), but
+  > placing the removal rule mode-scoped — or one clause noting it applies
+  > wherever PLAN.md lands, parent plan included — would close the asymmetry
+  > this diff introduces between unconditional write and conditional
+  > removal.
+  > 2. **skills/work-plan/evals/eval-05.md:56 — truncated prose reference
+  > contains an em dash.** Pre-existing from step 1 and already triaged as
+  > deferred-Minor [...] Not actionable in this step.
+  >
+  > ### Assessment
+  > **Step quality:** Approved
+  > **Reasoning:** Both required artifacts land exactly as specified — the
+  > marker is byte-identical and ASCII-only across all sites, the three
+  > in-file surfaces now describe one coherent behavior, the direct bullet
+  > is clean, and both gates exit 0. The only findings are a
+  > wording-placement nit and a provenance warning about the diff file
+  > omitting the DECISIONS.md hunk whose compliant content I verified
+  > directly.
+
+  **Controller response.** Approved, no fix round — no Critical, no
+  Important. Both Minors go to work-verify's triage, deferred here rather
+  than dropped:
+
+  1. **XL design-first leaves the marker stale.** Real asymmetry this diff
+     introduced (unconditional write in step 1, removal rule in step 6,
+     which line 114 scopes to M/L). Carried into triage as a candidate fix,
+     not a wontfix — it is one clause, and the reviewer is right that the
+     hole is of this change's own making.
+  2. **eval-05.md:56 truncated prose reference.** Already deferred from the
+     step 1 review; the em dash sits in a truncation that cannot match the
+     check's grep, so it is cosmetic.
+
+  **Controller correction to its own procedure.** The provenance warning is
+  fair and is the controller's packaging error, not the implementer's: the
+  step-2 diff was cut as `git diff -- skills/`, which dropped the
+  DECISIONS.md half of a step that explicitly required it. From step 3 on,
+  the diff package covers every path the step's deliverable touches, minus
+  PROGRESS.md (which carries the implementer's own report, not the work).
+
 ## In progress
 
 - work-run executing PLAN steps 1-6 in order. Steps 1-2 done; steps 3-6
