@@ -525,10 +525,47 @@ issue: MAT-115
                     node tests/run-eval-checks.mjs                      exit 0
   ```
 
+- **Step 5 — `docs/how-it-works/work-lifecycle.md` corrected, four
+  chapters judged unchanged** (PLAN step 5, SPEC §6): the design-first
+  sentence under "The lane lifecycle" — "which writes SPEC.md alone and
+  stops for the owner's approval before shaping PLAN.md" — now reads
+  "which writes SPEC.md, then in the same turn writes `PROGRESS.md`
+  declaring the design-first approval window, and stops for the owner's
+  approval before shaping PLAN.md". The chapter's `PROGRESS.md` bullet
+  under "The lane and the four files" gained one sentence naming the
+  design-first approval window as a state the file can carry before
+  `PLAN.md` exists, and pointing at `agent-lint`'s `lane-incomplete`
+  check as the reader of that same line.
+
+  The other four candidate chapters (`architecture.md`,
+  `standard-lifecycle.md`, `execution.md`, `integrations.md`) plus
+  `docs/how-it-works/README.md` were grepped for `work-plan`,
+  `agent-lint`, `SPEC.md`, `lane`, `design-first`, `lane-incomplete`,
+  `PROGRESS.md`, and each hit read in context. None of the five describes
+  design-first's mode behavior at the level of detail that went false —
+  they either cross-reference `work-lifecycle.md` or describe the skill
+  chain above mode detail. Verdict for all five: no change, recorded in
+  DECISIONS.md with the reasoning per file (SPEC §6's "silent no-change
+  is indistinguishable from an unexamined one").
+
+  ```
+  $ ! grep -q 'writes SPEC.md alone' docs/how-it-works/work-lifecycle.md && grep -q 'design-first approval window' docs/how-it-works/work-lifecycle.md && grep -q 'how-it-works' work/mat-115-design-window/DECISIONS.md && node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-115-design-window
+  0 high, 0 medium, 0 low — PASS
+  $ echo $?
+  0
+  ```
+
+  Sanity check beyond this step's own accept: `node tests/run-lint-tests.mjs`
+  (24/24 `ok`), `node tests/run-gen-tests.mjs` (all gen cases passed),
+  `node tests/run-eval-checks.mjs` (all eval checks passed) — all exit 0.
+  `git status --short` confirms only `docs/how-it-works/work-lifecycle.md`
+  and `work/mat-115-design-window/DECISIONS.md` changed in this step.
+
 ## In progress
 
-- work-run executing PLAN steps 1-6 in order. Steps 1-4 done; steps 5-6
-  remain.
+- work-run executing PLAN steps 1-6 in order. Steps 1-5 done; step 6
+  remains.
 
 ## Tried and failed
 

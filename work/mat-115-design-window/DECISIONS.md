@@ -145,3 +145,54 @@ is written by `skills/work-plan/SKILL.md` directly into
 template. Matches SPEC's "Out of scope, deliberately" position exactly;
 recorded here per PLAN step 2's instruction to land the judgment
 whichever way the implementer lands.
+
+## 2026-08-21 — `docs/how-it-works/work-lifecycle.md` corrected, four chapters judged unchanged
+
+**Choice.** `docs/how-it-works/work-lifecycle.md` is the one chapter that
+changes (PLAN step 5, SPEC §6). Two edits:
+
+- The design-first sentence — "which writes SPEC.md alone and stops for
+  the owner's approval before shaping PLAN.md" — is corrected to name the
+  same-turn `PROGRESS.md` write and the state it declares: "*design-first*,
+  which writes SPEC.md, then in the same turn writes `PROGRESS.md`
+  declaring the design-first approval window, and stops for the owner's
+  approval before shaping PLAN.md". "Alone" is gone; "stops" and the
+  owner-approval framing are kept because they are still true.
+- The chapter's `PROGRESS.md` bullet (under "The lane and the four
+  files") gains one sentence naming the design-first approval window as a
+  state the file can carry before `PLAN.md` exists, and pointing at
+  `agent-lint`'s `lane-incomplete` check as the reader of that same line —
+  so the bullet and the design-first sentence corroborate each other
+  instead of only one of them knowing about the window.
+
+**The other four chapters judged, each explicitly, no change to any:**
+
+- **`architecture.md`.** Grepped for `work-plan`, `agent-lint`, `SPEC.md`,
+  `lane`, `design-first`, `lane-incomplete`, `PROGRESS.md` — the only hits
+  describe `work-plan`, `agent-lint` and the skill chain at a level above
+  mode detail ("`work-plan` shapes that approved design into the lane's
+  `PLAN.md`"; `agent-lint` owns "lane coherence" as one item in a list).
+  Neither sentence claims what "SPEC.md alone ... stops" did, so neither
+  goes false. No change.
+- **`standard-lifecycle.md`.** Same grep, same result: it names the four
+  files and the skill chain by cross-reference to `work-lifecycle.md`
+  ("Those belong to the work lifecycle") rather than describing
+  design-first's behavior itself. No change.
+- **`execution.md`.** Mentions `work-plan -> work-run -> work-verify ->
+  work-handoff` as one step in the child's inner cycle, with no mode
+  detail and no PROGRESS.md claim. No change.
+- **`integrations.md`.** No mention of `work-plan`, `PLAN.md`,
+  `design-first`, or the marker at all — only the general lane/PROGRESS
+  pairing already true before this lane (`Linear comment + lane
+  PROGRESS`). No change.
+- **`docs/how-it-works/README.md`.** The chapter-index table's
+  `work-lifecycle.md` row is a one-line summary ("task tiers S/M/L/XL,
+  lanes, the four files, the lane lifecycle ... verification layers,
+  feature list, tracker plane") that does not itself assert the
+  SPEC.md-alone claim — it points at the chapter that carried it. No
+  change; the fix belongs in the chapter, not the index.
+
+**Why recorded even where nothing changed.** PLAN step 5 requires each
+chapter's verdict on record "whether or not the file changes — a silent
+no-change is indistinguishable from an unexamined one." This entry is
+that record for all five.
