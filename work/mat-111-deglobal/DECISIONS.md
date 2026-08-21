@@ -180,3 +180,58 @@ it as a SessionStart hook" → "can wire it", because this repo ships no
 wiring any more — `reference/global-layer.md` carries the recipe, and
 `README.md:289-295` and `architecture.md:56-58` already speak of it as a
 recipe rather than as shipped plumbing.
+
+## 2026-08-20 — Step 10 judgment: `examples/machine-config/README.md` STAYS as written
+
+Checked claim by claim against the file as it stands after steps 1-9.
+**Verdict: still true. No edit.**
+
+First fact that decides most of it: `grep -c 'global/' examples/machine-config/README.md` returns
+**0** — the file never named a `global/` path in this repo to begin
+with, so this lane's deletion cannot have falsified it by pulling a rug
+out from under a citation. Its four bullets all point *at
+`bygama/workstation`*, live, via GitHub blob URLs:
+
+1. `AGENTS.md` — "canonical, stamped, ~58 lines... 9 real gotchas" —
+   a claim about **workstation's own root `AGENTS.md`**, not this
+   repo's now-deleted `global/CLAUDE.md`. Unaffected: this lane touched
+   no file in `bygama/workstation`.
+2. `terminal/AGENTS.md` — "≤30 lines" — same reasoning, workstation's
+   own per-directory context file, untouched by this lane.
+3. `docs/tiers.md` — "the consumer tier guide, installed by the seed" —
+   workstation's own doc, untouched by this lane.
+4. CI runs "this standard's lint on every PR
+   (`.github/workflows/verify.yml`, job `standard`)" — this is the one
+   claim that names *this repo's* check (`scripts/agent-lint.mjs`), but
+   the claim is only that workstation's CI *invokes* it; this lane did
+   not touch `scripts/agent-lint.mjs` (PLAN constraint, confirmed
+   untouched — see the `scripts/agent-lint.mjs stays untouched` entry
+   above) nor change the lint's exit-code contract, so the invocation
+   claim stands.
+5. "PRs #12–#16" — a historical record of workstation's migration,
+   frozen in workstation's own PR history; not something this repo's
+   `global/` deletion can touch.
+
+Cross-checked against `docs/how-it-works/architecture.md`'s own
+description of this entry (step 6's file, re-read as instructed, not
+edited): `### examples/` (`:157-158`) still says the machine-config
+entry "points at the living public consumer (workstation) instead of a
+snapshot that would drift" — confirmed accurate against the file's
+actual content (four links into `bygama/workstation@main`, zero
+snapshotted paths from this repo). That description is unchanged by
+this lane and needed no fix.
+
+Per the brief, workstation's internals were not re-verified line-by-line
+(a local clone exists at `C:\Briar\repos\mine\workstation` but no claim
+here is at risk from *this lane's* change, so there was no specific
+claim to check against it). The one real drift this lane surfaces on
+the workstation side — `claude/README.md` calling its `hooks/` folder's
+canonical source `Agent-Engineering/global/hooks/` — is a **different
+file** than the one this step reviews (`examples/machine-config/README.md`
+cites `AGENTS.md`, `terminal/AGENTS.md`, `docs/tiers.md` and
+`.github/workflows/verify.yml`, never `claude/README.md`), and is
+already recorded above under "Out of scope, reported not fixed" for the
+parent to fold into the workstation-side wave close.
+
+**File not changed.** `examples/` is on the never-touch list except for
+this judgment, and no claim in it went false.

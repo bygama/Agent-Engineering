@@ -980,11 +980,78 @@
   record is owed.
 
 
+- 2026-08-20 — **PLAN step 10 DONE. Judgment: `examples/machine-config/README.md`
+  stays as written — no edit.** File-not-changed by construction: `examples/`
+  is on the never-touch list except for this judgment, and the check found
+  nothing to fix.
+
+  **Checked claim by claim.** First fact that decided most of it:
+  `grep -c 'global/' examples/machine-config/README.md` returns **0** — the
+  file never cited a `global/` path in this repo, so it had nothing for the
+  deletion to pull out from under it. All four bullets point *at
+  `bygama/workstation`* live via GitHub blob URLs, never at a snapshot of
+  this repo:
+
+  1. `AGENTS.md` — "canonical, stamped, ~58 lines... 9 real gotchas" — a
+     claim about workstation's own root `AGENTS.md`. This lane touched no
+     file in `bygama/workstation`, so unaffected.
+  2. `terminal/AGENTS.md` — "≤30 lines" — same reasoning, workstation's own
+     file, untouched by this lane.
+  3. `docs/tiers.md` — "the consumer tier guide, installed by the seed" —
+     workstation's own doc, untouched by this lane.
+  4. CI runs "this standard's lint on every PR
+     (`.github/workflows/verify.yml`, job `standard`)" — the one claim that
+     names this repo's own check. `scripts/agent-lint.mjs` is confirmed
+     untouched by this lane (PLAN constraint, already verified in
+     DECISIONS.md's earlier entry), and its exit-code contract did not
+     change, so the invocation claim stands.
+  5. "PRs #12–#16" — workstation's own historical PR record, not reachable
+     by this repo's `global/` deletion.
+
+  **Cross-check on step 6's own claim, as the brief asked.**
+  `docs/how-it-works/architecture.md:157-158` (`### examples/`) still reads
+  "the machine-config entry that points at the living public consumer
+  (workstation) instead of a snapshot that would drift" — re-read, not
+  edited (already reviewed at step 6) — and confirmed accurate against the
+  file's actual content: four links into `bygama/workstation@main`, zero
+  snapshotted paths from this repo. Still true, needed no fix.
+
+  Per the brief, workstation's internals were not re-verified line-by-line —
+  no claim here is at risk from *this lane's* change, so there was no
+  specific claim that warranted checking the local clone
+  (`C:\Briar\repos\mine\workstation`). Note: the one real workstation-side
+  drift this lane surfaces — `claude/README.md` naming
+  `Agent-Engineering/global/hooks/` as its hooks' canonical source — is a
+  **different file** than the one this step reviews and is already recorded
+  in `DECISIONS.md` under "Out of scope, reported not fixed" for the parent
+  to fold into the workstation-side wave close; it does not touch this
+  step's verdict on `machine-config/README.md`.
+
+  Verdict recorded as a dated `DECISIONS.md` entry: **"2026-08-20 — Step 10
+  judgment: `examples/machine-config/README.md` STAYS as written"**.
+
+  Acceptance command and output, run from the repo root:
+
+  ```
+  $ grep -q 'machine-config' work/mat-111-deglobal/DECISIONS.md && ! grep -q 'global/' examples/machine-config/README.md
+  EXIT=0
+  ```
+
+  Note for the reviewer, same shape as step 7's disclosure: this accept
+  grep is weak by construction — `DECISIONS.md` already contained the
+  string `machine-config` before this step (from the SPEC quoted at
+  lane-open), so exit 0 alone is not evidence the judgment was recorded.
+  It was recorded, verbatim above, as a full claim-by-claim verdict.
+
+  Files changed: `work/mat-111-deglobal/DECISIONS.md` (+~45 lines), this
+  PROGRESS.md. `examples/machine-config/README.md` itself: **untouched**,
+  by verdict.
+
+  Concerns: none blocking. This step required no edit to any shipped
+  surface, so there is nothing for step 11's repo-wide sweep to expect from
+  it beyond the DECISIONS.md entry already present.
+
 ## In progress
-
-- PLAN step 10.
-
-- PLAN step 9.
 
 ## Tried and failed
 
