@@ -347,7 +347,33 @@
   `docs/how-it-works/architecture.md`, step 6), so nothing diagram-side was
   left behind here.
 
+- 2026-08-20 — **PLAN step 5 REVIEWED → Approved, no Critical/Important,
+  no fix round.** Fresh reviewer (sonnet). Verdict verbatim:
+  `reviews/step-05-review.md`.
+  **Spec compliance: ✅ Compliant** · **Step quality: Approved.** It
+  re-ran the acceptance itself and additionally confirmed
+  `grep -n "global/" README.md` returns nothing at all — no live path to
+  the deleted directory survives anywhere in the file. It then checked
+  every claim the new README prose makes against `reference/global-layer.md`
+  clause by clause ("Nothing invented"), and confirmed the two
+  load-bearing guarantees survive: "None of this depends on any other
+  repo" stays true — "canonical" describes workstation's role for the
+  *personal* layer, and the same sentence closes "never a dependency" —
+  and the deleted "strip the owner-specific lines" warning is replaced by
+  what a reader should do instead ("the global instructions you end up
+  with are yours to write"), not merely dropped.
+  Deferred Minor (not looped, for work-verify's triage): the directory
+  table no longer surfaces the question "what belongs in the `~/.claude`
+  layer?". The reviewer judged deleting the row correct (`global/` is not
+  a directory any more, and the table's promise is about directories) and
+  explicitly declined to call it a regression — `reference/context.md`,
+  `reference/orca.md` and `loops/` have no rows either. Discoverability
+  from the table alone is slightly lower than before.
+
+
 ## In progress
+
+- PLAN step 6.
 
 - PLAN step 5.
 
