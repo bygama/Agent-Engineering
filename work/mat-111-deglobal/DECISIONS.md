@@ -235,3 +235,58 @@ parent to fold into the workstation-side wave close.
 
 **File not changed.** `examples/` is on the never-touch list except for
 this judgment, and no claim in it went false.
+
+## 2026-08-20 — Parent ruling: fence LIFTED for `skills/ae-audit/evals/eval-03.md`
+
+A fourth fence collision, found by step 11's classification sweep and
+missed by the SPEC's own survey (SPEC §6 listed three; this is a fourth
+file). Escalated as a blocking `ask` rather than decided in the lane.
+
+**The file:** `skills/ae-audit/evals/eval-03.md`, the dogfooding-gate
+eval. Two independent live falsehoods:
+
+- **(a) line 14** — "Runs the self-lint exactly as documented in
+  AGENTS.md (`node scripts/agent-lint.mjs . --ignore
+  tests,templates,global`)". That string matches neither the pre-lane form
+  (`tests,templates,global,examples`) nor the new one
+  (`tests,templates,examples`); it predates `examples` entering the ignore
+  list at all. **Pre-existing** — already wrong before this lane.
+- **(b) line 20** — "every top-level directory (reference, templates,
+  skills, scripts, global, tests, docs) ... has a current
+  section/chapter under `docs/how-it-works/`". **This lane falsified
+  this one:** `global/` is no longer a top-level directory, and step 6
+  correctly removed its how-it-works section, so the eval now instructs
+  the auditor to flag a missing chapter for a directory that must not
+  have one — a false finding on every future self-audit run.
+
+No gate catches either: `tests/run-eval-checks.mjs` is structural only.
+
+**Parent's ruling, verbatim:**
+
+> Ruling: 2 — lift the fence for skills/ae-audit/evals/eval-03.md only,
+> fix both lines. Rationale for the record: (b) is damage this lane
+> causes to a live gate — shipping it means the repo's own dogfooding
+> audit reports a false finding on every run, which violates 'the change
+> is not complete without its surfaces'. (a) is a one-word mechanical
+> restoration to the live AGENTS.md command in the same line region;
+> ticketing one word would be bureaucracy, and half-fixing the line is
+> worse than either option. This differs from Ruling B's leave-it verdict
+> by CLASS, record that too: using-ae eval-03 needs a real rewrite
+> against the new doctrine (a design decision, MAT-114's job), while both
+> lines here have exactly one unambiguously correct value. Conditions:
+> the edit is exactly those two lines, nothing else in the file; it runs
+> through the same fresh-reviewer ceremony as every step; DECISIONS.md
+> records the fence lift with this rationale. Note (a) as pre-existing
+> debt fixed opportunistically.
+
+**The class distinction, recorded as instructed.** Ruling B left
+`skills/using-ae/evals/eval-03.md` alone because fixing it means
+*rewriting* the eval against the new doctrine — a design decision, owned
+by MAT-114. This file is the opposite: both lines have exactly one
+unambiguously correct value, mechanically derivable from
+`AGENTS.md:14` and from the repo's own directory listing. Same fence,
+different class of change.
+
+Executed as **PLAN step 12**, added after the ruling. The house rule
+"evals change before content on every revision" is satisfied trivially:
+only an eval changes, no skill content.

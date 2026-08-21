@@ -104,3 +104,12 @@ hook wiring recipe (absolute-path note, MAT-31), and the
   a fenced surface ruled to stay (B, C), or the lint's consumer-repo
   class. *(integration)*
   accept: `node scripts/agent-lint.mjs . --ignore tests,templates,examples && node tests/run-lint-tests.mjs && node tests/run-gen-tests.mjs && node tests/run-eval-checks.mjs` — all exit 0
+
+- [ ] **12. `skills/ae-audit/evals/eval-03.md`** — parent's fence-lift
+  ruling of 2026-08-20 (DECISIONS.md), added after step 11's sweep found
+  it: fix exactly two lines, nothing else in the file. Line 14's quoted
+  ignore string becomes `tests,templates,examples`, matching `AGENTS.md:14`
+  (pre-existing debt, fixed opportunistically); line 20 drops `global`
+  from the top-level-directory enumeration (falsified by this lane).
+  *(mechanical)*
+  accept: `grep -q 'ignore tests,templates,examples' skills/ae-audit/evals/eval-03.md && ! grep -q 'scripts, global, tests' skills/ae-audit/evals/eval-03.md && node tests/run-eval-checks.mjs && node scripts/agent-lint.mjs . --ignore tests,templates,examples` — exit 0
