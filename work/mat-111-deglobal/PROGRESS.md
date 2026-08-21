@@ -337,7 +337,7 @@
   path survives in the file. Diff: 14 insertions, 15 deletions, confined
   to the two regions.
 
-  Commit: `<filled below>` — docs(global): README — drop the `global/`
+  Commit: `edf1611` — docs(global): README — drop the `global/`
   row, repoint the machine-layer section
 
   Files changed: `README.md`, this PROGRESS.md.
