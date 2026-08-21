@@ -35,11 +35,26 @@ genuine unresolved scope, not just missing paperwork.
 - [ ] (a) PLAN.md is only written in a later turn, after the owner's
       approval of the SPEC is on record — never speculatively
       alongside it.
+- [ ] (a) The same turn that writes SPEC.md also writes
+      `work/<slug>/PROGRESS.md`, carrying this line verbatim under
+      `## In progress`:
+
+      ```
+      STATE: design-first approval window, waiting for owner approval of SPEC.md before PLAN.md
+      ```
+
+- [ ] (a) PLAN.md still does not appear alongside that PROGRESS.md —
+      writing it stays gated on the owner's approval, exactly as the
+      bullet above requires.
 - [ ] (b) Because the owner states certainty and names the tracker
       issue as the spec, both SPEC.md and PLAN.md come out in the same
       pass — no intermediate stop between the two files.
 - [ ] (b) Exactly one approval gate is presented, at the end, covering
       both files together — not one gate per file.
+- [ ] (b) Direct mode never writes the marker above: it has no
+      approval window to declare, so PROGRESS.md — however it reads in
+      this pass — does not carry the `STATE: design-first approval
+      window...` line.
 - [ ] (c) Refuses to write SPEC.md or PLAN.md, and does not open a
       `work/` lane for the ask.
 - [ ] (c) The refusal names the missing design explicitly and invokes

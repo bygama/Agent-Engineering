@@ -41,10 +41,32 @@ issue: MAT-115
   run --auto -m opencode/x-preview-f-free` returned the requested output
   one-shot, exit 0, in this worktree on 2026-08-21. Chain position 1 is
   alive; no degradation needed at settle time.
+- **Step 1 — `skills/work-plan/evals/eval-05.md` amended, evals-first**
+  (PLAN step 1): the existing design-first assertions (a) are untouched;
+  gained two companions — the same SPEC.md turn also writes
+  `work/<slug>/PROGRESS.md` under `## In progress` carrying the marker
+  verbatim (quoted in full in the eval), and PLAN.md still does not
+  appear alongside it. Added the negative for direct mode (b): it never
+  writes the marker, because it has no approval window to declare.
+  eval-05 was not duplicated — amended in place, per SPEC §1.
+
+  ```
+  $ grep -q 'STATE: design-first approval window, waiting for owner approval of SPEC.md before PLAN.md' skills/work-plan/evals/eval-05.md && echo MARKER_OK
+  MARKER_OK
+  $ grep -q 'direct' skills/work-plan/evals/eval-05.md && echo DIRECT_OK
+  DIRECT_OK
+  $ node tests/run-eval-checks.mjs
+  ok   work-plan: 6 evals well-formed
+  ... (all other skills ok)
+  all eval checks passed
+  $ echo $?
+  0
+  ```
 
 ## In progress
 
-- work-run executing PLAN steps 1-6 in order.
+- work-run executing PLAN steps 1-6 in order. Step 1 done; steps 2-6
+  remain.
 
 ## Tried and failed
 
