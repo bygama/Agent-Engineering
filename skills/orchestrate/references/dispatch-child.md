@@ -1,8 +1,9 @@
 # Child dispatch template
 
 **When to use:** orchestrate's child spawn — once the dispatch dialogue
-(reviewers yes/no, count, model) is answered and recorded, this text
-becomes the Task's `--spec` (`orca orchestration task-create --spec
+(both reviewer seats: the child's per-step mode and model, and the
+adversarial seat's yes/no, count and model) is answered and recorded,
+this text becomes the Task's `--spec` (`orca orchestration task-create --spec
 "..."`) and is injected as the new worker's preamble when the parent
 runs `worker-start --task <id> --worktree new-child --agent <id>
 [--model <id>]`. Filled verbatim, never freehand (MAT-43 pattern).
@@ -91,6 +92,15 @@ your own session, sequentially, and Orca never sees them. Run them. The
 parent's adversarial reviewer after `worker_done` is an ADDITIONAL
 cross-model seat, never a substitute for your step 4 — "the parent
 reviews it anyway" is not a reason to skip that rung.
+
+**Also required, and also not a grandchild — the reviewer's command-mode
+seat.** Where the dispatch dialogue settled `command` mode, your per-step
+reviewer is not a subagent at all: you shell out (`opencode run --auto -m
+<provider/model> "<prompt>"`, `reference/runners.md`) and read the
+verdict off stdout. That is a shell command — no Task, no Dispatch, no
+`worker_done` authority, nothing Orca can see — so the fence above does
+not reach it. Either seat satisfies the rung; neither excuses skipping
+it.
 
 **Attempt first, then classify.** Before you conclude you cannot run a
 subagent, make the call. A rule you READ — this fence, a skill, a
