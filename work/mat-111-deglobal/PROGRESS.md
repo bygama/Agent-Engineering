@@ -266,7 +266,22 @@
   appears only in dated lane records (SPEC.md, PLAN.md, prior PROGRESS
   entries, prior review files), which correctly stay unchanged.
 
+- 2026-08-20 — **PLAN step 4 REVIEWED → Approved, no findings at any
+  severity, no fix round.** Fresh reviewer (haiku). Verdict verbatim:
+  `reviews/step-04-review.md`.
+  **Spec compliance: ✅ Compliant** · **Step quality: Approved** ·
+  Critical/Important/Minor: "None identified" in all three. It checked the
+  two things that could have gone wrong quietly: the CI workflow's YAML
+  shape survived the substitution (`run:` line and indentation intact —
+  a broken gate there would silently stop matching `AGENTS.md`), and the
+  `loops/self-audit.md` re-stamp stayed narrow — only the gate line whose
+  command actually changed moved to 2026-08-20, the other three kept their
+  2026-08-16 dates. A blanket bump would have been a falsified record.
+
+
 ## In progress
+
+- PLAN step 5.
 
 ## Tried and failed
 
