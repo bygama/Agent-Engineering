@@ -1624,6 +1624,14 @@ its tier.
    prose wrap. `docs/how-it-works/` is explicitly outside the length
    budgets and the lint is green — style only.
 
+**Post-PR confirmation (2026-08-20).** The strongest available evidence
+that the CI change is correct is CI itself running it: PR #89's `gates`
+job → **pass** in 40s
+(https://github.com/bygama/Agent-Engineering/actions/runs/32437138493).
+That is the edited `.github/workflows/gates.yml` executing the NEW
+`--ignore tests,templates,examples` form on GitHub's runner, not on this
+machine — the one check no local run could stand in for.
+
 **Verdict: PASS.** Ready for work-handoff.
 
 
