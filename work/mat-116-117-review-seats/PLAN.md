@@ -73,7 +73,7 @@ after step 9, covering both.
   `muse-spark-1.2-contributor-free`. The paragraph claiming "no no-auth
   Muse Spark route has run here" is falsified by this lane's probe and
   goes with it. *(judgment · per-step)*
-  accept: `grep -q 'sigiloso' reference/runners.md && grep -q 'x-preview-f-free' reference/runners.md && grep -q 'opencode run --auto' reference/runners.md && grep -q 'muse-spark-1.2-contributor-free' reference/runners.md && ! grep -q 'deepseek-v4-flash-free' reference/runners.md && ! grep -q 'takes no `--auto`' reference/runners.md && node scripts/agent-lint.mjs . --ignore tests,templates,examples` — exit 0
+  accept: `grep -q 'sigiloso' reference/runners.md && grep -q 'x-preview-f-free' reference/runners.md && grep -q 'opencode run --auto' reference/runners.md && grep -q 'muse-spark-1.2-contributor-free' reference/runners.md && ! grep -q -- '-m opencode/deepseek-v4-flash-free' reference/runners.md && ! grep -q 'takes no `--auto`' reference/runners.md && node scripts/agent-lint.mjs . --ignore tests,templates,examples` — exit 0
 
 - [ ] **2. `skills/work-run/evals/` — evals FIRST for work-run**
   (SPEC §6): the reviewer-mode knob (command mode is a shell command,
@@ -130,7 +130,7 @@ after step 9, covering both.
   (DECISIONS.md, parent ruling 2026-08-21); and `eval-03.md`'s dead
   `opencode/deepseek-v4-flash-free` fallback id corrected in the same
   sweep. *(judgment · per-step)*
-  accept: `grep -rq 'cross-family gate' skills/orchestrate/evals/ && grep -rq 'x-preview-f-free' skills/orchestrate/evals/ && ! grep -rq 'deepseek-v4-flash-free' skills/orchestrate/evals/ && node tests/run-eval-checks.mjs` — exit 0
+  accept: `grep -rq 'cross-family gate' skills/orchestrate/evals/ && grep -rq 'x-preview-f-free' skills/orchestrate/evals/ && ! grep -rq -- '-m opencode/deepseek-v4-flash-free' skills/orchestrate/evals/ && node tests/run-eval-checks.mjs` — exit 0
 
 - [ ] **7. `skills/orchestrate` content — two-seat dialogue + guardrail**
   (MAT-116 item 3, SPEC §3): step 3's dialogue becomes one question
@@ -173,4 +173,4 @@ after step 9, covering both.
   (non-record) surface still names `opencode/deepseek-v4-flash-free` and
   that each skill's eval commit precedes its content commit.
   *(integration · per-step)*
-  accept: `node scripts/agent-lint.mjs . --ignore tests,templates,examples && node tests/run-lint-tests.mjs && node tests/run-gen-tests.mjs && node tests/run-eval-checks.mjs && test $(grep -rl 'deepseek-v4-flash-free' --exclude-dir=.git skills reference AGENTS.md README.md | wc -l) -eq 0` — all exit 0
+  accept: `node scripts/agent-lint.mjs . --ignore tests,templates,examples && node tests/run-lint-tests.mjs && node tests/run-gen-tests.mjs && node tests/run-eval-checks.mjs && test $(grep -rl -- '-m opencode/deepseek-v4-flash-free' --exclude-dir=.git skills reference AGENTS.md README.md | wc -l) -eq 0` — all exit 0
