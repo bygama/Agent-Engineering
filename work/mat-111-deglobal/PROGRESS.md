@@ -1450,10 +1450,48 @@
   bucket-4 total keeps rising as the lane closes. The per-bucket
   arithmetic is what makes the classification checkable, not the total.
 
+- 2026-08-20 — **PLAN step 12 DONE.** `skills/ae-audit/evals/eval-03.md`:
+  two lines, exactly as ruled. Parent's fence lift (DECISIONS.md:239-293)
+  approved this one file and these two lines for repair:
+
+  1. **Line 14** — the quoted ignore string. Was:
+     `(`node scripts/agent-lint.mjs . --ignore tests,templates,global`)`
+     Now: `(`node scripts/agent-lint.mjs . --ignore tests,templates,examples`)`
+     Matches `AGENTS.md:14` exactly, the file's own claim ("exactly as
+     documented in AGENTS.md").
+  2. **Line 20** — the directory enumeration. Was:
+     `(reference, templates, skills, scripts, global, tests, docs)`
+     Now: `(reference, templates, skills, scripts, tests, docs)`
+     Removed `global,` — the directory no longer exists in this repo after
+     step 2's deletion.
+
+  No other line in the file touched. Structure preserved — `## Query`,
+  `## Expected behavior`, checklist format all intact.
+
+  Acceptance command and output:
+
+  ```
+  $ grep -q 'ignore tests,templates,examples' skills/ae-audit/evals/eval-03.md && \
+      ! grep -q 'scripts, global, tests' skills/ae-audit/evals/eval-03.md && \
+      node tests/run-eval-checks.mjs && \
+      node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  all eval checks passed
+  agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-111-deglobal
+  0 high, 0 medium, 0 low — PASS
+  EXIT=0
+  ```
+
+  Commit: `3e35543` — fix(ae-audit): eval-03 — update ignore string and
+  directory enumeration
+
+  Files changed: `skills/ae-audit/evals/eval-03.md` (+2/-2), this PROGRESS.md.
+
+  Concerns: none. This is a mechanical step, both lines have exactly one
+  correct value per the parent's ruling. The eval is now current with the
+  repo's state after the global/ deletion.
+
 
 ## In progress
-
-- PLAN step 12 (parent's fence-lift ruling).
 
 ## Tried and failed
 
