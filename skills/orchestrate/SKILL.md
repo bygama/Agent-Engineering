@@ -1,6 +1,6 @@
 ---
 name: orchestrate
-description: Runs the parent orchestrator role — binds an Orca Run, turns each lane into a Task with dependency queuing, asks the owner's dispatch dialogue (reviewers, count, model), births one child worktree per lane, supervises by mailbox, runs the review wave and a capped fix loop, then merges the lanes itself rebase-only. Use from the repo's main-worktree session — the parent seat, bound or not, since binding the Run is this skill's own step 0 rather than a precondition — when an M+ task must go to a child, when two or more independent lanes run at once (XL), or when someone says "dispatch this", "split this across agents", or "supervise the workers". Carries the manual fallback for machines without Orca.
+description: Runs the parent orchestrator role — binds an Orca Run, turns each lane into a Task with dependency queuing, asks the owner's dispatch dialogue (both reviewer seats, count, model, under a cross-family guardrail), births one child worktree per lane, supervises by mailbox, runs the review wave and a capped fix loop, then merges the lanes itself rebase-only. Use from the repo's main-worktree session — the parent seat, bound or not, since binding the Run is this skill's own step 0 rather than a precondition — when an M+ task must go to a child, when two or more independent lanes run at once (XL), or when someone says "dispatch this", "split this across agents", or "supervise the workers". Carries the manual fallback for machines without Orca.
 ---
 
 # orchestrate
@@ -24,7 +24,8 @@ Orchestrate progress:
 - [ ] 0. Probe + bind the Run
 - [ ] 1. Tier gate (S inline, M+ child)
 - [ ] 2. Lane → Task (--deps queues file overlap)
-- [ ] 3. Dispatch dialogue (reviewers, count, model)
+- [ ] 3. Dispatch dialogue (both seats, count, model) + cross-family
+      guardrail
 - [ ] 4. Birth the child (worker-start, Linear, template verbatim)
 - [ ] 5. Supervise by mailbox
 - [ ] 6. Review wave → fix loop (cap 5) → decision gate
@@ -66,19 +67,52 @@ dispatched when that one completes. Disjoint files ⇒ no deps, dispatch the
 wave together. A dependency chain deeper than three or four means these are
 stages, not lanes: run them as one lane instead.
 
-**3. The dispatch dialogue.** One question to the owner before a child is
-born, never a silent default:
+**3. The dispatch dialogue.** One question block to the owner before a
+child is born — both reviewer seats at once, never a silent default and
+never one seat now with the other asked later:
 
-> Adversarial reviewers for this lane — yes/no, how many, which model?
-> Default: **1 ratón chispeante** (the house name for the cross-family
-> reviewer seat that holds the default on cost, muse spark 1.2
-> contributor; several of them are ratones chispeantes). The
-> alternative is the **ballena** (deepseek v4 flash) — named in the
-> same question, so neither seat is picked silently.
+> Reviewer seats for this lane:
+> **(1) Per-step**, inside the child's own work-run — mode and model?
+> Default: **command-mode sigiloso** (`opencode/x-preview-f-free`,
+> `reference/runners.md`); the alternative is an in-session Claude
+> subagent.
+> **(2) Adversarial**, after `worker_done` — yes/no, how many, which
+> model? Default: **1 ratón chispeante** (the house name for the
+> cross-family seat that holds the default on cost, muse spark 1.2
+> contributor at its free id
+> `opencode/muse-spark-1.2-contributor-free`; several of them are
+> ratones chispeantes). The alternative is the **ballena** (deepseek v4
+> flash) — named in the same block, so no seat is picked silently.
 
-One question per lane; at XL one per batch, with a per-lane override.
-Record the answer in the Task spec — it is what the review wave dispatches
-later, and asking after the child is already working is asking too late.
+Every default is offered at its **free** variant while the free windows
+last (`reference/runners.md`'s economics rule): a paid Go id offered as
+a default is a bug, not a cautious choice, even though the model is
+identical.
+
+One block per lane; at XL one per batch, with a per-lane override. Record
+**both** answers in the Task spec — the per-step seat is what the child's
+own work-run reads, the adversarial one is what the review wave
+dispatches later, and asking after the child is already working is asking
+too late. This stays one question about reviewers: the child-seat default
+(`--agent claude`) is not a second ask.
+
+**The guardrail: at least one cross-family gate per lane.** The child is
+Claude by convention, so a Claude per-step reviewer paired with a Claude
+adversarial seat — or with none at all — leaves the lane with no
+cross-family gate anywhere. Both combinations are **rejected** and
+re-asked, out loud: say which pairing was refused and why, never
+substitute a seat the owner did not choose. Hold the rule in its positive
+form, not as a blacklist of the one named pair, or the no-adversarial
+case walks straight through it. Authority:
+`docs/adrs/ADR-008-orchestration.md`'s maker ≠ checker cross-family
+principle, which this enforces and does not revise.
+
+The owner keeps one escape and the dialogue never offers it: a
+zero-cross-family lane is reachable **only** by an explicit owner
+override, stated in the dialogue and recorded **verbatim** in the Task
+spec — the owner's own words, not a paraphrase, a checkbox, or the
+parent's summary. Impossible to reach by accident; never inferred from
+silence, from a hurry, or from the lane looking small.
 
 **4. Birth the child.** Fill `references/dispatch-child.md` verbatim
 (`[LANE_PATH]`, `[TASK_BRIEF]`, plus the optional `[REPO_CONSTRAINTS]`
@@ -170,18 +204,19 @@ here at the dialogue's default, the ratón chispeante:
 orca worktree create --name <slug>-review-<seat> --base-branch <lane-branch> \
   --parent-worktree active --setup run --json
 orca terminal create --worktree id:<review_worktree_id> \
-  --command "opencode --auto -m opencode-go/muse-spark-1.2-contributor" --json   # reference/runners.md
+  --command "opencode --auto -m opencode/muse-spark-1.2-contributor-free" --json  # reference/runners.md
 orca terminal wait --terminal <handle> --for tui-idle --timeout-ms 60000 --json
 orca orchestration worker-start --task <review_task_id> --terminal <handle> --json
 ```
 
 `<seat>` numbers each reviewer (`r1`, `r2`, …) so N>1 agreed reviewers
 never collide on one worktree name. A ballena agreed at the dialogue
-takes the same four commands with its own argv, and a machine without
-OpenCode Go auth falls back to the ballena's no-auth free model — the
-seat changes, the four commands do not. Every launch argv, `--auto`
-included, is read off `reference/runners.md`, which registers both
-seats, never retyped from memory. The two-step create can leave an
+takes the same four commands with its own argv, and a seat whose model
+is dead or throttled walks `reference/runners.md`'s degradation chain —
+the seat changes, the four commands do not. Every launch argv, `--auto`
+included, is read off `reference/runners.md` — which registers every
+seat — and never retyped from memory: the ballena's old no-auth fallback
+no longer exists, and the file is what knows that. The two-step create can leave an
 unused fallback startup shell behind; where it does, closing it is a
 **required step**, not advice — confirm that shell is actually unused
 first (`orca terminal list --worktree <sel> --json` shows both), then
@@ -367,7 +402,7 @@ The automation is what is missing here. The discipline is not.
 | "The child reported PASS, merge it" | Rebase onto fresh main, rerun the gates, then the parent merges. |
 | "Let the child merge, it is already green" | The child never merges. Not once, however clean. |
 | "This half deserves its own child" (from a child) | No grandchildren: fold it into the lane, or ask the parent for a sibling Task. |
-| "The child says no-grandchildren blocks its step-4 reviewer" | It misread the fence. The fence is orchestration workers; work-run's per-step reviewer and work-verify's step-4 review are in-session subagents, REQUIRED at their tiers. |
+| "The child says no-grandchildren blocks its step-4 reviewer" | It misread the fence. The fence is orchestration workers; work-run's per-step reviewer — in-session subagent, or the command-mode shell-out the Task spec settled — and work-verify's step-4 review are REQUIRED at their tiers. |
 | "I'll keep a file of the wave's ids next to the PLAN" | Orca is the ledger; reread it. The one copy on disk is the worker table in the parent PLAN. |
 | "No Orca here, so relax the ceremony" | Same lanes, same ceremony; the Orca-only steps are declared NOT done. |
 
