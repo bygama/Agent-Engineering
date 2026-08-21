@@ -782,3 +782,161 @@ Step 10 closes Approved at fix round 1/5. Minor 2 (the argv
 restatement in `reference/runners.md:25` and `work-run/SKILL.md`) was
 deliberately left: it is SPEC-mandated and carries its citation. The
 re-reviewer agreed.
+
+## Verification
+
+### 2026-08-21 — L-tier DoD — PASS
+
+DoD assembled per `DECISIONS.md` ("The L-tier DoD, assembled"): this repo
+carries no `feature_list.json` outside `tests/fixtures/`, so the DoD is
+the SPEC's `## Verification` section plus the PLAN's ten per-step
+acceptance commands. No feature-list row moves to `passing`.
+
+- **L1 static:** `node scripts/agent-lint.mjs . --ignore tests,templates,examples` → exit 0 (`0 high, 0 medium, 0 low — PASS`)
+- **L2 behavioral:** `node tests/run-lint-tests.mjs` → exit 0 (`all 22 cases passed`); `node tests/run-gen-tests.mjs` → exit 0 (`all gen cases passed`); `node tests/run-eval-checks.mjs` → exit 0 (`all eval checks passed`, with `work-run: 6`, `work-plan: 6`, `orchestrate: 6 evals well-formed`); starts: `node --check scripts/agent-lint.mjs` → exit 0, and all three touched SKILL.md files parse with valid frontmatter
+- **L3 end-to-end:** cross-component (a reference file, three skills, an ADR, two chapters), so the flow was executed, not inferred — the registered command-mode recipe run verbatim against the live gateway: `opencode run --auto -m opencode/x-preview-f-free` → `E2E-CHAIN-1-OK`; `opencode run --auto -m opencode/muse-spark-1.2-contributor-free` → `E2E-CHAIN-2-OK`; `opencode models` confirms chain position 3 (`opencode-go/muse-spark-1.2-contributor`) present and the retired `opencode/deepseek-v4-flash-free` **absent**, which is the claim `reference/runners.md` now makes. The wider e2e is the lane itself: every step of this PLAN was reviewed through the machinery this PLAN was writing.
+- **Fresh-context review:** PASS — in-session subagent, no shared conversation, ran every DoD command and all ten PLAN acceptance expressions itself. Three Important findings, all of one class (surfaces this change made untrue): the repo-root `README.md` skills row, one word in work-run's description, and an unamended `ADR-004`. All three fixed; scoped re-review PASS.
+- **Adversarial review:** the parent's 1 ratón chispeante fires after `worker_done` (its dispatch config). Additionally, and unusually: **every per-step review in this lane already ran cross-family** — command-mode sigiloso, falling through to the free ratón — per the owner's mid-lane ruling in `DECISIONS.md`. The lane never certified itself with a same-family seat at any rung.
+
+### Fresh-context reviewer verdict — verbatim
+
+> ### DoD run
+>
+> All commands run by me from the repo root at `HEAD = 3cb5ddf`, worktree clean (`git status --porcelain` → empty).
+>
+> **L1 static**
+> ```
+> $ node scripts/agent-lint.mjs . --ignore tests,templates,examples
+> agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-116-117-review-seats
+> 0 high, 0 medium, 0 low — PASS
+> EXIT=0
+> ```
+>
+> **L2 behavioral**
+> ```
+> $ node tests/run-lint-tests.mjs
+> all 22 cases passed
+> EXIT=0
+>
+> $ node tests/run-gen-tests.mjs
+> all gen cases passed
+> EXIT=0
+>
+> $ node tests/run-eval-checks.mjs
+> ok   orchestrate: 6 evals well-formed
+> ok   work-plan: 6 evals well-formed
+> ok   work-run: 6 evals well-formed
+> all eval checks passed
+> EXIT=0
+> ```
+>
+> **PLAN per-step acceptance** — I ran all ten acceptance expressions verbatim from `PLAN.md`; every one returned `exit 0 PASS` (steps 1-10). Step 10's grep prints `grep: --exclude-dir=.git: No such file or directory` (flag placed after the pattern) but the `test … -eq 0` still evaluates true, and I confirmed the substance independently below.
+>
+> **Lane-specific evidence 1 — dead id as spawn target**
+> ```
+> $ grep -rn -- '-m opencode/deepseek-v4-flash-free' . (excluding .git, node_modules)
+> ./docs/plans/2026-08-16-agent-engineering-p4-graphs.md:201
+> + lane files (SPEC/PLAN/PROGRESS) only
+> ```
+> The single non-lane hit is a dated 2026-08-16 plan — a record the SPEC explicitly preserves. The two surviving live mentions, `reference/runners.md:126` and `skills/orchestrate/evals/eval-03.md:37`, both name the id to declare it retired, which the SPEC requires. `ADR-008:107-108` and `execution.md:517` are intact dated records. PASS.
+>
+> **Lane-specific evidence 2 — evals precede content, per skill** (`git log` over the range, per path):
+> ```
+> work-run     c545b79 (23:21) test → 34896c4 (23:37:11) test → 24b0438 (23:37:22) feat
+> work-plan    5c0c5e8 (23:45) test → 9ed48ae (23:53) feat
+> orchestrate  a69a8a5 → d38a9b5 → c9c3a7b (23:59-00:05) test → 48cedb5 (00:10) feat
+> ```
+> PASS for all three.
+>
+> **Lane-specific evidence 3 — ADR-008 amended, not rewritten**
+> ```
+> $ git diff bc194f2..HEAD -- docs/adrs/ADR-008-orchestration.md
+> @@ -49,6 +49,21 @@   (15 insertions, 0 deletions)
+> ```
+> Purely additive. The original "Dispatch-time reviewer question, default 1 ballena" bullet and the `*Amended 2026-08-20 (v1.4.2, MAT-105 …)*` note are byte-identical; the new `*Amended again 2026-08-21 (MAT-116 owner amendment)…*` note follows in the same italic style. PASS.
+>
+> **SPEC scope coverage** — I read all seven `## What done looks like` sections against the diff. All seven landed: runners.md carries all 7 sub-items (sigilosos, free ratón, command recipe, `--auto` law with the false "takes no `--auto`" sentence *replaced*, economics rule, degradation chain as numbered law, dead-id repointing); work-run has the mode knob with the explicit no-grandchildren statement and the class executor including the classless→`per-step` fallback; orchestrate has the one-block two-seat dialogue, the positive-form guardrail and the verbatim-override escape; work-plan has the class table, notation, `per-step` floor and the harder `[batch]` rule with MAT-111 named; evals moved first on all three; both chapters updated and all four no-change chapters judged in `DECISIONS.md`. Nothing promised is missing.
+>
+> **Producer/consumer contract** — the writer (`skills/work-plan/SKILL.md:151-155`) prescribes one trailing parenthetical, role first: `*(judgment · per-step)*`, and `*(per-step)*` alone in a hintless plan. The reader (`skills/work-run/SKILL.md:89-92`) names both forms verbatim, same middle-dot separator, same order. A plan written to work-plan's letter cannot be misread by work-run. (The lane's own round-1 integration review caught the earlier version of this — the reader said "beside its role hint", which read a hintless plan as malformed — and fixed it in `3cb5ddf`.)
+>
+> **One vocabulary** — `sigiloso`/Ox Alpha `opencode/x-preview-f-free`, ratón at `opencode/muse-spark-1.2-contributor-free`, ballena `opencode-go/deepseek-v4-flash`, the chain order sigiloso → free ratón → paid Go → Claude subagent, the economics rule and the command form `opencode run --auto -m <provider/model> "<prompt>"` are identical across `reference/runners.md`, the three SKILL.md files, six evals, `dispatch-child.md`, `step-reviewer.md`, ADR-008 and both chapters. I grepped each term across every live surface; no id, ordering or flag drift. One drift found, listed below.
+>
+> ### Issues
+>
+> #### Critical (Must Fix)
+> None.
+>
+> #### Important (Should Fix)
+>
+> - **`README.md:115`** — the skills table still describes work-run as "fresh subagent per step, **per-step review**, capped fix loop". Under `grouped` and `covered-by-batch` that is no longer true, and it directly contradicts the skill's own new frontmatter ("reviews scaled by each step's review class"). This is the exact failure class the DoD names (a file still saying every step gets a review). `DECISIONS.md` judged `docs/how-it-works/README.md`, not the repo-root one, so this surface was never judged at all.
+>
+> - **`skills/work-run/SKILL.md:3`** — the description changed from "a fresh **subagent** per step" to "a fresh **runner** per step", in the same sentence that then uses "runner" for the command-mode CLI seat ("in-session subagent or command-mode runner"). The lane spent `reference/runners.md` making "runner" mean a registered CLI; the implementer is and remains an in-session subagent (the body says so at line 7-8, and `architecture.md:98` and `evals/eval-01.md:21` agree). A reader of the description alone can conclude the implementer seat is also configurable, which nothing in the change supports. Reverting that one word to "subagent" costs nothing.
+>
+> - **`docs/adrs/ADR-004-relay.md:23`** — the Decision text reads "sequential execution of one lane with a fresh implementer subagent per PLAN step, **per-step review** (maker ≠ checker)". MAT-117 makes that rung class-scaled, so the decision as recorded is now partially superseded and carries no amendment note — while ADR-008 got a dated note in this same lane for a smaller change (which default model id the dialogue offers). ADR-004 is not in the SPEC's scope, so this is drift the lane created rather than a broken promise, but the house pattern says a superseded ADR decision gets an italic dated note, not silence. It is also not among `DECISIONS.md`'s recorded no-change judgments.
+>
+> #### Minor (Nice to Have)
+>
+> - **`skills/work-run/SKILL.md:98`** — the class table's `covered-by-batch` row reads "nothing extra: the `[batch]` entry's single review already covers the sweep". Read alone, "nothing extra" is available as "this step buys no review"; the intent (one review of the batch entry's combined diff) is only unambiguous in `evals/eval-06.md:38`. One clause — "its own single review, covering the whole sweep" — would close it.
+>
+> - **`skills/work-run/references/step-reviewer.md:7-9` vs `SPEC.md:126-129`** — the SPEC promised the command-mode note would use "the same three inputs"; the shipped template requires a fourth, `[WORKTREE_ROOT]`. The change is correct (a command-mode seat has no ambient checkout), was eval-first (`34896c4` precedes `24b0438`), and is reasoned through at length in PROGRESS — but a deviation from the binding SPEC belongs in `DECISIONS.md`, where it is not recorded.
+>
+> - **`3cb5ddf`** touches `skills/work-run/SKILL.md` with no eval commit ahead of it. The DoD's letter is satisfied (eval commits precede *a* content commit for that skill) and the lane's re-reviewer argued the expectation was already pinned by `work-plan/evals/eval-06.md:45-47`, which predates it — defensible, but the reasoning lives in a PROGRESS quote rather than in `DECISIONS.md`.
+>
+> ### Verdict
+>
+> **PASS** — every DoD gate exits 0 on my own run (`0 high, 0 medium, 0 low — PASS`, `all 22 cases passed`, `all gen cases passed`, `all eval checks passed`), all ten PLAN acceptance commands exit 0, the ADR-008 diff is 15 insertions and 0 deletions with both prior records byte-identical, eval-before-content ordering holds for all three skills, and no live surface points a seat at `opencode/deepseek-v4-flash-free`. The three Important findings are stale claims on adjacent surfaces the SPEC did not enumerate (root README, one word in a description, an unamended ADR-004) — worth a follow-up sweep, but none falsifies the lane's own verification.
+
+### Findings fixed, then re-reviewed
+
+All three Important findings and the `covered-by-batch` minor were fixed
+rather than deferred — each is a live surface this change made untrue,
+which the house hard constraint says the change itself must repair. The
+two recording-only minors became three `DECISIONS.md` entries. Fixes:
+
+- `README.md:115` — "review scaled by each step's review class".
+- `skills/work-run/SKILL.md:3` — "runner" reverted to "subagent" for the
+  implementer; the same sentence still discloses that the reviewer seat
+  is configurable.
+- `docs/adrs/ADR-004-relay.md` — an italic *Amended 2026-08-21 (MAT-117)*
+  note after the Decision text, purely additive, original byte-intact.
+- `skills/work-run/SKILL.md:98` — the `covered-by-batch` row now says the
+  step buys "its own single review, covering the whole sweep".
+
+Scoped re-review verdict verbatim (engine: sigiloso,
+`opencode run --auto -m opencode/x-preview-f-free`):
+
+> ## Finding verdicts
+>
+> **Important 1 — README.md skills table: ADDRESSED.**
+> README.md:115 now reads "fresh subagent per step, review scaled by each step's review class, capped fix loop" — no longer claims universal per-step review, and no longer contradicts the skill's own frontmatter.
+>
+> **Important 2 — `skills/work-run/SKILL.md:3`: ADDRESSED.**
+> Description reverted to "a fresh subagent per step" for the implementer, while the same sentence keeps "reviews … bought from either seat (in-session subagent or command-mode runner)". "Runner" now appears only where it means a registered CLI, matching `reference/runners.md`'s vocabulary.
+>
+> **Important 3 — ADR-004: ADDRESSED.**
+> Dated italic amendment note at `docs/adrs/ADR-004-relay.md:29-38`, placed after the Decision text. The diff (`@@ -26,6 +26,17 @@`) is a pure insertion — zero deleted lines — so the original Decision text (lines 22-27) is byte-intact.
+>
+> **Minor A — `covered-by-batch` row: ADDRESSED.**
+> SKILL.md:98 now reads "its own single review, covering the whole sweep — one for the `[batch]` entry, never one per file it touched": the step visibly buys a review, and the wording matches `skills/work-run/evals/eval-06.md:37-38` ("reviewed once for the whole sweep … never once per file touched") and `skills/work-plan/SKILL.md:149` ("the sweep's single review").
+>
+> **Recording-only minors — CLOSED.** All three DECISIONS entries do the job:
+> - `DECISIONS.md:184-193` — records the assembled L-tier DoD (SPEC Verification + ten acceptance commands) and why the substitution beats declaring the tier unverifiable in a repo with no feature list.
+> - `DECISIONS.md:195-207` — records the deliberate fourth-input deviation, its reason, and evals-first evidence; git confirms `34896c4` precedes `24b0438`.
+> - `DECISIONS.md:209-222` — cites `work-plan/evals/eval-06.md:45-47` ("same notation on every step, consistently"), which I verified exists verbatim, and git confirms `5c0c5e8` precedes `3cb5ddf`. The reasoning holds: the pinned expectation didn't move.
+>
+> ## New breakage
+>
+> None found.
+>
+> - **ADR-004 note**: additive, dated 2026-08-21, original intact (above).
+> - **Cross-checks**: the note's two knobs (class = how often, MAT-117; seat = who, MAT-116) agree with ADR-008's 2026-08-21 note (both seats in one dialogue block), `SKILL.md:86-137`, and `reference/runners.md:29-41` (command mode named for work-run's per-step reviewer).
+> - **Revert direction**: the full description sentence still discloses reviewer-seat configurability ("bought from either seat") — nothing hidden.
+> - **Sweep beyond the three files**: every remaining "subagent per step" phrasing describes the *implementer* cadence, which stays true — `templates/repo/docs/tiers.md:12`, `docs/how-it-works/architecture.md:98`, `skills/orchestrate/SKILL.md:15`. `CHANGELOG.md:406-407` is a historical release record. `skills/orchestrate/SKILL.md:405` and `dispatch-child.md:96-103` were already amended for command mode earlier in the lane. `reference/task-tiers.md:40` names executors only. No live surface claims universal per-step review or a necessarily-subagent reviewer.
+>
+> ```
+> VERDICT: PASS
+> ```
+
+All four gates re-run after the fixes: `agent-lint` → `0 high, 0 medium,
+0 low — PASS`; `run-lint-tests` → `all 22 cases passed`; `run-gen-tests`
+→ `all gen cases passed`; `run-eval-checks` → `all eval checks passed`.

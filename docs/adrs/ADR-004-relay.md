@@ -26,6 +26,17 @@ DECISIONS.md. The lane is the entire dispatch package — no extracted
 briefs, no scratch workspace, no separate ledger. relay ships no final
 review: work-verify remains the lane gate, work-handoff the ending.
 
+*Amended 2026-08-21 (MAT-117): "per-step review" is no longer universal.
+Each PLAN step carries a **review class** — `per-step` (its own dedicated
+reviewer, mandatory and never overridable downward), `grouped` (one pass
+per contiguous group of cheap-to-redo steps), or `covered-by-batch` —
+because review value tracks rework cost rather than step count. The
+reviewer seat itself also became configurable (MAT-116): an in-session
+subagent or a one-shot command-mode runner. Everything else in this
+decision stands unchanged — maker ≠ checker, the capped fix loop,
+work-verify as the lane gate, and the runtime-neutral inline fallback.
+See `skills/work-run/SKILL.md` and `reference/runners.md`.*
+
 Normative force: recommended default at L, available at M with several
 steps, usable by an XL worker inside its own lane, never mandatory —
 the standard stays runtime-neutral; a runner without subagents executes
