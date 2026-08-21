@@ -562,6 +562,66 @@ issue: MAT-115
   `git status --short` confirms only `docs/how-it-works/work-lifecycle.md`
   and `work/mat-115-design-window/DECISIONS.md` changed in this step.
 
+- **Step 5 review — command-mode sigiloso (`opencode/x-preview-f-free`,
+  chain position 1, no degradation), verdict verbatim:**
+
+  > ### Spec compliance
+  > Compliant
+  >
+  > What I checked, concretely:
+  >
+  > 1. **New sentences vs shipped behavior.** [...] The corrected mode
+  > sentence [...] matches SKILL.md step 1 exactly (SPEC → STOP →
+  > same-turn PROGRESS.md with the marker → PLAN.md only after approval).
+  > The PROGRESS.md bullet [...] claims `lane-incomplete` "reads that same
+  > line to recognize the window" — true: agent-lint.mjs:249-253 exempts
+  > missing PLAN.md only when PROGRESS.md exists *and* contains the exact
+  > marker [...] Neither imprecision flagged in the brief is present.
+  > 2. **Every named chapter judged.** DECISIONS.md entry (2026-08-21)
+  > carries an explicit verdict with a stated reason for all five [...]
+  > Not a blanket "rest are fine".
+  > 3. **Spot-checks (three done).** (a) `architecture.md`:97 [...] verdict
+  > holds. (b) `standard-lifecycle.md`:66-67 [...] verdict holds. (c)
+  > `integrations.md`:130 [...] verdict holds.
+  > 4. **Never-touch paths.** Diff touches only
+  > `docs/how-it-works/work-lifecycle.md` and
+  > `work/mat-115-design-window/DECISIONS.md`. Clean.
+  > 5. **No version/restamp.** New text carries no version number.
+  >
+  > ### Issues
+  > #### Critical (Must Fix)
+  > None.
+  >
+  > #### Important (Should Fix)
+  > None.
+  >
+  > #### Minor (Nice to Have)
+  > - `work/mat-115-design-window/DECISIONS.md:146` — the entry heading says
+  > "**four** chapters judged unchanged" but the body records **five**
+  > no-change verdicts [...] as written it miscounts against the step's own
+  > list of five files. Append-only file, so fix via a one-line correcting
+  > append, not an edit.
+  > - `docs/how-it-works/work-lifecycle.md:81-86` — the bullet doesn't
+  > mention that the marker is removed when PLAN.md lands (SKILL.md step 6).
+  > Its "before `PLAN.md` even exists" phrasing already bounds it and the
+  > chapter delegates mode detail to the skill doc, so this is polish, not
+  > error [...]
+  >
+  > ### Assessment
+  > **Step quality:** Approved
+  > **Reasoning:** Both required edits land and are verifiably true against
+  > SKILL.md step 1/step 6 and agent-lint's work-lanes logic; all five
+  > judgments are individually recorded and the three spot-checked ones hold
+  > against the actual files; the acceptance command exits 0 with no
+  > never-touch path violated.
+
+  **Controller response.** Approved, no fix round. Minor 1 is a factual
+  error in the lane's own record rather than in the shipped diff, and the
+  reviewer named the right remedy for an append-only file: a correcting
+  entry now stands in DECISIONS.md (2026-08-21, "it is FIVE chapters
+  judged, not four"). Minor 2 goes to work-verify's triage with the other
+  deferred items.
+
 ## In progress
 
 - work-run executing PLAN steps 1-6 in order. Steps 1-5 done; step 6
