@@ -78,7 +78,12 @@ The four files, each with one job:
 - **`PROGRESS.md`** — done / in progress / tried-and-failed / next, plus a
   `## Verification` section (since AE/2.1) holding PASS evidence only. The
   first thing any fresh session or takeover agent reads. If it isn't in this
-  file, it didn't happen.
+  file, it didn't happen. One state it can carry before `PLAN.md` even
+  exists: `work-plan`'s design-first mode writes it at the SPEC step
+  carrying a marker line that declares the design-first approval
+  window — the lane's own record that it is waiting on the owner's
+  approval of SPEC.md (`agent-lint`'s `lane-incomplete` check reads that
+  same line to recognize the window).
 - **`DECISIONS.md`** — append-only: every choice made and why. Without it, a
   later session re-litigates a decision that took an hour to make.
 
@@ -122,11 +127,12 @@ acceptance, named interfaces between dependent steps, and a **review
 class** on every step — `per-step`, `grouped`, or `covered-by-batch` —
 which is where the plan decides how much review the lane will buy. It
 runs in one of
-two modes — *design-first*, which writes SPEC.md alone and stops for the
-owner's approval before shaping PLAN.md, or *direct*, which writes both
-files in one pass when the design is already settled or a tracker issue
-stands in as the spec; the skill's own doc owns the rest (constraints
-blocks, batching, role hints). Work loops inside the lane, updating
+two modes — *design-first*, which writes SPEC.md, then in the same turn
+writes `PROGRESS.md` declaring the design-first approval window, and
+stops for the owner's approval before shaping PLAN.md, or *direct*, which
+writes both files in one pass when the design is already settled or a
+tracker issue stands in as the spec; the skill's own doc owns the rest
+(constraints blocks, batching, role hints). Work loops inside the lane, updating
 `PROGRESS.md` as it goes.
 
 How that inner loop runs has an owned shape since ADR-004: **work-run**
