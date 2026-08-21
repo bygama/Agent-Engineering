@@ -75,3 +75,13 @@ issue: MAT-112, MAT-113
   polish. One clause added, naming the merged-lane refusal and that
   work-handoff's close lands first. evals-before-content is already
   satisfied (eval-07/08 landed in step 3), and no eval text changes.
+- 2026-08-21 — **Close shape: lane folder survives until merge.** The
+  work-handoff default close removes the lane folder; this repo's
+  convention (main history: `1307530 chore(lanes): terminal close —
+  wave lane records removed post-merge`) and the very doctrine this
+  lane ships (close is per-lane AT each ticket's MERGE; a verified lane
+  with an open PR is pending, not debt) both put folder removal at
+  merge time. As a supervised child that never merges, this session
+  commits the finalized lane state and opens the PR; the terminal
+  close — the folder-removing commit — is the parent's post-merge
+  action.
