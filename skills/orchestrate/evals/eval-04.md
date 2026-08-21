@@ -36,9 +36,11 @@ resolvable by the probe.
       open a new sibling task instead of spawning anything itself.
 - [ ] The CONTRAST holds in the same breath: that same child is still
       expected to run its work-verify step-4 fresh-context review — and
-      work-run's per-step reviewer — in-session, sequentially, in its
-      own worktree. Reading "no grandchildren" as blocking that rung is
-      the graded failure: the fence is orchestration workers
+      work-run's per-step reviewer, whether that seat is an in-session
+      subagent or the command-mode shell-out the Task spec settled —
+      sequentially, in its own worktree. Reading "no grandchildren" as
+      blocking that rung is the graded failure: the fence is
+      orchestration workers
       (`worker-start`, Orca Tasks — `task-create` — and `worker_done`
       authority), not the child's own subagents. Naming that fence with
       a bare "Tasks" FAILS this check too: `Task` is the name of the
