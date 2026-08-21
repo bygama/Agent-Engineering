@@ -249,9 +249,68 @@ issue: MAT-115
   the diff package covers every path the step's deliverable touches, minus
   PROGRESS.md (which carries the implementer's own report, not the work).
 
+- **Step 3 — `tests/` fixtures first, new case RED** (PLAN step 3):
+  built `tests/fixtures/lane-window-ok/` (pointer `CLAUDE.md`, stamped
+  `AGENTS.md`, single lane `work/demo-lane/` holding `SPEC.md` plus a
+  `PROGRESS.md` whose `## In progress` carries the marker verbatim, no
+  `PLAN.md` — otherwise lint-clean, confirmed by running the lint
+  directly: its only finding is the one `lane-incomplete` MEDIUM this
+  lane exists to prove missing) and
+  `tests/fixtures/lane-window-near-miss/` (identical shape, one lane,
+  `PROGRESS.md` paraphrasing the marker — comma swapped for an em dash,
+  "owner approval of SPEC.md" reordered to "SPEC.md's owner approval").
+  Added both cases to `tests/run-lint-tests.mjs` under the exact names
+  fixed in PLAN's interface block. Extended `lanes-bad` with a SPEC-only
+  lane at `work/spec-only/SPEC.md` (no PROGRESS.md, no PLAN.md) and added
+  `expectMatch: ["lane missing PLAN.md", "lane missing PROGRESS.md"]` to
+  its existing case — the PROGRESS.md message is unique to `spec-only`
+  in that fixture (`Bad_Slug` only produces the PLAN.md one), so it pins
+  the right lane. `scripts/agent-lint.mjs` was not touched.
+
+  Run before step 4 (red-before-green evidence):
+
+  ```
+  $ node tests/run-lint-tests.mjs 2>&1
+  ...
+  ok   malformed lanes fail
+  FAIL design-first approval window lane passes without PLAN.md
+    expected fail=false, got true
+    unexpected finding "lane-incomplete"
+    findings: lane-incomplete
+  ok   near-miss marker text does not exempt a lane
+  ...
+  1/24 cases failed
+  ```
+
+  Direct lint run on the new fixture, confirming it is otherwise
+  lint-clean (the only finding is the exact one the lane exists to fix):
+
+  ```
+  $ node scripts/agent-lint.mjs tests/fixtures/lane-window-ok
+  agent-lint .../tests/fixtures/lane-window-ok
+    MEDIUM work/demo-lane/  lane missing PLAN.md  [lane-incomplete]
+  0 high, 1 medium, 0 low — FAIL
+  ```
+
+  Accept command:
+
+  ```
+  $ node tests/run-lint-tests.mjs 2>&1 | grep -q '^FAIL design-first approval window lane passes without PLAN.md' && node tests/run-lint-tests.mjs 2>&1 | grep -q '^ok   near-miss marker text does not exempt a lane' && node tests/run-lint-tests.mjs 2>&1 | grep -q '^ok   malformed lanes fail'
+  $ echo $?
+  0
+  ```
+
+  Sanity check beyond this step's own accept: `node tests/run-gen-tests.mjs`
+  (all cases passed, exit 0) and `node tests/run-eval-checks.mjs` (all
+  eval checks passed, exit 0) both still green — this step didn't disturb
+  the other two suites. `node scripts/agent-lint.mjs . --ignore
+  tests,templates,examples` on the whole repo is untouched by this step
+  since `tests/` is excluded from the self-lint; not re-run here as a gate
+  (step 6 owns the full gate sweep).
+
 ## In progress
 
-- work-run executing PLAN steps 1-6 in order. Steps 1-2 done; steps 3-6
+- work-run executing PLAN steps 1-6 in order. Steps 1-3 done; steps 4-6
   remain.
 
 ## Tried and failed

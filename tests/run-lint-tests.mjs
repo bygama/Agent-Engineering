@@ -128,10 +128,41 @@ const cases = [
     forbid: ["skill-size"],
   },
   {
+    // `lanes-bad` gains a SPEC-only lane (`work/spec-only/SPEC.md`, no
+    // PROGRESS.md, no PLAN.md) alongside `Bad_Slug`. Its
+    // `lane missing PROGRESS.md` message is the pin: no other lane in
+    // this fixture produces it, so it can only be spec-only's — proof
+    // that a lane outside the design-first approval window (no
+    // marker-carrying PROGRESS.md at all) keeps failing both findings
+    // (MAT-115).
     name: "malformed lanes fail",
     path: fx("lanes-bad"),
     fail: true,
     expect: ["lane-incomplete", "lane-slug", "lane-location"],
+    expectMatch: ["lane missing PLAN.md", "lane missing PROGRESS.md"],
+  },
+  {
+    // Red until `lane-incomplete` becomes lifecycle-aware (MAT-115,
+    // PLAN step 4): today PLAN.md is required unconditionally, so this
+    // otherwise lint-clean lane — SPEC.md + a PROGRESS.md carrying the
+    // design-first marker verbatim, no PLAN.md — still fails. That
+    // failure is the evidence the check misses the state the standard
+    // itself guarantees.
+    name: "design-first approval window lane passes without PLAN.md",
+    path: fx("lane-window-ok"),
+    fail: false,
+    expect: [],
+    forbid: ["lane-incomplete"],
+  },
+  {
+    // Green from birth: a paraphrased marker (em dash swapped in, a word
+    // reordered) must not be read as the exemption — PLAN.md is still
+    // missing and nothing here declares the window verbatim, so
+    // `lane-incomplete` keeps firing before and after step 4.
+    name: "near-miss marker text does not exempt a lane",
+    path: fx("lane-window-near-miss"),
+    fail: true,
+    expect: ["lane-incomplete"],
   },
   {
     name: "invalid feature list fails",
