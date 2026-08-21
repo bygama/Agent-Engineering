@@ -23,6 +23,15 @@ needs subjective judgment rather than mechanical execution.
 - [ ] The five same-shape one-line import-rename fixes are marked
       `[batch]` and grouped as one PLAN entry so work-run sends them to
       ONE implementer in one dispatch, never five separate dispatches.
+- [ ] The `[batch]` rule is applied as a requirement, not an option:
+      same-shape edits repeated across files are ONE step whether or not
+      the design happened to list them separately. The field evidence
+      the skill cites is MAT-111, which ran 9 steps where ~5 were right
+      — a plan that emits one step per file fails this check even though
+      every step is individually well-formed.
+- [ ] Each step also carries a review class beside its role hint
+      (eval-06 owns the classes in full); the `[batch]` entry's class is
+      `covered-by-batch`, since its single review covers the whole sweep.
 - [ ] Each step carries a role hint (`mechanical` / `integration` /
       `judgment`) matching its nature: the batched rename is
       mechanical, the type-consuming step is integration, the

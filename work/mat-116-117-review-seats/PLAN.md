@@ -100,7 +100,7 @@ after step 9, covering both.
   *(judgment · per-step)*
   accept: `grep -q 'reviewer mode' skills/work-run/SKILL.md && grep -q 'opencode run --auto' skills/work-run/SKILL.md && grep -q 'covered-by-batch' skills/work-run/SKILL.md && grep -q 'grandchildren' skills/work-run/SKILL.md && grep -q 'command' skills/work-run/references/step-reviewer.md && node scripts/agent-lint.mjs . --ignore tests,templates,examples && node tests/run-eval-checks.mjs` — exit 0
 
-- [ ] **4. `skills/work-plan/evals/` — evals FIRST for work-plan**
+- [x] **4. `skills/work-plan/evals/` — evals FIRST for work-plan**
   (SPEC §6): every PLAN step carries a review class; `per-step` is
   mandatory and never overridable downward; `grouped` is for
   cheap-to-redo doc/mechanical steps at a contiguous boundary;

@@ -273,3 +273,65 @@ fall-through. Three passes: FAIL, FAIL, PASS.** Verdicts verbatim:
 
 Step 3 closes Approved at fix round 2/5. No deferred minors — all four
 minors were accurate one-liners and rode the same fix rounds.
+
+### Step 4 — `skills/work-plan/evals/` (evals FIRST) — DONE
+
+Acceptance exit 0 (three greps + eval-checks; `work-plan: 6 evals
+well-formed`). New `eval-06.md` (review classes); `eval-04.md` amended
+for the harder `[batch]` rule with the MAT-111 evidence; `eval-01.md`
+amended so its PLAN expectations carry a class.
+
+**Review engine: FELL THROUGH the chain.** First invocation, sigiloso
+(`opencode run --auto -m opencode/x-preview-f-free`): the seat read the
+brief, the SPEC, the diff, all six work-plan evals, both work-run
+surfaces and `tests/run-eval-checks.mjs` — then the run **ended without
+emitting a report**. Tool calls in the transcript, no verdict on stdout.
+That is a failed invocation, not a PASS, so chain position 2 took the
+seat: **free ratón, `opencode run --auto -m
+opencode/muse-spark-1.2-contributor-free`**, which returned the verdict
+below. First production fall-through of the chain this lane defines;
+the law held — the step was reviewed, not blocked and not skipped.
+
+Verdict verbatim (free ratón):
+
+> → Read skills/work-run/evals/eval-06.md
+> → Read skills/work-plan/SKILL.md
+> ```
+> VERDICT: PASS
+> ```
+>
+> ### Spec compliance
+> ✅ Compliant — diff amends `eval-01.md`/`eval-04.md` and adds `eval-06.md` exactly as SPEC §4+§6 requires: every PLAN step carries `per-step`/`grouped`/`covered-by-batch` beside role hint; `per-step` mandatory never overridable downward; `grouped` = cheap contiguous, `covered-by-batch` = `[batch]` sweep; harder `[batch]` ONE-step rule with MAT-111 field evidence (9 steps where ~5 were right) testably encoded; `eval-04.md` amended not duplicated.
+>
+> ### Strengths
+> - `skills/work-plan/evals/eval-06.md:22-48` would fail all four bad patterns named in brief: class-by-size (l.27 rework-cost rule), silent downgrade of code step (l.37-41 refusal-stated), missing class (l.22-26), non-contiguous `grouped` (l.43).
+> - Producer/consumer agreement holds: class names (`per-step`/`grouped`/`covered-by-batch`), `per-step` floor, group = contiguous run not controller window, `covered-by-batch` semantics match `skills/work-run/SKILL.md:92-105` and `skills/work-run/evals/eval-06.md:24-51` exactly.
+> - Harder `[batch]` rule is gradable: `eval-04.md:26-29` states ONE step regardless of how design listed them, fails any per-file expansion even if individually well-formed — grader can count.
+> - Cross-reference hygiene clean: `eval-01.md:12` and `eval-04.md:32` both delegate with `(eval-06 owns the classes in full)` — no duplication, no orphaned requirement.
+>
+> ### Findings
+> #### Critical
+> (none)
+>
+> #### Important
+> (none)
+>
+> #### Minor
+> - `skills/work-plan/evals/eval-05.md:30-41` — untouched but produces a PLAN in direct mode (b). Global invariant “every step carries a class” is centrally owned by `eval-06.md` and amended `eval-01/04.md`, so `eval-05.md` is not false, but adding `— and PLAN steps carry review classes per eval-06` would close the loop for a grader running only that eval’s query. Left as-is it is not misleading, only slightly incomplete. Fix: add one bullet referencing eval-06 (same pattern as eval-01/04) or note that class checks are delegated.
+> - `skills/work-plan/evals/eval-06.md:38` vs `skills/work-run/SKILL.md:98-100` — enumeration of who cannot override `per-step` differs (eval-06: “not by owner, not by author”; work-run: “not to save a pass, not because diff small/clean”). Semantically consistent (both state non-overridable) and complementary, but unified phrasing covering owner/author/controller would remove any reading of disagreement. Fix: align one sentence to list all three actors as SPEC §4 does.
+> - `skills/work-plan/evals/eval-03.md` — correctly untouched (XL parent plan has no executable steps, per `skills/work-plan/SKILL.md:86-103`), but a clarifying comment that “parent plan carries no review classes — executable steps belong in worker lanes” would pre-empt mis-grading. Not a defect.
+>
+> ### Assessment
+> **Step quality:** Approved
+> **Reasoning:** Step 4 fulfills SPEC §4/§6 evals-first requirement, encodes rework-cost, non-overridable `per-step`, contiguity, and batch rules in testable form, and matches the already-landed `work-run` consumer; remaining notes are polish, not spec gaps.
+>
+
+**Deferred minors (3)** — to work-verify triage, per work-run:
+
+- M3: `work-plan/evals/eval-05.md` could delegate the class check to
+  eval-06 the way eval-01 and eval-04 now do (incomplete, not false).
+- M4: eval-06 and `work-run/SKILL.md` enumerate the non-override actors
+  differently (owner/author vs. the three rationalizations) — consistent
+  but not unified.
+- M5: `eval-03.md` (XL parent plan) could say outright that a parent
+  plan carries no review classes, since it carries no executable steps.

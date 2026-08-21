@@ -29,6 +29,10 @@ format used elsewhere in the pipeline. PLAN.md does not exist yet.
 - [ ] PLAN.md contains no complete code — steps stay one line +
       acceptance; a work-run implementer is expected to read the repo and
       the lane itself, not the plan, for implementation detail.
+- [ ] Every step carries a review class beside whatever role hint it
+      gets — this is a small feature lane, so the code steps are
+      `per-step`; the class is never left off (eval-06 owns the classes
+      in full).
 - [ ] Writes the plan to `work/img-12-thumbnail-cache/PLAN.md` — the
       standard's location — never to a suite's default folder or a
       standalone document elsewhere.
