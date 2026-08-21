@@ -19,10 +19,12 @@ Two properties make it a layer and not a folder:
   Nothing is edited in place under `~/.claude` — a change goes into the
   repo that owns the content and is applied from there, or the next
   install reverts it silently.
-- **Owned by exactly one repo.** Machine policy is personal and belongs in
-  a personal repo. The standard defines the layer; it never populates it.
-  A standard that also ships a lived-in `~/.claude` makes that config look
-  like a dependency and forces every consumer to strip it before use.
+- **One owner per content class.** The standard ships the replicable part
+  — the cross-repo skills that install into `~/.claude/skills`. It does
+  not ship one person's machine policy: that is personal, and a personal
+  repo owns it. A standard that also carried a lived-in `~/.claude` would
+  make that config read as a dependency and force every consumer to strip
+  it before use.
 
 ## What belongs in it
 
@@ -32,9 +34,8 @@ Two properties make it a layer and not a folder:
 | Cross-repo skills and agents (`~/.claude/skills`, `~/.claude/agents`) | Procedural workflows — those are skills |
 | Machine policy no repo may assume (account/CLI selection on spawn) | Session-learned facts — auto-memory owns those |
 
-The duplication test decides each line: would it appear in more than one
-repo's `AGENTS.md`? → global. Only matters to one project? → never global.
-Neither? → a skill, or nothing. Full placement rule: `reference/context.md`.
+Which column a given line falls in is the duplication test's call, and
+`reference/context.md` owns that test — this file does not restate it.
 
 ## The canon: `~/.claude/CLAUDE.md`, ≤40 lines
 
@@ -52,24 +53,31 @@ is a line that costs always.
 
 A SessionStart hook injects content into context before the first turn —
 the entry skill's procedure, or a probe's one-line result
-(`reference/orca.md`). Runner-generic recipe: a SessionStart entry in the
-runner's `settings.json`, pointing at the script.
+(`reference/orca.md`). The recipe: a SessionStart entry in the runner's
+`settings.json`, pointing at the script.
 
 ```json
 {
   "hooks": {
     "SessionStart": [
       {
-        "type": "command",
-        "command": "pwsh -NoProfile -File \"<absolute path to>/hooks/using-ae.ps1\"",
-        "timeout": 15
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pwsh -NoProfile -File \"<absolute path to>/hooks/using-ae.ps1\"",
+            "timeout": 15
+          }
+        ]
       }
     ]
   }
 }
 ```
 
-Three rules carry it to any machine:
+The exact nesting belongs to the runner; that shape is Claude Code's — an
+event array whose every entry carries its own `hooks` array, which is what
+lets one event fan out to several commands. Another runner spells the
+envelope differently. The three rules below survive any spelling:
 
 - **The path is absolute.** Hook runners perform no shell expansion and no
   env-var substitution, so `~`, `$HOME` and `%USERPROFILE%` reach the
