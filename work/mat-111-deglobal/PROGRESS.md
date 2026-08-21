@@ -237,6 +237,35 @@
   over the whole tree, so as written it will still see the lane files — that
   is step 4's call to make, flagged here rather than pre-empted.
 
+- 2026-08-20 — **PLAN step 4 DONE.** Flipped the ignore string from
+  `tests,templates,global,examples` to `tests,templates,examples` in three
+  live sites: `.github/workflows/gates.yml:17`, `CONTRIBUTING.md:23`,
+  `loops/self-audit.md:20`. Additionally re-stamped `loops/self-audit.md:20`
+  to `verified 2026-08-20` to attest the re-run of the new command.
+
+  Lint command run and verified:
+  ```
+  $ node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-111-deglobal
+  0 high, 0 medium, 0 low — PASS
+  ```
+
+  Acceptance command (excluding lane directory, which holds dated records):
+  ```
+  $ test $(grep -rl 'tests,templates,global,examples' --exclude-dir=.git --exclude-dir=mat-111-deglobal . | wc -l) -eq 0 && grep -q 'tests,templates,examples' .github/workflows/gates.yml && echo "PASS"
+  PASS
+  ```
+
+  Commit: `b259c9f` — docs(global): flip ignore string in gates.yml,
+  CONTRIBUTING.md, loops/self-audit.md
+
+  Files changed: `.github/workflows/gates.yml`, `CONTRIBUTING.md`,
+  `loops/self-audit.md`, this PROGRESS.md.
+
+  Concerns: none. This is a mechanical step. The old ignore string now
+  appears only in dated lane records (SPEC.md, PLAN.md, prior PROGRESS
+  entries, prior review files), which correctly stay unchanged.
+
 ## In progress
 
 ## Tried and failed
