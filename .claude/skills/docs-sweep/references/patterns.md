@@ -24,6 +24,7 @@ records-vs-living judgment). Born 2026-08-17 from the MAT-15 sweep.
 | architecture.md's "Live, all …" roster: every skill entry carries its "(version — ADR)" provenance pair, checked against the CHANGELOG's ship versions | a skill joining the roster without its ship version | `skill-authoring` entered the roster citing only ADR-005, no "(1.4.1 —", while its ten siblings all carry one (MAT-103) |
 | each release's Changed items vs `docs/adrs/` decisions — grep the new CHANGELOG section's changed rules against ADR decision text | a release superseding a rule an ADR fixed, with no amendment note next to the stale law | ADR-008's "default 1 ballena" survived the v1.4.2 seat inversion; the MAT-105 lane deferred the marker and the post-1.4.2 sweep closed it (MAT-107) |
 | `work/<slug>/` paths on shipped surfaces outside `work/` itself (prose and comments included, not just md links) | shipped references into lanes that die at terminal close — must pin a pre-removal blob URL | MAT-94's four notice comments cited the removed lane's DECISIONS.md by bare path (skills PR #15); its README md links were caught earlier by skills#14's CI, the prose/comment form was not (post-1.4.2 sweep residual) |
+| directory-roster claims ("the N surfaces/dirs — `x/`, `y/`") on living surfaces, checked against the actual tree | enumerations that keep shipping a directory the repo no longer has | standard-lifecycle.md said "the five surfaces a consumer receives" including `global/` after MAT-111 deleted it (MAT-121, post-wave sweep) |
 | `per-app` on living surfaces — outside CHANGELOG, `docs/plans/`, `examples/`, and `## Fixture` SECTIONS describing a legacy repo's found state (a `## Expected behavior` graded line in the same eval file is NOT covered by that exclusion); migration.md's legacy-side (source) columns are found-state too and stay | retired vocabulary where the nesting law now says any-earned-depth | README budget table, `skills/ae-audit/SKILL.md` inventory line, `scripts/agent-lint.mjs` finding messages, `skills/ae-init/references/migration.md` TARGET columns (lines 14, 28), `docs/how-it-works/architecture.md` examples line, `skills/ae-init/evals/eval-06.md` Run D contract line, `skills/ae-init/evals/eval-03.md:29` graded line (MAT-83) |
 
 ## Restamp surfaces (checked when a version bump is in flight)
@@ -45,8 +46,10 @@ first exercise of the CHANGELOG-header restamp rule.
 - Cron/`/loop`/`/schedule` mentions in `execution.md` and
   `reference/loops.md` — illustrate artifact-neutrality; recorded
   decision (orca-first lane DECISIONS, 2026-08-16).
-- `reference/verification.md` and `global/` carry no tier enumerations —
-  by design, not by omission.
+- `reference/verification.md` carries no tier enumerations — by design,
+  not by omission. (Corrected 2026-08-21, MAT-121: the entry's `global/`
+  half died with the directory itself — removed by MAT-111; Ruling C of
+  that lane deferred the correction to this sweep.)
 - Orca trigger syntax listing `cron|RRULE` presets (`orca.md`,
   `loop-setup`) — CLI surface, not a fallback ladder.
 - `docs/how-it-works/` provenance notes ("live/Live since AE/2.x") —

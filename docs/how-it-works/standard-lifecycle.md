@@ -168,8 +168,10 @@ born for, and the exemption never reaches it.
 
 Machine-anchored paths are drift of the other kind — not a command that
 stopped being true, but content that was only ever true on one disk. The
-five surfaces a consumer receives — `skills/`, `reference/`, `templates/`,
-`global/`, `loops/` — have to read true on any machine, so a path anchored
+directory classes the check covers — `skills/`, `reference/`, `templates/`,
+`loops/`, and `global/` where a repo carries one (this repo no longer
+does; the personal layer moved to workstation, MAT-111) — have to read
+true on any machine, so a path anchored
 to one machine's disk layout is a defect there: a drive root (`X:\…`), a
 POSIX user home (`/home/<name>`, `/Users/<name>`), or a WSL mount
 (`/mnt/<letter>/`). Exactly those three classes count, on the same judgment
