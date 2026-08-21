@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: 22
       - name: Self-lint
-        run: node scripts/agent-lint.mjs . --ignore tests,templates,global,examples
+        run: node scripts/agent-lint.mjs . --ignore tests,templates,examples
       - name: Lint self-tests
         run: node tests/run-lint-tests.mjs
       - name: Generator self-tests

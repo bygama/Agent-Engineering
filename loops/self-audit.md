@@ -17,7 +17,7 @@ when the working tree is dirty or not on `main`.
 
 ## Gate
 
-- `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` — verified 2026-08-17, exit 0
+- `node scripts/agent-lint.mjs . --ignore tests,templates,examples` — verified 2026-08-20, exit 0
 - `node tests/run-lint-tests.mjs` — verified 2026-08-16, exit 0
 - `node tests/run-gen-tests.mjs` — verified 2026-08-16, exit 0
 - `node tests/run-eval-checks.mjs` — verified 2026-08-16, exit 0
