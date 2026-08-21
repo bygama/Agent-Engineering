@@ -898,6 +898,60 @@ issue: MAT-115
   205 lines (well under the 500-line cap), and the never-touch paths are
   untouched.
 
+- **Step 7 review — command-mode, free raton
+  (`opencode/muse-spark-1.2-contributor-free`, chain position 2; the
+  sigiloso is still down). Verdict verbatim:**
+
+  > ### Spec compliance
+  > Compliant
+  >
+  > 1. **Is the hole actually closed?** [...] Step 1 now carries the
+  > canonical removal sentence `skills/work-plan/SKILL.md:82-84` — *"Whichever
+  > tier that later turn takes — step 6's M/L plan or step 2's XL parent
+  > plan — saving PLAN.md there ends the window: the marker line comes out
+  > of `PROGRESS.md` the same turn"* — which is global (every tier passes
+  > through step 1) and explicitly names both forks. **M/L path:** step 1
+  > rule + step 6 pointer [...] literal follower removes. **XL path:** step
+  > 1 rule names step 2 directly; step 2 needed no edit. Both paths now
+  > instructed; stale-marker hole closed.
+  > 2. **Is the rule stated ONCE?** Yes — moved, not duplicated. The
+  > normative imperative lives once at `skills/work-plan/SKILL.md:82-85`.
+  > [...] `docs/how-it-works/work-lifecycle.md` is documentary
+  > symmetrization of the same lifecycle — not a second skill instruction
+  > that could drift.
+  > 3. **Did anything get weaker?** No. [...] Only the design-first removal
+  > sentence was replaced by the pointer; scope ("In design-first mode") is
+  > inherited from the bullet where the rule now lives, so direct mode (no
+  > marker) remains correctly unaffected.
+  > 4. **Marker byte identity:** Unchanged in both source-of-truth sites.
+  > [...] `eval-05.md:53-56` adds the companion assertion without retyping
+  > the full marker, so no drifted variant introduced.
+  > 5. **Never-touch paths absent:** [...] none of `CHANGELOG.md`,
+  > `AGENTS.md`, `README.md`, `reference/`, `examples/`, `templates/`,
+  > `.claude/` appear.
+  > 6. **Evals-before-content ordering:** `848b089 test(work-plan)` before
+  > `65150b9 fix(work-plan)` — eval commit precedes content commit.
+  >
+  > ### Issues
+  > #### Critical (Must Fix)
+  > None.
+  > #### Important (Should Fix)
+  > None.
+  > #### Minor (Nice to Have)
+  > None [...] not worth a fix.
+  >
+  > ### Assessment
+  > **Step quality:** Approved
+  > **Reasoning:** Hole closed on both M/L and XL paths with a single
+  > canonical rule, no duplication, no loss of Save invariants, marker
+  > byte-identity preserved, never-touch paths clean, and
+  > evals-before-content ordering verified.
+
+  **Controller response.** Approved, no fix round, no open findings. The
+  tree changed after the earlier lane-gate PASS, so that PASS no longer
+  certifies what ships: work-verify re-runs its layers and its
+  fresh-context rung against this final tree before any PASS is recorded.
+
 ## In progress
 
 - work-run executing PLAN steps 1-7 in order. All seven steps done.
