@@ -20,7 +20,7 @@ Run the four gates — all must exit 0. CI runs the same four on every PR
 a red gate physically blocks the merge:
 
 ```
-node scripts/agent-lint.mjs . --ignore tests,templates,global,examples
+node scripts/agent-lint.mjs . --ignore tests,templates,examples
 node tests/run-lint-tests.mjs
 node tests/run-gen-tests.mjs
 node tests/run-eval-checks.mjs
