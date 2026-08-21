@@ -185,6 +185,58 @@
   All live surfaces that named `global/` paths are being repointed in steps
   3–10.
 
+- 2026-08-20 — **PLAN step 3 DONE.** `AGENTS.md`: the `global/` gotcha
+  replaced with the post-deletion truth, and the self-lint command flipped
+  to the new ignore string. Two edits, nothing else in the file touched.
+
+  1. **Gotcha** — was "`global/` is content only; the workstation installer
+     applies it to `~/.claude` — never edit `~/.claude` directly from here."
+     Now: the personal `~/.claude` layer is canonical in `bygama/workstation`,
+     not here; never edit `~/.claude` directly — changes go through
+     workstation; this repo keeps only the doctrine
+     (`reference/global-layer.md`). Wording tracks
+     `reference/global-layer.md`'s *The owner's living instance* section, so
+     the entry file and the doctrine file say the same thing.
+  2. **Self-lint command** (`## Commands`, line 14) —
+     `--ignore tests,templates,global,examples` →
+     `--ignore tests,templates,examples`.
+
+  The gotcha above it ("`tests/fixtures/`, `templates/`, `examples/` … all
+  three are excluded from the self-lint") already said *three*, so it needed
+  no edit — it reads correctly against the new ignore string, where before it
+  undercounted a four-entry list.
+
+  Budget: 55 → 56 lines (the new gotcha is 3 lines against the old 2); the
+  lint's 60-line cap on `AGENTS.md` holds with 4 lines to spare. The
+  `Standard: AE/1.4.2` stamp is untouched — it does not appear in the diff.
+
+  Accept command and output:
+
+  ```
+  $ ! grep -q 'tests,templates,global,examples' AGENTS.md \
+      && grep -q 'reference/global-layer.md' AGENTS.md \
+      && grep -q '^Standard: AE/1.4.2$' AGENTS.md \
+      && node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-111-deglobal
+  0 high, 0 medium, 0 low — PASS
+  EXIT=0
+  ```
+
+  Commit: `6201d38` — docs(global): AGENTS.md — workstation-canonical layer,
+  new lint ignore
+
+  Files changed: `AGENTS.md`, this PROGRESS.md.
+
+  Concerns: none blocking. One note for step 4: after this commit the old
+  ignore string survives in exactly the three sites step 4 owns —
+  `git grep -l 'tests,templates,global,examples'` returns
+  `.github/workflows/gates.yml`, `CONTRIBUTING.md`, `loops/self-audit.md`
+  (plus four lane files — `SPEC.md`, `PLAN.md`, `PROGRESS.md`,
+  `reviews/step-01-review.md` — which quote the old command as record and
+  must stay). Step 4's accept uses `grep -rl … --exclude-dir=.git`
+  over the whole tree, so as written it will still see the lane files — that
+  is step 4's call to make, flagged here rather than pre-empted.
+
 ## In progress
 
 ## Tried and failed
