@@ -68,9 +68,73 @@ issue: MAT-112, MAT-113
   Concerns: none — `scripts/agent-lint.mjs` was not touched, per the
   step's fence; step 2 lands the check itself.
 
+- **Step 1 review — Approved (engine: sigiloso, command mode,
+  `opencode/x-preview-f-free`, first-choice seat, liveness-probed).**
+  Verdict verbatim: "### Spec compliance / ✅ Compliant — every
+  requirement of Step 1 is present and verified […] ### Assessment /
+  **Step quality:** Approved / **Reasoning:** All acceptance criteria
+  verified against a live read-only run — the suite exits 1 failing
+  only the new over case with the required `missing expected finding
+  \"lane-accumulation\"` string — and the fixtures are built to stay
+  correct once step 2 lands the check (marker shape exact, count
+  wording matches SPEC). No defects found at any severity in the
+  implemented scope." Reviewer independently re-ran the suite
+  (exit 1, 1/27, over case only) plus gen/eval gates (both exit 0).
+  Minor notes (no fix loop): (a) the DECISIONS.md reviewer-mode entry
+  riding in the step-1 diff is controller-authored (work-run step 1,
+  settle-the-mode) — confirmed, nothing to do; (b) `expect: []`
+  explicit vs omitted is house-acceptable either way. Seat note: the
+  sigiloso seat initially failed with opencode's known postinstall
+  gotcha (`reference/runners.md` install note); repaired by running
+  `node_modules/opencode-ai/postinstall.mjs` once by hand, then probed
+  ALIVE before this review.
+
+- **Step 2 [MAT-112] The `lane-accumulation` check — DONE.** Added the
+  check to `scripts/agent-lint.mjs`'s work-lanes section, right after the
+  per-lane loop that builds the `lanes` Map (so it reuses `lanes.size`,
+  which already counts folders mechanically — one entry per distinct
+  `work/<slug>/` regardless of contents — verbatim from step 1's fixture
+  design). Fires `medium` `lane-accumulation` anchored to the file field
+  `work/` when `lanes.size > 5` (strict), with the exact message from the
+  PLAN's constraints block, `<n>` interpolated from the live count. The
+  comment above the check records both required judgments: the interplay
+  judgment (a design-first-window lane still counts toward the total —
+  the check measures accumulation, never validity, citing SPEC and
+  MAT-112) and the threshold rationale (XL lanes' children live in their
+  own worktrees, so 5 concurrent lanes in one checkout is already
+  generous; MEDIUM severity, a nudge to close) — mirroring the tone of
+  the `DESIGN_WINDOW_MARKER` and `machine-path` comment blocks nearby.
+
+  Acceptance commands, both exit 0:
+
+  ```
+  $ node tests/run-lint-tests.mjs
+  ...
+  ok   exactly 5 lanes in work/ passes
+  ok   6 lanes in work/ fails (one is a design-first-window lane)
+  ...
+  all 27 cases passed
+  EXIT: 0
+
+  $ node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-112-113-lane-hygiene
+  0 high, 0 medium, 0 low — PASS
+  EXIT: 0
+  ```
+
+  Also re-ran `node tests/run-gen-tests.mjs` and
+  `node tests/run-eval-checks.mjs` as a sanity check (not required by
+  this step's acceptance) — both still exit 0, unaffected.
+
+  Files changed: `scripts/agent-lint.mjs` (the check + its comment
+  block, 9 added lines). No fixtures or test cases touched — step 1
+  landed those verbatim and the suite went green without further edits.
+
+  Concerns: none.
+
 ## In progress
 
-- PLAN steps 2-7 pending — work-run dispatch continues at step 2.
+- PLAN steps 3-7 pending — work-run dispatch continues at step 3.
 
 ## Next
 
