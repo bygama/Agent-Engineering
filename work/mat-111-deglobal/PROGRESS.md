@@ -704,7 +704,54 @@
   lint's consumer-repo class, not as residue.
 
 
+- 2026-08-20 — **PLAN step 7 REVIEWED → Approved, no Critical/Important,
+  no fix round.** Fresh reviewer (opus). Verdict verbatim:
+  `reviews/step-07-review.md`.
+  **Spec compliance: ✅ Compliant** · **Step quality: Approved.**
+  The reviewer was told to test the half-B "do not edit" ruling rather
+  than rubber-stamp it, and to argue the losing side first. It built the
+  strongest case for DROPPING `global/` — that `ae-init` installs none of
+  those five into a consumer, so "surfaces a consumer receives" must mean
+  this repo's own directories, and the paragraph's exemption list
+  (`docs/plans/`, `examples/`) is unambiguously this repo's furniture —
+  then defeated it on three grounds: (1) **mechanism** — `SHIPPED_SURFACE`
+  is matched against whatever repo `agent-lint` is pointed at, and
+  `agent-lint` is a *shipped* check consumers run on their own repos, so
+  included and exempted names are the same kind of thing: path classes;
+  (2) **grammar** — the sentence asserts a norm over content found at
+  those paths, never that this repo contains a `global/` ("carrots, peas
+  and beans must be washed" does not go false in a kitchen with no
+  beans"); (3) **doc-code coupling** — writing "four surfaces" would make
+  the chapter contradict the check it exists to explain. It also noted the
+  SPEC's own test is a conjunction whose second conjunct fails even if you
+  grant the first. **Reading (ii) upheld: the sentence stays.**
+  It verified each DECISIONS citation individually ("accurate, not
+  decorative"), confirmed `reference/global-layer.md:52-91` really carries
+  the wiring detail the repointed sentence promises, and ruled the
+  "wires" → "can wire" repair necessary, sufficient and in scope. It
+  credited the implementer for disclosing the acceptance grep's weakness
+  unprompted instead of hiding behind it.
+
+  **Carried forward to work-verify (reviewer's Minor 3, actionable):**
+  the SPEC's Verification line "no live (non-record, non-fenced) surface
+  greps for `global/` as a path" cannot be run literally — the untouched
+  `scripts/agent-lint.mjs` carries `global/` in `SHIPPED_SURFACE` and its
+  comment, this chapter carries it at `:172` by the ruling just upheld,
+  plus the two fenced files under Rulings B and C. The clause's intent is
+  **"no live surface asserts this repo HAS a `global/` directory"**;
+  step 11 and work-verify apply it with those documented exemptions.
+
+  Deferred Minors (not looped): (1) the earlier DECISIONS placeholder at
+  `:95-98` still points at PROGRESS for the five-surface verdict, now
+  also a full DECISIONS entry; (2) `SHIPPED_SURFACE`'s `global`
+  alternative may now be vestigial — a *check* change, version bump,
+  explicitly out of scope, worth a ticket; (3) `architecture.md:47`'s
+  long unwrapped line, already logged as step 6's M1.
+
+
 ## In progress
+
+- PLAN step 8.
 
 ## Tried and failed
 
