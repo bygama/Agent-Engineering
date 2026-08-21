@@ -86,7 +86,7 @@ after step 9, covering both.
   amended in the same step. *(judgment · per-step)*
   accept: `grep -rq 'command mode' skills/work-run/evals/ && grep -rq 'covered-by-batch' skills/work-run/evals/ && grep -rq 'sigiloso' skills/work-run/evals/ && node tests/run-eval-checks.mjs` — exit 0
 
-- [ ] **3. `skills/work-run` content — the knob and the classes**
+- [x] **3. `skills/work-run` content — the knob and the classes**
   (MAT-116 item 2 + MAT-117 item 5, SPEC §2 and §5, one coherent
   concern: how work-run buys review): the reviewer-mode knob
   (`subagent` | `command`) documented with the explicit
