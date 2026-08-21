@@ -39,3 +39,39 @@ issue: MAT-112, MAT-113
   (window lanes COUNT toward accumulation — the count measures
   accumulation, not validity — while `lane-incomplete` stays quiet for
   them).
+- 2026-08-21 — **Narration sweep: `work-lifecycle.md` and
+  `architecture.md` both change; `standard-lifecycle.md` joins them.**
+  work-lifecycle.md asserted lane ephemerality with nothing mechanical
+  behind it, narrated work-plan's two modes with no pre-open gate, and
+  narrated the handoff's close without its per-lane timing — three
+  claims this lane completes, so three minimal insertions land.
+  architecture.md and standard-lifecycle.md each enumerate the lint
+  battery check by check (`… command drift, lane coherence, feature
+  list schema`); an enumeration that ships a battery missing a live
+  check is exactly the drift class the house battery names
+  (`.claude/skills/docs-sweep/references/patterns.md`, directory-roster
+  row), so each gains one clause. standard-lifecycle.md was not a
+  named candidate — it earned the edit by narrating the battery, not
+  by being listed.
+- 2026-08-21 — **No change: `docs/how-it-works/README.md`,
+  `integrations.md`, `execution.md`.** README.md's table row for
+  work-lifecycle.md names the chapter's subjects at one level of
+  abstraction above any check or gate ("lanes, the four files, the lane
+  lifecycle") — still exhaustive and still true. integrations.md is
+  about who writes what across Linear/GitHub/Orca; its one lane-lifecycle
+  sentence is the card-status mirror, which this lane leaves untouched.
+  execution.md is the closest call: its XL diagram ends `handoff closes
+  lanes + parent` after the synthesis gate, which reads batch-shaped.
+  It is not the refused batch — an XL wave merges in item order and gates
+  as one whole, so each lane still closes at that wave's merge, whereas
+  the red flag refuses deferring closes across a serial run of unrelated
+  tickets ("the end of the run"). No claim is falsified; adding the
+  distinction there would be new doctrine, not narration catching up.
+- 2026-08-21 — **Took the step-4 deferred Minor: work-plan's frontmatter
+  `description`.** It enumerated three refusals while the skill now
+  carries four, and the description is the triggering surface an agent
+  routes on — a stale enumeration there loses the refusal at the moment
+  it should fire, which is narration debt on a live surface rather than
+  polish. One clause added, naming the merged-lane refusal and that
+  work-handoff's close lands first. evals-before-content is already
+  satisfied (eval-07/08 landed in step 3), and no eval text changes.
