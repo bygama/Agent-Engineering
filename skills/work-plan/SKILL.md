@@ -79,7 +79,10 @@ already exists before this skill runs:
   `scripts/agent-lint.mjs`'s work-lanes section reads this exact string
   to recognize the window — change both together. PLAN.md starts only
   once that approval is on record, in a later turn, back at this same
-  step.
+  step. Whichever tier that later turn takes — step 6's M/L plan or
+  step 2's XL parent plan — saving PLAN.md there ends the window: the
+  marker line comes out of `PROGRESS.md` the same turn, so the file
+  does not go on declaring a wait that is already over.
 - *direct* (the owner states the requirements are settled, or a
   tracker issue stands in as the spec): write SPEC.md and PLAN.md in
   one pass — one approval gate at the end, covering both files
@@ -176,9 +179,8 @@ steps buys a group of one and is a planning error.
 **6. Save.** Write PLAN.md to `work/<slug>/PLAN.md`; SPEC.md (step 1,
 either mode) goes to `work/<slug>/SPEC.md` — the lane's own files, the
 standard's location, never a suite's default folder or a standalone
-document elsewhere. In design-first mode, saving PLAN.md ends the
-approval window: remove the marker line from `PROGRESS.md` the same
-turn, so the file does not go on declaring a wait that is already over.
+document elsewhere. (Marker removal on save is step 1's rule, and binds
+here the same as at step 2 — not restated per step.)
 
 ## Judgment notes
 

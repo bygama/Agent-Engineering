@@ -83,7 +83,10 @@ The four files, each with one job:
   carrying a marker line that declares the design-first approval
   window — the lane's own record that it is waiting on the owner's
   approval of SPEC.md (`agent-lint`'s `lane-incomplete` check reads that
-  same line to recognize the window).
+  same line to recognize the window). The window ends the same way it
+  opens: once PLAN.md lands — an M/L plan or an XL parent plan alike —
+  `work-plan` removes the marker line from `PROGRESS.md` the same turn,
+  so the file stops declaring a wait that is already over.
 - **`DECISIONS.md`** — append-only: every choice made and why. Without it, a
   later session re-litigates a decision that took an hour to make.
 
