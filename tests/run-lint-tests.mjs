@@ -158,9 +158,25 @@ const cases = [
     // Green from birth: a paraphrased marker (em dash swapped in, a word
     // reordered) must not be read as the exemption — PLAN.md is still
     // missing and nothing here declares the window verbatim, so
-    // `lane-incomplete` keeps firing before and after step 4.
+    // `lane-incomplete` keeps firing before and after step 4. `expectMatch`
+    // pins the negative at message level, not just the code (step 8).
     name: "near-miss marker text does not exempt a lane",
     path: fx("lane-window-near-miss"),
+    fail: true,
+    expect: ["lane-incomplete"],
+    expectMatch: ["lane missing PLAN.md"],
+  },
+  {
+    // Red until `lane-incomplete` requires the marker to be the CONTENT of
+    // a line rather than merely present anywhere in PROGRESS.md
+    // (fresh-context review, Important 1, MAT-115, PLAN step 8). This
+    // lane's only occurrence of the marker sits inside a fenced command
+    // transcript under "## Done" — its own "## In progress" bullet says
+    // explicitly it is NOT in the window — so PLAN.md is still missing and
+    // the finding must still fire. A whole-file substring match wrongly
+    // exempts it; the anchored line match must not.
+    name: "quoted marker in a transcript does not exempt a lane",
+    path: fx("lane-window-quoted"),
     fail: true,
     expect: ["lane-incomplete"],
   },
