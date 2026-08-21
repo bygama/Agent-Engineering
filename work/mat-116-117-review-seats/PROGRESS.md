@@ -410,3 +410,79 @@ rode along.
 >
 
 Step 5 closes Approved at fix round 1/5. No deferred minors.
+
+### Step 6 — `skills/orchestrate/evals/` (evals FIRST) — DONE
+
+Acceptance exit 0 (three greps + eval-checks; `orchestrate: 6 evals
+well-formed`). New `eval-06.md` (the cross-family guardrail, three
+dialogues); `eval-01.md` amended for the two-seat question block and
+the free-variant defaults; `eval-03.md` amended to stop offering the
+retired `opencode/deepseek-v4-flash-free` as the ballena's fallback.
+
+**Review engine: sigiloso — `opencode run --auto -m
+opencode/x-preview-f-free`, command mode, 1st chain position, no
+fall-through.** Verdict verbatim:
+
+> → Read skills/orchestrate/references/reviewer.md
+> → Read work/mat-116-117-review-seats/PROGRESS.md
+> → Read tests/run-eval-checks.mjs [limit=60]
+> Lane context absorbed. Now verifying the step's own acceptance criteria (read-only greps + the structural eval suite):
+>
+> $ $g1 = Select-String -Path "skills\orchestrate\evals\*.md" -SimpleMatch -Pattern "cross-family gate" -Quiet; $g2 = Select-String -Path "skills\orchestrate\evals\*.md" -SimpleMatch -Pattern "x-preview-f-free" -Quiet; $g3 = Select-String -Path "skills\orchestrate\evals\*.md" -SimpleMatch -Pattern "-m opencode/deepseek-v4-flash-free" -Quiet; "cross-family gate: $g1"; "x-preview-f-free: $g2"; "-m opencode/deepseek-v4-flash-free present: $g3"; node tests/run-eval-checks.mjs
+> cross-family gate: True
+> x-preview-f-free: True
+> -m opencode/deepseek-v4-flash-free present: False
+> ok   ae-audit: 5 evals well-formed
+> ok   ae-init: 8 evals well-formed
+> ok   loop-setup: 6 evals well-formed
+> ok   orchestrate: 6 evals well-formed
+> ok   shaping: 4 evals well-formed
+> ok   skill-authoring: 5 evals well-formed
+> ok   using-ae: 7 evals well-formed
+> ok   work-handoff: 6 evals well-formed
+> ok   work-plan: 6 evals well-formed
+> ok   work-run: 6 evals well-formed
+> ok   work-verify: 6 evals well-formed
+> ok   .claude/docs-sweep: 3 evals well-formed
+> ok   .claude/release: 4 evals well-formed
+> all eval checks passed
+>
+> VERDICT: PASS
+>
+> ### Spec compliance
+> ✅ Compliant — all three PLAN step-6 requirements landed and verified against SPEC §3, §6 and DECISIONS.md's verbatim ruling:
+>
+> - **Two-seat dialogue** (`eval-01.md:36-54`) — one question block, never one seat now/other later/one seat at all; per-step seat (mode+model, default command-mode sigiloso `opencode/x-preview-f-free`, Claude subagent named alternative) and adversarial seat (yes/no/count/model, default 1 ratón chispeante at `opencode/muse-spark-1.2-contributor-free`, ballena named) match SPEC §3 items 1-2 exactly; "Records BOTH answers in the Task spec" (:52-54) covers the recording requirement.
+> - **Guardrail** (`eval-06.md`, new) — positive form, both zero-cross-family combinations, silent-rejection ban, explicit-override escape, ADR-008-as-unchanged-authority: all present (detail under Strengths).
+> - **Dead id corrected** (`eval-03.md:31-40`) — the retired id appears only inside a names-to-retire statement; the acceptance grep `! grep '-m opencode/deepseek-v4-flash-free'` passes (verified by running it), matching SPEC Verification's naming-to-retire carve-out.
+> - Acceptance suite run: all four greps hold; `node tests/run-eval-checks.mjs` → `orchestrate: 6 evals well-formed`, all suites green.
+>
+> ### Strengths
+> - **eval-06 catches case (b) by construction, not by accident.** `(b)` has its own rejection checkbox (`eval-06.md:29-33`) that names the exact wrong implementation — "only pattern-matches 'Claude and Claude' and waves (b) through fails this check" — so a grader cannot pass the easy failure while honoring the text. The positive-form checkbox (:23-25) reinforces it structurally ("rather than a blacklist of one forbidden pair").
+> - **The override is encoded exactly as the parent ruled, in all three parts**: never offered ("not an option the dialogue offered: the dialogue never lists it among the defaults", :41-45), never assumed ("never infers it from silence, from a hurry, or from the lane looking small"), recorded verbatim ("a paraphrase, a checkbox, or a parent's summary of the ruling fails", :46-49). No drift into dialogue-reachable territory.
+> - **eval-01's amendment caught a latent staleness beyond its brief**: the old text offered the ratón at the *paid* Go id as default; the new free-id default plus the dedicated economics-rule checkbox (:48-51, "a paid Go id offered as the default fails this check even though the model is identical") aligns the eval with step 1's law.
+> - **Coherence with the child-seat checkbox holds** (brief point 4): :55-59 still scopes the dialogue to "reviewers only" — two seats in one block is one question about reviewers; the child-seat default adds none. No contradiction, and it stays consistent with `reference/runners.md:189`.
+> - **Untouched evals are correctly untouched**: eval-02 (mailbox discipline), eval-04 (tier gating/no-Orca), eval-05 (wave scale) name no model ids and no dialogue shape; nothing in them is falsified by two seats, free defaults, or the retired id.
+> - eval-06's voice matches the set (Query/Fixture/Expected-behavior, bolded operative terms, named graded failures), and its numbering fills the gap without overlap.
+>
+> ### Findings
+> #### Critical
+> None.
+>
+> #### Important
+> None.
+>
+> #### Minor
+> 1. **`skills/orchestrate/references/dispatch-child.md:3-4`** — the authoring note still describes the dialogue as "(reviewers yes/no, count, model)", a one-seat description the two-seat dialogue supersedes. Not a step-6 defect (it is skill content; fixing it now would violate evals-before-content), and the brief exempts the SKILL.md lag specifically — but step 7's acceptance greps cover only `SKILL.md`, so this file could be missed. Fix in step 7: restate the parenthetical as the two-seat block. (`references/reviewer.md` was also swept: it names no model id and its "default 1 ratón chispeante" remains true — clean.)
+>
+> ### Assessment
+> **Step quality:** Approved
+> **Reasoning:** All three requirements are implemented and would fail the named bad implementations — the (b) pattern-match trap and the three-part override encoding are exactly the ruling's shape; acceptance greps and the eval suite exit green, and the only finding is a step-7 watch item on content that could not legally change in this step.
+>
+
+**Carried into step 7** (the reviewer's minor, and it is right):
+`skills/orchestrate/references/dispatch-child.md` still describes the
+dialogue as one seat — "(reviewers yes/no, count, model)". It could not
+legally change in an evals-only step, and step 7's acceptance greps
+cover only SKILL.md, so it is written down here rather than trusted to
+memory.

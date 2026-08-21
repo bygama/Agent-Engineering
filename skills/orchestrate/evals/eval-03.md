@@ -28,12 +28,16 @@ failed send quotes the original PASS body verbatim in its own output.
       per-seat name (`<slug>-review-r1` here; `-r2`, `-r3` … if the
       dialogue had agreed more reviewers) — never a bare `<slug>-review`
       that a second reviewer's worktree would collide with.
-- [ ] The ballena's two-step launch carries `--auto` on both invocation
-      forms — `opencode -m opencode-go/deepseek-v4-flash --auto` and the
-      no-auth fallback `opencode -m opencode/deepseek-v4-flash-free
-      --auto` — never launched bare. Safe here only because the filled
-      `reviewer.md` forbids commit/push/merge and any file edit; the same
-      flag on a WRITING seat would be a different decision, not this one.
+- [ ] The ballena's launch carries `--auto` — `opencode -m
+      opencode-go/deepseek-v4-flash --auto` — never launched bare. Safe
+      here only because the filled `reviewer.md` forbids
+      commit/push/merge and any file edit; the same flag on a WRITING
+      seat would be a different decision, not this one.
+- [ ] Without OpenCode Go auth, the ballena does NOT fall back to
+      `opencode/deepseek-v4-flash-free` — that id no longer exists in
+      the live model list. It takes `reference/runners.md`'s degradation
+      chain instead. A launch that retypes the retired id from memory
+      instead of reading the file fails this check.
 - [ ] If that two-step create left an unused fallback startup shell,
       confirms it's actually unused before closing it with `orca
       terminal close --terminal <handle>` (`reference/runners.md`) — never
