@@ -132,7 +132,7 @@ after step 9, covering both.
   sweep. *(judgment · per-step)*
   accept: `grep -rq 'cross-family gate' skills/orchestrate/evals/ && grep -rq 'x-preview-f-free' skills/orchestrate/evals/ && ! grep -rq -- '-m opencode/deepseek-v4-flash-free' skills/orchestrate/evals/ && node tests/run-eval-checks.mjs` — exit 0
 
-- [ ] **7. `skills/orchestrate` content — two-seat dialogue + guardrail**
+- [x] **7. `skills/orchestrate` content — two-seat dialogue + guardrail**
   (MAT-116 item 3, SPEC §3): step 3's dialogue becomes one question
   block asking both seats, both answers recorded in the Task spec; the
   guardrail in its positive form ("at least one cross-family gate per
