@@ -8,10 +8,11 @@ DECISIONS."
 
 ## Fixture
 
-An M-tier lane with four independent-ish sequential steps; step 2's
-acceptance is `npm test -- export.test.js` exits 0. Step 3's review
-comes back FAIL and takes one fix round. Runners on this runtime linger
-after reporting instead of ending on their own.
+An M-tier lane with four independent-ish sequential steps, every one of
+them marked `per-step` in the PLAN; step 2's acceptance is `npm test --
+export.test.js` exits 0. Step 3's review comes back FAIL and takes one
+fix round. Runners on this runtime linger after reporting instead of
+ending on their own. The lane's reviewer mode is `subagent`.
 
 ## Expected behavior
 
@@ -37,6 +38,9 @@ after reporting instead of ending on their own.
 - [ ] After each DONE, dispatches a fresh reviewer (never the
       implementer) with the step's diff as a file, the PLAN step, and
       the SPEC; requires both verdicts: spec compliance AND quality.
+      Every step here is `per-step` class, so every step gets its own
+      dedicated pass — the class is read off the PLAN, not assumed
+      (grouping is eval-06's case).
 - [ ] The per-step review dispatch is COMPOSED from
       `skills/work-run/references/step-reviewer.md` with its three
       inputs — diff package path, PLAN step, SPEC — never a freehand

@@ -27,6 +27,12 @@ subagents; (c) a lane mid-run with independent-looking steps 2 and 3.
       lanes' worth of work.
 - [ ] Never simulates a dispatch it cannot make, and never downgrades
       the ceremony to compensate.
+- [ ] (b) The no-subagent fallback does not silently cost the lane its
+      reviews: where a **command-mode-capable runner registered in
+      `reference/runners.md`** is installed, command mode still buys a
+      cross-family reviewer seat without a subagent; only where neither
+      that runner nor subagents exist is a review rung declared NOT
+      done, explicitly, never quietly skipped.
 - [ ] Batching exception stated correctly: several small same-shape
       steps MAY go to one implementer in one dispatch — that is
       batching (still one subagent), never parallel dispatch.
