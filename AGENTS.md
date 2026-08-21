@@ -11,7 +11,7 @@ is in maintenance — versions bump on template/check changes (CHANGELOG.md).
 
 ## Commands
 
-- Self-lint: `node scripts/agent-lint.mjs . --ignore tests,templates,global,examples`
+- Self-lint: `node scripts/agent-lint.mjs . --ignore tests,templates,examples`
 - Lint self-tests: `node tests/run-lint-tests.mjs`
 - DESIGN.md generator self-tests: `node tests/run-gen-tests.mjs`
 - Eval-structure suite: `node tests/run-eval-checks.mjs`
@@ -22,8 +22,9 @@ is in maintenance — versions bump on template/check changes (CHANGELOG.md).
   `{{PLACEHOLDER}}` markers and are instantiated by ae-init, never copied
   verbatim; `examples/` are authoring-time snapshots (never restamped) —
   all three are excluded from the self-lint, keep it that way.
-- `global/` is content only; the workstation installer applies it to
-  `~/.claude` — never edit `~/.claude` directly from here.
+- The personal `~/.claude` layer is canonical in `bygama/workstation`, not
+  here: never edit `~/.claude` directly — changes go through workstation.
+  This repo keeps only the doctrine (`reference/global-layer.md`).
 - `skills/` are junction-linked into `~/.claude/skills`: edits go live
   immediately, no copy step.
 - Process-skill suites (superpowers etc.) compose by one rule: their
