@@ -571,7 +571,59 @@
   design; the shape of the chapter after step 6 is what the review
   approved.
 
+- 2026-08-20 — **PLAN step 6 REVIEWED → Approved (after fix round 1).**
+  Fresh reviewer (opus), fix, fresh re-reviewer (sonnet). Verdict text
+  verbatim: `reviews/step-06-review.md` and
+  `reviews/step-06-rereview-r1.md`.
+
+  Review verdict: **Spec compliance ✅ Compliant** · **Step quality: Needs
+  fixes** — 2 Important, 0 Critical. It approved every structural
+  judgment (valid mermaid with no orphan node — `GLB` was a bare node,
+  never an edge endpoint; no `###` heading minted for a file, so heading
+  coverage now matches disk exactly; findability preserved because the
+  new paragraph carries the deleted heading's question as a literal
+  string; no dangling anchors, verified by grepping `architecture.md#`
+  and `#global`; the `reference/` list now names 14 docs against 14 files
+  on disk). It also ruled the `:7` opening-sentence catch in scope and
+  correct — "global-layer content" would have left the chapter's FIRST
+  paragraph false, and it contains no `global/`, so the accept grep would
+  never have caught it.
+
+  The 2 Important findings were both false claims:
+  1. `:30-31` "a layer of the standard like any other" — the same chapter
+     opens `## The six layers` and enumerates six, without this one;
+     `AGENTS.md:6-7` says the same, and the chapter's own `reference/`
+     list files it under *cross-cutting docs*. A reader would go hunting
+     for a seventh layer.
+  2. `:57-58` "the only layer whose content lives on a machine instead of
+     in a repo" — the inverse of the doctrine it summarizes
+     (`reference/global-layer.md:18-21`: content is edited at a source in
+     a repo and *installed*; the machine copy is the artifact), and
+     "only" was contestable against auto-memory (`reference/memory.md`).
+
+  The reviewer's third truth check PASSED unchanged: the ≤40-line canon
+  "the lint enforces by content rather than by path" is exactly backed by
+  `scripts/agent-lint.mjs:145` (selection by H1 content) and `:149`.
+
+  Fix round 1 (`7ae84c2`) → re-review verdict: **All findings addressed,
+  no new Critical/Important breakage.** The re-reviewer additionally
+  answered the controller's challenge — whether junction-linked `skills/`
+  makes the narrowed "only... installed onto a machine" claim contestable
+  — and judged not: a junction is "no copy step", the opposite of an
+  install under the standard's own definition, so it stays on the "read
+  from a repo" side. Flagged as debatable, non-blocking.
+
+  Deferred Minors (not looped, for work-verify's triage): (M1) `:47` is
+  now a 123-char unwrapped line, re-wrap `:45-51`; (M2) reflow artifact at
+  `:35-36`, diff hygiene only; (M3) the deleted section's one operational
+  negative ("nothing is edited in place on a machine") survives via the
+  pointers in `AGENTS.md:25-26` and `reference/global-layer.md:18-21`
+  rather than in this chapter's own words.
+
+
 ## In progress
+
+- PLAN step 7.
 
 - PLAN step 6.
 
