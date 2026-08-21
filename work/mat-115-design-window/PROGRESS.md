@@ -1102,6 +1102,82 @@ $ echo $?
 Commit: `4ed5718 style(work-plan): re-wrap the design-first paragraph
 after step 8's edit`.
 
+- **Step 8 review — ratón chispeante, TUI seat**
+  (`opencode --auto -m opencode/muse-spark-1.2-contributor-free`, launched
+  as an Orca terminal and driven with `orca terminal send/wait/read`, per
+  the owner's instruction 2026-08-21 that the headless `run` seats are
+  currently buggy — this lane had just watched two of them time out with
+  empty output). It ran its own adversarial harness of 6 legal shapes and 8
+  quotation shapes against the shipped check. Verdict verbatim:
+
+  > ### Spec compliance
+  > Compliant
+  >
+  > ### Issues
+  > #### Critical (Must Fix)
+  > None.
+  > #### Important (Should Fix)
+  > None.
+  > #### Minor (Nice to Have)
+  > - A fenced block containing the bare marker on its own line still
+  > matches `DESIGN_WINDOW_MARKER_LINE` and thus still exempts a lane. This
+  > is the expected and acceptable trade-off: the fix kills whole-file
+  > substring quotation (`$ grep -q 'MARKER'`, `> MARKER`, `` `MARKER` ``,
+  > `Note: MARKER`, `MARKER.`, `MARKER -- waiting`, `-   MARKER`) at
+  > line-content level without parsing Markdown fences [...] No fix needed.
+  > - `skills/work-plan/SKILL.md:82-84` now reads [...] the trailing
+  > `PLAN.md starts only` is duplicated fragment from the pre-edit line.
+  > Harmless, readable, but could be trimmed for polish; does not affect
+  > the marker or the check.
+  >
+  > ### Assessment
+  > **Step quality:** Approved
+  > **Reasoning:** Step 8 fulfills SPEC §(a)-(c) and the PASS REVOKED
+  > ruling verbatim — anchored line check, quoted-transcript fixture, and
+  > message-level pin — with no divergence between skill and check, correct
+  > regex construction, proper RED-before-GREEN ordering, and all four
+  > gates PASS.
+
+  Its evidence, worth keeping because it is what makes the fix credible —
+  6 shapes the SKILL instructs (bare, indented, `- `, `* `, indented dash,
+  trailing spaces) all still EXEMPT, and 8 quotation shapes (fenced
+  transcript, blockquote, inline backticks, mid-sentence, trailing period,
+  trailing text, extra spaces after the bullet) all correctly FAIL.
+
+  **Controller checks of its own, independent of the reviewer.** The two
+  attacks that produced the revocation, re-run against the fixed check:
+
+  ```
+  $ node scripts/agent-lint.mjs <lane quoting the marker in a transcript>
+    MEDIUM work/some-lane/  lane missing PLAN.md  [lane-incomplete]
+  0 high, 1 medium, 0 low — FAIL          exit 1   (was PASS/exit 0)
+
+  $ node scripts/agent-lint.mjs <THIS lane's own files, PLAN.md deleted>
+    MEDIUM work/mat-115-design-window/  lane missing PLAN.md  [lane-incomplete]
+  0 high, 1 medium, 0 low — FAIL          exit 1   (was PASS/exit 0)
+  ```
+
+  **Fix round (1 of 5), and a correction to the reviewer's diagnosis.**
+  Nothing was duplicated — the sentence was intact; the paragraph was
+  simply left un-re-wrapped after the insertion, leaving a stub line. The
+  implementer re-wrapped it (`4ed5718`), and the change is provably
+  cosmetic — `git diff -w` is the wrong instrument for a re-wrap, since
+  words move across line boundaries, so the proof is a word-stream
+  comparison:
+
+  ```
+  $ git show a2c34c1:skills/work-plan/SKILL.md | tr -s '[:space:]' '
+' > before
+  $ git show 4ed5718:skills/work-plan/SKILL.md | tr -s '[:space:]' '
+' > after
+  $ diff before after && echo IDENTICAL WORD STREAM
+  IDENTICAL WORD STREAM
+  $ # line counts: 208 before, 208 after
+  ```
+
+  Marker still present in exactly its two source-of-truth sites; four gates
+  exit 0 after the re-wrap.
+
 ## In progress
 
 - work-run executing PLAN steps 1-7 in order. All seven steps done.
