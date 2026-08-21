@@ -133,3 +133,50 @@ $ grep -rl 'tests,templates,global,examples' --exclude-dir=.git . | grep -v '^./
 PLAN.md step 4's acceptance line is corrected to
 `--exclude-dir=mat-111-deglobal` so the lane's own plan states the command
 that actually gates it. No content change to any repo surface.
+
+## 2026-08-20 — Step 7 judgment: the five-surface sentence STAYS as written
+
+The sentence judged, `docs/how-it-works/standard-lifecycle.md:170-173`,
+unchanged by this step:
+
+> The five surfaces a consumer receives — `skills/`, `reference/`,
+> `templates/`, `global/`, `loops/` — have to read true on any machine,
+> so a path anchored to one machine's disk layout is a defect there
+
+**Reading taken: (ii) — it enumerates the surface *classes a consumer
+repo can carry*, not this repo's own directories.** Three pieces of
+evidence, in the order they decided it:
+
+1. **Its own subject is the consumer, not this repo.** "The five surfaces
+   a consumer *receives*" — the enumeration is the scope of a check
+   applied to a repo being linted, and the paragraph never narrows to
+   this repo. The rest of the paragraph keeps that register: `docs/plans/`,
+   `docs/adrs/`, `CHANGELOG.md` and `examples/` are exempted *as classes*
+   ("`examples/` are authoring-time snapshots, none of them is ever
+   restamped"), and the whole passage is the prose narration of one lint
+   check, not a listing of this repo's directories.
+2. **The check it narrates still contains `global/`.**
+   `scripts/agent-lint.mjs:354` — `const SHIPPED_SURFACE =
+   /^(skills|reference|templates|global|loops)\//` — is untouched by
+   this lane (a PLAN constraint, and DECISIONS' earlier entry keeps
+   `global/` there as a vendored-dir class). A consumer repo that
+   vendors a `global/` still gets it scanned at `medium`.
+3. **Editing it would introduce a new falsehood, not remove one.** The
+   lint's own comment at `scripts/agent-lint.mjs:325-326` uses the
+   identical phrasing — "the five surfaces a consumer receives —
+   skills/, reference/, templates/, global/, loops/". Writing "four
+   surfaces" in the chapter would make the chapter contradict the check
+   it exists to explain, and would tell a reader that a vendored
+   `global/` is not scanned when it is.
+
+The sentence's truth condition is "does the check cover these five
+classes", and it does. This repo no longer *having* a `global/` of its own
+does not touch that condition.
+
+**Not edited.** Only the `global/hooks/README.md` pointer at `:25` was
+repointed at `reference/global-layer.md` (step 7 half A), together with
+one word of truth repair in the same sentence: "The global layer wires
+it as a SessionStart hook" → "can wire it", because this repo ships no
+wiring any more — `reference/global-layer.md` carries the recipe, and
+`README.md:289-295` and `architecture.md:56-58` already speak of it as a
+recipe rather than as shipped plumbing.
