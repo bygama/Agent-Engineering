@@ -120,7 +120,7 @@ after step 9, covering both.
   match. *(judgment · per-step)*
   accept: `grep -q 'review class' skills/work-plan/SKILL.md && grep -q 'covered-by-batch' skills/work-plan/SKILL.md && grep -q 'MAT-111' skills/work-plan/SKILL.md && node scripts/agent-lint.mjs . --ignore tests,templates,examples && node tests/run-eval-checks.mjs` — exit 0
 
-- [ ] **6. `skills/orchestrate/evals/` — evals FIRST for orchestrate**
+- [x] **6. `skills/orchestrate/evals/` — evals FIRST for orchestrate**
   (SPEC §6): the dispatch dialogue asks BOTH seats in one question
   block (per-step reviewer mode/model, default command-mode sigiloso;
   adversarial seat, default 1 ratón chispeante at its free id) and

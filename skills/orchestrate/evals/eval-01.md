@@ -34,11 +34,24 @@ modules, needs a file that doesn't exist yet). No lane exists for it yet.
       another lane touching the same files is already in flight, encodes
       that with `--deps` rather than dispatching both concurrently.
 - [ ] Before any `worker-start`, runs the dispatch dialogue with the
-      owner: adversarial reviewers yes/no, how many, which model — offers
-      **default 1 ratón chispeante** (muse spark 1.2 contributor) and
-      names the ballena (deepseek v4 flash) as the selectable alternative,
-      rather than picking either silently. One question for this lane
-      (not a batch question — this isn't XL).
+      owner and asks about **both** reviewer seats in ONE question
+      block — never one seat now and the other later, never one seat at
+      all:
+      (i) the child's **per-step** reviewer — mode and model, default
+      **command-mode sigiloso** (`opencode/x-preview-f-free`), with the
+      in-session Claude subagent as the named alternative; and
+      (ii) the **adversarial** seat after `worker_done` — yes/no, how
+      many, which model, default **1 ratón chispeante** at its free id
+      (`opencode/muse-spark-1.2-contributor-free`, the economics rule)
+      with the ballena named as the selectable alternative.
+      One block for this lane (not a batch question — this isn't XL).
+- [ ] Offers every default at its **free** variant while the free
+      windows last (`reference/runners.md`'s economics rule) — a paid Go
+      id offered as the default fails this check even though the model
+      is identical.
+- [ ] Records BOTH answers in the Task spec, not just the adversarial
+      one: the per-step seat is what the child's own work-run reads, and
+      a spec carrying only half the dialogue leaves the child to guess.
 - [ ] The child-seat default (`--agent claude`, per `reference/runners.md`'s
       child-seat convention) does not grow the dialogue into a second
       question — the owner is asked about reviewers only; a different
