@@ -485,6 +485,92 @@
     lists both "PLAN step 6" and a stale "PLAN step 5" left by the previous
     step. Both are now DONE. Left for the controller rather than edited.
 
+- 2026-08-20 — **PLAN step 6 FIX round 1.** Two Important review findings
+  on the new prose in `docs/how-it-works/architecture.md`; both confirmed
+  against their sources before fixing, both fixed. Every structural
+  judgment of the step was approved and is unchanged — the node stays
+  deleted, the `### global/` section stays removed, the rehoming stays.
+  Only two sentences moved. +3/-3.
+
+  1. **`:30-31` "a layer of the standard like any other" contradicted the
+     chapter's own layer count.** Confirmed, not taken on report:
+     `## The six layers` (`:185`) enumerates exactly six bold names —
+     `grep '^\*\*'` over that section returns Context, Memory, Harness,
+     Loop, Graph, Cross-cutting, and no global layer. `AGENTS.md:6-7`
+     frames it identically ("six layers (context, memory, harness, loop,
+     graph, with reducer/MCP cross-cutting)"). Worse, my *own* other edit
+     at `:47` filed "global layer" under **cross-cutting docs**, not in the
+     per-layer group — so the two passages I wrote in the same step
+     disagreed with each other. A reader taking `:31` at face value would
+     go hunting for a seventh layer in the section that exists to
+     enumerate them. Fixed with the reviewer's clause: "…it is part of the
+     standard like anything else the standard defines, so it gets one
+     document…". Keeps the reason the doc sits inside `reference/`, drops
+     the miscount. Note the name "global layer" itself is house vocabulary
+     and stays — `reference/memory.md:56` uses it ("**Global layer** owns
+     durable facts about the user"); what was false was placing it *in the
+     six-layer taxonomy*.
+
+  2. **`:57-58` "the only layer whose content lives on a machine instead of
+     in a repo" misstated the document it was summarizing.** Confirmed on
+     both counts. *Count one, the serious one:*
+     `reference/global-layer.md:18-21` makes the opposite the FIRST of the
+     two properties that "make it a layer and not a folder" — "**Edited at
+     a source, then installed.** The machine copy is an artifact. Nothing
+     is edited in place under `~/.claude` — a change goes into the repo
+     that owns the content and is applied from there". The content lives in
+     a repo (workstation); the machine holds an installed artifact. My
+     sentence asserted the exact inverse of the doctrine it was pointing
+     at — the worst kind of error for a pointer paragraph, since a reader
+     who trusts the summary gets the layer's defining property backwards.
+     *Count two:* "only" was contestable — `reference/memory.md:52-56`
+     gives auto-memory session-learned facts, a runner store on the
+     machine, and the very next bullet draws the contrast explicitly ("If
+     another agent (any model) must see it, it must be a repo file").
+     Fixed with the reviewer's wording: "It is the only layer that is
+     installed onto a machine rather than read from a repo…". Checked
+     against both objections before accepting it: it now runs in the
+     doctrine's direction (source → install), and auto-memory is *written*
+     on a machine, never *installed* onto one, so "only" survives.
+     Cross-repo skills installing into `~/.claude/skills` are part of this
+     same layer per `global-layer.md:22-24`, not a competing one.
+
+  **Third truth check left alone, as instructed** — and independently
+  reconfirmed rather than assumed: "the ≤40-line canon the lint enforces by
+  content rather than by path" is exactly `scripts/agent-lint.mjs:145`
+  (`fileLines(f)[0]?.trim() === "# Global instructions"` selects the file)
+  and `:149` (`if (n > 40)` caps it). No change.
+
+  **Minors M1/M2/M3 not fixed**, per instruction — deferred to
+  work-verify's triage: the 123-char `:47` line and the `:35-36` reflow
+  artifact are both wrap-only, and M3 (this chapter no longer says in its
+  own words that nothing is edited in place on a machine) is a real
+  content call about how much doctrine the chapter should restate, which
+  is work-verify's to weigh rather than a fix round's.
+
+  Accept command and output:
+
+  ```
+  $ ! grep -q 'global/' docs/how-it-works/architecture.md \
+      && grep -q 'global-layer.md' docs/how-it-works/architecture.md
+  ACCEPT_EXIT=0
+  ```
+
+  All four gates re-run after the fixes:
+
+  ```
+  $ node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-111-deglobal
+  0 high, 0 medium, 0 low — PASS
+  LINT=0  LINT_TESTS=0  GEN_TESTS=0  EVAL_CHECKS=0
+  ```
+
+  Files changed: `docs/how-it-works/architecture.md`, this PROGRESS.md.
+
+  Concerns: none. Both findings were defects in my prose, not in the step's
+  design; the shape of the chapter after step 6 is what the review
+  approved.
+
 ## In progress
 
 - PLAN step 6.
