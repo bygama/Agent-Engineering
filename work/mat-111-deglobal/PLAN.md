@@ -27,7 +27,7 @@ hook wiring recipe (absolute-path note, MAT-31), and the
 
 ## Steps
 
-- [ ] **1. Create `reference/global-layer.md`** — the layer's doctrine
+- [x] **1. Create `reference/global-layer.md`** — the layer's doctrine
   (adapted from `docs/how-it-works/architecture.md`'s `global/` section
   and README's replication seed paragraphs), the generic SessionStart
   wiring recipe from `global/hooks/README.md` (keep: hook is optional;
@@ -36,12 +36,12 @@ hook wiring recipe (absolute-path note, MAT-31), and the
   dependency. *(judgment)*
   accept: `test -f reference/global-layer.md && test $(grep -c '' reference/global-layer.md) -le 120 && node scripts/agent-lint.mjs . --ignore tests,templates,global,examples` — exit 0
 
-- [ ] **2. Delete `global/` entirely** — `CLAUDE.md`, `hooks/README.md`,
+- [x] **2. Delete `global/` entirely** — `CLAUDE.md`, `hooks/README.md`,
   `hooks/orca-probe.ps1`, `hooks/using-ae.ps1`, the directory itself.
   *(mechanical)*
   accept: `test ! -e global && node scripts/agent-lint.mjs . --ignore tests,templates,examples` — exit 0
 
-- [ ] **3. `AGENTS.md`** — replace the `global/` gotcha with the new
+- [x] **3. `AGENTS.md`** — replace the `global/` gotcha with the new
   truth (personal machine layer canonical in the workstation repo; never
   edit `~/.claude` directly — changes go through workstation), pointing
   at `reference/global-layer.md`; flip the self-lint command to
@@ -49,7 +49,7 @@ hook wiring recipe (absolute-path note, MAT-31), and the
   *(judgment)*
   accept: `! grep -q 'tests,templates,global,examples' AGENTS.md && grep -q 'reference/global-layer.md' AGENTS.md && grep -q '^Standard: AE/1.4.2$' AGENTS.md && node scripts/agent-lint.mjs . --ignore tests,templates,examples` — exit 0
 
-- [ ] **4. [batch] Flip the ignore string in the three remaining live
+- [x] **4. [batch] Flip the ignore string in the three remaining live
   sites** — `.github/workflows/gates.yml:17`, `CONTRIBUTING.md:23`,
   `loops/self-audit.md:20`; same one-line substitution
   (`tests,templates,global,examples` → `tests,templates,examples`), plus
@@ -57,20 +57,20 @@ hook wiring recipe (absolute-path note, MAT-31), and the
   2026-08-20 because this lane re-runs the new command. *(mechanical)*
   accept: `test $(grep -rl 'tests,templates,global,examples' --exclude-dir=.git --exclude-dir=mat-111-deglobal . | wc -l) -eq 0 && grep -q 'tests,templates,examples' .github/workflows/gates.yml` — exit 0
 
-- [ ] **5. `README.md`** — the directory table's `global/` row and the
+- [x] **5. `README.md`** — the directory table's `global/` row and the
   replication section's seed paragraphs (~285-310): point at
   `reference/global-layer.md` and at workstation as the canonical
   personal instance; the "strip the owner-specific lines" warning goes
   with the seed it warned about. *(judgment)*
   accept: `! grep -q 'global/CLAUDE.md\|global/hooks' README.md && grep -q 'reference/global-layer.md' README.md && node scripts/agent-lint.mjs . --ignore tests,templates,examples` — exit 0
 
-- [ ] **6. `docs/how-it-works/architecture.md`** — rewrite the `GLB`
+- [x] **6. `docs/how-it-works/architecture.md`** — rewrite the `GLB`
   mermaid node and the `### global/` section for the new shape: the
   layer is still explained and now lives in `reference/global-layer.md`;
   the directory does not exist. *(judgment)*
   accept: `! grep -q 'global/' docs/how-it-works/architecture.md && grep -q 'global-layer.md' docs/how-it-works/architecture.md` — exit 0
 
-- [ ] **7. `docs/how-it-works/standard-lifecycle.md`** — repoint the
+- [x] **7. `docs/how-it-works/standard-lifecycle.md`** — repoint the
   `global/hooks/README.md` mention (~line 25) at
   `reference/global-layer.md`; then judge the machine-path narration
   (~line 172): drop `global/` from the enumeration ONLY if the sentence
@@ -78,34 +78,34 @@ hook wiring recipe (absolute-path note, MAT-31), and the
   the reading in `DECISIONS.md` either way. *(judgment)*
   accept: `! grep -q 'global/hooks/README.md' docs/how-it-works/standard-lifecycle.md && grep -q 'five-surface\|standard-lifecycle' work/mat-111-deglobal/DECISIONS.md` — exit 0
 
-- [ ] **8. `reference/orca.md`** — Ruling A: repoint the
+- [x] **8. `reference/orca.md`** — Ruling A: repoint the
   `global/hooks/orca-probe.ps1` citation (~line 27) at
   `reference/global-layer.md` with a generic probe description; the file
   is at its 120-line cap, so the edit stays neutral or shorter.
   *(judgment)*
   accept: `! grep -q 'global/hooks' reference/orca.md && test $(grep -c '' reference/orca.md) -le 120 && node scripts/agent-lint.mjs . --ignore tests,templates,examples` — exit 0
 
-- [ ] **9. `docs/specs/SPEC-agent-engineering.md`** — italic amendment
+- [x] **9. `docs/specs/SPEC-agent-engineering.md`** — italic amendment
   notes in the ADR-008 style, dated 2026-08-20, naming MAT-111 and
   workstation as the new canonical home: one at the repo tree that shows
   `global/` (~line 196), one at the P1 entry that ports it (~line 267).
   The tree and the phase entry themselves stay as written. *(judgment)*
   accept: `test $(grep -c 'MAT-111' docs/specs/SPEC-agent-engineering.md) -ge 2 && grep -q '2026-08-20' docs/specs/SPEC-agent-engineering.md && git diff --stat docs/specs/SPEC-agent-engineering.md` — exit 0
 
-- [ ] **10. `examples/machine-config/README.md` judgment** — verify it
+- [x] **10. `examples/machine-config/README.md` judgment** — verify it
   still reads true (it points at the living workstation consumer, not at
   `global/`); change only if it went false; record the verdict in
   `DECISIONS.md`. *(judgment)*
   accept: `grep -q 'machine-config' work/mat-111-deglobal/DECISIONS.md && ! grep -q 'global/' examples/machine-config/README.md` — exit 0
 
-- [ ] **11. Full gate sweep + no live `global/` path left** — the four
+- [x] **11. Full gate sweep + no live `global/` path left** — the four
   gates in their new form, plus a repo-wide grep proving every remaining
   `global/` mention is a dated record (`docs/plans/`, `CHANGELOG.md`),
   a fenced surface ruled to stay (B, C), or the lint's consumer-repo
   class. *(integration)*
   accept: `node scripts/agent-lint.mjs . --ignore tests,templates,examples && node tests/run-lint-tests.mjs && node tests/run-gen-tests.mjs && node tests/run-eval-checks.mjs` — all exit 0
 
-- [ ] **12. `skills/ae-audit/evals/eval-03.md`** — parent's fence-lift
+- [x] **12. `skills/ae-audit/evals/eval-03.md`** — parent's fence-lift
   ruling of 2026-08-20 (DECISIONS.md), added after step 11's sweep found
   it: fix exactly two lines, nothing else in the file. Line 14's quoted
   ignore string becomes `tests,templates,examples`, matching `AGENTS.md:14`
