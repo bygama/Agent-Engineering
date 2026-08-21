@@ -666,6 +666,83 @@ issue: MAT-115
   - No concerns: every gate and every invariant is green against the
     lane's existing state; nothing needed papering over.
 
+- **Step 6 review — SEAT DEGRADED, chain position 2.** The sigiloso
+  (`opencode/x-preview-f-free`) returned
+  `Error: Upstream request failed: [server_error] Upstream response was not
+  valid JSON`, exit 1, on two consecutive attempts with the same prompt.
+  Per `reference/runners.md`'s degradation chain the seat fell through to
+  **free raton (`opencode/muse-spark-1.2-contributor-free`)**, which
+  answered one-shot, exit 0. Recorded so this verdict is never mistaken for
+  a first-choice one. Verdict verbatim:
+
+  > ### Spec compliance
+  > Compliant — step 6's deliverable is the verification record itself
+  > (`work/mat-115-design-window/PROGRESS.md:625-667`), and the record
+  > matches reality on every machine-checkable claim.
+  >
+  > Re-ran acceptance command verbatim:
+  >
+  > 1. `node scripts/agent-lint.mjs . --ignore tests,templates,examples` —
+  > `0 high, 0 medium, 0 low — PASS` exit 0
+  > 2. `node tests/run-lint-tests.mjs` — 24/24 `ok` (`design-first approval
+  > window lane passes without PLAN.md` now `ok`, `near-miss...` `ok`,
+  > `malformed lanes fail` `ok`) exit 0
+  > 3. `node tests/run-gen-tests.mjs` — `all gen cases passed` exit 0
+  > 4. `node tests/run-eval-checks.mjs` — `all eval checks passed` exit 0
+  > 5. `grep -rl --exclude-dir=evals '<marker>' skills scripts | wc -l` — 2
+  > (`skills/work-plan/SKILL.md`, `scripts/agent-lint.mjs`) exit 0; without
+  > `--exclude-dir=evals` would be 3 due to eval-05.md:43 (assertion about
+  > the sites, not a source-of-truth site per DECISIONS.md:104-120)
+  > 6. `grep -q 'skills/work-plan/SKILL.md' scripts/agent-lint.mjs` — match
+  > at `scripts/agent-lint.mjs:226` exit 0
+  > 7. `git diff --name-only main...HEAD -- ...` — 0 exit 0; independent
+  > full `git diff --name-only main...HEAD` confirms no forbidden path
+  > moved
+  >
+  > Two-leg byte identity: `skills/work-plan/SKILL.md:76` and
+  > `scripts/agent-lint.mjs:230` (`DESIGN_WINDOW_MARKER` const) are
+  > byte-identical (89 chars, pure ASCII), paired `change both together`
+  > comments sit adjacent and name the opposite site [...] verified via node
+  > extraction.
+  >
+  > DoD item-by-item: both legs shipped in one PR — yes; marker in exactly
+  > two SoT sites with paired comments — yes; red-before-green transcript in
+  > PROGRESS.md (steps 3/4) — recorded and consistent with fixtures;
+  > `lanes-bad` still fails + SPEC-only/near-miss pinned with `expectMatch`
+  > — verified via lint suite; four gates green — yes; work-lifecycle.md
+  > corrected, five chapter verdicts in DECISIONS.md — yes; no forbidden
+  > path touched — yes. **No overstatement in PROGRESS.md**; truncated
+  > `... (24 cases) ...` is elision, not fabrication — full output listed in
+  > re-run.
+  >
+  > ### Issues
+  > #### Critical (Must Fix)
+  > None.
+  >
+  > #### Important (Should Fix)
+  > None.
+  >
+  > #### Minor (Nice to Have)
+  > - PROGRESS.md:634-641 — gate transcript elides the 24 case names as
+  > `... (24 cases) ...`. Harmless (full re-run matches), but a future
+  > reader cannot diff the record without re-running [...] No fix required
+  > for acceptance.
+  > - PROGRESS.md:643-644 heading [...] the heading's closed quote is
+  > typographic; does not affect the machine proof.
+  >
+  > ### Assessment
+  > **Step quality:** Approved
+  > **Reasoning:** All four gates and the three shape invariants exit 0 and
+  > match the recorded transcript byte-for-byte; the two source-of-truth
+  > sites carry identical ASCII marker with correctly paired comments, and
+  > the branch touches no forbidden path — the sweep proves the lane's
+  > change is exactly as SPEC §7/DoD describe.
+
+  **Controller response.** Approved, no fix round. Both Minors are record
+  cosmetics on the lane's own PROGRESS.md, not on the shipped change; the
+  reviewer explicitly re-ran the full output and confirmed the elision is
+  faithful. Deferred to work-verify's triage with the rest.
+
 ## In progress
 
 - work-run executing PLAN steps 1-6 in order. All six steps done.
