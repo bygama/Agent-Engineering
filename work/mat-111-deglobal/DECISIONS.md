@@ -107,3 +107,29 @@ Parent's instruction:
 > Good catch on workstation's claude/README.md drift: report it in your
 > worker_done body and I will fold it into the wave close on the
 > workstation side.
+
+## 2026-08-20 — Controller ruling: step 4's acceptance grep excludes the lane
+
+**Defect in the PLAN, not in the work.** Step 4's acceptance was written as
+a repo-wide `grep -rl 'tests,templates,global,examples'` expecting zero
+hits. But the lane's own files quote the old command to *describe* the
+change — SPEC.md, PLAN.md, PROGRESS.md and the `reviews/` verdicts all
+name it — so the repo-wide form can never reach zero without falsifying
+the lane's own record.
+
+Step 3's implementer flagged this ahead of time rather than pre-empting
+it ("that is step 4's call to make"); step 4's implementer ran the
+lane-excluded variant, reported **both** the command it ran and why, and
+did not edit any record to make a grep pass.
+
+**Ruling:** the acceptance command's intent is "no live surface outside
+the lane's own records still carries the old string". Verified true:
+
+```
+$ grep -rl 'tests,templates,global,examples' --exclude-dir=.git . | grep -v '^./work/mat-111-deglobal/'
+(none outside the lane)
+```
+
+PLAN.md step 4's acceptance line is corrected to
+`--exclude-dir=mat-111-deglobal` so the lane's own plan states the command
+that actually gates it. No content change to any repo surface.

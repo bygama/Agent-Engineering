@@ -55,7 +55,7 @@ hook wiring recipe (absolute-path note, MAT-31), and the
   (`tests,templates,global,examples` → `tests,templates,examples`), plus
   re-stamp `loops/self-audit.md`'s `verified <date>, exit 0` to
   2026-08-20 because this lane re-runs the new command. *(mechanical)*
-  accept: `test $(grep -rl 'tests,templates,global,examples' --exclude-dir=.git . | wc -l) -eq 0 && grep -q 'tests,templates,examples' .github/workflows/gates.yml` — exit 0
+  accept: `test $(grep -rl 'tests,templates,global,examples' --exclude-dir=.git --exclude-dir=mat-111-deglobal . | wc -l) -eq 0 && grep -q 'tests,templates,examples' .github/workflows/gates.yml` — exit 0
 
 - [ ] **5. `README.md`** — the directory table's `global/` row and the
   replication section's seed paragraphs (~285-310): point at
