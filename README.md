@@ -34,7 +34,6 @@ Each directory answers exactly one question:
 | `templates/repo/` | what gets installed in a consuming repo? |
 | `skills/` | how does it replicate and get used day to day? |
 | `scripts/` | what is checked mechanically, without judgment? |
-| `global/` | what belongs in the global (`~/.claude`) layer? |
 | `tests/` | how is the standard itself tested? |
 | `docs/` | why did we decide this, and how does it all work? |
 
@@ -290,23 +289,23 @@ Three ways to get the skills into a runner:
 The SessionStart injection of `using-ae` — the entry skill's content
 pushed into context at the start of every session — is **optional**:
 without it, the skill still triggers by its description the first time a
-task needs it; the hook only saves that first lookup. The canonical
-wiring snippet — the hook script plus the settings entry that calls it —
-lives at `global/hooks/README.md`.
+task needs it; the hook only saves that first lookup. The wiring recipe —
+the settings entry that calls a hook script, and the rules that keep it
+working on any runner — lives at
+[`reference/global-layer.md`](reference/global-layer.md).
 
-`global/CLAUDE.md` is a **seed**, not a drop-in file: this repo's own
-copy carries the owner's real machine policy (working style, safety
-rules, Orca spawn rules) — useful because it is lived-in, not generic.
-Copy it, strip the owner-specific lines (chat language is the clearest
-one), and edit the rest into your own policy before applying it to your
-runner's global config. Never point a runner straight at this repo's
-`global/CLAUDE.md`, and never apply it verbatim.
+That same file argues the rest of the layer: what a `~/.claude` is for,
+what belongs in it, and the budget its `CLAUDE.md` is held to. What it
+does not hand you is a policy file to copy — a lived-in personal config
+is not something a standard can ship, so the global instructions you end
+up with are yours to write.
 
 None of this depends on any other repo.
 [bygama/workstation](https://github.com/bygama/workstation) is the
-owner's own reference implementation of this machine layer — a real
-`~/.claude` built by applying `global/` end to end — worth reading, but
-never a dependency.
+owner's canonical personal instance of this layer — a real `~/.claude`
+and the installer that applies it, kept in its own repo precisely so the
+standard need not carry it — worth reading as a worked example, never a
+dependency.
 
 ## The standard in one paragraph
 
