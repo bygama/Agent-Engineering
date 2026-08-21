@@ -486,3 +486,101 @@ dialogue as one seat — "(reviewers yes/no, count, model)". It could not
 legally change in an evals-only step, and step 7's acceptance greps
 cover only SKILL.md, so it is written down here rather than trusted to
 memory.
+
+### Step 7 — `skills/orchestrate` content (two-seat dialogue + guardrail) — DONE
+
+Acceptance exit 0 (three greps + `agent-lint` PASS + eval-checks).
+Three commits, evals-before-content preserved twice inside the step:
+`d38a9b5` (eval-01: the child brief must name the command-mode seat),
+`c9c3a7b` (eval-04: the rung survives either seat form), then the
+content commit.
+
+**Review engine: sigiloso — `opencode run --auto -m
+opencode/x-preview-f-free`, command mode, 1st chain position, no
+fall-through. Two passes: FAIL, PASS.** Verdicts verbatim:
+
+#### Round 1 — FAIL (Critical)
+
+> ✱ Glob "skills/orchestrate/**/*" 9 matches
+> ✱ Grep "deepseek-v4-flash-free|opencode-go/muse-spark-1\.2-contributor|x-preview-f-free|muse-spark-1\.2-contributor-free" in skills/orchestrate · 6 matches
+> ✱ Grep "dialogue|one question|question block|both seats|per-step|adversarial" in skills/orchestrate · 55 matches
+> → Read skills/orchestrate/evals/eval-02.md
+> → Read skills/orchestrate/evals/eval-04.md
+> → Read skills/orchestrate/evals/eval-05.md
+> VERDICT: FAIL
+>
+> ### Spec compliance
+> ❌ Issues found — the step's own requirements are met, but the change leaves one of its own sentences falsified elsewhere in SKILL.md (details below).
+>
+> Checked against SPEC §3 and the DECISIONS ruling:
+>
+> - One question block, both seats, one turn — ✅ SKILL.md:70-72 ("never one seat now with the other asked later").
+> - Per-step default command-mode sigiloso (`opencode/x-preview-f-free`), Claude subagent alternative — ✅ SKILL.md:75-78.
+> - Adversarial default 1 ratón chispeante at the free id, ballena named — ✅ SKILL.md:79-85; economics-rule sentence at :87-90.
+> - Both answers recorded in the Task spec — ✅ SKILL.md:92-93; child-seat default explicitly not a second ask (:96-97).
+> - Guardrail in positive form governing, not bolted on — ✅ SKILL.md:99-108: the headline is the positive rule, and :104-106 is an operative instruction ("Hold the rule in its positive form, not as a blacklist…"), which is what makes eval-06's checkbox 1 pass rather than decorate.
+> - Both zero-cross-family combinations rejected, loudly, re-asked, never silently substituted — ✅ SKILL.md:100-104.
+> - Escape worded as ruled — ✅ SKILL.md:110-115: reachable **only** by explicit owner override, recorded verbatim (anti-paraphrase/checkbox/summary gloss), "Impossible to reach by accident", never offered by the dialogue, never inferred from silence/hurry/smallness. Nothing in the new text lets the dialogue offer it or the parent assume it.
+> - ADR-008 cited as enforced, not revised — ✅ SKILL.md:106-108.
+> - Review-wave launch restated at the free ratón id — ✅ SKILL.md:207, provenance comment intact; the falsified "falls back to the ballena's no-auth free model" sentence replaced by the degradation-chain walk (:214-218), not softened.
+> - Watch item (dispatch-child described the dialogue as one seat) — ✅ fixed at dispatch-child.md:3-5.
+> - Eval coverage: every eval-06 checkbox (all nine) and every amended eval-01 dialogue line has instruction behind it in the two files; eval-03's retired-id and chain requirements are covered at SKILL.md:216-218. No bare checkboxes found.
+>
+> ### Strengths
+> - The override paragraph is the ruling encoded, not paraphrased — including the anti-gaming details (owner's own words, not a checkbox) that make the verbatim record enforceable.
+> - The dispatch-child.md command-mode paragraph (:96-103) lands eval-01's fence requirement precisely: shell command, no Task/Dispatch/`worker_done`, "Either seat satisfies the rung; neither excuses skipping it."
+> - Length budget respected: SKILL.md is 422 lines (< 500).
+> - Replacing (not keeping) the dead ballena-fallback sentence was the right call — leaving it would have been this lane's signature failure.
+>
+> ### Findings
+>
+> #### Critical
+> 1. **skills/orchestrate/SKILL.md:406 — Red flags row now states something false.** "work-run's per-step reviewer and work-verify's step-4 review are in-session subagents, REQUIRED at their tiers." This step itself establishes (SKILL.md:75-78, dispatch-child.md:96-97) that where the dialogue settles `command` mode — the new default — the per-step reviewer "is not a subagent at all." A parent using this row to answer a child's fence question would re-decide the seat form the owner chose, and could steer a lane toward the exact zero-cross-family outcome the guardrail forbids. Fix: amend the reality cell, e.g. "work-run's per-step reviewer (in-session subagent, or command-mode shell-out where the Task spec settled command mode) and work-verify's step-4 review are REQUIRED at their tiers."
+>
+> #### Important
+> None.
+>
+> #### Minor
+> 1. **skills/orchestrate/SKILL.md:3 — frontmatter lags the body.** "(reviewers, count, model)" is the pre-change parenthetical; the checklist line was updated to "(both seats, count, model) + cross-family guardrail" (:27-28) but the description was not. It states nothing false ("reviewers" is plural), so Minor — but mirror the checklist wording.
+> 2. **skills/orchestrate/SKILL.md:216-220 — rule stated twice in three lines.** "Never retype a model id from memory…" and the pre-existing "Every launch argv … read off `reference/runners.md` … never retyped from memory" say the same thing. Merge into one statement; this is the standard's longest skill.
+>
+> ### Assessment
+> **Step quality:** Needs fixes
+> **Reasoning:** The dialogue, guardrail, escape, and launch restatement match SPEC §3 and the parent's ruling almost line for line, and eval coverage is complete — but the change falsified the Red flags row at SKILL.md:406, the exact stale-claim class two earlier steps failed on.
+>
+> ⚠️ Outside this diff, for the parent: (a) ADR-008 still carries only the 2026-08-20 amendment naming the paid Go id as the dialogue default — SPEC §3's dated amendment note is presumably a later step of this lane; (b) eval-04.md:39 describes the per-step reviewer as "in-session" in its fence-contrast checkbox — same phrasing class as the Critical finding; whether it needs the matching eval amendment is a lane call (evals change before content).
+>
+
+#### Round 2 (fix: the red-flag row, the frontmatter, the duplicated rule) — PASS
+
+> 9ed48ae feat(work-plan): a review class on every step, and [batch] as a requirement
+> 5c0c5e8 test(work-plan): evals for review classes and the harder [batch] rule
+> d275fd2 docs(lane): record step 3 — three sigiloso passes, two real catches
+> 24b0438 feat(work-run): review class decides how often, reviewer mode decides who
+> 34896c4 test(work-run): command mode needs a fourth template input
+>
+> → Read skills/orchestrate/evals/eval-02.md
+> ✱ Grep "cross-family|maker" in docs/adrs · 5 matches
+> **Critical 1 — Red flags row:** ADDRESSED. `SKILL.md:405` now reads "work-run's per-step reviewer — in-session subagent, or the command-mode shell-out the Task spec settled — and work-verify's step-4 review are REQUIRED at their tiers." A parent answering a fence question now defers to the Task spec instead of re-deciding the seat form; it agrees verbatim-in-substance with the amended `eval-04.md:39-40` and with `dispatch-child.md:96-103`.
+>
+> **Minor 1 — frontmatter:** ADDRESSED. `SKILL.md:3` now reads "(both reviewer seats, count, model, under a cross-family guardrail)", agreeing with checklist item 3 (`SKILL.md:27`) and the two-seat dialogue block (`SKILL.md:70-97`).
+>
+> **Minor 2 — duplicated never-retype rule:** ADDRESSED. Stated once at `SKILL.md:216-219`, with the ballena's retired fallback folded in as the *reason* ("the file is what knows that") rather than a second command.
+>
+> **Outside-diff item (b) — eval-04 amendment:** Verified correct. `eval-04.md:39-43` carries the either-seat form of the rung, and git history confirms it committed before these content fixes (`c9c3a7b`, `d38a9b5`, `a69a8a5` all precede the uncommitted content change) — evals-before-content holds. Item (a), ADR-008's dated note, remains step 8's, correctly untouched here.
+>
+> ### NEW BREAKAGE sweep — whole `skills/orchestrate/` tree
+>
+> - **Per-step reviewer necessarily a subagent:** none survives. `dispatch-child.md:88`'s heading still says "your own in-session subagents", but the very next paragraph (:96-103) explicitly handles command mode ("not a subagent at all… Either seat satisfies the rung") — and that two-beat shape is exactly what committed eval-01 (:84, :98-103) expects, so no reader acts wrongly. `SKILL.md:15` describes work-run's execution model, not the reviewer seat; `reviewer.md:11` concerns the adversarial seat only.
+> - **One-seat dialogue description:** none. Frontmatter, checklist, step 3, and `dispatch-child.md:3-5` all describe both seats. `reviewer.md:5`'s "(default 1 ratón chispeante)" is scoped to the adversarial wave — correct for that template.
+> - **Paid-id default:** none. Defaults are free ids only (`SKILL.md:76, :83, :207`); Go ids appear solely as runners.md chain position 3 and eval-03's agreed-ballena teaching. The economics paragraph (`SKILL.md:87-90`) matches `reference/runners.md:63-70`.
+> - **Retired id as spawn target:** none. `opencode/deepseek-v4-flash-free` appears only in eval-03:37 naming its retirement; every launch argv on disk matches a registered seat in `runners.md` (ratón TUI :207 ≡ runners.md:112-114; sigiloso :76 ≡ runners.md:76-80). Vocabulary (sigiloso/ratón/ballena, degradation chain, `--auto`) checks clean against runners.md throughout.
+>
+> ```
+> VERDICT: PASS
+> ```
+>
+
+Step 7 closes Approved at fix round 1/5. No deferred minors. The
+reviewer's out-of-diff item (a) — ADR-008's dated amendment note — is
+step 8, next.
