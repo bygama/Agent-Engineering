@@ -620,14 +620,91 @@
   pointers in `AGENTS.md:25-26` and `reference/global-layer.md:18-21`
   rather than in this chapter's own words.
 
+- 2026-08-20 — **PLAN step 7 DONE.**
+  `docs/how-it-works/standard-lifecycle.md`, two halves.
+
+  **Half A (`:20-26`) — edited.** The dead pointer
+  `global/hooks/README.md` (deleted in step 2) now reads
+  `reference/global-layer.md`, which carries the wiring recipe the old
+  file held. One further word of truth repair in the same sentence:
+  "The global layer **wires** it as a SessionStart hook" → "**can wire**
+  it", because this repo ships no wiring any more. The rest of the
+  sentence was already true and is untouched — it framed the hook as
+  "optional plumbing, not a dependency" before this lane. The narrower
+  verb matches the two surfaces the earlier steps already rewrote:
+  `README.md:289-295` ("The SessionStart injection … is **optional**",
+  "The wiring recipe … lives at `reference/global-layer.md`") and
+  `docs/how-it-works/architecture.md:56-58` ("the runner-generic
+  SessionStart wiring recipe"). Diff is 3 lines; the reflow of `:25-26`
+  is only what moving the longer path forced, wrap width kept at ~70.
+
+  **Half B (`:170-173`) — JUDGED, NOT EDITED. Reading (ii).** The
+  five-surface sentence enumerates the surface *classes a consumer repo
+  can carry*, not this repo's own directories, so it stays exactly as
+  written. Three reasons, recorded in full in `DECISIONS.md`:
+  1. Its subject is the consumer — "the five surfaces a consumer
+     *receives*" — and the rest of the paragraph exempts `docs/plans/`,
+     `docs/adrs/`, `CHANGELOG.md` and `examples/` as classes too. It is
+     prose narration of one lint check, not a directory listing.
+  2. The check it narrates still contains `global/`:
+     `scripts/agent-lint.mjs:354` — `const SHIPPED_SURFACE =
+     /^(skills|reference|templates|global|loops)\//` — untouched by this
+     lane by PLAN constraint. A consumer repo that vendors a `global/`
+     still gets it scanned at `medium`.
+  3. Writing "four surfaces" would ADD a falsehood: the lint's own
+     comment at `scripts/agent-lint.mjs:325-326` uses the identical
+     phrasing ("the five surfaces a consumer receives — skills/,
+     reference/, templates/, global/, loops/"), so the chapter would
+     contradict the check it exists to explain and would tell a reader a
+     vendored `global/` is not scanned when it is.
+
+  The sentence's truth condition is whether the check covers those five
+  classes. It does. This repo not having a `global/` of its own does not
+  reach that condition.
+
+  Acceptance, run from the repo root:
+
+  ```
+  $ ! grep -q 'global/hooks/README.md' docs/how-it-works/standard-lifecycle.md && grep -q 'five-surface\|standard-lifecycle' work/mat-111-deglobal/DECISIONS.md
+  ACCEPT EXIT=0
+  ```
+
+  Note for the reviewer: that grep is weak — `DECISIONS.md` already
+  contained the word `standard-lifecycle` before this step, so exit 0 is
+  no evidence the judgment was recorded. It was recorded, as a dated
+  entry: **"2026-08-20 — Step 7 judgment: the five-surface sentence
+  STAYS as written"**, quoting the sentence and naming reading (ii).
+
+  Gate re-run (not required by the step, run anyway):
+
+  ```
+  $ node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  agent-lint C:\…\mat-111-deglobal
+  0 high, 0 medium, 0 low — PASS
+  LINT EXIT=0
+  ```
+
+  Files changed: `docs/how-it-works/standard-lifecycle.md` (3 lines),
+  `work/mat-111-deglobal/DECISIONS.md` (+47), this file. Nothing else in
+  the chapter was touched; the only remaining `global` strings in it are
+  `:23` ("global layer", the layer's name) and `:172` (the judged
+  enumeration).
+
+  Bookkeeping: cleared `## In progress`, which listed steps 5, 6 and 7 —
+  5 and 6 both carry DONE + REVIEWED → Approved above, so the entries
+  were stale (a step-6 reviewer had already flagged the stale step-5
+  line). No substantive record of another step was edited.
+
+  Concerns: (1) `reference/global-layer.md` is cited in backticks, not as
+  a markdown link — same form the dead `global/hooks/README.md` citation
+  used, so the lint's broken-link check never covered either; the path is
+  verified to exist by hand. (2) Half B leaves this chapter as the one
+  live surface still naming `global/` outside a dated record — step 11's
+  repo-wide sweep must expect exactly that hit and classify it as the
+  lint's consumer-repo class, not as residue.
+
 
 ## In progress
-
-- PLAN step 7.
-
-- PLAN step 6.
-
-- PLAN step 5.
 
 ## Tried and failed
 

@@ -20,10 +20,10 @@ standard".
 Since AE/1.2.0, `using-ae` is the entry skill that recognizes an
 AE-standard repo and routes an arriving task to whichever flow in this
 chapter owns it — install, audit, or work — before any action. The
-global layer wires it as a SessionStart hook, but that wiring is
+global layer can wire it as a SessionStart hook, but that wiring is
 optional plumbing, not a dependency: the skill still triggers by its
-own description with no hook at all (detail: `global/hooks/README.md`,
-`skills/using-ae/SKILL.md`).
+own description with no hook at all (detail:
+`reference/global-layer.md`, `skills/using-ae/SKILL.md`).
 
 Eleven skills carry the whole surface this doc describes: the work chain
 now opens with `shaping` (the design dialogue, ADR-006) ahead of
