@@ -181,6 +181,32 @@ const cases = [
     expect: ["lane-incomplete"],
   },
   {
+    // The boundary: exactly 5 complete lanes in work/ is the cap this pair
+    // proves without pinning a live count — mirrors
+    // entry-skill-ok/entry-skill-bloat. Red until `lane-accumulation`
+    // becomes a check (MAT-112, PLAN step 2); green from birth on this
+    // side of the pair since 5 lanes never trips it either way.
+    name: "exactly 5 lanes in work/ passes",
+    path: fx("lanes-accum-ok"),
+    fail: false,
+    expect: [],
+    forbid: ["lane-accumulation"],
+  },
+  {
+    // Red until `lane-accumulation` becomes a check (MAT-112, PLAN step 2):
+    // today nothing counts lane folders, so this 6-lane repo passes clean.
+    // The 6th lane sits in the design-first approval window (SPEC.md and a
+    // marker-carrying PROGRESS.md, no PLAN.md) — it still counts toward
+    // accumulation (the count measures accumulation, not validity), so
+    // `lane-incomplete` must stay quiet for it even once the check lands.
+    name: "6 lanes in work/ fails (one is a design-first-window lane)",
+    path: fx("lanes-accum-over"),
+    fail: true,
+    expect: ["lane-accumulation"],
+    expectMatch: ["work/ holds 6 lanes"],
+    forbid: ["lane-incomplete"],
+  },
+  {
     name: "invalid feature list fails",
     path: fx("feature-bad"),
     fail: true,

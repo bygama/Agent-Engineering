@@ -24,6 +24,13 @@ issue: MAT-112, MAT-113
   accumulation not validity); (3) MERGED-not-verified criterion with
   owner scenarios [a]/[b] as evals stands as specced. All fences
   confirmed. Proceed."
+- 2026-08-21 — **Reviewer mode: command (settled once, work-run step 1).**
+  From the parent's dispatch config: per-step reviewer = command-mode
+  sigiloso (`opencode run --auto -m opencode/x-preview-f-free`),
+  degradation chain per reference/runners.md (sigiloso → free ratón →
+  paid Go → in-session Claude subagent), engine recorded per review,
+  liveness check before relying on a seat. The adversarial ratón
+  chispeante seat after worker_done is the parent's, not this lane's.
 - 2026-08-21 — **Boundary-pair fixtures.** The self-test lands as a pair
   — exactly 5 lanes passes, 6 fails — mirroring
   `entry-skill-ok`/`entry-skill-bloat`: the pair proves the boundary
