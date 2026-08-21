@@ -185,3 +185,24 @@ here.
   `eval-05.md` gains the assertion before `SKILL.md` gains the rule.
   *(judgment · per-step)*
   accept: `grep -q 'design-first approval window' docs/how-it-works/work-lifecycle.md && node scripts/agent-lint.mjs . --ignore tests,templates,examples && node tests/run-lint-tests.mjs && node tests/run-gen-tests.mjs && node tests/run-eval-checks.mjs && test $(grep -rl --exclude-dir=evals 'STATE: design-first approval window, waiting for owner approval of SPEC.md before PLAN.md' skills scripts | wc -l) -eq 2 && test $(git diff --name-only main...HEAD -- CHANGELOG.md AGENTS.md README.md reference examples templates .claude | wc -l) -eq 0` — all exit 0
+
+- [ ] **8. The marker must be a LINE, not a substring — confirmed finding**
+  (fresh-context review, Important 1; reproduced by the controller and
+  recorded in DECISIONS.md 2026-08-21): `scripts/agent-lint.mjs` matches
+  the marker anywhere in `PROGRESS.md`, so a lane that merely quotes it —
+  in a command transcript, a blockquote, inline code — is exempted from
+  needing PLAN.md while not being in the window at all. **Fixture first:**
+  add `tests/fixtures/lane-window-quoted/`, one lane, SPEC.md + a
+  PROGRESS.md whose ONLY occurrence of the marker is inside a fenced
+  command transcript, no PLAN.md, with its case
+  `quoted marker in a transcript does not exempt a lane`
+  (`fail: true`, `expect: ["lane-incomplete"]`) — RED before the check
+  changes. **Then the check:** require the marker to be the CONTENT of a
+  line — optional leading whitespace, an optional `- `/`* ` bullet, the
+  marker, then nothing but whitespace — the exact shape
+  `skills/work-plan/SKILL.md` instructs. Paired comments stay accurate on
+  both sides. In the same step, add `expectMatch: ["lane missing
+  PLAN.md"]` to the existing near-miss case so both negatives really are
+  pinned at message level, as this lane's records already claim.
+  *(judgment · per-step)*
+  accept: `node tests/run-lint-tests.mjs && node scripts/agent-lint.mjs . --ignore tests,templates,examples && node tests/run-gen-tests.mjs && node tests/run-eval-checks.mjs && node scripts/agent-lint.mjs tests/fixtures/lane-window-quoted 2>&1 | grep -q 'lane missing PLAN.md' && node scripts/agent-lint.mjs tests/fixtures/lane-window-ok 2>&1 | grep -q '0 high, 0 medium, 0 low'` — all exit 0
