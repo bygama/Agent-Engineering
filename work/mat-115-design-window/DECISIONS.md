@@ -196,3 +196,18 @@ changes (PLAN step 5, SPEC §6). Two edits:
 chapter's verdict on record "whether or not the file changes — a silent
 no-change is indistinguishable from an unexamined one." This entry is
 that record for all five.
+
+## 2026-08-21 — correcting append: it is FIVE chapters judged, not four
+
+**Correction.** The entry above is headed "four chapters judged
+unchanged" and opens "The other four chapters judged" — both miscount.
+Five files were judged and each carries its own verdict in that entry's
+list: `architecture.md`, `standard-lifecycle.md`, `execution.md`,
+`integrations.md`, and `docs/how-it-works/README.md`. Nothing was
+skipped; only the count in the prose was wrong.
+
+**Why an append rather than an edit.** DECISIONS.md is append-only
+(`reference/task-tiers.md`), so a miscount is corrected by a later entry
+that names it, never by rewriting the record. Found by the step-5
+command-mode reviewer, which counted the list against the step's own
+file list.
