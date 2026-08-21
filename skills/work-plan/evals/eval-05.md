@@ -46,6 +46,10 @@ genuine unresolved scope, not just missing paperwork.
 - [ ] (a) PLAN.md still does not appear alongside that PROGRESS.md —
       writing it stays gated on the owner's approval, exactly as the
       bullet above requires.
+- [ ] (a) Once PLAN.md is written in that later turn — whichever tier
+      produces it, this lane's own M/L plan or an XL parent plan — the
+      marker line comes out of `PROGRESS.md` the same turn, so the file
+      stops declaring a wait that is already over.
 - [ ] (b) Because the owner states certainty and names the tracker
       issue as the spec, both SPEC.md and PLAN.md come out in the same
       pass — no intermediate stop between the two files.
