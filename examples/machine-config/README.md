@@ -8,7 +8,7 @@ would drift:
 
 - [`AGENTS.md`](https://github.com/bygama/workstation/blob/main/AGENTS.md)
   — canonical, stamped, ~58 lines: verified commands (its test suite
-  runs at init), 9 real gotchas (synced-copy rules, secrets shapes,
+  runs at init), 10 real gotchas (synced-copy rules, secrets shapes,
   three-way launcher sync), damage-preventing constraints
   (secrets-never-enter-git, idempotent writers).
 - [`terminal/AGENTS.md`](https://github.com/bygama/workstation/blob/main/terminal/AGENTS.md)
