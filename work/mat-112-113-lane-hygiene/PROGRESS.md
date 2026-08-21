@@ -486,9 +486,108 @@ issue: MAT-112, MAT-113
   the red-flag section adds no new trigger, unlike work-plan's new
   refusal (the step-4 review's deferred note).
 
+- **Step 6 review — Approved (engine: sigiloso, command mode,
+  `opencode/x-preview-f-free`, first-choice seat).** Verdict verbatim:
+  "### Spec compliance / ✅ Compliant — the diff adds exactly what Step
+  6 asked. A `## Red flags` table lands in
+  `skills/work-handoff/SKILL.md` whose first row is the mandated
+  judgment verbatim against SPEC §5 […] ### Assessment /
+  **Step quality:** Approved / **Reasoning:** The mandated row lands
+  verbatim with three supporting rows that all trace to doctrine the
+  skill package already states, the table matches the house shape and
+  position used by four sibling skills, both acceptance gates re-ran
+  green independently, and the deliberate non-duplication of checklist
+  lines already owned by workflow step 6 and the WIP=1 note is correct
+  restraint rather than a gap." Reviewer independently re-ran both
+  gates (eval checks exit 0, work-handoff 7 evals; self-lint PASS exit
+  0) and traced every extra row to pre-existing skill text. Minor
+  notes (deferred): single-skill traceability of the merged-debt
+  clause (lane-established doctrine, fine as-is), and reminder-variant
+  polish on row 3.
+
+- **Step 7 [docs] Narration sweep — DONE.** Three chapters updated, three
+  left untouched with the judgment recorded in DECISIONS.md, plus the
+  step-4 deferred Minor taken.
+
+  `docs/how-it-works/work-lifecycle.md` — three insertions, each against a
+  claim this lane completes: (a) after the ephemerality assertion ("a
+  closed lane's folder is deleted … an empty `work/` directory simply
+  doesn't exist"), a paragraph naming the field evidence (32 merged lanes
+  in one checkout, the close never ran, nothing flagged it) and the
+  backstop — `lane-accumulation`, MEDIUM, more than five lane folders —
+  with the N=5 rationale (XL children live in their own worktrees) and the
+  interplay judgment (a design-first-window lane counts like any other;
+  the count measures accumulation, not validity); (b) in the work-plan
+  paragraph, the pre-open sweep — either mode sweeps before writing the
+  first file, a MERGED lane whose folder persists is debt and blocks the
+  open ("the next ticket is not a close"), MERGED-never-verified so an
+  open PR in a decided merge order is pending and is never nudged toward
+  an early merge, in-flight lanes untouched ("punishes debt, never
+  concurrency"); (c) in the work-handoff close bullet, that the close is
+  per-lane at that ticket's merge, with the batch-close red flag quoted
+  and its reason ("in a marathon the end never comes").
+
+  `docs/how-it-works/architecture.md` — the `scripts/` battery
+  enumeration gained `how many lanes work/ is holding` (paragraph
+  rewrapped, no other change).
+
+  `docs/how-it-works/standard-lifecycle.md` — not a named candidate, but
+  it enumerates the battery check by check in the audit section ("the lint
+  counts (…)"), so it gained `lane accumulation in work/` on the same
+  reasoning. Judgment recorded in DECISIONS.md.
+
+  No-change judgments recorded in DECISIONS.md for `README.md` (its table
+  row names subjects one level above any check or gate — still
+  exhaustive), `integrations.md` (its one lane-lifecycle sentence is the
+  card-status mirror, untouched here) and `execution.md` — the closest
+  call: its XL diagram ends `handoff closes lanes + parent` after the
+  synthesis gate, which reads batch-shaped but is not the refused batch
+  (an XL wave merges in item order and gates as one whole, so each lane
+  still closes at that wave's merge; the red flag refuses deferral across
+  a serial run of unrelated tickets). Nothing falsified there.
+
+  Step-4 deferred Minor: TAKEN. `skills/work-plan/SKILL.md`'s frontmatter
+  `description` enumerated three refusals while the skill now carries
+  four; the description is the surface an agent routes on, so a stale
+  enumeration loses the refusal exactly when it should fire. One clause
+  added naming the merged-lane refusal and that work-handoff's close lands
+  first. No eval text changed (eval-07/08 landed in step 3, so
+  evals-before-content stands).
+
+  Acceptance command plus the three sanity gates — all four exit 0 (this
+  is the last PLAN step, so all four had to be green):
+
+  ```
+  $ node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  agent-lint <repo root>
+  0 high, 0 medium, 0 low — PASS
+  EXIT-lint: 0
+  $ node tests/run-lint-tests.mjs   → all 27 cases passed      EXIT: 0
+  $ node tests/run-gen-tests.mjs    → all gen cases passed     EXIT: 0
+  $ node tests/run-eval-checks.mjs  → all eval checks passed   EXIT: 0
+  ```
+
+  Files changed: `docs/how-it-works/work-lifecycle.md`,
+  `docs/how-it-works/architecture.md`,
+  `docs/how-it-works/standard-lifecycle.md`,
+  `skills/work-plan/SKILL.md` (frontmatter line only), plus this
+  PROGRESS.md entry and the DECISIONS.md judgments. Nothing under
+  `CHANGELOG.md`, the AGENTS.md stamp, `reference/`, the root
+  `README.md`, `examples/`, `.claude/skills/` or `templates/` — every
+  fence honored. No version named anywhere in the new prose: provenance
+  is dated (`Since 2026-08-21`), matching the chapters' own house
+  practice and keeping the retained 1.4.3 bump out of the docs.
+
+  Concerns: none blocking. One note for work-verify: the sweep touched a
+  triggering surface (work-plan's frontmatter `description`), which is
+  live the moment it lands because `skills/` is junction-linked into
+  `~/.claude/skills` — intended, and the behavior it advertises has
+  shipped since step 4.
+
 ## In progress
 
-- PLAN steps 6-7 pending — work-run dispatch continues at step 7.
+- PLAN complete — steps 1-7 all DONE; step-7 review is the next dispatch,
+  then work-verify.
 
 ## Next
 

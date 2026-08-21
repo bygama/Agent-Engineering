@@ -62,6 +62,16 @@ the slug carries the tracker issue key when one exists
 permanent repo furniture — a closed lane's folder is deleted or archived by
 the handoff, and an empty `work/` directory simply doesn't exist.
 
+That ephemerality was doctrine with nothing behind it until a marathon proved
+the gap: 32 lanes accumulated in one checkout, every one of them verified and
+merged, because the handoff's close never ran and no tool flagged the pile.
+Since 2026-08-21 `agent-lint` carries the backstop — `lane-accumulation`, a
+MEDIUM finding when `work/` holds more than five lane folders. Five, because
+an XL effort's children live in their own worktrees, so a single checkout
+legitimately holds very few lanes at once. The check counts folders and
+judges nothing else: a lane sitting in the design-first approval window counts
+like any other, because the count measures accumulation, not validity.
+
 Why per-lane folders instead of files at the repo root: parallel worktrees.
 Two agents working two lanes never collide on a shared `PROGRESS.md`, and a
 lane travels intact when its worktree moves between machines or runners.
@@ -135,8 +145,16 @@ writes `PROGRESS.md` declaring the design-first approval window, and
 stops for the owner's approval before shaping PLAN.md, or *direct*, which
 writes both files in one pass when the design is already settled or a
 tracker issue stands in as the spec; the skill's own doc owns the rest
-(constraints blocks, batching, role hints). Work loops inside the lane, updating
-`PROGRESS.md` as it goes.
+(constraints blocks, batching, role hints). Either mode sweeps the checkout
+before it writes the first file: a lane whose work is already MERGED and
+whose folder is still sitting in `work/` is debt — the handoff's close never
+ran — and the new lane does not open until that close lands, because the next
+ticket is not a close. The criterion is MERGED, never verified: a lane that
+passed and whose PR is still open, waiting its turn in a decided merge order,
+is pending, and the sweep neither blocks on it nor nudges it toward an early
+merge. Lanes still in flight are untouched — the rule punishes debt, never
+concurrency. Work then loops inside the lane, updating `PROGRESS.md` as it
+goes.
 
 How that inner loop runs has an owned shape since ADR-004: **work-run**
 (`skills/work-run`), the recommended executor at L and available at M. A
@@ -191,7 +209,10 @@ The two exits are skills, not vibes — both live since AE/2.1:
   commented code, stray TODOs, scratch), re-proves build + tests + startup,
   and removes the lane folder in the closing commit — git history keeps the
   four files and their evidence, and no orphan `work/` directory survives.
-  **Pause** is for sessions ending mid-work: the lane folder *survives*,
+  That close is per-lane and happens at that ticket's merge: "I'll close them
+  all at the end of the run" is a red flag the skill names and refuses,
+  because in a marathon the end never comes and one verdict never covers four
+  lanes. **Pause** is for sessions ending mid-work: the lane folder *survives*,
   PROGRESS names the exact state (a red test is allowed only as a recorded
   blocker), and the WIP gets committed honestly. A handoff with red tests
   claimed as done is not a handoff — it is a trap for the next session;

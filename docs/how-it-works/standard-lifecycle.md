@@ -145,9 +145,9 @@ The audit is the judgment half of enforcement; `agent-lint` is the
 mechanical half and runs inside it. The lint counts (budgets — the
 always-loaded entry skill's own cap among them — stamp present and
 parseable, pointer shape, broken links, command drift, machine-anchored
-paths on shipped surfaces, lane coherence, feature-list schema and gating
-sanity); the audit judges (is the entry file honest? do the hard
-constraints deserve to be hard? has knowledge decayed?).
+paths on shipped surfaces, lane coherence, lane accumulation in `work/`,
+feature-list schema and gating sanity); the audit judges (is the entry file
+honest? do the hard constraints deserve to be hard? has knowledge decayed?).
 The output is a score with concrete fixes, and fixes are applied only when
 asked — an audit that silently rewrites your repo is an audit nobody runs
 twice.

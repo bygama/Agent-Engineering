@@ -135,11 +135,11 @@ the CHANGELOG header is executed the same way every time.
 Live since AE/2.0 (`agent-lint` + the DESIGN.md generator).
 
 `agent-lint` owns every check that needs no taste: line budgets, the version
-stamp, pointer shape, broken links, command drift, lane coherence, feature
-list schema. The split matters — the lint never argues, the audit never
-counts. Keeping the mechanical subset in code makes it cheap to run
-everywhere (pre-commit, CI, inside `ae-audit`) and keeps the judgment
-calls where judgment lives, in the skill.
+stamp, pointer shape, broken links, command drift, lane coherence, how many
+lanes `work/` is holding, feature list schema. The split matters — the lint
+never argues, the audit never counts. Keeping the mechanical subset in code
+makes it cheap to run everywhere (pre-commit, CI, inside `ae-audit`) and
+keeps the judgment calls where judgment lives, in the skill.
 
 ### `loops/` — what runs on a cadence in this repo?
 
