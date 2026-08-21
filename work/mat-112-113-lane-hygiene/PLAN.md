@@ -29,7 +29,7 @@ issue: MAT-112, MAT-113
 
 ## Steps
 
-- [ ] 1. **[MAT-112] Fixture pair + self-test cases (RED).** Add
+- [x] 1. **[MAT-112] Fixture pair + self-test cases (RED).** Add
   `tests/fixtures/lanes-accum-ok/` (clean repo, `work/` holding exactly
   5 complete lanes → case `fail: false`, forbid `lane-accumulation`)
   and `tests/fixtures/lanes-accum-over/` (identical shape, 6 lanes, one
@@ -41,7 +41,7 @@ issue: MAT-112, MAT-113
   `node tests/run-lint-tests.mjs` exits 1 failing ONLY the new over
   case with `missing expected finding "lane-accumulation"` — quote the
   RED output into PROGRESS.md. *(per-step)*
-- [ ] 2. **[MAT-112] The `lane-accumulation` check.** In
+- [x] 2. **[MAT-112] The `lane-accumulation` check.** In
   `scripts/agent-lint.mjs`'s work-lanes section, emit the constrained
   MEDIUM finding when `work/` holds more than 5 lane folders, with a
   comment recording the interplay judgment (window lanes count;
@@ -51,7 +51,7 @@ issue: MAT-112, MAT-113
   `node tests/run-lint-tests.mjs` exits 0 AND
   `node scripts/agent-lint.mjs . --ignore tests,templates,examples`
   exits 0. *(per-step)*
-- [ ] 3. **[MAT-113] work-plan evals (before content).** Add
+- [x] 3. **[MAT-113] work-plan evals (before content).** Add
   `skills/work-plan/evals/eval-07.md` (owner scenario [a]: 4 lanes in
   flight, 1 finishes+merges, session wants 2 more ⇒ sweep closes the
   merged one first, leaves the 3 in-progress untouched, then opens) and
@@ -60,7 +60,7 @@ issue: MAT-112, MAT-113
   only a merged-but-present folder blocks). House eval shape: `## Query`
   + `## Fixture` + `## Expected behavior` checklist. Acceptance:
   `node tests/run-eval-checks.mjs` exits 0. *(per-step)*
-- [ ] 4. **[MAT-113] work-plan pre-open sweep.** Add the sweep to
+- [x] 4. **[MAT-113] work-plan pre-open sweep.** Add the sweep to
   `skills/work-plan/SKILL.md`: before creating `work/<slug>/`, check
   the checkout for lanes already MERGED (main/master: `branch --merged`
   / PR state) whose folder persists; refuse to open until work-handoff
@@ -70,12 +70,12 @@ issue: MAT-112, MAT-113
   exits 0 AND
   `node scripts/agent-lint.mjs . --ignore tests,templates,examples`
   exits 0. *(per-step)*
-- [ ] 5. **[MAT-113] work-handoff eval (before content).** Add
+- [x] 5. **[MAT-113] work-handoff eval (before content).** Add
   `skills/work-handoff/evals/eval-07.md`: mid-marathon session proposes
   "I'll close them all at the end of the run" ⇒ expected behavior
   refuses the batch, closes per-lane at each ticket's merge. Acceptance:
   `node tests/run-eval-checks.mjs` exits 0. *(per-step)*
-- [ ] 6. **[MAT-113] work-handoff red-flag row.** Add a red-flag table
+- [x] 6. **[MAT-113] work-handoff red-flag row.** Add a red-flag table
   to `skills/work-handoff/SKILL.md` carrying the row: "I'll close them
   all at the end of the run" ⇒ in a marathon the end never comes; close
   is per-lane, at each ticket's merge, never a batch sweep. Behavior
@@ -83,7 +83,7 @@ issue: MAT-112, MAT-113
   `node tests/run-eval-checks.mjs` exits 0 AND
   `node scripts/agent-lint.mjs . --ignore tests,templates,examples`
   exits 0. *(per-step)*
-- [ ] 7. **[docs] Narration sweep.** Update the `docs/how-it-works/`
+- [x] 7. **[docs] Narration sweep.** Update the `docs/how-it-works/`
   chapters whose claims this lane falsifies — candidates:
   `work-lifecycle.md` (lane lifecycle, ephemerality, work-plan modes,
   handoff close) and `architecture.md` (lint-battery description) — and

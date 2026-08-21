@@ -584,12 +584,78 @@ issue: MAT-112, MAT-113
   `~/.claude/skills` — intended, and the behavior it advertises has
   shipped since step 4.
 
+- **Step 7 review — Approved (engine: sigiloso, command mode,
+  `opencode/x-preview-f-free`, first-choice seat; the grouped pass for
+  the one-step group).** Verdict verbatim: "### Spec compliance /
+  ✅ Compliant — every required element lands and nothing extra creeps
+  in. […] ### Assessment / **Step quality:** Approved / **Reasoning:**
+  All three insertions plus the two enumeration completions are
+  minimal, accurate against the shipped code and skills (check id,
+  threshold, severity, quotes all verified at source), the no-change
+  judgments are genuine reasoned rulings including the hardest case,
+  fences and the no-version rule hold, and the acceptance gate re-ran
+  green independently." Reviewer verified four named risks at source
+  (check registration line, sweep claims vs shipped skill, red-flag
+  quote, self-lint exit 0) and read all three no-change chapters.
+  Minor (deferred): a half-sentence compression in DECISIONS.md's
+  execution.md rationale — conclusion unaffected.
+
+## Tried and failed
+
+- (nothing this lane — the only intended RED is step 1's, quoted under
+  its Done entry as evidence, not a failure)
+
+## Verification
+
+### 2026-08-21 — L DoD — PASS
+
+- L1 static: `node --check scripts/agent-lint.mjs` → exit 0;
+  `node scripts/agent-lint.mjs . --ignore tests,templates,examples` →
+  exit 0 (`0 high, 0 medium, 0 low — PASS`)
+- L2 behavioral: `node tests/run-lint-tests.mjs` → exit 0
+  (`all 27 cases passed`); `node tests/run-gen-tests.mjs` → exit 0
+  (`all gen cases passed`); `node tests/run-eval-checks.mjs` → exit 0
+  (`all eval checks passed`; work-plan 8 evals, work-handoff 7); the
+  CLI starts and runs (the lint invocations above ARE the tool
+  executing)
+- L3 end-to-end: `node scripts/agent-lint.mjs
+  tests/fixtures/lanes-accum-over` → exit 1, exactly one finding:
+  `MEDIUM work/ — work/ holds 6 lanes — work/ is ephemeral; close
+  finished lanes (work-handoff close removes the folder, history
+  preserves it) [lane-accumulation]`;
+  `node scripts/agent-lint.mjs tests/fixtures/lanes-accum-ok` → exit 0
+  (`0 high, 0 medium, 0 low — PASS`). The skill legs have no runtime
+  beyond eval structure — L2's eval gate covers them (judgment
+  recorded).
+- Fresh-context review: **PASS** — reviewer ran all four gates itself
+  (exits 0), re-ran both e2e fixtures, REPRODUCED the step-1 RED from
+  a `git archive` of ae6e70a (`1/27 cases failed`, `missing expected
+  finding "lane-accumulation"`, byte-identical to the PROGRESS quote),
+  confirmed check absent at ae6e70a via `git grep` (0 matches),
+  confirmed evals-before-content commit order on all three pairs
+  (ae6e70a→32f9ddf, 708d5d8→c88785b, 1409e17→aa73c46), and confirmed
+  every fence path empty in the lane diff (`git diff --name-only
+  <base>..HEAD -- CHANGELOG.md AGENTS.md reference/ README.md
+  examples/ .claude/ templates/` → empty; stamp AE/1.4.2 unchanged).
+  No Critical, no Important. Minors, triaged: (1) missing
+  `## Verification`/`## Tried and failed` sections — fixed by this very
+  block; (2) one inserted 76-col line in `skills/work-plan/SKILL.md:239`
+  vs a step-7 report claim of ≤72 — the file has 79-col precedent, code
+  left as-is, the step-7 report's wrap claim is hereby corrected to
+  "all but one line"; (3) bare `5` literal — deferred by step-2 review
+  ruling, re-affirmed.
+- Adversarial review (ratón chispeante,
+  `opencode/muse-spark-1.2-contributor-free`): n/a at this rung — L
+  tier, and the dispatch config assigns the adversarial seat to the
+  parent (one ratón chispeante after worker_done), an ADDITIONAL
+  cross-model seat, not a substitute for the fresh-context rung above.
+
 ## In progress
 
-- PLAN complete — steps 1-7 all DONE; step-7 review is the next dispatch,
-  then work-verify.
+- (nothing — lane verified, moving to work-handoff close + PR)
 
 ## Next
 
-- work-run the plan step by step, then work-verify, then work-handoff +
-  PR.
+- work-handoff close: final lane commit, PR with `Closes MAT-112` +
+  `Closes MAT-113`, worker_done to the parent. The parent merges; this
+  lane never merges.
