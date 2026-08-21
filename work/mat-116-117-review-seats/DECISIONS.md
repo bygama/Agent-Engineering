@@ -180,3 +180,43 @@ level of "the lane lifecycle" and "the parent/child dispatch cycle,
 review wave" — review classes and reviewer seats live inside both of
 those, so neither row went false. Rewriting an index row to name every
 concept a chapter gained is drift, not maintenance.
+
+## 2026-08-21 — The L-tier DoD, assembled (no feature list in this repo)
+
+work-verify assembles an L DoD from `feature_list.json` rows. This repo
+has no feature list outside `tests/fixtures/`, so the DoD is the lane
+SPEC's `## Verification` section plus the PLAN's ten per-step acceptance
+commands. Recorded because the substitution was a judgment, not a
+default: the alternative — declaring the tier unverifiable for want of a
+file the repo deliberately does not carry — would certify nothing.
+
+No feature-list row moves to `passing` in this lane, for the same reason.
+
+## 2026-08-21 — Deviation from SPEC §2: the template took a fourth input
+
+SPEC §2 promised `references/step-reviewer.md` would carry the
+command-mode note with "the same three inputs". The shipped template
+requires a fourth, `[WORKTREE_ROOT]`, and the deviation is deliberate: a
+command-mode seat has no ambient checkout, so a three-input prompt would
+leave it guessing which tree to read. The step-3 reviewer raised the
+three-inputs-vs-worktree-root contradiction as an Important finding and
+the fix went the other way — widen the contract rather than drop the
+input — with the eval amended first (`34896c4` precedes `24b0438`).
+
+Recorded here because a deviation from an approved SPEC belongs in
+DECISIONS, not only in a review quote inside PROGRESS.
+
+## 2026-08-21 — `3cb5ddf` touched skill content with no eval commit ahead of it
+
+The step-10 integration fix reworded `skills/work-run/SKILL.md`'s
+class-reading sentence so it names both notation forms `work-plan` can
+emit. No eval changed with it. The judgment: the expectation was already
+pinned by `skills/work-plan/evals/eval-06.md` ("the same notation on
+every step, consistently", committed in `5c0c5e8`, which predates it),
+so the behavior under test did not move — only the consumer's wording
+caught up with an eval that already demanded it. The scoped re-reviewer
+checked this reasoning independently and agreed.
+
+The house rule is "evals change before content on every revision"; this
+records why this particular revision needed no eval change, rather than
+leaving the exception to be inferred from a PROGRESS quote.

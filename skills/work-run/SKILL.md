@@ -1,6 +1,6 @@
 ---
 name: work-run
-description: Executes one lane's PLAN step-by-step with a fresh runner per step — the lane (SPEC, PLAN, PROGRESS, DECISIONS) is the entire context package, with reviews scaled by each step's review class and bought from either seat (in-session subagent or command-mode runner), a capped fix loop, and rulings recorded in the lane. Use when a work/<slug>/ lane with several PLAN steps should be executed in this session — the recommended default for L lanes, available for M, and inside an XL worker's own lane. Not for S tasks (no lane) and never for parallel work across lanes (that is orchestrate).
+description: Executes one lane's PLAN step-by-step with a fresh subagent per step — the lane (SPEC, PLAN, PROGRESS, DECISIONS) is the entire context package, with reviews scaled by each step's review class and bought from either seat (in-session subagent or command-mode runner), a capped fix loop, and rulings recorded in the lane. Use when a work/<slug>/ lane with several PLAN steps should be executed in this session — the recommended default for L lanes, available for M, and inside an XL worker's own lane. Not for S tasks (no lane) and never for parallel work across lanes (that is orchestrate).
 ---
 
 # work-run
@@ -95,7 +95,7 @@ parenthetical — beside the role hint where the plan uses hints,
 |---|---|
 | `per-step` | its own dedicated fresh reviewer, before the next step is dispatched |
 | `grouped` | ONE pass at the end of its contiguous group — the group's combined diff plus every PLAN line in it |
-| `covered-by-batch` | nothing extra: the `[batch]` entry's single review already covers the sweep |
+| `covered-by-batch` | its own single review, covering the whole sweep — one for the `[batch]` entry, never one per file it touched |
 
 `per-step` is **mandatory and never overridable downward** — not to save
 a pass, not because the diff looks small, not because the last three

@@ -112,7 +112,7 @@ file and follow it. Each ships with ≥3 evals, written before the skill.
 | [`ae-audit`](skills/ae-audit/SKILL.md) | measuring a repo against the standard (report-only by default) |
 | [`shaping`](skills/shaping/SKILL.md) | a raw ask has no settled design yet — the dialogue that hands off to work-plan design-first |
 | [`work-plan`](skills/work-plan/SKILL.md) | turning an approved design into a work-run-ready lane PLAN.md |
-| [`work-run`](skills/work-run/SKILL.md) | executing a lane's PLAN in this session — fresh subagent per step, per-step review, capped fix loop |
+| [`work-run`](skills/work-run/SKILL.md) | executing a lane's PLAN in this session — fresh subagent per step, review scaled by each step's review class, capped fix loop |
 | [`work-verify`](skills/work-verify/SKILL.md) | before any "done" — tiered definition of done, evidence by command |
 | [`work-handoff`](skills/work-handoff/SKILL.md) | closing or pausing work — clean state, card + tracker sync |
 | [`orchestrate`](skills/orchestrate/SKILL.md) | the main-worktree parent seat takes M+ work — binds its Run, dispatches to a child worktree; XL fan-out included |
