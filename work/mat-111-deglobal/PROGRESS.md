@@ -862,12 +862,102 @@
   resolved it correctly and called it "not a real ambiguity", but noted
   spelling it out costs zero lines.
 
+- 2026-08-20 — **PLAN step 9 DONE.** `docs/specs/SPEC-agent-engineering.md`:
+  two italic amendment notes added, one per location. **Pure insertion —
+  `git diff --stat` reads `12 insertions(+)` and the diff contains not a
+  single `-` line**, so the repo tree and the P1 sentence are byte-identical
+  to what they were. That was this step's whole failure mode, so it is the
+  first thing verified rather than the last.
+
+  **The style matched, and where it was found.** The house marker is the
+  trailing italic line `*Amended <date> (<version>, <ticket> …): <substance>*`
+  appended to the item it amends, never a heading and never an edit to the
+  amended text. Found by `grep -rn '\*Amend\|Amendment\|amended' docs/`, which
+  returns nine hits; the model the brief names is
+  **`docs/adrs/ADR-008-orchestration.md:47-51`** —
+  `*Amended 2026-08-20 (v1.4.2, MAT-105 owner amendment): the dialogue's
+  offered default is now 1 ratón chispeante …*` — an indented italic block
+  closing the bullet whose decision it revises. The same marker is already
+  used **inside this very file** five times (`:66`, `:76`, `:96`, `:102`,
+  `:116`, `:123`), all in the *Fixed decisions* list, all ending with `*` and
+  all leaving the decision text they amend untouched. `docs/specs/SPEC-design-md.md:116`
+  uses a different form (`## Amendment 2026-07-30: mode groups`, a section);
+  it was rejected — the brief names ADR-008, and a new `##` section in a
+  numbered founding document would restructure it rather than annotate it.
+
+  Version tag: `(v1.4.2, MAT-111)`. ADR-008's marker carries the version the
+  amendment ships under, and this lane ships under AE/1.4.2 with no bump (PLAN
+  constraint), so 1.4.2 is the accurate tag, not a stamp change.
+
+  1. **The tree note — `:210-214`, immediately after the closing fence at
+     `:208`**, separated by the blank line markdown needs and followed by the
+     file's original blank line before `## Skills`. Outside the fence by
+     construction: `grep -c '^```'` still returns exactly **2** (open `:168`,
+     close `:208`), and `:196` — `├── global/  # canonical ~/.claude content
+     (ported + updated in P1)` — is unchanged. It says the tree line is the
+     record of the target state as designed, that the directory no longer
+     exists here, that `bygama/workstation` is canonical for the personal
+     `~/.claude` layer, and that the doctrine lives in
+     `reference/global-layer.md`.
+  2. **The P1 note — `:280-285`, appended to the P1 bullet** at the same
+     two-space continuation indent the bullet uses, directly before `- **P2`.
+     This is ADR-008's exact placement (last lines of the item, no blank line
+     between). It carries the same three facts and adds the one this location
+     needs: *"The phase entry above stands as written: the port did happen,
+     and P1's acceptance was met at the time."* — the point of amending a
+     dated record instead of correcting it.
+
+  Both notes carry `2026-08-20`, `MAT-111`, and all three substance points the
+  brief required. `reference/global-layer.md` is cited in backticks, not as a
+  markdown link: in this file relative links are reserved for ADRs (`:66`,
+  `:96`, `:116` …) and every `reference/*.md` citation is bare backticks
+  (`:83`, `:89`, `:119`, `:161`) — same call steps 6, 7 and 8 made on their
+  own surfaces.
+
+  Acceptance command and output, run from the repo root:
+
+  ```
+  $ test $(grep -c 'MAT-111' docs/specs/SPEC-agent-engineering.md) -ge 2 \
+      && grep -q '2026-08-20' docs/specs/SPEC-agent-engineering.md \
+      && git diff --stat docs/specs/SPEC-agent-engineering.md
+   docs/specs/SPEC-agent-engineering.md | 12 ++++++++++++
+   1 file changed, 12 insertions(+)
+  ACCEPT_EXIT=0
+  MAT111_COUNT=2
+  ```
+
+  All four gates re-run (not required by this step's accept, run anyway
+  because the file is under the lint's docs sweep):
+
+  ```
+  $ node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-111-deglobal
+  0 high, 0 medium, 0 low — PASS
+  LINT=0  LINT_TESTS=0  GEN_TESTS=0  EVAL_CHECKS=0
+  ```
+
+  Files changed: `docs/specs/SPEC-agent-engineering.md` (+12/-0), this
+  PROGRESS.md.
+
+  Concerns, none blocking:
+  - `MAT111_COUNT=2` is exactly the accept's floor. Any later step that
+    reworded a note would have to keep both mentions, or the accept silently
+    drops to 1 and fails. Nothing downstream is expected to touch this file.
+  - Note the accept's `git diff --stat` conjunct proves *a* change exists, not
+    that it was insert-only. The insert-only property is the real requirement
+    and was verified separately by reading the full `git diff` for `-` lines
+    (none) and by re-checking `:196` and the P1 sentence verbatim.
+  - Two of the note lines are 92-93 chars. The file's prose runs to ~100 and
+    its widest lines are the fenced tree (306 and 258 chars), so this is
+    inside the file's own wrap, not a new outlier.
+  - Bookkeeping: removed the stale `## In progress` entry for **PLAN step 8**,
+    which carries both DONE and REVIEWED → Approved above (step 6's reviewer
+    flagged the same kind of stale line). Left the step 9 entry — its review
+    is still pending, so it is not stale yet. No substantive record edited.
 
 ## In progress
 
 - PLAN step 9.
-
-- PLAN step 8.
 
 ## Tried and failed
 
