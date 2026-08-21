@@ -160,3 +160,116 @@ Re-review verdict verbatim (same engine, scoped to the fix diff):
 > ```
 
 Step 2 closes Approved at fix round 1/5. No deferred minors.
+
+### Step 3 — `skills/work-run` content (the knob and the classes) — DONE
+
+Acceptance exit 0 (five greps + `agent-lint` PASS + eval-checks). Two
+commits, evals-before-content preserved inside the step: `34896c4`
+amends eval-05 for the new fourth template input, then `24b0438` lands
+SKILL.md + step-reviewer.md.
+
+**Review engine: sigiloso — `opencode run --auto -m
+opencode/x-preview-f-free`, command mode, 1st chain position, no
+fall-through. Three passes: FAIL, FAIL, PASS.** Verdicts verbatim:
+
+#### Round 1 — FAIL
+
+> → Read C:/Users/mateo/AppData/Local/Temp/claude/C--Users-mateo-orca-workspaces-Agent-Engineering-mat-116-117-review-seats/8abd0527-a86c-43d8-be63-57722fcf9bdf/scratchpad/brief-common.md
+> → Read reference/runners.md
+> → Read work/mat-116-117-review-seats/PLAN.md
+> VERDICT: FAIL
+>
+> ### Spec compliance
+> ❌ Issues found — one missed requirement (stale claim left behind), one internal contradiction:
+>
+> - **Missing (stale claim): `skills/work-run/SKILL.md:3`** — the frontmatter description still promises "…with a **per-step review**, a capped fix loop…". Under `grouped`, a step no longer gets a per-step review, and under `covered-by-batch` it gets none of its own. The body now falsifies the file's own most-read sentence: this description is what auto-loads into every future session's skill list (the skill is junction-linked into `~/.claude/skills`), so controllers will triage work-run on a claim the skill no longer holds. Exactly the "claim the change itself falsified" this step existed to purge. Fix: one line, e.g. "with reviews scaled by each step's review class".
+> - **Internal contradiction: `references/step-reviewer.md:7-9` vs `:18-21`** — "How to fill: **exactly three inputs**" stands unchanged, while the new command-mode note says the seat "also needs **the worktree root named**" — for which the template has no slot and the placeholder list (`:118-124`) no entry. Command-mode fillers must invent a fourth input freehand, in the very mode the note was written to keep templated. Fix: add `[WORKTREE_ROOT]` to the template and the inputs list, or fold the root into an existing input's semantics.
+>
+> Otherwise compliant: SPEC §2's three mandated statements (shell-command-not-worker + untouched fence, sigiloso default + liveness + chain, maker ≠ checker strengthened) are all present where the knob is documented (SKILL.md:106-131); SPEC §5's three classes, the classless-PLAN fallback, and the unchanged-list (fix loop, cap of 5, work-verify gate, adversarial seat) all land (SKILL.md:91-104, 129-131); step-reviewer gains the command-mode fill note, keeping the template the single source in both modes. Acceptance greps would all hit; SKILL.md is 200 lines, well under budget. (Gates not run — read-only seat.)
+>
+> ### Strengths
+> - **Eval coverage is genuinely complete.** Every checkbox in eval-05 and eval-06 maps to an instruction: mode recognition + no last-lane inheritance (SKILL.md:54-57), liveness-before-reliance and chain fall-through (:120-123), engine attribution and "a missing verdict is never an Approved step" (:123-125), the exact run form with `--auto` (:110-112), per-step non-overridability with all three rationalizations named (:97-99), group = PLAN-drawn contiguous run (:101-102), upgrade-free-with-reason (:99-100), classless→`per-step` (:102-104). No orphan checkboxes found.
+> - The no-grandchildren treatment is exemplary for the supervised-child controller: the bullet states the fence is untouched AND that refusing on that theory is a misread (SKILL.md:112-116), and the Red flags row lands the exact rationalization (:185).
+> - Degradation chain is delegated to `reference/runners.md` instead of restated — zero drift surface, correct density.
+> - The four new Red flags rows anticipate the real failure talk; checklist items 0-2 were updated coherently, not just the body.
+>
+> ### Findings
+> #### Critical
+> None.
+>
+> #### Important
+> 1. `skills/work-run/SKILL.md:3` — stale "a per-step review" in the auto-loaded description; falsified by `grouped`/`covered-by-batch`. Fix in this step's scope; one line.
+> 2. `skills/work-run/references/step-reviewer.md:7-9` vs `:18-21` — "exactly three inputs" contradicts the command-mode note's worktree-root requirement; no placeholder carries it.
+>
+> #### Minor
+> 1. Placeholder drift vs the step-1 interface: SKILL.md:111 and step-reviewer.md:15 write `-m <model>`; `reference/runners.md:25,30` and PLAN's interface register the recipe "exactly" as `-m <provider/model>`. Same command, shortened placeholder — align or accept deliberately.
+> 2. Eval-05(b)'s "applies the default rather than stalling to ask" rests on inference: step 1 lists two settlement sources (SKILL.md:55-57) and the default paragraph's "when available" reads as seat availability (:118), not as "if nothing settles the mode, take this and keep going". One clause would close it.
+> 3. Grouped fill vs the template's singular frame: "You are reviewing one step's implementation" (:36-37), "Review lane step [STEP_NUMBER]" (:31), "Step quality" (:114) — the grouped note (:24-27) pours three PLAN lines into singular slots and never says what `[STEP_NUMBER]` becomes (a range?). State the convention.
+> 4. SKILL.md:49-50 — "only where neither does is a review rung declared NOT done, explicitly" is grammatically tangled for a load-bearing rule; smooth the inversion.
+>
+> ### Assessment
+> **Step quality:** Needs fixes
+> **Reasoning:** The knob and the classes themselves are well-built — eval coverage is complete and the fence language is the best in the file — but the change leaves its own highest-visibility sentence (the description) claiming per-step reviews, and the command-mode fill note contradicts the template's three-input contract it sits under. Both fixes are one-liners; both are this step's obligation, not a follow-up's.
+>
+
+#### Round 2 (fix: description + `[WORKTREE_ROOT]` + four minors) — FAIL on new breakage
+
+> → Read skills/work-run/evals/eval-05.md
+> → Read skills/work-run/evals/eval-06.md
+> → Read skills/work-run/evals/eval-04.md
+> → Read skills/work-run/evals/eval-03.md
+> → Read skills/work-run/evals/eval-01.md
+> → Read skills/work-run/evals/eval-02.md
+> **Important 1 — ADDRESSED.** `SKILL.md:3` replaces "a per-step review" with "reviews scaled by each step's review class and bought from either seat (in-session subagent or command-mode runner)" — no longer falsified by `grouped`/`covered-by-batch`, and the trigger clauses are untouched.
+>
+> **Important 2 — ADDRESSED.** `step-reviewer.md:7-9` now says "three inputs in `subagent` mode … plus a fourth, `[WORKTREE_ROOT]`, in `command` mode"; the placeholder is defined (`:135-136`) **and** appears in the template body (`:63`, "The checkout under review is [WORKTREE_ROOT].").
+>
+> **Minor 1 — ADDRESSED.** Both files now carry `-m <provider/model>` (`SKILL.md:112`, `step-reviewer.md:18`), matching `reference/runners.md`.
+>
+> **Minor 2 — ADDRESSED.** `SKILL.md:121-123`: "Nothing settled the mode ⇒ take that default and keep going: never stall the run to ask, and never start at a paid id" — eval-05(b)'s expectation is now stated in content, not inference.
+>
+> **Minor 3 — ADDRESSED.** `step-reviewer.md:27-32` defines the grouped fill (combined diff, every PLAN line in order, `[STEP_NUMBER]` = range `3-5`), backed by the placeholder updates at `:128-131`.
+>
+> **Minor 4 — ADDRESSED.** `SKILL.md:46-51` untangles it into two clean sentences ("Only when the runtime has neither — no subagents and no registered runner — is a review rung declared NOT done…").
+>
+> ### NEW BREAKAGE
+>
+> **Important — `evals/eval-05.md:53-56`.** The command-mode checkbox still reads "Composes the command-mode prompt from `skills/work-run/references/step-reviewer.md` — **the same three inputs** — never a freehand prompt…". The fix made `[WORKTREE_ROOT]` a *required* fourth input in command mode (`step-reviewer.md:7-9`), so this sentence is now false — stale claim left behind by the change itself, and evals must change before content on every revision. Worse, grading against it could pass a command-mode prompt that omits the worktree root — reintroducing exactly what Important 2 closed. Fix: amend the parenthetical to "its three shared inputs plus `[WORKTREE_ROOT]`".
+>
+> **Minor — `step-reviewer.md:63`.** Nothing tells a subagent-mode filler what to do with the body line "The checkout under review is [WORKTREE_ROOT]." (fill or delete), so an unfilled bracket can ship to the seat. One clause settles it.
+>
+> Everything else checks out: description still an accurate trigger; class/mode/default text consistent with `runners.md`'s chain and economics rule; red-flag rows match the body; evals 01–04 and 06 unaffected (eval-01's "three inputs" is correct — its fixture is subagent mode).
+>
+> ```
+> VERDICT: FAIL
+> ```
+>
+
+#### Round 3 (fix: eval-05 input count + the subagent-mode fill rule) — PASS
+
+> → Read skills/work-run/evals/eval-06.md
+> → Read reference/runners.md
+>
+> $ git status --porcelain && git stash list | Select-Object -First 3
+> M skills/work-run/SKILL.md
+>  M skills/work-run/evals/eval-05.md
+>  M skills/work-run/references/step-reviewer.md
+>
+> **Finding 1 (Important — eval-05 "same three inputs"):** **ADDRESSED** — `skills/work-run/evals/eval-05.md:53-58` now reads "its three shared inputs plus `[WORKTREE_ROOT]`, which command mode requires because the seat has no ambient checkout". Grading against it can no longer pass a command-mode prompt that omits the worktree root; the wording also matches `step-reviewer.md:7-9` and the placeholder list at `step-reviewer.md:135-138`.
+>
+> **Finding 2 (Minor — unfilled `[WORKTREE_ROOT]` bracket in subagent mode):** **ADDRESSED** — `skills/work-run/references/step-reviewer.md:135-138`: "`[WORKTREE_ROOT]` — REQUIRED in `command` mode only … in `subagent` mode delete that template line rather than leaving an unfilled bracket in the prompt." The fill instruction is unambiguous and lands on the exact body line (template line 63).
+>
+> **NEW BREAKAGE:** none. Swept `SKILL.md`, `step-reviewer.md`, and all six `evals/*.md` for surviving input-count claims and anything else the `[WORKTREE_ROOT]` addition falsified:
+>
+> - The only remaining "three inputs" phrasing is `evals/eval-01.md:44-47`; its fixture pins the lane's reviewer mode to `subagent` (eval-01.md:15), where three inputs is exactly the corrected rule — no wrong prompt passes grading, so it is not falsified.
+> - Other "three" hits (`SKILL.md:99`, `eval-06.md:12,31,44`) are about reviews/chapters/PLAN lines, not template inputs.
+> - `SKILL.md` makes no input-count claim; its mode-neutral paragraph (`SKILL.md:131-135`) defers composition to `step-reviewer.md`, which carries the mode-specific rule.
+> - Command-form vocabulary stays aligned with `reference/runners.md` (`opencode run --auto -m <provider/model> "<prompt>"`, sigiloso default, chain order ratón → Go → subagent) across `SKILL.md:111-129`, `step-reviewer.md:17-18`, and `eval-05.md:39-67`.
+>
+> ```
+> VERDICT: PASS
+> ```
+>
+
+Step 3 closes Approved at fix round 2/5. No deferred minors — all four
+minors were accurate one-liners and rode the same fix rounds.
