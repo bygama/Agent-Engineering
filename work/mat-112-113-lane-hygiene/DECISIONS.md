@@ -15,6 +15,15 @@ issue: MAT-112, MAT-113
   lanes; 5 concurrent lanes in one checkout is already generous for
   M/L work, and the check is MEDIUM (a nudge to close, not a build
   breaker). The worker owns this call per the brief; recorded here.
+- 2026-08-21 — **SPEC approved by the parent (ask msg_ed930a16487b).**
+  Ruling verbatim: "APPROVED — shape PLAN.md. Ruling detail, record in
+  DECISIONS.md: (1) N=5 strict >5 approved as your call; (2) the
+  boundary-pair fixture design (5 passes / 6 fails) with a design-window
+  lane planted among the 6 is exactly right — it encodes the interplay
+  judgment (window lanes COUNT toward accumulation, the count measures
+  accumulation not validity); (3) MERGED-not-verified criterion with
+  owner scenarios [a]/[b] as evals stands as specced. All fences
+  confirmed. Proceed."
 - 2026-08-21 — **Boundary-pair fixtures.** The self-test lands as a pair
   — exactly 5 lanes passes, 6 fails — mirroring
   `entry-skill-ok`/`entry-skill-bloat`: the pair proves the boundary
