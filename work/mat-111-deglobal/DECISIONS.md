@@ -320,3 +320,33 @@ how-it-works coverage for six directories and silently skips three that
 have chapters. It under-reports; it does not produce a false finding the
 way the `global` entry would have. Worth a ticket in the MAT-114 class,
 the parent's call.
+
+## 2026-08-20 — Handoff: the lane folder SURVIVES into this PR
+
+`work-handoff`'s close mode removes the lane folder by default, but it
+defers to a repo convention. **This repo's convention is
+finalize-now, remove-post-merge**, and the removal is a separate
+terminal-close commit — often the parent's, batched across a wave:
+
+```
+2445260 chore(lanes): terminal close — v142 wave lane records removed post-merge
+d0ac9e3 chore(lanes): terminal close — MAT-89/92 and MAT-91/88 lane records
+```
+
+Three reasons it must survive here specifically, beyond the convention:
+
+1. **It is the evidence the parent's reviewer reads.** The dispatch runs
+   a ratón chispeante cross-family reviewer against this PR *after*
+   `worker_done`. Every in-session verdict this lane produced lives only
+   in `work/mat-111-deglobal/reviews/` and PROGRESS.md — deleting the
+   folder ships a PR whose review trail exists only in git history.
+2. **The dispatch expects the path.** `worker_done` carries
+   `--report-path work/mat-111-deglobal/PROGRESS.md`; a report path that
+   404s in the merged tree is a broken handoff.
+3. **Deletion is not this lane's call anyway** — it happens after a merge
+   this lane is forbidden to perform.
+
+So the close commits the finalized lane (PASS block, 12 ticked PLAN
+boxes, truthful PROGRESS/DECISIONS) and stops there. No orphan `work/`
+survives long-term; the parent's terminal-close commit removes it after
+merging.

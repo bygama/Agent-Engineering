@@ -1514,14 +1514,28 @@
 
 ## In progress
 
-- work-verify.
+- Nothing. All 12 PLAN steps are done and reviewed; work-verify
+  recorded PASS; the lane is closed and awaiting the parent's review
+  wave and merge.
 
 ## Tried and failed
 
 ## Next
 
-- Execute PLAN steps 1-11 under work-run, then work-verify, then
-  work-handoff + PR.
+- **The parent's move, not this lane's.** PR open with `Closes MAT-111`;
+  1 ratón chispeante cross-family reviewer runs after `worker_done`;
+  the parent rebases onto fresh main and merges. This lane never merges.
+- **Lane removal is post-merge**, per this repo's own convention
+  (`chore(lanes): terminal close — ... lane records removed post-merge`,
+  e.g. `2445260`, `d0ac9e3`). The lane folder therefore survives into
+  this PR on purpose: it is the evidence the parent's reviewer reads, and
+  the `--report-path` the dispatch expects. Deleting it here would ship a
+  PR with no evidence in the tree.
+- **Follow-ups for the parent** (all recorded in DECISIONS.md, none
+  blocking): MAT-114 owns `skills/using-ae/evals/eval-03.md`; the next
+  `docs-sweep` owns the Ruling C battery entry; the `ae-audit` eval's
+  `loops`/`examples` enumeration gap wants a ticket; two workstation-side
+  drifts want the workstation wave close.
 
 ## Verification
 
