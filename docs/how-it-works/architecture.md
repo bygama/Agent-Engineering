@@ -27,9 +27,9 @@ flowchart LR
 Read the arrows as dependencies of meaning: skills argue from the reference
 docs, templates embody them, the lint automates the part of the argument
 that needs no judgment, and the fixtures prove the lint tells the truth.
-The `~/.claude` layer is on this map too, inside `reference/`: it is a
-layer of the standard like any other, so it gets one document
-(`reference/global-layer.md`) and no box of its own. What no arrow reaches
+The `~/.claude` layer is on this map too, inside `reference/`: it is part
+of the standard like anything else the standard defines, so it gets one
+document (`reference/global-layer.md`) and no box of its own. What no arrow reaches
 is any machine's actual `~/.claude` content — that is one person's, so a
 personal repo owns it and installs it from there, outside the dependency
 chain the arrows trace. `docs/how-it-works/`
@@ -54,9 +54,9 @@ One of those is worth naming here, because a reader may come looking for a
 directory and find only a file. `global-layer.md` answers "what belongs in
 `~/.claude`?" — the doctrine, the ≤40-line canon the lint enforces by
 content rather than by path, and the runner-generic SessionStart wiring
-recipe. It is the only layer whose content lives on a machine instead of in
-a repo, and the standard documents it without shipping any of it: whose
-machine gets which lines is a personal repo's business. The author's is
+recipe. It is the only layer that is installed onto a machine rather than
+read from a repo, and the standard documents it without shipping any of it:
+whose machine gets which lines is a personal repo's business. The author's is
 [bygama/workstation](https://github.com/bygama/workstation) — a consumer of
 this standard, never a dependency of it.
 
