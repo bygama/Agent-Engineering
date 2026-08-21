@@ -836,9 +836,71 @@ issue: MAT-115
     cannot match the check's grep, so it cannot mislead the machine, and
     the full marker is quoted verbatim twelve lines above it.
 
+- **Step 7 — the window ends at every tier, triaged fix from the reviews**
+  (PLAN step 7): two commits, evals first. `eval-05.md` gained one
+  companion assertion under (a): once PLAN.md is written in the later
+  turn, the marker comes out of PROGRESS.md the same turn, whichever
+  tier produces that PLAN.md — an M/L plan or an XL parent plan.
+  Committed and verified green (`node tests/run-eval-checks.mjs`) before
+  touching any content, per the evals-move-first rule.
+
+  Then the content fix, one concern: step 1's design-first paragraph in
+  `skills/work-plan/SKILL.md` (where the marker is written, and the only
+  point every tier passes through before forking to step 2's XL parent
+  plan or steps 3-6's M/L plan) gained the removal rule, phrased to
+  cover both forks — "Whichever tier that later turn takes — step 6's
+  M/L plan or step 2's XL parent plan — saving PLAN.md there ends the
+  window: the marker line comes out of PROGRESS.md the same turn...".
+  Step 6's "Save" line, which previously carried the only (M/L-only)
+  copy of this rule, now points at step 1's instead of restating it —
+  "(Marker removal on save is step 1's rule, and binds here the same as
+  at step 2 — not restated per step.)" — so the rule is **moved**, not
+  duplicated into two places; step 2 (XL) needed no edit at all, since
+  step 1's sentence already names it.
+
+  `docs/how-it-works/work-lifecycle.md`'s `PROGRESS.md` bullet (under
+  "The lane and the four files") gained the matching half-clause: "The
+  window ends the same way it opens: once PLAN.md lands — an M/L plan
+  or an XL parent plan alike — `work-plan` removes the marker line from
+  `PROGRESS.md` the same turn, so the file stops declaring a wait that
+  is already over." The chapter now states both the open and the close
+  of the window, where before it stated only the open (the Minor both
+  reviewers raised independently).
+
+  The marker string itself was not retyped in either file — both edits
+  sit beside the existing verbatim quote/reference, so byte-identity
+  with the two source-of-truth sites is unaffected by this step.
+
+  ```
+  $ grep -q 'design-first approval window' docs/how-it-works/work-lifecycle.md && echo G1_OK
+  G1_OK
+  $ node scripts/agent-lint.mjs . --ignore tests,templates,examples
+  agent-lint C:\Users\mateo\orca\workspaces\Agent-Engineering\mat-115-design-window
+  0 high, 0 medium, 0 low — PASS
+  $ node tests/run-lint-tests.mjs
+  ... all 24 cases passed
+  $ node tests/run-gen-tests.mjs
+  ... all gen cases passed
+  $ node tests/run-eval-checks.mjs
+  ... all eval checks passed
+  $ test $(grep -rl --exclude-dir=evals 'STATE: design-first approval window, waiting for owner approval of SPEC.md before PLAN.md' skills scripts | wc -l) -eq 2 && echo MARKERCOUNT_OK
+  MARKERCOUNT_OK
+  $ test $(git diff --name-only main...HEAD -- CHANGELOG.md AGENTS.md README.md reference examples templates .claude | wc -l) -eq 0 && echo NEVERTOUCH_OK
+  NEVERTOUCH_OK
+  $ echo $?
+  0
+  ```
+
+  Files changed: `skills/work-plan/evals/eval-05.md` (commit 848b089),
+  `skills/work-plan/SKILL.md` + `docs/how-it-works/work-lifecycle.md`
+  (commit 65150b9). `git status --short` confirms no other file moved.
+  No concerns: the acceptance command chain exits 0 in full, SKILL.md is
+  205 lines (well under the 500-line cap), and the never-touch paths are
+  untouched.
+
 ## In progress
 
-- work-run executing PLAN steps 1-6 in order. All six steps done.
+- work-run executing PLAN steps 1-7 in order. All seven steps done.
 
 ## Tried and failed
 
