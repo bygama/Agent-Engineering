@@ -100,3 +100,27 @@ it landed in a delivery batch the parent acknowledged without reading.
 Resuming the same question by id — rather than asking a duplicate — is
 what recovered it, and is the behavior the dispatch preamble specifies
 for exactly this case.
+
+## 2026-08-21 — step 6's marker count excludes `evals/` (step 1 review finding)
+
+**Choice.** PLAN step 6's invariant gate now reads
+`grep -rl --exclude-dir=evals '<marker>' skills scripts | wc -l` and still
+demands exactly 2. The two sites it counts are
+`skills/work-plan/SKILL.md` and `scripts/agent-lint.mjs`.
+
+**Why.** The step-1 reviewer (command-mode sigiloso) found the gate
+unsatisfiable as originally written: step 1 mandates that
+`skills/work-plan/evals/eval-05.md` quote the marker in full so a reader
+can see what "verbatim" means, which would have made three files match
+once steps 2 and 4 landed. Resolved against SPEC.md, which says "two
+**source-of-truth** sites" — an eval quoting the marker is an assertion
+*about* those sites, not a third site that could drift out of sync with
+them. The gate's claim is unchanged; only its spelling is corrected.
+Ruled by the controller rather than escalated, because the SPEC already
+decides it.
+
+**Deferred to work-verify's triage (Minor, not fixed here).** eval-05.md
+carries a truncated prose reference `STATE: design-first approval
+window...` twelve lines below the full quote. It cannot match the gate's
+grep and cannot mislead the check; the reviewer's suggestion to replace
+it with "the marker quoted above" is a polish item.
