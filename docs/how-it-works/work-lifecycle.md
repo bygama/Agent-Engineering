@@ -118,7 +118,10 @@ That planning moment has an owned shape since ADR-005: **work-plan**
 (`skills/work-plan`) turns the approved design — the lane's SPEC, a
 tracker issue, or a direct ask — into `work/<slug>/PLAN.md`, already
 shaped for what comes next: one dispatchable step per line, executable
-acceptance, named interfaces between dependent steps. It runs in one of
+acceptance, named interfaces between dependent steps, and a **review
+class** on every step — `per-step`, `grouped`, or `covered-by-batch` —
+which is where the plan decides how much review the lane will buy. It
+runs in one of
 two modes — *design-first*, which writes SPEC.md alone and stops for the
 owner's approval before shaping PLAN.md, or *direct*, which writes both
 files in one pass when the design is already settled or a tracker issue
@@ -133,10 +136,28 @@ dispatch is just the lane path, the step number, the step's acceptance
 line, and a four-state report contract, because the lane's four files
 already ARE the context package a stateless subagent needs. The dispatch
 and review prompts themselves ship as fill-in templates with the skills
-(`references/`), so controllers never improvise them. Each step
-gets a fresh-context review (maker ≠ checker), findings run a capped fix
-loop (five rounds, escalating model), and rulings land in `DECISIONS.md`
-— the skill's own doc owns the fix-loop and role-hint detail. work-run is
+(`references/`), so controllers never improvise them.
+
+Review is fresh-context and maker ≠ checker always; what varies is **how
+often** and **who**. How often comes from the plan's review class: a
+`per-step` step buys its own reviewer and cannot be downgraded, a run of
+contiguous `grouped` steps buys one pass at its boundary, and a `[batch]`
+entry's single review covers its whole sweep. The reason granularity is
+a knob at all is that review value tracks rework cost, not step count —
+a documentation lane was paying eleven Claude invocations for verdicts
+that were almost all "no findings", while a code lane's one review caught
+a real bug. Who comes from the reviewer mode: an in-session subagent, or
+a one-shot shell-out to a registered runner (`reference/runners.md`),
+which is a shell command rather than a worker and therefore no
+grandchild. The command-mode seat is cross-family by construction and
+costs a fraction of a subagent, which is why it is the default where it
+is available; if its model is gone, the seat walks the degradation chain
+instead of blocking the step. Findings then run a capped fix loop (five
+rounds, escalating model) whatever the class or the seat, and rulings
+land in `DECISIONS.md` — the skill's own doc owns the fix-loop and
+role-hint detail. Grouping is safe precisely because nothing downstream
+of it moved: the lane gate and the adversarial seat below still see
+every line. work-run is
 never mandatory: a runner without subagents executes the same steps
 inline under the same ceremony, and parallel implementers inside one lane
 are refused — parallelism between lanes belongs to orchestrate

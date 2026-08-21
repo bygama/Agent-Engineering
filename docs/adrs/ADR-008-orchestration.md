@@ -49,6 +49,21 @@ Orca's primitives rather than invented coordination.
   (`opencode-go/muse-spark-1.2-contributor`) for cost; the ballena
   remains the owner-selectable alternative, and the cross-family
   maker ≠ checker principle stands unchanged.*
+  *Amended again 2026-08-21 (MAT-116 owner amendment): the dialogue is
+  now one question block asking **both** reviewer seats — the child's
+  per-step seat (mode and model, default the command-mode sigiloso
+  `opencode/x-preview-f-free`) and the adversarial seat after
+  `worker_done` (default 1 ratón chispeante, now at its free id
+  `opencode/muse-spark-1.2-contributor-free` under the economics rule) —
+  with both answers recorded in the Task spec. A **guardrail** binds the
+  block: at least one cross-family gate per lane, so a Claude per-step
+  reviewer paired with a Claude adversarial seat, or with none at all, is
+  rejected and re-asked. The owner may still choose a zero-cross-family
+  lane, but only as an explicit override recorded verbatim in the Task
+  spec — never a default the dialogue offers and never something the
+  parent assumes. The cross-family maker ≠ checker principle above is
+  what the guardrail enforces; it is not revised. See
+  `reference/runners.md` for the seats and the degradation chain.*
 - **Fix loop, cap 5 → gate.** Review findings return to the *same*
   child (its terminal is retained, not released, until the lane
   settles). After 5 fix rounds without a PASS, the loop stops
