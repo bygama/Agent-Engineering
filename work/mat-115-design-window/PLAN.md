@@ -169,3 +169,19 @@ here.
   (step 1 review finding, adjudicated in DECISIONS.md 2026-08-21).
   *(integration · per-step)*
   accept: `node scripts/agent-lint.mjs . --ignore tests,templates,examples && node tests/run-lint-tests.mjs && node tests/run-gen-tests.mjs && node tests/run-eval-checks.mjs && test $(grep -rl --exclude-dir=evals 'STATE: design-first approval window, waiting for owner approval of SPEC.md before PLAN.md' skills scripts | wc -l) -eq 2 && grep -q 'skills/work-plan/SKILL.md' scripts/agent-lint.mjs && test $(git diff --name-only main...HEAD -- CHANGELOG.md AGENTS.md README.md reference examples templates .claude | wc -l) -eq 0` — all exit 0
+
+- [ ] **7. The window ends at every tier — triaged fix from the reviews**
+  (Minors raised independently by the step-2 command-mode review and the
+  work-verify fresh-context review): this lane made the marker's WRITE
+  unconditional in `skills/work-plan/SKILL.md` step 1, but left its
+  REMOVAL in step 6, which the skill's own line 114 scopes to M/L — so an
+  XL design-first parent lane writes the marker and is never told to
+  remove it. Move the removal rule so it binds wherever PLAN.md lands,
+  the XL parent plan included, without duplicating it into two places;
+  and add the half-clause `docs/how-it-works/work-lifecycle.md`'s
+  PROGRESS bullet is missing, so the chapter says the window ENDS when
+  PLAN.md lands as well as that it opens. One concern, one commit: the
+  window's lifecycle is symmetric at every tier. Evals move first —
+  `eval-05.md` gains the assertion before `SKILL.md` gains the rule.
+  *(judgment · per-step)*
+  accept: `grep -q 'design-first approval window' docs/how-it-works/work-lifecycle.md && node scripts/agent-lint.mjs . --ignore tests,templates,examples && node tests/run-lint-tests.mjs && node tests/run-gen-tests.mjs && node tests/run-eval-checks.mjs && test $(grep -rl --exclude-dir=evals 'STATE: design-first approval window, waiting for owner approval of SPEC.md before PLAN.md' skills scripts | wc -l) -eq 2 && test $(git diff --name-only main...HEAD -- CHANGELOG.md AGENTS.md README.md reference examples templates .claude | wc -l) -eq 0` — all exit 0

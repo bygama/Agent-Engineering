@@ -743,6 +743,99 @@ issue: MAT-115
   reviewer explicitly re-ran the full output and confirmed the elision is
   faithful. Deferred to work-verify's triage with the rest.
 
+- **Fresh-context lane review (work-verify step 4) — VERDICT PASS.** Seat:
+  command-mode runner, **free raton
+  (`opencode/muse-spark-1.2-contributor-free`)**, chain position 2 — the
+  sigiloso was dead (two upstream `server_error`s, then a hard timeout on a
+  one-line liveness probe). The in-session Claude subagent seat was
+  attempted FIRST and is recorded in DECISIONS.md. Verdict verbatim:
+
+  > ### DoD run
+  >
+  > **L1 static:**
+  > - `node --check scripts/agent-lint.mjs` -> exit 0 -> (no output, syntax ok)
+  > - `node scripts/agent-lint.mjs . --ignore tests,templates,examples` ->
+  >   exit 0 -> `0 high, 0 medium, 0 low — PASS`
+  >
+  > **L2 behavioral:**
+  > - `node tests/run-lint-tests.mjs` -> exit 0 -> `all 24 cases passed`
+  > - `node tests/run-gen-tests.mjs` -> exit 0 -> `all gen cases passed`
+  > - `node tests/run-eval-checks.mjs` -> exit 0 -> `all eval checks passed`
+  > - `node scripts/agent-lint.mjs tests/fixtures/v2-clean` -> exit 0 ->
+  >   `0 high, 0 medium, 0 low — PASS`
+  >
+  > **L3 end-to-end** (marker extracted programmatically from
+  > `skills/work-plan/SKILL.md`, not retyped):
+  > - Flow A lane with SPEC+PROGRESS carrying extracted marker, no PLAN ->
+  >   exit 0 -> `0 high, 0 medium, 0 low — PASS`
+  > - Flow B same lane, paraphrased marker (`,` -> ` —`) -> exit 1 ->
+  >   `MEDIUM work/demo-lane/  lane missing PLAN.md  [lane-incomplete]`
+  > - Flow C SPEC-only, no PROGRESS -> exit 1 -> BOTH `lane missing PLAN.md`
+  >   and `lane missing PROGRESS.md`
+  > - Flow D PLAN present, marker removed -> exit 0 -> PASS
+  > - All four flows `ALL E2E FLOWS PASSED`
+  >
+  > **SPEC DoD claims (verified via `git show <sha>:<path>`):**
+  > - `git show a1aa348:scripts/agent-lint.mjs | grep -c
+  >   DESIGN_WINDOW_MARKER` -> `0`; `git show 44438e6:...` -> `2`;
+  >   `git show 64fc217:skills/work-plan/evals/eval-05.md | grep -c STATE`
+  >   -> `1`; `git show 64fc217:skills/work-plan/SKILL.md | grep -c STATE`
+  >   -> `0` -> fixtures before check, evals before skill,
+  >   **red-before-green ordering holds**
+  > - marker in exactly 2 source-of-truth sites, paired comments at
+  >   `skills/work-plan/SKILL.md:79` and `scripts/agent-lint.mjs:226` —
+  >   byte-identical 89 chars, ASCII-only
+  > - `! grep -q 'writes SPEC.md alone' docs/how-it-works/work-lifecycle.md`
+  >   -> true
+  > - forbidden-path diff -> empty -> `0`
+  >
+  > ### Issues
+  > #### Critical (Must Fix)
+  > None.
+  > #### Important (Should Fix)
+  > None.
+  > #### Minor (Nice to Have)
+  > - `scripts/agent-lint.mjs:250-251` — unreadable (EACCES) `PROGRESS.md`
+  >   throws uncaught [...] Loud crash rather than silent wrong, deferred as
+  >   designed.
+  > - `skills/work-plan/SKILL.md:114,179-181` — marker removal rule lives in
+  >   step 6 scoped to M/L, so XL design-first parent lane has unconditional
+  >   write and no matching removal path. Small stale-marker rot [...]
+  > - `docs/how-it-works/work-lifecycle.md:81-86` — PROGRESS bullet names the
+  >   window but not that saving PLAN.md ends it [...] omission is accurate
+  >   but incomplete.
+  > - `skills/work-plan/evals/eval-05.md:56` — truncated prose reference
+  >   contains em dash and is not the full marker. Harmless (grep cannot
+  >   match it), already deferred in DECISIONS.md.
+  >
+  > ### Verdict
+  > **PASS** — Four gates exit 0, the two legs agree byte-for-byte on the
+  > 89-char ASCII marker with paired `change both together` comments, L3
+  > throwaway repo proves lifecycle-aware `lane-incomplete` (A PASS, B FAIL
+  > on paraphrase, C FAIL on both messages, D PASS), red-before-green
+  > ordering is confirmed in git history [...] and no forbidden path was
+  > touched.
+
+  **Controller triage of the four Minors — two fixed, two WONTFIX.** Both
+  reviewers independently reached the same list, so it is triaged here
+  rather than shipped as a footnote:
+
+  - **FIX (step 7).** `SKILL.md`'s XL asymmetry and the `work-lifecycle.md`
+    bullet are one concern, not two: this lane made the marker's WRITE
+    unconditional while leaving its REMOVAL in a section the skill's own
+    line 114 scopes to M/L. That hole is of this change's own making, it
+    sits in a skill junction-linked live into every session on this
+    machine, and it is one clause. The SPEC de-scoped stale-marker
+    *policing* (a second check); it did not license the skill to instruct
+    a write it never instructs undoing.
+  - **WONTFIX, recorded.** `agent-lint.mjs`'s unguarded `read()`: every
+    other read in that file is unguarded, so a lone `try/catch` would make
+    this one call site inconsistent without removing the failure class, and
+    a lint that crashes is loud rather than silently wrong.
+  - **WONTFIX, recorded.** `eval-05.md:56`'s truncated prose reference: it
+    cannot match the check's grep, so it cannot mislead the machine, and
+    the full marker is quoted verbatim twelve lines above it.
+
 ## In progress
 
 - work-run executing PLAN steps 1-6 in order. All six steps done.

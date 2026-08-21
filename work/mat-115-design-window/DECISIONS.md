@@ -231,3 +231,36 @@ PROGRESS.md beside the verdict itself.
 chain position 1, and the cross-family property holds for step 6 too —
 both seats are opencode-gateway models, not Claude, so maker != checker
 stays cross-family across every step of this lane.
+
+## 2026-08-21 — the fresh-context rung: attempted on the subagent seat, bought from the runner seat
+
+**What was attempted first.** An in-session Claude subagent was
+dispatched as work-verify step 4's fresh-context reviewer (the Agent
+tool, capable tier, `references/lane-reviewer.md` filled verbatim). The
+runtime accepted the dispatch — no refusal, no missing tool — but the
+seat never returned a report: ~35 minutes, two direct nudges asking for
+the verdict in whatever state it stood, no reply. It was stopped rather
+than left idle.
+
+**What the rung was bought from instead.** `skills/work-verify` step 4
+names three acceptable seats — "a subagent, a second session, or another
+runner". The rung was filled by the third: a command-mode runner
+(`reference/runners.md`), given the same three inputs and the same
+act-don't-read brief, which ran every DoD layer itself and quoted its own
+output. This is not a downgrade of the rung: a runner seat is
+**cross-family**, so it removes the maker's model blind spots as well as
+the maker's conversation, which a same-family subagent does not.
+
+**Which engine ruled, and why not the first choice.** The sigiloso
+(`opencode/x-preview-f-free`), which reviewed steps 1-5, was dead by this
+point: two `[server_error] Upstream response was not valid JSON` failures
+at step 6, then a hard timeout (exit 124) on a one-line liveness probe.
+The seat fell through to chain position 2, **free raton**
+(`opencode/muse-spark-1.2-contributor-free`), which answered one-shot.
+
+**A note the parent should have.** The parent's post-`worker_done`
+adversarial seat is scheduled on that same free-raton id. With the
+sigiloso down, this lane's own gate now also ran there, so the parent's
+seat is no longer model-independent from the lane gate. The parent may
+want to pick a different id for real independence — this lane cannot make
+that call for it, only surface it.
