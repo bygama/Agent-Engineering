@@ -952,6 +952,102 @@ issue: MAT-115
   certifies what ships: work-verify re-runs its layers and its
   fresh-context rung against this final tree before any PASS is recorded.
 
+### Step 8 — the marker must be a LINE, not a substring (fresh-context review, Important 1)
+
+**What was implemented.** Two commits, fixture-first:
+
+1. `tests/fixtures/lane-window-quoted/` — one lane (`work/demo-lane/`,
+   `SPEC.md` + `PROGRESS.md`, no `PLAN.md`) whose ONLY occurrence of the
+   marker sits inside a fenced command transcript under `## Done`
+   (`$ grep -q 'STATE: ...' skills/work-plan/SKILL.md && echo match`);
+   its `## In progress` bullet says explicitly the lane is NOT in the
+   window. Case `"quoted marker in a transcript does not exempt a
+   lane"` added to `tests/run-lint-tests.mjs` (`fail: true, expect:
+   ["lane-incomplete"]`). Also added `expectMatch: ["lane missing
+   PLAN.md"]` to the existing `"near-miss marker text does not exempt a
+   lane"` case, pinning that negative at message level as the lane's
+   records already claimed.
+2. `scripts/agent-lint.mjs` — the work-lanes section now anchors the
+   marker to a line: a new `DESIGN_WINDOW_MARKER_LINE` regex requires
+   optional leading whitespace, an optional `- `/`* ` bullet, the
+   marker (escaped), then nothing but trailing whitespace — the exact
+   shape `skills/work-plan/SKILL.md` instructs writing it in.
+   `declaresDesignWindow(text)` splits on `/\r?\n/` and tests each line;
+   `inApprovalWindow` now calls it instead of `.includes(...)`. The
+   paired comment on both sides (`agent-lint.mjs` and `SKILL.md`'s
+   design-first bullet) is updated to describe the anchored match
+   instead of "reads this exact string" (a plain substring claim that
+   was no longer accurate). The marker constant `DESIGN_WINDOW_MARKER`
+   itself is untouched, byte-identical to before.
+
+**RED transcript (fixture commit `4e72903`, before the check changed):**
+
+```
+$ node tests/run-lint-tests.mjs
+...
+ok   malformed lanes fail
+ok   design-first approval window lane passes without PLAN.md
+ok   near-miss marker text does not exempt a lane
+FAIL quoted marker in a transcript does not exempt a lane
+  expected fail=true, got false
+  missing expected finding "lane-incomplete"
+  findings: (none)
+ok   invalid feature list fails
+...
+1/25 cases failed
+```
+
+**GREEN after the check commit (`deedf18`):**
+
+```
+$ node tests/run-lint-tests.mjs
+...
+ok   quoted marker in a transcript does not exempt a lane
+...
+all 25 cases passed
+```
+
+**Acceptance command, full output:**
+
+```
+$ node tests/run-lint-tests.mjs && node scripts/agent-lint.mjs . --ignore tests,templates,examples && node tests/run-gen-tests.mjs && node tests/run-eval-checks.mjs && node scripts/agent-lint.mjs tests/fixtures/lane-window-quoted 2>&1 | grep -q 'lane missing PLAN.md' && node scripts/agent-lint.mjs tests/fixtures/lane-window-ok 2>&1 | grep -q '0 high, 0 medium, 0 low'
+...
+all 25 cases passed
+agent-lint <repo root>
+0 high, 0 medium, 0 low — PASS
+...
+all gen cases passed
+...
+all eval checks passed
+$ echo $?
+0
+```
+
+Also re-checked the standing invariant from steps 6-7 (not required by
+step 8's own accept line, but cheap to confirm nothing regressed it):
+`grep -rl --exclude-dir=evals '<marker>' skills scripts | wc -l` still
+returns `2`, and `scripts/agent-lint.mjs` still names
+`skills/work-plan/SKILL.md` by path.
+
+**Files changed.**
+
+- `tests/fixtures/lane-window-quoted/AGENTS.md` (new)
+- `tests/fixtures/lane-window-quoted/CLAUDE.md` (new)
+- `tests/fixtures/lane-window-quoted/work/demo-lane/SPEC.md` (new)
+- `tests/fixtures/lane-window-quoted/work/demo-lane/PROGRESS.md` (new)
+- `tests/run-lint-tests.mjs` (new case + `expectMatch` on the near-miss
+  case)
+- `scripts/agent-lint.mjs` (anchored-line regex, paired comment)
+- `skills/work-plan/SKILL.md` (paired comment only — the marker's write
+  instruction and its fenced-standalone shape are unchanged)
+
+**Concerns.** None. The anchoring regex accepts exactly the shape
+`skills/work-plan/SKILL.md` already instructs (verified against
+`lane-window-ok`'s `- STATE: ...` bullet, which keeps passing at `0
+high, 0 medium, 0 low`), so no SKILL.md content change was needed
+beyond the descriptive comment — the STOP-and-report-NEEDS_CONTEXT
+condition in the dispatch brief did not trigger.
+
 ## In progress
 
 - work-run executing PLAN steps 1-7 in order. All seven steps done.
