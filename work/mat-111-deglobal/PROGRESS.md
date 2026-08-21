@@ -955,7 +955,34 @@
     flagged the same kind of stale line). Left the step 9 entry — its review
     is still pending, so it is not stale yet. No substantive record edited.
 
+- 2026-08-20 — **PLAN step 9 REVIEWED → Approved, no findings at any
+  severity, no fix round.** Fresh reviewer (sonnet). Verdict verbatim:
+  `reviews/step-09-review.md`.
+  **Spec compliance: ✅ Compliant** · **Step quality: Approved.**
+  The governing rule was amend-never-rewrite, and it held: the diff is
+  **additions only** — 12 insertions, 0 deletions — so the repo tree's
+  `global/` row and the P1 phase sentence are byte-identical to before.
+  The reviewer verified placement on both notes: the tree note sits
+  OUTSIDE the closing fence (fence closes `:208`, note starts `:210`), so
+  rendering is unaffected; the P1 note is indented two spaces to match the
+  P1 bullet's own continuation indent, so it attaches to P1 and does not
+  bleed into P2.
+  It confirmed the style matched the correct *sub*-style: the direct
+  owner-ruling form already at `SPEC-agent-engineering.md:66` and
+  `ADR-008-orchestration.md:47`, not the `*Amended by [ADR-00X]...*` form
+  — MAT-111 has no ADR, so borrowing the ADR-linked phrasing would have
+  been wrong.
+  It also judged both notes **honest about the record**: neither implies
+  the original was mistaken. The tree note calls the entry "the record of
+  the target state as designed"; the P1 note says outright "The phase
+  entry above stands as written: the port did happen, and P1's acceptance
+  was met at the time." Superseded, not corrected — which is what a dated
+  record is owed.
+
+
 ## In progress
+
+- PLAN step 10.
 
 - PLAN step 9.
 
