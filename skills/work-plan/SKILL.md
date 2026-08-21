@@ -1,6 +1,6 @@
 ---
 name: work-plan
-description: Turns a design — a settled conversation, a tracker issue, or a direct ask — into a lane's SPEC.md and PLAN.md shaped for work-run dispatch: dispatchable steps with executable acceptance, named interfaces between dependent steps, `[batch]`-marked same-shape fixes, and role hints, opening with a constraints block when the design imposes one. Two modes: design-first writes SPEC.md and stops for owner approval before shaping PLAN.md; direct writes both in one pass when the owner states certainty or a tracker issue stands in as the spec. At XL, produces the parent plan (the three questions plus a worker table skeleton, orchestrate's XL ceremony) instead of executable steps. Use once a lane needs its SPEC and PLAN shaped, before work-run executes the PLAN. Refuses S-tier asks (no lane, no plan), requests for a standalone plan document separate from the lane files, and asks with no design and genuine scope uncertainty.
+description: Turns a design — a settled conversation, a tracker issue, or a direct ask — into a lane's SPEC.md and PLAN.md shaped for work-run dispatch: dispatchable steps with executable acceptance, named interfaces between dependent steps, `[batch]`-marked same-shape fixes, role hints, and a review class on every step, opening with a constraints block when the design imposes one. Two modes: design-first writes SPEC.md and stops for owner approval before shaping PLAN.md; direct writes both in one pass when the owner states certainty or a tracker issue stands in as the spec. At XL, produces the parent plan (the three questions plus a worker table skeleton, orchestrate's XL ceremony) instead of executable steps. Use once a lane needs its SPEC and PLAN shaped, before work-run executes the PLAN. Refuses S-tier asks (no lane, no plan), requests for a standalone plan document separate from the lane files, and asks with no design and genuine scope uncertainty.
 ---
 
 # Work plan
@@ -32,7 +32,8 @@ Work-plan progress:
 - [ ] 2. XL shape? → parent plan only, stop after step 2
 - [ ] 3. Constraints block (if the design imposes one)
 - [ ] 4. Draft steps: one commit, one concern, executable acceptance
-- [ ] 5. Name interfaces, mark [batch], tag role hints
+- [ ] 5. Name interfaces, mark [batch], tag role hints, class every
+      step for review
 - [ ] 6. Write work/<slug>/PLAN.md
 ```
 
@@ -118,21 +119,50 @@ carries it into every dispatch. No such constraint, no block.
 - Contains no complete code — one line plus acceptance; the
   implementer reads the repo and the lane for the rest.
 
-**5. Interfaces, batching, role hints.**
+**5. Interfaces, batching, role hints, review classes.**
 
 - When step N produces what step N+1 consumes (a function signature, a
   file, a schema), the consuming step's line names it explicitly —
   never "use step N's output". That is what a stateless implementer
   cannot infer.
-- Several small same-shape steps (the same one-line fix repeated
-  across files) become ONE PLAN entry marked `[batch]` — work-run sends
-  them to a single implementer in one dispatch, never one dispatch
-  per file.
+- Same-shape steps are ONE step. The same one-line fix repeated across
+  files becomes a single PLAN entry marked `[batch]`, which work-run
+  sends to one implementer in one dispatch. This is a requirement, not
+  an option, and it binds even when the design listed the files
+  separately: MAT-111 ran 9 steps where ~5 were right, and every one of
+  those 9 was individually well-formed. Splitting by file is how a plan
+  buys ceremony it does not need.
 - Role hints (`mechanical` / `integration` / `judgment`) are optional
   per plan, but once introduced apply to every step of comparable
   nature — hints on some steps and silent gaps on others defeat
   work-run's model-by-role selector, which reads them instead of
   guessing.
+- **A review class on every step**, beside the role hint. Unlike role
+  hints, this one is never optional: work-run reads the class to decide
+  how many reviewer seats the lane buys, so a step without one is a
+  silent downgrade.
+
+| Class | For | What it buys |
+|---|---|---|
+| `per-step` | code, checks, templates, skill content — anything expensive to redo or irreversible | its own dedicated reviewer |
+| `grouped` | cheap-to-redo doc or mechanical steps | one pass per contiguous group, at a natural boundary |
+| `covered-by-batch` | a `[batch]` entry | the sweep's single review, nothing extra |
+
+Notation: the role hint and the class travel in one trailing
+parenthetical, role first — `*(judgment · per-step)*`,
+`*(mechanical · covered-by-batch)*`. A plan using no role hints writes
+the class alone, `*(per-step)*`. One form on every step of the plan, so
+work-run's reader never has to guess which half it is looking at.
+
+The class comes from **rework cost**, never from step size and never
+from a cost preference: `per-step` is a floor, mandatory and not
+overridable downward — not by the owner, not by the plan's author, and
+not to save a pass at execution time. An owner asking for fewer reviewer passes
+gets them where the work is cheap to redo and a stated refusal where it
+is not — grouping a code step to honor the ask is the failure this class
+exists to prevent. `grouped` steps must be **contiguous** so work-run has
+a boundary to review at; a lone `grouped` step between two `per-step`
+steps buys a group of one and is a planning error.
 
 **6. Save.** Write PLAN.md to `work/<slug>/PLAN.md`; SPEC.md (step 1,
 either mode) goes to `work/<slug>/SPEC.md` — the lane's own files, the
@@ -151,7 +181,12 @@ document elsewhere.
   own lane once that worker is spawned.
 - A refusal is a diagnosis plus an alternative in the same response,
   never a bare no — the S-tier, standalone-document, and no-design
-  refusals above are the pattern for any future one.
+  refusals above are the pattern for any future one. Refusing to
+  downgrade a `per-step` class is the same shape: say which steps could
+  not be grouped and why, in the same breath as the ones that could.
+- The XL parent plan (step 2) carries no review classes, because it
+  carries no executable steps — classes belong to the worker lanes'
+  own PLANs, written later by this same skill.
 - Suites' own planning documents are superseded the same way their
   executors are (`reference/skills.md`): one artifact set, the lane's,
   never two.
